@@ -1,0 +1,7 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Trạng thái
+51005009	NGUYỄN QUANG	HÙNG	Nam 	27/11/1978	Tp. Cần Thơ	Khoa học máy tính	Đang học
+51005010	LÊ CẢNH	KHÁNH	Nam 	14/02/1979	Khánh Hòa	Khoa học máy tính	Đang học
+51005011	TĂNG MỸ	THẢO	Nữ	20/02/1982	Vĩnh Long	Khoa học máy tính	Nghỉ
+51005012	ĐẶNG TRẦN	TRÍ	Nam 	19/07/1982	Tp. Hồ Chí Minh	Khoa học máy tính	Đang học
+51005013	CAO DUY	TRƯỜNG	Nam 	15/12/1982	Quảng Ngãi	Khoa học máy tính	Đang học
+51005014	TRƯƠNG XUÂN	VIỆT	Nam 	23/09/1978	Tp. Cần Thơ	Khoa học máy tính	Đang học

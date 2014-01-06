@@ -1,0 +1,12 @@
+Mã HV	Họ	Tên	Phái
+10070471	Trần Thế	Anh	Nam
+09070421	Nguyễn Phan Thiện	Bách	Nam
+10070480	Biện Quang	Hoàng	Nam
+00708197	Thiều Xuân	Khánh	Nam
+10070485	Hoàng Văn	Long	Nam
+10070487	Tạ Thị Tùng	Ly	Nữ
+10070492	Trần Quốc Gia	Phú	Nam
+10070500	Phan Thị Bảo	Trân	Nữ
+10070502	Hà Thủy	Tú	Nam
+10070506	Đặng Thị Thanh	Tươi	Nữ
+10070474	Phan Văn Long	Điền	Nam

@@ -1,0 +1,16 @@
+Mã HV	Họ	Tên	Phái	Khóa	Email
+12400179	Đặng Minh	Châu	Nam	2012	512400179@stu.hcmut.edu.vn
+12400180	Nguyễn Ăng	Co	Nam	2012	512400180@stu.hcmut.edu.vn
+12144448	Chu Quang	Hoàng	Nam	2012	
+12400181	Khưu Khang	Kiệt	Nam	2012	512400181@stu.hcmut.edu.vn
+12144452	Phạm Thành	Luân	Nam	2012	
+12401142	Lê Xuân	Nam	Nam	2012	namlexuan123@gmail.com
+12400182	Trương Văn	Nguyên	Nam	2012	512400182@stu.hcmut.edu.vn
+12400184	Nguyễn Thị Ngọc	Phượng	Nữ	2012	512400184@stu.hcmut.edu.vn
+12400183	Nguyễn Kim	Phụng	Nam	2012	512400183@stu.hcmut.edu.vn
+11400997	Trần Ngọc	Sơn	Nam	2011	511400997@stu.hcmut.edu.vn
+91240001	Nguyễn Minh	Tiến	Nam	2012	
+12403203	Huỳnh Kim	Toại	Nam	2012	512403203@stu.hcmut.edu.vn
+12406042	Nguyễn Anh	Tuấn	Nam	2012	
+12403204	Bùi Đức	Tài	Nam	2012	512403204@stu.hcmut.edu.vn
+12403206	Vũ Hường	Vân	Nữ	2012	512403206@stu.hcmut.edu.vn

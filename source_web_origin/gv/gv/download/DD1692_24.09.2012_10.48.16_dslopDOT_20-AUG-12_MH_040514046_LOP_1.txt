@@ -1,0 +1,74 @@
+Mã HV	Họ	Tên	Phái
+12140003	Trần Minh	Chương	Nam
+12140005	Nguyễn Thành	Công	Nam
+12140004	Lê Xuân	Công	Nam
+11140005	Mai Ngọc	Dung	Nữ
+11140008	Đặng Đức	Duy	Nam
+12140011	Nguyễn Đoàn	Duy	Nam
+12140010	Ngô Quốc	Duy	Nam
+12140009	Huỳnh Minh	Duy	Nam
+12143162	Mạc Đức	Dũng	Nam
+12140007	Phạm Lâm Hoàng	Dũng	Nam
+12140008	Nguyễn Thái	Dương	Nam
+12140015	Vũ Trường	Giang	Nam
+12140014	Nguyễn Trường	Giang	Nam
+12143163	Nguyễn Văn	Gấm	Nam
+12143164	Nguyễn Khắc	Hiếu	Nam
+12140018	Phạm Lê Nhân	Hoàng	Nam
+12140019	Trần Văn	Hoàng	Nam
+11140021	Đào Nguyễn Thái	Huy	Nam
+12140024	Lê Quang	Huy	Nam
+12143165	Nguyễn Minh	Huy	Nam
+12140023	Lê Đình	Huy	Nam
+12140021	Nguyễn Tiến	Hùng	Nam
+12140020	Lê Thanh	Hùng	Nam
+12140022	Trần Hữu	Hương	Nam
+12140017	Phan Xuân	Hạnh	Nam
+12140016	Lê Long	Hải	Nam
+12140026	Nguyễn Tuấn	Khanh	Nam
+12140028	Dương Ngọc	Lại	Nam
+11140029	Nguyễn Đức	Lợi	Nam
+12140031	Nguyễn Văn	Mai	Nam
+12143166	Ngô Văn	Mão	Nam
+12140032	Bùi Nguyễn Hoài	Nam	Nam
+12140033	Đỗ Lê	Nam	Nam
+11140035	Trần Hữu	Nghĩa	Nam
+12140034	Dương Quí	Nhân	Nam
+11140039	Đỗ Hồng	Nhựt	Nam
+12143054	Lê Thanh	Phong	Nam
+12140035	Ngô Đình	Phong	Nam
+12143167	Trần Quảng	Sơn	Nam
+12140045	Nguyễn Hoàng	Thi	Nam
+12140042	Nguyễn Trung	Thành	Nam
+12140043	Trần Quang	Thành	Nam
+12140046	Nguyễn Văn	Thường	Nam
+12140040	Trần Xuân Bửu	Thạch	Nam
+12140044	Phan Viết	Thảo	Nam
+11146076	Vũ Phương	Thảo	Nữ
+12143168	Nguyễn Mạnh	Thắng	Nam
+12140047	Lê Thị Thu	Thủy	Nữ
+11140063	Nguyễn Minh	Tiến	Nam
+12140049	Phạm Bá	Toàn	Nam
+12140053	Mai Anh	Trung	Nam
+12140051	Nguyễn Trọng	Trí	Nam
+12140050	Lê Quốc Bảo	Trí	Nam
+12140054	Nguyễn Thanh Nhật	Trường	Nam
+12140056	Nguyễn Anh	Tuấn	Nam
+12143169	Nguyễn Thanh	Tuấn	Nam
+12140055	Đỗ Nguyễn Minh	Tuấn	Nam
+12140039	Nguyễn Ngọc	Tài	Nam
+12140107	Nguyễn Thanh	Tùng	Nam
+12140057	Đặng Thanh	Tùng	Nam
+12140058	Nguyễn Thanh	Tùng	Nam
+12140059	Vương Thanh	Tùng	Nam
+12143170	Vũ Hồng	Vinh	Nam
+12140064	Trịnh Thị Thanh	Vy	Nữ
+12140060	Nguyễn Phước Tường	Vân	Nữ
+12140061	Dương Tấn	Vũ	Nam
+12140062	Trần Kim	Vũ	Nam
+12140063	Phạm Minh	Vương	Nam
+12140065	Lê Văn	Xem	Nam
+12140012	Cao Nguyên	Đáng	Nam
+12143004	Mai Văn	Định	Nam
+12143171	Nguyễn Hồng	Đức	Nam
+12140001	Đào Ngọc	Ẩn	Nam

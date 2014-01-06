@@ -1,0 +1,2 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Đã TN	Tổng chỉ tích lũy	Điểm CĐ 1	Điểm CĐ 2	Điểm CĐ 3	Điểm CĐ Tổng quan	KQ Bảo vệ HĐ Khoa (CS)	KQ Bảo vệ HĐ Trường (NN)
+NCS2001.01	NGUYỄN ÐẠI	ÐOÀN	Nam 			Luyện kim đen		60.5					Đạt	Đạt

@@ -1,0 +1,443 @@
+/* CSS Document */
+
+.heading {
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-left: 0px;
+}
+
+.heading1 {
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 18px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-left: 0px;
+}
+
+.heading2 {
+	color: #FFFFFF;
+	font-weight: normal;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-left: 0px;
+}
+
+.cobg
+{ 
+ 	background-color:#31859C;
+}
+
+.cobgdiag
+{ 
+ 	background-color:#FFFFFF;
+}
+.cobgpage
+{
+	background-color:#FFFFCE;
+}
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+.fontcontent {
+	font-size: 15px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000000;
+	font-weight: normal;
+
+}
+
+
+label { margin:5px; cursor:pointer; }
+
+rowhover.hilite { color:#FFFFFF;
+background:#009999}
+rowhover {margin:5px; cursor:pointer;}
+
+.shawdow{
+	box-shadow: 5px 5px 10px #888888;
+}
+.shawdow1{
+	box-shadow: 3px 3px 10px #888888;
+}
+.shawdow2{
+	box-shadow: 1px 1px 10px #888888;
+}
+.detai {}
+.title{
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.validateTips {
+	color: RED;
+	border: 1px solid transparent;
+	font-size:12px;
+	font-style:italic;
+	font-family: Arial, "Times New Roman", Times, serif;
+	padding-top:5px;
+	height:18px;
+	margin-bottom:5px;
+	
+}
+.credit {
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size:8px;
+}
+.ahref {
+	cursor:pointer;
+	text-decoration:underline ;
+	color:#0000FF;
+	font-size:12px;
+}
+
+.ui-autocomplete-input { 
+	margin: 0; padding: 0.48em 0 0.47em 0.45em;
+	
+}
+
+.ui-autocomplete {
+		max-height: 200px;
+	
+		overflow-y: auto;
+		/* prevent horizontal scrollbar */
+		overflow-x: hidden;
+		/* add padding to account for vertical scrollbar */
+		padding-right: 20px;
+	}
+	/* IE 6 doesn't support max-height
+	 * we use height instead, but this forces the menu to always be this tall
+	 */
+	* html .ui-autocomplete-input {
+		height: 200px;
+	}
+
+table#tableNCKH,#tabledetai,#tablectkh,#tablesach
+{
+table-layout:fixed;
+word-wrap:break-word;
+}
+
+tr.alt td
+{
+color:#000000;
+background-color:#e7f8ff;
+border-top: 1px solid #ececec;
+}
+
+tr.alt_noline td
+{
+color:#000000;
+background-color:#e7f8ff;
+}
+
+tr.alt_ td
+{
+border-top: 1px solid #ececec;
+}
+
+tr.alt__noline td
+{
+}
+
+tr.alt_chose td
+{
+    color: #FFF;
+    background-color: #7eb544;
+}
+
+.tableData
+{
+	background:white;
+}
+
+/*New gv*/
+#header
+{
+	height: 40px;
+	background-color: #075385;
+	padding: 10px 10px;
+	margin-left: -8px;
+	margin-right: -8px;
+	margin-top:-10px;
+	font-family:inherit;
+}
+
+#header-content
+{
+	font-family:inherit;
+	margin-bottom: 1em;
+	display:block;
+}
+
+#header-line
+{
+	height: 10px;
+	//margin-bottom: 10px;
+	border-top: 1px solid #cae298;
+	border-bottom: 1px solid #609dbc;
+	background-color: #96c716;
+	margin-left: -8px;
+	margin-right: -8px;
+	margin-top: 0px;
+}
+
+#header-secondline
+{
+	
+	height: 50px;	
+	padding: .5em;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-top: -15px;
+	position:absolute;
+	
+  
+	background: #dbf4fb;
+    /* Mozilla: */
+    background: -moz-linear-gradient(top, #dbf4fb, #ffffff);
+    /* Chrome, Safari:*/
+    background: -webkit-gradient(linear,
+                left top, left bottom, from(#dbf4fb), to(#ffffff));
+    /* MSIE */
+	filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dbf4fb', endColorstr='#ffffff'); /* IE6 & IE7 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#dbf4fb', endColorstr='#ffffff')"; /* IE8 */;
+  
+  background: -ms-linear-gradient(left top, #dbf4fb, #ffffff); /* ie 10 */
+}
+
+#header a:visited{
+	color:#FFFFFF;
+}
+#header a:link{
+	color:#FFFFFF;
+	text-decoration:none;
+}
+
+#header h1 
+{
+	font-family:inherit;
+	color: #FFF;
+	margin: 0;
+	float: left;
+	margin-top: 2px;
+}
+
+#header h2
+{
+	font-family:inherit;
+	color: #FFF;
+	margin: 0;
+	float: left;
+	margin-top: -5px;
+}
+
+#header h3 
+{
+	font-family:inherit;
+	color: #FFF;
+	margin: 0;
+	float: left;
+	margin-top: 2px;
+}
+
+#header h4
+{
+	font-family:inherit;
+	color: #FFF;
+	margin: 0;
+	float: left;
+	margin-top: 2px;
+}
+
+#header_col1{
+	float: left;
+	width: 50%;
+	min-width:50%;
+}
+#header_col2{
+	float: left;
+	width: 20%;
+	margin-left: 3%;
+	background-color:transparent;
+}
+
+#header_col3 {
+	
+	float: right;
+	width: auto;
+	//min-width:30%;
+	margin-top: 2px;
+	margin-left: 1%;
+	margin-right: 1%;
+	color:#FFFFFF;
+	font-family:inherit;
+	font-size: 12px;
+	text-align:right;
+}
+
+#footer
+{
+	clear: both;
+	height: 50px;
+	border-top: 5px solid #96c716;
+	background: url(../images/bgfooter.gif) repeat-x 0 100%;
+	text-align: left;
+	margin-left: -8px;
+	margin-right: -8px;
+	font-family:inherit;
+	font-size:12px;
+}
+
+#footer_content{
+	padding: .5em;
+	font-family:inherit;
+	
+}
+
+#gutter
+{
+	float: left;
+	width: 1%;
+	height: 1px;
+}
+
+#col1
+{
+	float: left;
+	width: 100%;
+	
+	margin-bottom: 10px;
+	
+	font-family:inherit;
+}
+
+#col2
+{
+	float: left;
+	width: 20%;
+	margin-left: 3%;
+	background-color:transparent;
+	margin-bottom: 10px;
+}
+
+#col3{
+	float: left;
+	width: 20%;
+	margin-left: 3%;
+	margin-bottom: 10px;
+}
+
+#sortableTTCN { list-style-type: none; margin: 0; padding: 0; }
+#sortableTTCN li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; font-size: 1em; text-align: center; }
+
+#sortableBAOMAT { list-style-type: none; margin: 0; padding: 0; }
+#sortableBAOMAT li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; font-size: 1em; text-align: center; }
+
+#sortableHOCVU { list-style-type: none; margin: 0; padding: 0; }
+#sortableHOCVU li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; font-size: 1em; text-align: center; }
+
+h1{
+	margin: 0;
+	padding: 5px;
+}
+
+h2{
+	margin-top: 0;
+	padding-top: 7px;
+}
+
+h2, p
+{
+	margin-left: 7px;
+	margin-right: 7px;
+}
+
+#content-wrapper
+{
+float: left;
+width: 100%;
+background: url(image.jpg) repeat-y;
+}
+#left
+{
+clear: left;
+float: left;
+width: 200px;
+}
+#right
+{
+margin-left: 200px;
+}
+
+option 
+{
+	font-size: 15px;
+}
+
+input[type="text"]
+{
+	height:18pt;
+	font-size: 15px;
+	
+}
+input[type="password"]
+{
+	height:18pt;
+	font-size: 15px;
+}
+
+/* format for placeholder*/
+/*match placeholder/watermark padding to border+padding for input element*/
+label.placeholder {
+cursor: text;
+padding: 2px 0px 0px 4px;
+color: #83ad14;
+font-size:12px;
+}
+/* html5 placeholder support */
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+color:#83ad14;
+}
+input:placeholder, textarea:placeholder {
+color:#83ad14;
+}
+::-webkit-input-placeholder {
+   color: #83ad14;
+   text-indent:2%; 
+}
+:-moz-placeholder {  
+   color: #83ad14;
+   text-indent:2%; 
+}
+/* end format for placeholder*/
+
+body
+{
+	font-size:65%;
+}
+
+.clearfloat { /* this class can be placed on a <br /> or empty div as the final element following the last floated div (within the #container) if the #footer is removed or taken out of the #container */
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+	display: block;
+}
+
+table tr.alt_:hover td, table tr.alt:hover td {
+    color: #FFF;
+    background-color: #075385;
+}
+.banner{background:url(../../images/bgd-banner-159.png) repeat-x 0 0; height:160px; text-align:center; margin: 1px -8px -25px -8px; overflow:hidden;} 
+
+.disableText{
+	color:#808080;
+}
+.disableTextBox{
+	background: #808080;
+}

@@ -1,0 +1,103 @@
+Mã HV	Họ	Tên	Phái
+12070494	Lê Viết Duy	Anh	Nam
+12070495	Nguyễn Trúc Mai	Anh	Nữ
+12321057	Nguyễn Thị Thu	Bông	Nữ
+10070472	Nguyễn Tấn	Bảo	Nam
+12323005	Nguyễn	Doan	Nữ
+11070442	Nguyễn Thị Mỹ	Dung	Nữ
+91232010	Mai Thế	Duyệt	Nam
+12321059	Nguyễn Tiến	Dũng	Nam
+12321058	Nguyễn Văn	Dự	Nam
+12070507	Hoàng Trung	Hiếu	Nam
+12070508	Nguyễn Văn	Hiệu	Nam
+12070509	Đặng Thị Thu	Hoa	Nữ
+12321061	Trần Huy	Hoàng	Nam
+11320961	Nguyễn Đình	Hoàng	Nam
+12321063	Lương Minh	Huy	Nam
+12321062	Ngô Thị	Huấn	Nữ
+91232001	Hồ Thị Ngọc	Hà	Nữ
+12321060	Đặng Nguyên	Hóa	Nam
+12070512	Trần Vũ	Hùng	Nam
+91232003	Đoàn Trí	Hưng	Nam
+12071435	Phan Văn	Hưng	Nam
+12070510	Đào Nhật	Hưng	Nam
+12070513	Trần Thị Mỹ	Hương	Nữ
+12070514	Nguyễn Huy	Kha	Nam
+12321064	Phạm Quang	Khanh	Nam
+91232004	Nguyễn Đăng	Khoa	Nam
+12321065	Đồng Thị Kim	Kiều	Nữ
+12321066	Huỳnh Văn	Linh	Nam
+12070516	Vũ Thị Thái	Linh	Nữ
+12070521	Nguyễn Hoàng	Long	Nam
+12070519	Lê Hoàng	Long	Nam
+12070522	Phạm Minh	Luân	Nam
+12321067	Trần Thị Thanh	Lý	Nữ
+12070517	Phan Hữu	Lộc	Nam
+12070518	Trần Duy	Lộc	Nam
+91232006	Đặng Thanh	Lực	Nam
+12070523	Dương Hớn	Minh	Nam
+12321068	Trương Thị Thái	Minh	Nữ
+12070525	Võ Thị Như	Mỵ	Nữ
+12070526	Nguyễn Xuân	Nam	Nam
+12070528	Bùi Trung	Nghĩa	Nam
+12070527	Trần Kiên	Nghị	Nam
+12070529	Bùi Nguyễn Tây	Nguyên	Nam
+12070530	Lê Viết Hoàng	Nguyên	Nam
+12321069	Đinh Nguyễn Thúy	Nguyệt	Nữ
+12321070	Trần Thị Hồng	Nhung	Nữ
+09070457	Trần Nữ Quỳnh	Như	Nữ
+91232002	Huỳnh Bá	Nhẫn	Nam
+12070531	Dương Hoàng	Nhựt	Nam
+12070532	Nguyễn Thanh	Phong	Nam
+12070533	Võ Ngọc	Phú	Nam
+12321071	Trần Lê Trọng	Phúc	Nam
+12070535	Trần Vĩnh	Phúc	Nam
+12070534	Lê Vinh Vĩnh	Phúc	Nam
+11320977	Nguyễn Đức	Phương	Nam
+12070538	Nguyễn Đông	Phương	Nam
+12070539	Phạm Trung	Phương	Nam
+12070536	Lữ Thị Kim	Phụng	Nữ
+11070469	Nguyễn Mai	Quang	Nam
+12070540	Nguyễn Chí Anh	Quân	Nam
+91232009	Y	Sa	Nam
+12070541	Nguyễn Văn	Sang	Nam
+11070472	Trần Ngọc	Sơn	Nam
+12321073	Phạm Thanh	Sơn	Nam
+12321072	Nguyễn Thanh	Sơn	Nam
+11076115	Hoàng Phương	Thi	Nữ
+12321076	Nguyễn Thị Minh	Thi	Nữ
+12070548	Nguyễn Bá	Thu	Nam
+12070547	Phạm Duy	Thành	Nam
+12070546	Nguyễn Duy	Thái	Nam
+11320981	Phạm Lê Hoàng	Thông	Nam
+12323018	Phạm Anh	Thảo	Nữ
+11320980	Nguyễn Thị Thu	Thảo	Nữ
+12321075	Lê Thị Phương	Thảo	Nữ
+10070940	Nguyễn Quyết	Thắng	Nam
+12321077	Trương Thị Thu	Thủy	Nữ
+11070479	Trần Thị	Thủy	Nữ
+12070549	Vũ Ngọc	Tiên	Nam
+10320922	Nguyễn Quốc	Trung	Nam
+12321078	Nguyễn Huỳnh Thanh	Trúc	Nữ
+12070551	Nguyễn Minh	Trọng	Nam
+12321081	Nguyễn Văn	Tuyên	Nam
+12321080	Nguyễn Thị Kim	Tuyên	Nữ
+12070554	Tạ Minh	Tuấn	Nam
+91232008	Lê Ngọc	Tuấn	Nam
+12070543	Ngô Hoàng	Tâm	Nam
+12321074	Trần Việt	Tâm	Nam
+12070545	Nguyễn Thanh	Tân	Nam
+12321079	Nguyễn Minh	Tùng	Nam
+12070555	Nguyễn Thanh	Tùng	Nam
+12070553	Nguyễn Thanh	Tú	Nam
+12073138	Võ Thành	Vinh	Nam
+12321082	Trương Huỳnh	Văn	Nam
+12073052	Võ Đức	Vĩnh	Nam
+12070561	Huỳnh Trần Anh	Vũ	Nam
+12070558	Cao Minh	Vũ	Nam
+12073142	Lâm Bảo	Vương	Nam
+12321083	Nguyễn Hoàng	Yến	Nữ
+11070444	Nguyễn Văn	Đông	Nam
+10320908	Nguyễn Thành	Đạt	Nam
+12070505	Đồng Thanh	Đức	Nam
+11320955	Đỗ Minh	Đức	Nam

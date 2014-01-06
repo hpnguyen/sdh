@@ -1,0 +1,26 @@
+Mã HV	Họ	Tên	Phái
+12070496	Nguyễn Duy Xuân	Bách	Nam
+91107001	Nguyễn Duy Xuân	Bách	Nam
+12073117	Trần Thanh	Bình	Nam
+10070472	Nguyễn Tấn	Bảo	Nam
+12070501	Phan Đình Thế	Duy	Nam
+11078001	Nguyễn Ngọc	Duy	Nam
+09070435	Lê Cảnh	Hiệp	Nam
+12070506	Hà Minh Trần	Hạnh	Nam
+11076034	Nguyễn Minh	Khoa	Nam
+12070519	Lê Hoàng	Long	Nam
+12070517	Phan Hữu	Lộc	Nam
+12070527	Trần Kiên	Nghị	Nam
+12073125	Hồ Hoàng	Nguyên	Nam
+12073127	Phạm Viết	Nguyên	Nam
+12073126	Lê Hữu Khôi	Nguyên	Nam
+10070494	Lâm Nhựt	Quang	Nam
+12070540	Nguyễn Chí Anh	Quân	Nam
+11070476	Phạm Anh	Thiên	Nam
+11070477	Vũ Trọng	Thiên	Nam
+12073137	Nguyễn Thiện	Tín	Nam
+11071002	Trần Quang	Vinh	Nam
+12070559	Châu Trí	Vũ	Nam
+11070440	Nguyễn Văn Quang	Ánh	Nam
+12070504	Mai Nhất	Đình	Nam
+12070505	Đồng Thanh	Đức	Nam

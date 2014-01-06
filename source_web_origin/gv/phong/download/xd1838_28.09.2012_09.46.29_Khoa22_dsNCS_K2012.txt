@@ -1,0 +1,3 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Đã TN
+51204006	Mai Đăng	Tuấn	Nam 	14/07/1972	Trà Vinh	Công nghệ tạo hình vật liệu	
+51206024	Võ Kiến	Quốc	Nam 	05/09/1980	Long An	Công nghệ và thiết bị nhiệt	

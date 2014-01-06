@@ -1,0 +1,56 @@
+Mã HV	Họ	Tên	Phái
+12140003	Trần Minh	Chương	Nam
+12140005	Nguyễn Thành	Công	Nam
+11140005	Mai Ngọc	Dung	Nữ
+11140008	Đặng Đức	Duy	Nam
+12140011	Nguyễn Đoàn	Duy	Nam
+12140009	Huỳnh Minh	Duy	Nam
+12140010	Ngô Quốc	Duy	Nam
+12143162	Mạc Đức	Dũng	Nam
+12140008	Nguyễn Thái	Dương	Nam
+12140015	Vũ Trường	Giang	Nam
+91114023	Phạm Lê Nhân	Hoàng	Nam
+12140018	Phạm Lê Nhân	Hoàng	Nam
+11140022	Lâm Hữu	Huy	Nam
+12140024	Lê Quang	Huy	Nam
+12140023	Lê Đình	Huy	Nam
+12140020	Lê Thanh	Hùng	Nam
+12140022	Trần Hữu	Hương	Nam
+12140016	Lê Long	Hải	Nam
+12140026	Nguyễn Tuấn	Khanh	Nam
+12140028	Dương Ngọc	Lại	Nam
+11140030	Trần Công	Minh	Nam
+11140033	Nguyễn Thanh	Nam	Nam
+12140033	Đỗ Lê	Nam	Nam
+12140032	Bùi Nguyễn Hoài	Nam	Nam
+11140035	Trần Hữu	Nghĩa	Nam
+12140034	Dương Quí	Nhân	Nam
+11140039	Đỗ Hồng	Nhựt	Nam
+12140035	Ngô Đình	Phong	Nam
+12143054	Lê Thanh	Phong	Nam
+12143167	Trần Quảng	Sơn	Nam
+12140045	Nguyễn Hoàng	Thi	Nam
+12140042	Nguyễn Trung	Thành	Nam
+12140044	Phan Viết	Thảo	Nam
+12143168	Nguyễn Mạnh	Thắng	Nam
+12140047	Lê Thị Thu	Thủy	Nữ
+11140063	Nguyễn Minh	Tiến	Nam
+12140049	Phạm Bá	Toàn	Nam
+12140053	Mai Anh	Trung	Nam
+12140054	Nguyễn Thanh Nhật	Trường	Nam
+12140055	Đỗ Nguyễn Minh	Tuấn	Nam
+12140056	Nguyễn Anh	Tuấn	Nam
+12143169	Nguyễn Thanh	Tuấn	Nam
+12140058	Nguyễn Thanh	Tùng	Nam
+12140057	Đặng Thanh	Tùng	Nam
+12140059	Vương Thanh	Tùng	Nam
+12140064	Trịnh Thị Thanh	Vy	Nữ
+12140060	Nguyễn Phước Tường	Vân	Nữ
+12140062	Trần Kim	Vũ	Nam
+12140061	Dương Tấn	Vũ	Nam
+12140063	Phạm Minh	Vương	Nam
+12140065	Lê Văn	Xem	Nam
+91214002	Đỗ Thị Hoàng	Yến	Nữ
+12140012	Cao Nguyên	Đáng	Nam
+12143004	Mai Văn	Định	Nam
+12140001	Đào Ngọc	Ẩn	Nam

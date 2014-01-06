@@ -1,0 +1,10 @@
+Mã HV	Họ	Tên	Phái
+12290177	Hà Trầm	Huy	Nam
+12290364	Hoàng Phi	Hùng	Nam
+12290175	Tiên Minh	Hải	Nam
+11404202	Nguyễn Thành	Luân	Nam
+11404204	Trần Lê Thụy	Nhi	Nữ
+12293057	Huỳnh Hồng	Nhi	Nữ
+12293196	Võ Ngọc	Trâm	Nữ
+12290178	Lại Vũ	Tài	Nam
+09110150	Lê Khắc Lam	Điền	Nữ

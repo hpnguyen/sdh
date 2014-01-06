@@ -1,0 +1,50 @@
+Mã HV	Họ	Tên	Phái	Khóa	Email
+12194017	Hoàng Trọng	An	Nam	2012	
+12214026	Bùi Hồng	Châu	Nam	2012	chaugia2010@yahoo.com.vn
+12214028	Bùi Bá	Cường	Nam	2012	
+12214029	Phạm Văn Lê	Cường	Nam	2012	
+12214025	Trần Bá	Cảnh	Nam	2012	bacanhtrangia6@gmail.com
+12214033	Nguyễn Thành	Dũng	Nam	2012	
+12214032	Nguyễn Thanh	Dũng	Nam	2012	
+12214031	Ngô Anh	Dũng	Nam	2012	
+12210232	Nguyễn Hồng	Dương	Nam	2012	512210232@stu.hcmut.edu.vn
+12216025	Huỳnh Lê	Em	Nam	2012	
+12214052	Nguyễn Đình Ngọc	Hoàng	Nam	2012	
+12214051	Lê Minh	Hoàng	Nam	2012	hoangx03a2@yahoo.com
+12214055	Huỳnh Thiết	Huy	Nam	2012	
+12214049	Đinh Thái	Hòa	Nam	2012	
+12214060	Nguyễn Bá	Khanh	Nam	2012	nguyenkhanh101988@gmail.com
+12214059	Trần Đăng	Khải	Nam	2012	trandangkhai89@yahoo.com
+12920659	Nguyễn Thị	Lan	Nữ	2012	512920659@stu.hcmut.edu.vn
+12214073	Nguyễn Xuân	Long	Nam	2012	
+12214074	Lê Hoàng	Lung	Nam	2012	
+12214077	Trần Quang	Minh	Nam	2012	
+12214075	Hoàng Thế	Mạnh	Nam	2012	
+12214078	Nguyễn Thị Thảo	Nguyên	Nữ	2012	
+12214083	Nguyễn Văn	Như	Nam	2012	vannhunguyenks04@gmail.com
+12214084	Ngô Bá	Ninh	Nam	2012	
+12214088	Trình Minh	Phong	Nam	2012	
+12214090	Phan Vũ	Phương	Nam	2012	
+12214091	Trần Duy	Phương	Nam	2012	
+12214093	Nguyễn Công	Quang	Nam	2012	quangcve@gmail.com
+12214097	Võ Trần	Sơn	Nam	2012	sontiger@gmail.com
+12214112	Hồ Nguyễn Tân	Thuấn	Nam	2012	
+12214113	Nông Cao	Thuận	Nam	2012	nongcaothuan@yahoo.com.vn
+12214101	Nguyễn Ngọc	Thắng	Nam	2012	
+12214109	Lê Văn	Thịnh	Nam	2012	
+12214115	Trần Minh	Tiến	Nam	2012	
+12214114	Nguyễn Bảo	Tiến	Nam	2012	
+12214129	Trần Quốc	Trung	Nam	2012	
+12214121	Trần Đức	Trí	Nam	2012	
+12214134	Lê Anh	Tuấn	Nam	2012	
+12214136	Nguyễn Ngọc Anh	Tuấn	Nam	2012	tuannguyen.ce@gmail.com
+12216027	Nguyễn Thanh	Tú	Nam	2012	
+12214131	Diệp Trần Hoàng	Tú	Nam	2012	tubkhcm@gmail.com
+12214132	Đoàn Thanh	Tú	Nam	2012	
+12214141	Võ Như Quang	Vinh	Nam	2012	
+12216029	Tô Ngọc	Vinh	Nam	2012	tnvinh96@student.ctu.edu.vn
+12214143	Hoàng Công	Vũ	Nam	2012	
+12214142	Hồ Tuấn	Vũ	Nam	2012	
+12214040	Lê Văn	Đoàn	Nam	2012	
+12214036	Hoàng Minh	Đắc	Nam	2012	slash_rock4u@yahoo.com
+12214039	Đỗ Tường Đạt	Định	Nam	2012	

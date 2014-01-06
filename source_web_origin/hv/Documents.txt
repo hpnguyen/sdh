@@ -1,0 +1,27 @@
+﻿Tài liệu phân hệ Portal Học Viên Cao Học
+Người viết: Ngô Trung Tài
+Ngày viết: 24/09/2012
+
+0. Các chú ý
+	- class="ui-state-disabled"
+	- encodeURIComponent(p_dothoc)
+	- encodeURIComponent($("#dkmh_nganh option:selected").html())
+		
+1. Chức năng link đến từng chức năng chỉ định:
+	- cú pháp sử dụng:
+		http://www.grad.hcmut.edu.vn/hv/login.php?l=ten_chuc_nang_link
+	- ten_chuc_nang_link bao gồm như sau:
+		+ TraCuuTKBNganh
+		+ TraCuuTKBCaNhan
+		+ TraCuuKetQuaHocPhi
+		+ TraCuuLichThiNganh
+		+ TraCuuLichThiCaNhan
+		+ TraCuuDiem
+		+ TraCuuChuongTrinhDaoTao
+		+ DangKyMonHoc
+		+ DeCuongLuanVan
+		+ ThayDoiMatKhau
+		+ ThongTinCaNhan
+2. Convert HTML to PDF
+	- https://pdfcrowd.com/html-to-pdf-api/
+	- account: taint/taint123, free: 100 

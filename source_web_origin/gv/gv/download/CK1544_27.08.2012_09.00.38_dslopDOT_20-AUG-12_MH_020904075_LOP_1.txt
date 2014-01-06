@@ -1,0 +1,29 @@
+Mã HV	Họ	Tên	Phái
+12040463	Nguyễn Ngọc	Biên	Nam
+11040383	Nguyễn Thiên	Bình	Nam
+12043102	Trần Hồng	Chương	Nam
+51105101	Khưu Minh	Cảnh	Nam
+12043103	Nguyễn Hồng	Dên	Nam
+91204002	TRƯƠNG THẾ	DŨNG	Nam
+12040465	Nguyễn Thanh	Dũng	Nam
+12040464	Nguyễn Hùng	Dũng	Nam
+12040468	Nguyễn Đức	Huy	Nam
+12040466	Phạm Như	Hưng	Nam
+12040467	Phan Hồng	Hưởng	Nam
+91204001	GIA XUÂN	LONG	Nam
+12040469	Trần Văn	Linh	Nam
+11040393	Phùng Hữu	Liệt	Nam
+12040470	Nguyễn Hoàng	Nam	Nam
+10040420	Trần Thị Thanh	Nga	Nữ
+12040471	Đặng Đức	Quang	Nam
+12040472	Đinh Đức	Thắng	Nam
+11040404	Quang Nhựt	Trung	Nam
+12043104	Phạm Quang	Truyền	Nam
+12043105	Lâm Quang	Trưởng	Nam
+12043106	Phạm Minh	Tuấn	Nam
+12043107	Nguyễn Chánh	Tâm	Nam
+12040473	Phan Châu Thanh	Tùng	Nam
+12043108	Nguyễn Minh	Tú	Nam
+12040474	Tạ Nguyễn Đan	Uyên	Nữ
+91204003	BÙI QUANG	VINH	Nam
+12040475	Lê Bá	Vĩnh	Nam

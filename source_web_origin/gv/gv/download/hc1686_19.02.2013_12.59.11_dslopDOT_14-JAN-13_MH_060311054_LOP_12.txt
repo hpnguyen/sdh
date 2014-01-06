@@ -1,0 +1,18 @@
+Mã HV	Họ	Tên	Phái	Khóa	Email
+12144478	Lâm Đức	Cường	Nam	2012	
+12144481	Trần Nguyễn Phương	Dung	Nữ	2012	
+12144503	Nguyễn Thu	Hồng	Nữ	2012	
+12144507	Đoàn Như	Khuê	Nữ	2012	
+12144511	Huỳnh Thị Thúy	Loan	Nữ	2012	
+12110203	Ngô Xuân	Minh	Nam	2012	512110203@stu.hcmut.edu.vn
+12144523	Lâm Trọng	Nghĩa	Nam	2012	
+12144525	Phạm Đình Thanh	Nguyên	Nam	2012	
+12144528	Trần Văn	Nhựt	Nam	2012	
+12144531	Phạm Thị	Phương	Nữ	2012	
+12144530	Đoàn Thị	Phượng	Nữ	2012	
+12144532	Hoàng Thị Trúc	Quỳnh	Nữ	2012	
+12116006	Nguyễn Thị Thu	Trang	Nữ	2012	
+12144554	Nguyễn Thị Thanh	Tuyền	Nữ	2012	
+12144558	Hoàng Trần	Vũ	Nam	2012	
+12144470	Võ Ngọc	Ánh	Nam	2012	vongocanh0818014@gmail.com
+12144488	Phan Nguyễn Ngọc	Đức	Nam	2012	ducphancntp@gmail.com

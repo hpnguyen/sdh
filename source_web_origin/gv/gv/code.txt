@@ -1,0 +1,41 @@
+// update sv tu bk
+// Lay ds thac si
+$sqlstr="select l.ma_hoc_vien, h.ho || ' ' || h.ten ho_ten, l.ten_de_tai, lpad(dot_cap_bang(l.ma_hoc_vien), 4, '0') nam_tn
+from luan_van_thac_sy l, hoc_vien h
+where diem_luan_van(l.ma_hoc_vien)>=5 
+and (huong_dan_chinh = '$macb' or huong_dan_phu = '$macb')
+and h.ma_hoc_vien = l.ma_hoc_vien 
+and dot_nhan_lv = dot_nhan_lv(h.ma_hoc_vien)
+and h.ma_hoc_vien not in (SELECT MA_HOC_VIEN FROM NCKH_HD_LUAN_AN WHERE FK_MA_CAN_BO='$macb')"; 
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+for ($i = 0; $i < $n; $i++)
+{
+	$txtHoTen = $resDM["HO_TEN"][$i];
+	$txtNamTN = $resDM["NAM_TN"][$i];
+	$txtLuanAn = $resDM["TEN_DE_TAI"][$i];
+	$txtMaHV = $resDM["MA_HOC_VIEN"][$i];
+	
+	$sqlstr = "insert into NCKH_HD_LUAN_AN(FK_MA_CAN_BO, MA_HD_LUAN_AN, MA_HOC_VIEN, HO_TEN_SV, BAC_DAO_TAO, NAM_TOT_NGHIEP, TEN_LUAN_AN) values
+	('$macb', get_ma_hd_luan_an('$macb'), '$txtMaHV', '$txtHoTen', 'TH', '$txtNamTN', '$txtLuanAn')";
+	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);
+}
+
+// Lay ds tien si
+$sqlstr="select l.ma_hoc_vien, h.ho || ' ' || h.ten ho_ten, l.ten_luan_an, h.khoa, lpad(dot_cap_bang(l.ma_hoc_vien), 4, '0') nam_tn 
+from  luan_an_tien_sy l, hoc_vien h
+where (l.huong_dan_1 = '".$macb. "' or l.huong_dan_2 = '" .$macb. "' or l.huong_dan_3 = '" .$macb. "') 
+and h.ma_hoc_vien = l.ma_hoc_vien
+and h.ma_hoc_vien not in (SELECT MA_HOC_VIEN FROM NCKH_HD_LUAN_AN WHERE FK_MA_CAN_BO='$macb')";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+for ($i = 0; $i < $n; $i++)
+{
+	$txtHoTen = $resDM["HO_TEN"][$i];
+	$txtNamTN = $resDM["NAM_TN"][$i];
+	$txtLuanAn = $resDM["TEN_LUAN_AN"][$i];
+	$txtMaHV = $resDM["MA_HOC_VIEN"][$i];
+	
+	$sqlstr = "insert into NCKH_HD_LUAN_AN(FK_MA_CAN_BO, MA_HD_LUAN_AN, MA_HOC_VIEN, HO_TEN_SV, BAC_DAO_TAO, NAM_TOT_NGHIEP, TEN_LUAN_AN) values
+	('$macb', get_ma_hd_luan_an('$macb'), '$txtMaHV', '$txtHoTen', 'TS', '$txtNamTN', '$txtLuanAn')";
+	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);
+}
+// end

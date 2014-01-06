@@ -1,0 +1,43 @@
+Mã HV	Họ	Tên	Phái
+12050141	Triệu Tuấn	Anh	Nam
+12050143	Tăng Thị Ngọc	Diễm	Nữ
+12050145	Trương Phùng Mỹ	Dung	Nữ
+12050144	Huỳnh Thị Ngọc	Dung	Nữ
+12050147	Đào Ngọc	Duy	Nam
+12050146	Võ Nguyễn Thùy	Dương	Nữ
+91205007	Nguyễn Đức	Hoàn	Nam
+12050148	Đinh Tuấn	Hoàng	Nam
+11110198	Nguyễn Thị Thu	Hằng	Nữ
+12053110	Phạm Trung	Kiên	Nam
+12050149	Nguyễn Thanh	Lợi	Nam
+12050150	Phan Nghĩa	Minh	Nam
+12050153	Trần Thị Kim	Ngoan	Nữ
+12053111	Nguyễn Bảo	Nguyên	Nam
+12050152	Huỳnh Phương	Ngân	Nam
+12050154	Trương Thanh	Ngọc	Nam
+12050156	Nguyễn Thị Hồng	Nhung	Nữ
+12050157	Huỳnh Thị Mỹ	Nương	Nữ
+12050159	Lê Thị	Phương	Nữ
+12050158	Lại Duy	Phương	Nam
+12050160	Nguyễn Thị Diễm	Phương	Nữ
+12050161	Nguyễn Thị Ngọc	Phượng	Nữ
+91205005	Hồ Thị Mỹ	Phượng	Nữ
+12050162	Đào Phạm Duy	Quang	Nam
+12050164	Lê Văn	Sang	Nam
+12050165	Trần Xuân Ngọc	Sơn	Nam
+12050166	Huỳnh Văn	Thanh	Nam
+12053114	Nguyễn Ngọc	Thành	Nam
+12050168	Lê Thị Minh	Thư	Nữ
+12050169	Nguyễn Thị Thu	Thương	Nữ
+12050167	Nguyễn Thị Thanh	Thảo	Nữ
+12050170	Nguyễn Thảo	Toàn	Nam
+12050171	Vương Thanh	Toàn	Nam
+11110220	Nguyễn Bảo	Toàn	Nữ
+12050172	Trần Nguyễn Thùy	Trang	Nữ
+91205003	Ngô Quang	Trung	Nam
+12050173	Tôn Anh Minh	Trí	Nam
+12050174	Nguyễn Thị Ngọc	Tuyết	Nữ
+12053115	Võ Thị	Tươi	Nữ
+12053116	Phạm Trần Quốc	Việt	Nam
+91205006	Võ Thành	Vương	Nam
+91205009	Lê Hải	Đường	Nữ

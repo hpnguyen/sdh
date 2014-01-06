@@ -1,0 +1,8 @@
+Mã HV	Họ	Tên	Phái	Khóa	Email
+11054145	Nguyễn Văn	Hiền	Nam	2011	511054145@stu.hcmut.edu.vn
+12050164	Lê Văn	Sang	Nam	2012	512050164@stu.hcmut.edu.vn
+51220041	Phạm Quỳnh Thái	Sơn	Nam	2012	
+12050166	Huỳnh Văn	Thanh	Nam	2012	512050166@stu.hcmut.edu.vn
+11050155	Phạm Minh	Thuận	Nam	2011	511050155@stu.hcmut.edu.vn
+11054179	Lê Thị Thanh	Thủy	Nữ	2011	511054179@stu.hcmut.edu.vn
+12050170	Nguyễn Thảo	Toàn	Nam	2012	512050170@stu.hcmut.edu.vn

@@ -1,0 +1,20 @@
+Mã HV	Họ	Tên	Phái
+12100434	Nguyễn Tuấn	Anh	Nam
+12100435	Trần Bích	Dung	Nữ
+11104475	Nguyễn Văn	Hoàng	Nam
+12100436	Lê Ngọc	Hân	Nữ
+12100437	Nguyễn Thị Hồng	Hạnh	Nữ
+12100439	Trần Hoàng Đăng	Khoa	Nam
+12100438	Nguyễn Đồng Đăng	Khoa	Nam
+11224488	Đoàn Thị Bích	Ngọc	Nữ
+91110005	Nguyễn Hữu	Nhật	Nam
+11104479	Đinh Thị Kim	Phượng	Nữ
+12100440	Hoàng Phi	Phụng	Nam
+11224490	Huỳnh Nguyễn Định	Quốc	Nam
+11104480	Nguyễn Trường	Sang	Nam
+11224492	Nguyễn Hữu	Thịnh	Nam
+11224493	Trần Ngọc Huyền	Trang	Nữ
+12100441	Trần Thị Hồng	Tường	Nữ
+12223056	Trịnh Đình	Vũ	Nam
+12100442	Phan Lê Quang	Vũ	Nam
+12103003	Huỳnh Thị Mai	Đình	Nữ

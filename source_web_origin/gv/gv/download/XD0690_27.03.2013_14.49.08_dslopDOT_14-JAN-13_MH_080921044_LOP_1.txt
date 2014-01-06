@@ -1,0 +1,6 @@
+Mã HV	Họ	Tên	Phái	Khóa	Email
+12210239	Hồ Thị Như	Hiền	Nữ	2012	512210239@stu.hcmut.edu.vn
+12210250	Phạm Duy	Minh	Nam	2012	512210250@stu.hcmut.edu.vn
+12210256	Trần Hữu	Phương	Nam	2012	512210256@stu.hcmut.edu.vn
+12210264	Đoàn Tấn	Thi	Nam	2012	512210264@stu.hcmut.edu.vn
+12214102	Trịnh Bá	Thắng	Nam	2012	

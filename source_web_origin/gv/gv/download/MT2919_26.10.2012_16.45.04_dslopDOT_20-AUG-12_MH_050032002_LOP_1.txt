@@ -1,0 +1,37 @@
+Mã HV	Họ	Tên	Phái	Khóa	Email
+91132001	Lê Võ Hoàng	Anh	Nữ	2011	hoanganh@qtsc.com.vn
+12321057	Nguyễn Thị Thu	Bông	Nữ	2012	512321057@stu.hcmut.edu.vn
+12323005	Nguyễn	Doan	Nữ	2012	512323005@stu.hcmut.edu.vn
+91232010	Mai Thế	Duyệt	Nam	2012	
+12321058	Nguyễn Văn	Dự	Nam	2012	512321058@stu.hcmut.edu.vn
+12321061	Trần Huy	Hoàng	Nam	2012	512321061@stu.hcmut.edu.vn
+12321063	Lương Minh	Huy	Nam	2012	512321063@stu.hcmut.edu.vn
+12321062	Ngô Thị	Huấn	Nữ	2012	512321062@stu.hcmut.edu.vn
+11320956	Trần Thị Bích	Hà	Nữ	2011	511320956@stu.hcmut.edu.vn
+12321060	Đặng Nguyên	Hóa	Nam	2012	512321060@stu.hcmut.edu.vn
+11320958	Chu Thị	Hạnh	Nữ	2011	511320958@stu.hcmut.edu.vn
+11326020	Vũ Thúy	Hằng	Nữ	2011	511326020@stu.hcmut.edu.vn
+12321064	Phạm Quang	Khanh	Nam	2012	512321064@stu.hcmut.edu.vn
+91232004	Nguyễn Đăng	Khoa	Nam	2012	
+12321065	Đồng Thị Kim	Kiều	Nữ	2012	512321065@stu.hcmut.edu.vn
+12321066	Huỳnh Văn	Linh	Nam	2012	512321066@stu.hcmut.edu.vn
+12321067	Trần Thị Thanh	Lý	Nữ	2012	512321067@stu.hcmut.edu.vn
+12321069	Đinh Nguyễn Thúy	Nguyệt	Nữ	2012	512321069@stu.hcmut.edu.vn
+12321070	Trần Thị Hồng	Nhung	Nữ	2012	512321070@stu.hcmut.edu.vn
+91232002	Huỳnh Bá	Nhẫn	Nam	2012	
+12321071	Trần Lê Trọng	Phúc	Nam	2012	512321071@stu.hcmut.edu.vn
+91232009	Y	Sa	Nam	2012	
+12321072	Nguyễn Thanh	Sơn	Nam	2012	512321072@stu.hcmut.edu.vn
+11320981	Phạm Lê Hoàng	Thông	Nam	2011	511320981@stu.hcmut.edu.vn
+11320980	Nguyễn Thị Thu	Thảo	Nữ	2011	511320980@stu.hcmut.edu.vn
+12323018	Phạm Anh	Thảo	Nữ	2012	512323018@stu.hcmut.edu.vn
+12321077	Trương Thị Thu	Thủy	Nữ	2012	512321077@stu.hcmut.edu.vn
+11320983	Phùng Thị Hoàng	Trân	Nữ	2011	511320983@stu.hcmut.edu.vn
+12321078	Nguyễn Huỳnh Thanh	Trúc	Nữ	2012	512321078@stu.hcmut.edu.vn
+12321081	Nguyễn Văn	Tuyên	Nam	2012	512321081@stu.hcmut.edu.vn
+91232008	Lê Ngọc	Tuấn	Nam	2012	
+12321074	Trần Việt	Tâm	Nam	2012	512321074@stu.hcmut.edu.vn
+12321079	Nguyễn Minh	Tùng	Nam	2012	512321079@stu.hcmut.edu.vn
+91232007	Nguyễn Thanh	Tùng	Nam	2012	
+12321082	Trương Huỳnh	Văn	Nam	2012	512321082@stu.hcmut.edu.vn
+12321083	Nguyễn Hoàng	Yến	Nữ	2012	512321083@stu.hcmut.edu.vn

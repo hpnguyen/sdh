@@ -1,0 +1,14 @@
+Mã HV	Họ	Tên	Phái	Khóa
+11354510	Lê Đình	Biên	Nam	2011
+11354512	Nguyễn Kim	Dung	Nữ	2011
+11354513	Lê Quang	Duy	Nam	2011
+91235002	Lê Thị Thùy	Dương	Nữ	2012
+11344509	Lê Thị Diệu	Hiền	Nữ	2011
+91235001	Huỳnh Lê	Khoa	Nam	2012
+91235003	Hà Quang	Khải	Nam	2012
+12350460	Lương Quốc	Lâm	Nam	2012
+12350461	Nguyễn Lê	Minh	Nam	2012
+12340459	Nguyễn Hải	Trường	Nam	2012
+11354519	Trần Thanh	Tuấn	Nam	2011
+12350462	Ngô Mạnh	Tùng	Nam	2012
+11354514	Lê Phương	Đông	Nam	2011

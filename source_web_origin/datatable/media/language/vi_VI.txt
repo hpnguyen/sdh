@@ -1,0 +1,14 @@
+﻿{
+"sSearch": "Tìm kiếm:",
+"sLengthMenu": "Hiện _MENU_ dòng mỗi trang",
+"sZeroRecords": "Không có dữ liệu",
+"sInfo": "Đang hiện từ _START_ đến _END_ trên _TOTAL_ dòng",
+"sInfoEmpty": "Đang hiện từ 0 đến 0 trên 0 dòng",
+"sInfoFiltered": "(Đã lọc từ _MAX_ dòng)",
+"sProcessing": "Đang tải dữ liệu",
+"oPaginate": {
+	"sFirst": "Đầu",
+	"sLast": "Cuối",
+	"sNext": "Tiếp",
+	"sPrevious": "Trước"}
+}

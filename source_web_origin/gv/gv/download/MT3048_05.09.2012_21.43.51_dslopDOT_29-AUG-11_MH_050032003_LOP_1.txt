@@ -1,0 +1,47 @@
+Mã HV	Họ	Tên	Phái
+91132001	Lê Võ Hoàng	Anh	Nữ
+11320950	Lê Thanh	Bình	Nam
+11320952	Huỳnh Đỗ Bảo	Châu	Nữ
+11320954	Phan Thị Kim	Dung	Nữ
+91132008	Nguyễn Tiến	Dũng	Nam
+11320953	Lê Thanh	Dũng	Nam
+11320960	Nguyễn Minh	Hiếu	Nam
+11320959	Nguyễn Tấn	Hiển	Nam
+11320961	Nguyễn Đình	Hoàng	Nam
+11320962	Trương Đỗ	Hoàng	Nam
+11320965	Lưu Minh	Huy	Nam
+11320966	Thân Thị Ngọc	Huyền	Nữ
+11320963	Võ Kim	Huân	Nam
+11320956	Trần Thị Bích	Hà	Nữ
+11320957	Võ Thị Thu	Hà	Nữ
+91132002	Đặng Thị	Hà	Nữ
+11320964	Nguyễn Thị Thiên	Hương	Nữ
+11320958	Chu Thị	Hạnh	Nữ
+91132009	Nguyễn Hữu	Hạnh	Nam
+11326020	Vũ Thúy	Hằng	Nữ
+91132004	Phạm Quang	Khanh	Nam
+11320967	Nguyễn Đăng	Khương	Nam
+10808045	Trần Trung	Kiên	Nam
+11320968	Đặng Thanh	Linh	Nam
+91132006	Huỳnh Văn	Linh	Nam
+11320969	Phan Tấn	Long	Nam
+11320970	Nguyễn Đình	Minh	Nam
+91132005	Trương Thị Thái	Minh	Nữ
+11320971	Vương Thành	Nguyên	Nam
+11320973	Trần Thùy	Nhiên	Nữ
+11320974	Du Chí	Nhuệ	Nam
+11320972	Nguyễn Thị Thanh	Nhã	Nữ
+11320975	Lê Minh	Nhựt	Nam
+11320976	Đinh Hoài	Phương	Nam
+11320977	Nguyễn Đức	Phương	Nam
+11320978	Tạ Việt	Phương	Nam
+91132003	Nguyễn Thị Minh	Thi	Nữ
+11320979	Nguyễn Hoàng	Thành	Nam
+11320981	Phạm Lê Hoàng	Thông	Nam
+10070940	Nguyễn Quyết	Thắng	Nam
+11320982	Nguyễn Thị Thu	Thủy	Nữ
+11320984	Hồ Xuân Cẩm	Trang	Nữ
+11320983	Phùng Thị Hoàng	Trân	Nữ
+91132007	Nguyễn Văn	Trường	Nam
+10070939	Nguyễn Trí	Tài	Nam
+11320955	Đỗ Minh	Đức	Nam

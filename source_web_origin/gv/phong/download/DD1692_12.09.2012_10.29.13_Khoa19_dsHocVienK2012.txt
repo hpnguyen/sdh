@@ -1,0 +1,167 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Đã TN
+12140001	Đào Ngọc	Ẩn	Nam 	20/08/1971	Ðồng Nai	Kỹ thuật điện tử	
+12140002	Nguyễn Anh	Biên	Nam 	27/12/1988	Lâm Ðồng	Kỹ thuật điện tử	
+12140003	Trần Minh	Chương	Nam 	10/03/1987	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140004	Lê Xuân	Công	Nam 	31/10/1989	Ðắk Lắk	Kỹ thuật điện tử	
+12140005	Nguyễn Thành	Công	Nam 	23/04/1989	Nghệ An	Kỹ thuật điện tử	
+12140006	Phạm Cao	Cường	Nam 	17/02/1989	Gia Lai	Kỹ thuật điện tử	
+12143162	Mạc Đức	Dũng	Nam 	11/04/1988	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140007	Phạm Lâm Hoàng	Dũng	Nam 	31/10/1988	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140008	Nguyễn Thái	Dương	Nam 	01/12/1982	Khánh Hòa	Kỹ thuật điện tử	
+12140009	Huỳnh Minh	Duy	Nam 	30/09/1989	Tiền Giang	Kỹ thuật điện tử	
+12140010	Ngô Quốc	Duy	Nam 	19/03/1989	Vĩnh Long	Kỹ thuật điện tử	
+12140011	Nguyễn Đoàn	Duy	Nam 	10/01/1981	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140012	Cao Nguyên	Đáng	Nam 	29/09/1985	Long An	Kỹ thuật điện tử	
+12143004	Mai Văn	Định	Nam 	09/06/1988	Quảng Ngãi	Kỹ thuật điện tử	
+12140013	Đoàn Văn	Đổng	Nam 	22/11/1987	Hà Tĩnh	Kỹ thuật điện tử	
+12143171	Nguyễn Hồng	Đức	Nam 	01/08/1989	Khánh Hòa	Kỹ thuật điện tử	
+12143163	Nguyễn Văn	Gấm	Nam 	04/02/1989	Ðồng Nai	Kỹ thuật điện tử	
+12140014	Nguyễn Trường	Giang	Nam 	26/05/1974	Hải Dương	Kỹ thuật điện tử	
+12140015	Vũ Trường	Giang	Nam 	21/10/1986	Bình Định	Kỹ thuật điện tử	
+12140016	Lê Long	Hải	Nam 	23/10/1988	Tp. Hà Nội	Kỹ thuật điện tử	
+12140017	Phan Xuân	Hạnh	Nam 	26/11/1972	Tp. Ðà Nẵng	Kỹ thuật điện tử	
+12143164	Nguyễn Khắc	Hiếu	Nam 	17/10/1989	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140018	Phạm Lê Nhân	Hoàng	Nam 	09/03/1986	Phú Yên	Kỹ thuật điện tử	
+12140019	Trần Văn	Hoàng	Nam 	25/08/1989	Thừa Thiên - Huế	Kỹ thuật điện tử	
+12140020	Lê Thanh	Hùng	Nam 	28/07/1983	Khánh Hòa	Kỹ thuật điện tử	
+12140021	Nguyễn Tiến	Hùng	Nam 	12/03/1988	Ðắk Lắk	Kỹ thuật điện tử	
+12140022	Trần Hữu	Hương	Nam 	10/05/1979	Hà Tĩnh	Kỹ thuật điện tử	
+12140023	Lê Đình	Huy	Nam 	25/12/1988	Bình Định	Kỹ thuật điện tử	
+12140024	Lê Quang	Huy	Nam 	08/07/1988	Quảng Ngãi	Kỹ thuật điện tử	
+12143165	Nguyễn Minh	Huy	Nam 	30/06/1989	Tp. Ðà Nẵng	Kỹ thuật điện tử	
+12140025	Dương Văn	Khanh	Nam 	29/09/1982	Tp. Hà Nội	Kỹ thuật điện tử	
+12140026	Nguyễn Tuấn	Khanh	Nam 	11/05/1988	Vĩnh Long	Kỹ thuật điện tử	
+12140027	Bùi Công Bảo	Kim	Nam 	20/10/1986	Tây Ninh	Kỹ thuật điện tử	
+12140028	Dương Ngọc	Lại	Nam 	17/02/1986	Bắc Ninh	Kỹ thuật điện tử	
+12140029	Nguyễn Minh	Linh	Nam 	18/04/1988	Tiền Giang	Kỹ thuật điện tử	
+12140030	Mai Tiểu	Long	Nam 	22/07/1989	Khánh Hòa	Kỹ thuật điện tử	
+12140031	Nguyễn Văn	Mai	Nam 	08/02/1979	Tây Ninh	Kỹ thuật điện tử	
+12143166	Ngô Văn	Mão	Nam 	04/08/1987	Thừa Thiên - Huế	Kỹ thuật điện tử	
+12140032	Bùi Nguyễn Hoài	Nam	Nam 	30/09/1983	Ðồng Tháp	Kỹ thuật điện tử	
+12140033	Đỗ Lê	Nam	Nam 	31/07/1986	Tp. Ðà Nẵng	Kỹ thuật điện tử	
+12140034	Dương Quí	Nhân	Nam 	04/05/1989	Ðắk Lắk	Kỹ thuật điện tử	
+12143054	Lê Thanh	Phong	Nam 	02/09/1989	Bà Rịa - Vũng Tàu	Kỹ thuật điện tử	
+12140035	Ngô Đình	Phong	Nam 	16/07/1987	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140036	Lê Phùng Vĩnh	Phúc	Nam 	16/03/1977	Bình Thuận	Kỹ thuật điện tử	
+12140037	Hoàng Văn Minh	Phương	Nam 	03/02/1982	Thừa Thiên - Huế	Kỹ thuật điện tử	
+12140038	Nguyễn Minh	Quân	Nam 	27/10/1988	An Giang	Kỹ thuật điện tử	
+12143167	Trần Quảng	Sơn	Nam 	02/05/1989	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140039	Nguyễn Ngọc	Tài	Nam 	20/08/1989	Bình Định	Kỹ thuật điện tử	
+12140040	Trần Xuân Bửu	Thạch	Nam 	22/01/1986	Bình Thuận	Kỹ thuật điện tử	
+12140041	Nguyễn Dương	Thái	Nam 	08/08/1987	Bình Định	Kỹ thuật điện tử	
+12143168	Nguyễn Mạnh	Thắng	Nam 	18/10/1988	Quảng Bình	Kỹ thuật điện tử	
+12140042	Nguyễn Trung	Thành	Nam 	07/10/1987	Bình Định	Kỹ thuật điện tử	
+12140043	Trần Quang	Thành	Nam 	17/11/1988	Long An	Kỹ thuật điện tử	
+12140044	Phan Viết	Thảo	Nam 	04/12/1983	Hà Tĩnh	Kỹ thuật điện tử	
+12140045	Nguyễn Hoàng	Thi	Nam 	12/12/1986	Ðồng Tháp	Kỹ thuật điện tử	
+12140046	Nguyễn Văn	Thường	Nam 	23/11/1987	Hải Dương	Kỹ thuật điện tử	
+12140047	Lê Thị Thu	Thủy	Nữ	24/10/1980	Hà Tĩnh	Kỹ thuật điện tử	
+12140048	Nguyễn Thành	Tín	Nam 	20/04/1986	Bạc Liêu	Kỹ thuật điện tử	
+12140049	Phạm Bá	Toàn	Nam 	05/01/1987	Ðồng Tháp	Kỹ thuật điện tử	
+12140050	Lê Quốc Bảo	Trí	Nam 	23/07/1989	Thừa Thiên - Huế	Kỹ thuật điện tử	
+12140051	Nguyễn Trọng	Trí	Nam 	12/03/1988	Nghệ An	Kỹ thuật điện tử	
+12140052	Lê Thành	Trung	Nam 	20/12/1986	Bến Tre	Kỹ thuật điện tử	
+12140053	Mai Anh	Trung	Nam 	24/07/1988	Cà Mau	Kỹ thuật điện tử	
+12140054	Nguyễn Thanh Nhật	Trường	Nam 	07/11/1987	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140055	Đỗ Nguyễn Minh	Tuấn	Nam 	30/01/1989	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140056	Nguyễn Anh	Tuấn	Nam 	26/07/1988	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12143169	Nguyễn Thanh	Tuấn	Nam 	26/11/1988	Khánh Hòa	Kỹ thuật điện tử	
+12140057	Đặng Thanh	Tùng	Nam 	11/06/1985	Long An	Kỹ thuật điện tử	
+12140107	Nguyễn Thanh	Tùng	Nam 	16/03/1986	Bến Tre	Kỹ thuật điện tử	
+12140058	Nguyễn Thanh	Tùng	Nam 	01/09/1987	Ðắk Lắk	Kỹ thuật điện tử	
+12140059	Vương Thanh	Tùng	Nam 	09/03/1988	Hậu Giang	Kỹ thuật điện tử	
+12140060	Nguyễn Phước Tường	Vân	Nữ	18/08/1989	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12143170	Vũ Hồng	Vinh	Nam 	18/12/1989	Gia Lai	Kỹ thuật điện tử	
+12140061	Dương Tấn	Vũ	Nam 	12/11/1988	Quảng Nam	Kỹ thuật điện tử	
+12140062	Trần Kim	Vũ	Nam 	20/04/1985	Khánh Hòa	Kỹ thuật điện tử	
+12140063	Phạm Minh	Vương	Nam 	20/02/1988	Bình Định	Kỹ thuật điện tử	
+12140064	Trịnh Thị Thanh	Vy	Nữ	07/04/1986	Tp. Hồ Chí Minh	Kỹ thuật điện tử	
+12140065	Lê Văn	Xem	Nam 	01/07/1985	Kiên Giang	Kỹ thuật điện tử	
+12810066	Lê	Duy	Nam 	06/07/1989	Hậu Giang	Kỹ thuật điện tử (CT)	
+12810067	Phan Hoàng	Lãm	Nam 	12/08/1975	Cà Mau	Kỹ thuật điện tử (CT)	
+12810068	Trần Hoàng	Minh	Nam 	01/05/1987	Tp. Cần Thơ	Kỹ thuật điện tử (CT)	
+12810069	Đặng Công	Nho	Nam 	08/04/1971	Tp. Cần Thơ	Kỹ thuật điện tử (CT)	
+12810070	Trần Minh	Trí	Nam 	08/11/1978	Ðồng Tháp	Kỹ thuật điện tử (CT)	
+12810071	Đái Tiến	Trung	Nam 	03/06/1980	Bạc Liêu	Kỹ thuật điện tử (CT)	
+12180098	Nguyễn Hữu Thiên	Ân	Nam 	23/05/1989	Khánh Hòa	Thiết bị, mạng và nhà máy điện	
+12180099	Vũ Công	Bách	Nam 	20/10/1989	Tp. Hồ Chí Minh	Thiết bị, mạng và nhà máy điện	
+12183001	Trần Tường	Băng	Nam 	12/02/1989	Ðồng Tháp	Thiết bị, mạng và nhà máy điện	
+12180100	Quách Hoài	Bão	Nam 	14/09/1987	Tp. Hồ Chí Minh	Thiết bị, mạng và nhà máy điện	
+12180101	Lê Thiện	Chí	Nam 	15/09/1988	Bình Phước	Thiết bị, mạng và nhà máy điện	
+12180102	Hồ Văn	Dũng	Nam 	24/11/1976	Bình Định	Thiết bị, mạng và nhà máy điện	
+12180103	Nguyễn Nam	Dương	Nam 	22/06/1987	Thừa Thiên - Huế	Thiết bị, mạng và nhà máy điện	
+12180104	Phan Tiến Đức	Duy	Nam 	10/12/1983	Tp. Hồ Chí Minh	Thiết bị, mạng và nhà máy điện	
+12180105	Hà Quang	Điện	Nam 	06/04/1980	Bắc Ninh	Thiết bị, mạng và nhà máy điện	
+12180106	Lê Thành	Hưng	Nam 	19/11/1989	Khánh Hòa	Thiết bị, mạng và nhà máy điện	
+12183186	Dương Chí	Huy	Nam 	11/12/1989	Lâm Ðồng	Thiết bị, mạng và nhà máy điện	
+12180107	Đỗ Thị Lệ	Khanh	Nữ	26/05/1985	Long An	Thiết bị, mạng và nhà máy điện	
+12180108	Nguyễn Thụy Mai	Khanh	Nữ	20/07/1987	An Giang	Thiết bị, mạng và nhà máy điện	
+12180109	Trần Đăng	Khoa	Nam 	17/11/1988	Kiên Giang	Thiết bị, mạng và nhà máy điện	
+12180110	Trương Hoàng	Khoa	Nam 	23/11/1989	Long An	Thiết bị, mạng và nhà máy điện	
+12180111	Lý Phúc	Lạc	Nam 	08/02/1983	Bình Định	Thiết bị, mạng và nhà máy điện	
+12180112	Trần Thanh	Lâm	Nam 	30/09/1983	Tp. Hồ Chí Minh	Thiết bị, mạng và nhà máy điện	
+12180113	Nguyễn Hoàng	Lân	Nam 	06/10/1988	Quảng Ngãi	Thiết bị, mạng và nhà máy điện	
+12180114	Lê Minh	Luân	Nam 	22/10/1980	Tp. Hồ Chí Minh	Thiết bị, mạng và nhà máy điện	
+12180115	Bùi Bảo	Mẫu	Nam 	24/08/1981	Tp. Hồ Chí Minh	Thiết bị, mạng và nhà máy điện	
+12180116	Lê Doãn	Mỹ	Nam 	06/09/1987	Ðồng Nai	Thiết bị, mạng và nhà máy điện	
+12180117	Trần Hoài	Nam	Nam 	01/11/1988	Hà Tĩnh	Thiết bị, mạng và nhà máy điện	
+12180118	Nguyễn Duy	Phương	Nam 	1986	Bình Phước	Thiết bị, mạng và nhà máy điện	
+12180119	Đặng Xuân	Quang	Nam 	18/03/1985	Bình Định	Thiết bị, mạng và nhà máy điện	
+12180120	Bùi Thị Cẩm	Quỳnh	Nữ	15/09/1986	Quảng Ngãi	Thiết bị, mạng và nhà máy điện	
+12180121	Phan Minh Kỳ	Sơn	Nam 	19/11/1979	Tây Ninh	Thiết bị, mạng và nhà máy điện	
+12180122	Nguyễn Minh	Thành	Nam 	22/06/1976	Tây Ninh	Thiết bị, mạng và nhà máy điện	
+12180123	Kiều Thị Xuân	Thảo	Nữ	16/05/1983	Tp. Hồ Chí Minh	Thiết bị, mạng và nhà máy điện	
+12183187	Hồ Ngọc	Thiện	Nam 	11/11/1988	Khánh Hòa	Thiết bị, mạng và nhà máy điện	
+12180124	Lương Công	Trình	Nam 	29/03/1985	Phú Yên	Thiết bị, mạng và nhà máy điện	
+12180125	Nguyễn Minh	Tuân	Nam 	09/07/1989	Ninh Thuận	Thiết bị, mạng và nhà máy điện	
+12180126	Nguyễn Mạnh	Tường	Nam 	13/07/1978	Tây Ninh	Thiết bị, mạng và nhà máy điện	
+12180127	Đặng Quang	Vinh	Nam 	19/11/1985	Tây Ninh	Thiết bị, mạng và nhà máy điện	
+12180128	Trần Xuân	Vinh	Nam 	28/03/1984	Tp. Hồ Chí Minh	Thiết bị, mạng và nhà máy điện	
+12180129	Nguyễn Thế	Vũ	Nam 	15/11/1989	Bình Thuận	Thiết bị, mạng và nhà máy điện	
+12820130	Nguyễn Thị Ngọc	Bích	Nữ	19/11/1974	Nam Ðịnh	Thiết bị, mạng và nhà máy điện (CT)	
+12820131	Mai Chí	Cường	Nam 	1987	An Giang	Thiết bị, mạng và nhà máy điện (CT)	
+12820132	Lê Cao	Đẳng	Nam 	21/01/1988	Cà Mau	Thiết bị, mạng và nhà máy điện (CT)	
+12820133	Huỳnh Thái	Hiệp	Nam 	06/03/1987	Kiên Giang	Thiết bị, mạng và nhà máy điện (CT)	
+12820134	Nguyễn Anh	Huy	Nam 	30/03/1983	Ðồng Tháp	Thiết bị, mạng và nhà máy điện (CT)	
+12820135	Dương Tấn	Liễu	Nam 	10/02/1975	Ðồng Tháp	Thiết bị, mạng và nhà máy điện (CT)	
+12820136	Trần Anh	Nguyện	Nam 	11/05/1980	Sóc Trăng	Thiết bị, mạng và nhà máy điện (CT)	
+12820137	Nguyễn Hữu	Nhân	Nam 	21/08/1973	Hậu Giang	Thiết bị, mạng và nhà máy điện (CT)	
+12820138	Huỳnh Tấn	Phát	Nam 	02/11/1989	Vĩnh Long	Thiết bị, mạng và nhà máy điện (CT)	
+12820139	Nguyễn Hồng	Tân	Nam 	19/10/1989	Vĩnh Long	Thiết bị, mạng và nhà máy điện (CT)	
+12820140	Bùi Quang	Triều	Nam 	09/09/1988	Trà Vinh	Thiết bị, mạng và nhà máy điện (CT)	
+12150072	Lê Tuấn	Anh	Nam 	19/06/1987	Tp. Ðà Nẵng	Tự động hóa	
+12153172	Nguyễn Minh	Chánh	Nam 	03/05/1987	Tp. Hồ Chí Minh	Tự động hóa	
+12150073	Nguyễn Hoàng	Duy	Nam 	01/10/1989	Quảng Ngãi	Tự động hóa	
+12150074	Trần Ngọc	Duy	Nam 	12/01/1988	Quảng Nam	Tự động hóa	
+12150075	Trần Văn	Duy	Nam 	06/05/1986	Tp. Hồ Chí Minh	Tự động hóa	
+12153179	Bùi Văn	Đại	Nam 	14/10/1989	Hà Tĩnh	Tự động hóa	
+12153180	Nguyễn	Đại	Nam 	06/07/1989	Tiền Giang	Tự động hóa	
+12150076	Trịnh Ngọc	Đức	Nam 	06/06/1986	Quảng Nam	Tự động hóa	
+12150077	Nguyễn Hồng	Giang	Nam 	08/10/1986	Ðồng Nai	Tự động hóa	
+12150078	Phạm Hoàng	Giang	Nam 	03/06/1986	Tây Ninh	Tự động hóa	
+12150079	Nguyễn Thị Hồng	Hà	Nữ	15/06/1977	Tp. Hồ Chí Minh	Tự động hóa	
+12150080	Nguyễn Phước	Hải	Nam 	11/06/1987	Tp. Hồ Chí Minh	Tự động hóa	
+12150081	Nguyễn Trung	Hậu	Nam 	28/09/1985	Tp. Hồ Chí Minh	Tự động hóa	
+12153173	Mai Khắc	Hiệp	Nam 	20/08/1989	Tây Ninh	Tự động hóa	
+12153009	Lê Nhật	Hiếu	Nam 	27/02/1989	Tiền Giang	Tự động hóa	
+12150082	Dương Ngọc	Hùng	Nam 	01/12/1970	Long An	Tự động hóa	
+12150083	Đặng Ngọc	Hưng	Nam 	15/06/1989	Bình Thuận	Tự động hóa	
+12153174	Nguyễn Minh	Huy	Nam 	20/09/1989	Ðồng Tháp	Tự động hóa	
+12150084	Trần Thái	Huy	Nam 	20/01/1987	Ðồng Tháp	Tự động hóa	
+12153175	Võ Hồng	Kiệt	Nam 	10/10/1988	Quảng Ngãi	Tự động hóa	
+12150085	Phạm Đức	Lân	Nam 	01/03/1966	Thái Bình	Tự động hóa	
+12153176	Lê Văn	Mùi	Nam 	02/03/1989	Quảng Ngãi	Tự động hóa	
+12150086	Nguyễn Văn	Nam	Nam 	15/02/1986	Hưng Yên	Tự động hóa	
+12150087	Trương Hoài	Nam	Nam 	20/11/1982	Ðồng Nai	Tự động hóa	
+12150088	Văn Đình	Nhật	Nam 	05/12/1988	Bình Định	Tự động hóa	
+12150089	Nguyễn Thành	Sơn	Nam 	02/03/1987	Ninh Thuận	Tự động hóa	
+12150090	Huỳnh Xuân	Tín	Nam 	08/09/1989	Quảng Ngãi	Tự động hóa	
+12150091	Nguyễn Văn	Tính	Nam 	14/03/1988	Ninh Thuận	Tự động hóa	
+12150092	Đỗ Minh	Triều	Nam 	15/08/1983	Bình Định	Tự động hóa	
+12150093	Nguyễn Hải	Triều	Nam 	25/06/1982	Tây Ninh	Tự động hóa	
+12153177	Dương Minh	Trọng	Nam 	18/05/1989	Ðồng Nai	Tự động hóa	
+12153178	Trần Đình	Tuấn	Nam 	22/10/1988	Quảng Bình	Tự động hóa	
+12830094	Trần Quang	Đạo	Nam 	25/12/1987	Hậu Giang	Tự động hóa (CT)	
+12830095	Trần Trọng	Hiếu	Nam 	05/01/1983	Tp. Cần Thơ	Tự động hóa (CT)	
+12830096	Nguyễn Thanh	Nhã	Nam 	03/12/1975	Tp. Cần Thơ	Tự động hóa (CT)	
+12830097	Ngô Hiếu	Thịnh	Nam 	24/09/1987	Ðồng Tháp	Tự động hóa (CT)	

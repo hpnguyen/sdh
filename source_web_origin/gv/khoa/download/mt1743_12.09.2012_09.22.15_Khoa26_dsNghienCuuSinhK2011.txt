@@ -1,0 +1,8 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Trạng thái
+51105019	NGUYỄN THIÊN	BÌNH	Nam 	07/11/1981	Ðắk Lắk	Khoa học máy tính	Đang học
+51105110	Tạ Duy Công	Chiến	Nam 	06/11/1965	Tp. Hồ Chí Minh	Khoa học máy tính	Đang học
+51105020	BÙI CÔNG	GIAO	Nam 	15/09/1968	Tiền Giang	Khoa học máy tính	Đang học
+51105111	Nguyễn Lê Duy	Lai	Nam 	21/05/1976	Long An	Khoa học máy tính	Đang học
+51105021	TRẦN	THỐNG	Nam 	11/07/1978	Lâm Ðồng	Khoa học máy tính	Đang học
+51105112	Huỳnh Trọng	Thưa	Nam 	15/05/1977	Bình Định	Khoa học máy tính	Đang học
+51105022	HUỲNH BẢO	TUYÊN	Nam 	21/11/1984	Lâm Ðồng	Khoa học máy tính	Đang học

@@ -1,0 +1,36 @@
+<script type="text/javascript">
+function writeConsole(content) {
+ a=window.open('','myconsole',
+  'width=650,height=650'
+   +',menubar=0'
+   +',toolbar=0'
+   +',status=0'
+   +',scrollbars=1'
+   +',resizable=1')
+ a.document.writeln(
+  '<html><head><title>Phieu Dang Ky On Tap</title></head>'
+   +'<body bgcolor=white onLoad="self.focus()">'
+   +content
+   +'</body></html>'
+ )
+ a.document.close()
+}
+
+</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Phong Dao Tao Sau Dai Hoc</title>
+
+</head>
+
+<style>
+	#tabs {}
+	#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+</style>
+
+<body style="font-family:Arial, Helvetica, sans-serif">
+	<a href="#" onClick="writeConsole('abc');">abc</a>
+</body>
+</html>

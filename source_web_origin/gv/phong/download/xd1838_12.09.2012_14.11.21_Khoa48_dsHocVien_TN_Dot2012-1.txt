@@ -1,0 +1,10 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành
+10230723	Lê Ngọc	Hảo	Nam 	10/10/1987	Quảng Ngãi	Cơ học kỹ thuật
+10230724	Nguyễn Hữu	Hào	Nam 	20/10/1980	Bắc Giang	Cơ học kỹ thuật
+09230671	Trần Kim	Bằng	Nam 	26/11/1986	Tp. Hồ Chí Minh	Cơ học kỹ thuật
+09240482	Nguyễn Hữu	Hiệp	Nam 	21/10/1984	Quảng Ngãi	Toán ứng dụng
+02406559	Phạm Thị Yến	Anh	Nữ	03/06/1980	An Giang	Toán ứng dụng
+02406730	Phạm Viết	Thành	Nam 	20/09/1979	Tp. Hồ Chí Minh	Toán ứng dụng
+10240515	Trần Thị	Thủy	Nữ	20/09/1985	Bình Định	Toán ứng dụng
+10120658	Trần Thiên	Hậu	Nữ	20/04/1985	An Giang	Vật lý kỹ thuật
+10120654	Trịnh Trần Hồng	Duyên	Nữ	06/08/1987	Tp. Hồ Chí Minh	Vật lý kỹ thuật

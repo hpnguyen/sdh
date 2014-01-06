@@ -1,0 +1,5 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Trạng thái
+50009010	LÊ VĂN QUỐC	ANH	Nam 	10/08/1980	Tp. Hồ Chí Minh	Khoa học máy tính	Nghỉ
+50009009	NGUYỄN VĂN	ĐOÀN	Nam 	25/05/1979	Hà Tây	Khoa học máy tính	Nghỉ
+50009008	TRẦN TRUNG 	HIỂN	Nam 	28/05/1974	Nam Ðịnh	Khoa học máy tính	Đang học
+50009007	NGUYỄN THÀNH 	SƠN 	Nam 	08/07/1963	Tp. Hồ Chí Minh	Khoa học máy tính	Đang học

@@ -1,0 +1,41 @@
+index:
+  Index:
+    Index:
+      index:
+        param1: 0
+        param2: 1
+      decuong:
+      dsdecuong: 
+      indecuong:
+phanbocanbo:
+  Phongban:
+    Index:
+      save:
+        param1: 0
+        param2: 0
+tkb:
+  Thoikhoabieu:
+    Phanbo:
+      index:
+        dothoc: 0
+        makhoa: 0
+      indexbomon:
+        dothoc: 0
+        makhoa: 0
+      save:
+        dothoc: 0
+        lop: 0
+        mamh: 0
+        loai: 0
+      savebomon:
+        dothoc: 0
+        lop: 0
+        mamh: 0
+        loai: 0
+      preview:
+      previewbommon:
+      list:
+      listbomon:
+      test:
+        param1: 0
+      test2:

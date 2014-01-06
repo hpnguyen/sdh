@@ -1,0 +1,5 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Đã TN	Tổng chỉ tích lũy	Điểm CĐ 1	Điểm CĐ 2	Điểm CĐ 3	Điểm CĐ Tổng quan	KQ Bảo vệ HĐ Khoa (CS)	KQ Bảo vệ HĐ Trường (NN)
+51203801	NGUYỄN ĐĂNG	KHOA	Nam 	12/07/1969	Thái Nguyên	Công nghệ tạo hình vật liệu		0						
+51204006	MAI ĐĂNG	TUẤN	Nam 	14/07/1972	Trà Vinh	Công nghệ tạo hình vật liệu		0						
+51206024	VÕ KIẾN	QUỐC	Nam 	05/09/1980	Long An	Công nghệ và thiết bị nhiệt		0						
+51220037	LÂM HỮU	DANH	Nam 	30/11/1979	Tp. Hồ Chí Minh	Kỹ thuật cơ khí 		0						

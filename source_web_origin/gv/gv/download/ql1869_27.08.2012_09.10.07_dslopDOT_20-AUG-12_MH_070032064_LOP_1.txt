@@ -1,0 +1,23 @@
+Mã HV	Họ	Tên	Phái
+11170742	Nguyễn Thị Hồng	Châu	Nữ
+11170753	Nguyễn Quỳnh	Duy	Nữ
+11170750	Ngô Việt	Dũng	Nam
+11170760	Ngô Xuân	Giáp	Nam
+11170763	Nguyễn Duy	Hải	Nam
+11170783	Vũ Ngọc Đăng	Khoa	Nam
+11170788	Bùi Thị Thùy	Loan	Nữ
+11170797	Đào Thanh	Minh	Nam
+11170804	Ngô Vũ Thùy	Ngân	Nữ
+11170812	Hồ Thái Uyên	Ninh	Nữ
+11170815	Nguyễn Thị Kim	Oanh	Nữ
+11170819	Lạc Thái	Phước	Nam
+11170849	Nguyễn Thị	Thu	Nữ
+11170851	Trần Thị Hiếu	Thuận	Nữ
+11170835	Nguyễn Văn	Thắng	Nam
+11170853	Nguyễn Thái Minh	Tiên	Nữ
+11170855	Đỗ Vĩnh	Toàn	Nam
+11170869	Lý Minh	Trung	Nam
+10170843	Nguyễn Tấn	Trí	Nam
+11170878	Trần Thanh	Tuấn	Nam
+11170875	Bùi Anh	Tuấn	Nam
+11170832	Lê Văn	Tâm	Nam

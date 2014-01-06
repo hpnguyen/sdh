@@ -1,0 +1,4 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Trạng thái
+51207007	Trương Quỳnh	Chi	Nữ	21/02/1985	Tp. Hồ Chí Minh	Khoa học máy tính	Đang học
+51207013	Võ Hoàng	Hải	Nam 	27/04/1979	Quảng Trị	Khoa học máy tính	Đang học
+51207023	Bùi Văn	Hiếu	Nam 	19/07/1982	Bình Phước	Khoa học máy tính	Đang học

@@ -1,0 +1,10 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Loại CTĐT
+09130408	Hồ Trọng	Du	Nam 	03/01/1983	Bình Định	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs
+01308292	Lý Văn	Trung	Nam 	1980	Ðồng Tháp	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs
+01308282	Nguyễn Trung	Kiên	Nam 	28/07/1985	Tp. Hồ Chí Minh	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs
+01307261	Nguyễn Tấn	Phúc	Nam 	12/04/1982	Bình Dương	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs
+01308281	Phan Tấn	Hải	Nam 	23/08/1984	Bình Thuận	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs
+09130409	Phạm Quang	Khải	Nam 	13/11/1982	Tp. Hồ Chí Minh	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs
+09130411	Trương Minh	Lăng	Nam 	15/10/1984	Bình Định	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs
+01308285	Trần Anh	Sơn	Nam 	19/10/1983	Bình Định	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs
+01307255	Đinh Hải	Lâm	Nam 	06/07/1984	Bình Thuận	Kỹ thuật Ôtô, máy kéo	GDMH-LVThs

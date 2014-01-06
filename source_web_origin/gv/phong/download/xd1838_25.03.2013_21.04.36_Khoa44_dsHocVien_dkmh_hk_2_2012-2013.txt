@@ -1,0 +1,45 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Loại CTĐT
+10030680	Cao Võ Hoàng	Thanh	Nam 	05/09/1987	Tp. Hồ Chí Minh	Công nghệ vật liệu	GDMH-LVThs
+09030634	Nguyễn Thành	Luân	Nam 	08/07/1985	Ðồng Nai	Công nghệ vật liệu	GDMH-LVThs
+11030688	Nguyễn Thế	Hiếu	Nam 	22/09/1983	Tp. Ðà Nẵng	Công nghệ vật liệu	GDMH-LVThs
+11030691	Ngô Thanh	Huy	Nam 	18/05/1981	Quảng Ngãi	Công nghệ vật liệu	GDMH-LVThs
+11030702	Phan Minh	Trí	Nam 	25/01/1988	Tp. Hồ Chí Minh	Công nghệ vật liệu	GDMH-LVThs
+11030687	Phan Đình	Duy	Nam 	12/03/1985	Quảng Ngãi	Công nghệ vật liệu	GDMH-LVThs
+11030703	Phạm	Vũ	Nam 	25/05/1987	Tp. Hồ Chí Minh	Công nghệ vật liệu	GDMH-LVThs
+11030696	Phạm Minh	Thành	Nam 	19/09/1988	Hòa Bình	Công nghệ vật liệu	GDMH-LVThs
+11030685	Trần Bội	An	Nữ	17/03/1987	Tp. Hồ Chí Minh	Công nghệ vật liệu	GDMH-LVThs
+11030692	Trần Hoài	Khang	Nam 	09/10/1984	Tây Ninh	Công nghệ vật liệu	GDMH-LVThs
+11030694	Võ Nhân	Phúc	Nam 	14/02/1983	Thừa Thiên - Huế	Công nghệ vật liệu	GDMH-LVThs
+09030633	Võ Đình	Huy	Nam 	21/10/1978	Phú Yên	Công nghệ vật liệu	GDMH-LVThs
+10030674	Đặng Hoài	Đức	Nam 	22/11/1981	Thừa Thiên - Huế	Công nghệ vật liệu	GDMH-LVThs
+12294954	Hoàng Minh	Sơn	Nam 	30/09/1988	Bình Định	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12054952	Lê	Lâm	Nam 	10/05/1986	Trà Vinh	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12054950	Lê Trần	Hòa	Nam 	21/11/1985	Tiền Giang	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12404961	Lê Văn	Ty	Nam 	10/01/1982	Thừa Thiên - Huế	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12294955	Lý Ban	Sơn	Nam 	17/02/1985	Long An	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12452035	Lương Văn	Hạnh	Nam 	21/09/1988	Tiền Giang	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12404959	Nguyễn	Tuấn	Nam 	15/03/1989	Tp. Hồ Chí Minh	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12404957	Nguyễn Anh	Thư	Nữ	02/11/1986	Lâm Ðồng	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12451144	Nguyễn Trần Hữu	Đức	Nam 	01/01/1989	Quảng Nam	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12054953	Nguyễn Văn	Long	Nam 	18/12/1989	Hải Dương	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12452034	Phạm Thị	Hằng	Nữ	03/04/1987	Nghệ An	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12450814	Quang Thị Ngọc	Anh	Nữ	15/08/1988	Khánh Hòa	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12054949	Trần Ngọc	Hiếu	Nam 	22/12/1988	Tp. Hồ Chí Minh	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12054948	Trần Quốc	Cường	Nam 	07/12/1987	Quảng Ngãi	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12451145	Trần Việt	Hưng	Nam 	22/10/1989	Thừa Thiên - Huế	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12404958	Vũ Huệ	Tông	Nữ	30/09/1986	Phú Yên	Công nghệ vật liệu cao phân tử và tổ hợp	GDMH-LVThs
+12440808	Dương Lê	Hùng	Nam 	10/08/1987	Trà Vinh	Công nghệ vật liệu kim loại	GDMH-LVThs
+12442021	Lê Khắc	Huy	Nam 	21/09/1984	Lâm Ðồng	Công nghệ vật liệu kim loại	GDMH-LVThs
+12440810	Lê Ngọc	Long	Nam 	06/03/1986	Ðồng Nai	Công nghệ vật liệu kim loại	GDMH-LVThs
+12440812	Nguyễn Hải	Thái	Nam 	06/02/1988	Tây Ninh	Công nghệ vật liệu kim loại	GDMH-LVThs
+12054946	Nguyễn Văn	Thức	Nam 	15/10/1986	Tp. Hải Phòng	Công nghệ vật liệu kim loại	GDMH-LVThs
+12442019	Nguyễn Đức	Duy	Nam 	03/05/1986	Tiền Giang	Công nghệ vật liệu kim loại	Nghiên cứu
+12440809	Phan Ngọc	Lâm	Nam 	13/02/1987	Ðồng Nai	Công nghệ vật liệu kim loại	GDMH-LVThs
+12440813	Phạm Thị Minh	Trang	Nữ	22/08/1987	Phú Yên	Công nghệ vật liệu kim loại	GDMH-LVThs
+12054944	Trần Thanh	Tâm	Nam 	08/10/1989	Bến Tre	Công nghệ vật liệu kim loại	Nghiên cứu
+12054943	Đỗ Trọng	Nghĩa	Nam 	11/01/1989	Bình Dương	Công nghệ vật liệu kim loại	GDMH-LVThs
+12054939	Lại Quốc	Huy	Nam 	27/06/1987	Tp. Hồ Chí Minh	Công nghệ vật liệu vô cơ	Nghiên cứu
+12433208	Nguyễn Phước	Vinh	Nam 	29/09/1989	Tp. Hồ Chí Minh	Công nghệ vật liệu vô cơ	Nghiên cứu
+12432014	Phạm Lê	Duy	Nam 	11/10/1980	Tp. Hồ Chí Minh	Công nghệ vật liệu vô cơ	GDMH-LVThs
+12054941	Phạm Như	Thạch	Nam 	09/02/1989	Long An	Công nghệ vật liệu vô cơ	GDMH-LVThs
+12054938	Đỗ Minh	Hiền	Nam 	01/11/1989	Phú Yên	Công nghệ vật liệu vô cơ	Nghiên cứu

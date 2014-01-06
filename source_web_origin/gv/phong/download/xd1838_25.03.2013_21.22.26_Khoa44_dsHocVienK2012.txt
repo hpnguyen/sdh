@@ -1,0 +1,17 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Đã TN	Tổng chỉ tích lũy MH	Trung bình tích lũy MH	TB Toàn khóa	Tổng chỉ toàn khóa	Đợt cấp bằng	Thuộc CTĐT	SELECT T.MA_HOC_VIEN, T.HO, T.TEN , 
+				DECODE(T.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(T.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
+				DECODE(T.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH, K.TEN_KHOA,
+				DECODE(dot_cap_bang(T.MA_HOC_VIEN), NULL, '', 'X') TN, 
+				tong_tin_chi_tich_luy(t.ma_hoc_vien) tong_tich_luy,
+				round(tinh_dtb_sdhbk(t.ma_hoc_vien),2) tb_tich_luy_mh,
+				round(tinh_dtb_toan_khoa(t.ma_hoc_vien),2) diem_tb_toan_khoa,
+				tong_toan_khoa(t.ma_hoc_vien) tong_chi_toab_khoa,
+				dot_cap_bang(t.ma_hoc_vien) dot_cap_bang,
+				ctdt_hv_nam(t.ma_hoc_vien)) ctdt_hv
+				FROM HOC_VIEN T, NGANH N, dm_tinh_tp p, BO_MON M, KHOA K 
+				WHERE T.KHOA = 2012 
+				AND K.MA_KHOA = 44
+				AND T.MA_NGANH = N.MA_NGANH and T.MA_BAC = 'TH' AND T.FK_HINH_THUC_DAO_TAO = 'CQ' 
+				AND N.MA_BO_MON = M.MA_BO_MON AND M.MA_KHOA = K.MA_KHOA 
+				AND t.noi_sinh = p.ma_tinh_tp (+) 
+				ORDER BY K.TEN_KHOA DESC, N.TEN_NGANH ASC, T.ten_eng, t.ho_eng

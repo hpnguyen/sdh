@@ -1,0 +1,26 @@
+Mã HV	Họ	Tên	Phái	Khóa
+12070496	Nguyễn Duy Xuân	Bách	Nam	2012
+91107001	Nguyễn Duy Xuân	Bách	Nam	2011
+12073117	Trần Thanh	Bình	Nam	2012
+10070472	Nguyễn Tấn	Bảo	Nam	2010
+12070501	Phan Đình Thế	Duy	Nam	2012
+11078001	Nguyễn Ngọc	Duy	Nam	2011
+09070435	Lê Cảnh	Hiệp	Nam	2009
+12070506	Hà Minh Trần	Hạnh	Nam	2012
+11076034	Nguyễn Minh	Khoa	Nam	2011
+12070519	Lê Hoàng	Long	Nam	2012
+12070517	Phan Hữu	Lộc	Nam	2012
+12070527	Trần Kiên	Nghị	Nam	2012
+12073125	Hồ Hoàng	Nguyên	Nam	2012
+12073127	Phạm Viết	Nguyên	Nam	2012
+12073126	Lê Hữu Khôi	Nguyên	Nam	2012
+10070494	Lâm Nhựt	Quang	Nam	2010
+12070540	Nguyễn Chí Anh	Quân	Nam	2012
+11070476	Phạm Anh	Thiên	Nam	2011
+11070477	Vũ Trọng	Thiên	Nam	2011
+12073137	Nguyễn Thiện	Tín	Nam	2012
+11071002	Trần Quang	Vinh	Nam	2011
+12070559	Châu Trí	Vũ	Nam	2012
+11070440	Nguyễn Văn Quang	Ánh	Nam	2011
+12070504	Mai Nhất	Đình	Nam	2012
+12070505	Đồng Thanh	Đức	Nam	2012

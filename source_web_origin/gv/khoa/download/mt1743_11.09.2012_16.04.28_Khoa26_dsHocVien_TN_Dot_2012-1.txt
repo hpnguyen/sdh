@@ -1,0 +1,31 @@
+Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Loại CTĐT
+09320841	Bùi Xuân	Huy	Nam 	17/08/1981	Tp. Hải Phòng	Hệ thống thông tin quản lý	GDMH-LVThs
+09070429	Huỳnh Thị Khánh	Duyên	Nữ	04/02/1983	Bình Thuận	Khoa học máy tính	GDMH-LVThs
+09070473	Hà Lê Hoài	Trung	Nam 	26/12/1985	Thừa Thiên - Huế	Khoa học máy tính	GDMH-LVThs
+10320914	Hồ Thị	Linh	Nữ	30/05/1986	Ðắk Lắk	Hệ thống thông tin quản lý	GDMH-LVThs
+09320846	Lê Công	Minh	Nam 	16/09/1979	Tp. Hồ Chí Minh	Hệ thống thông tin quản lý	GDMH-LVThs
+09320856	Lê Nguyên	Vinh	Nam 	26/11/1983	Tp. Hồ Chí Minh	Hệ thống thông tin quản lý	GDMH-LVThs
+09070423	Lê Thị Minh	Châu	Nữ	06/04/1983	Tp. Hồ Chí Minh	Khoa học máy tính	GDMH-LVThs
+09070965	Lê Văn Minh	Tuấn	Nam 	08/08/1986	Bình Dương	Khoa học máy tính	Nghiên cứu
+09320851	Nguyễn Duy	Thanh	Nam 	23/12/1975	Tp. Hồ Chí Minh	Hệ thống thông tin quản lý	GDMH-LVThs
+09070464	Nguyễn Duy	Thiện	Nam 	07/09/1984	Khánh Hòa	Khoa học máy tính	GDMH-LVThs
+09320836	Nguyễn Khải Hoàng	Ân	Nam 	18/02/1985	Tp. Hồ Chí Minh	Hệ thống thông tin quản lý	GDMH-LVThs
+09320844	Nguyễn Phú	Liên	Nam 	20/05/1971	Quảng Nam	Hệ thống thông tin quản lý	GDMH-LVThs
+00708189	Nguyễn Phương	Duy	Nam 	14/07/1985	Tp. Hồ Chí Minh	Khoa học máy tính	Nghiên cứu
+09070447	Nguyễn Phạm Anh	Khoa	Nam 	25/11/1983	Ðồng Nai	Khoa học máy tính	GDMH-LVThs
+09070960	Nguyễn Quang	Huy	Nam 	10/10/1986	Lâm Ðồng	Khoa học máy tính	Nghiên cứu
+00708199	Nguyễn Thị Tuyết	Mai	Nữ	21/05/1982	Tp. Hồ Chí Minh	Khoa học máy tính	GDMH-LVThs
+09070440	Nguyễn Trường Mạnh	Hùng	Nam 	01/05/1980	Tp. Hồ Chí Minh	Khoa học máy tính	GDMH-LVThs
+00708216	Nguyễn Tuấn	Việt	Nam 	06/12/1984	Quảng Ngãi	Khoa học máy tính	GDMH-LVThs
+10320987	Nguyễn Xuân	Thanh	Nam 	16/12/1979	Ðồng Nai	Hệ thống thông tin quản lý	GDMH-LVThs
+09320849	Phạm Thị Thanh	Tâm	Nữ	14/06/1982	Tp. Hồ Chí Minh	Hệ thống thông tin quản lý	GDMH-LVThs
+09070463	Trần Công	Thanh	Nam 	12/02/1985	Tiền Giang	Khoa học máy tính	GDMH-LVThs
+09070432	Trần Công	Đời	Nam 	10/07/1981	Ðồng Nai	Khoa học máy tính	GDMH-LVThs
+09070923	Trần Huy	Vũ	Nam 	09/12/1986	Ðồng Nai	Khoa học máy tính	Nghiên cứu
+00708738	Trần Mạnh	Hùng	Nam 	16/06/1982	Ðắk Lắk	Khoa học máy tính	GDMH-LVThs
+09070454	Trần Thị Như	Nguyệt	Nữ	31/08/1985	Trà Vinh	Khoa học máy tính	Nghiên cứu
+09320837	Trần Tú	Anh	Nữ	20/11/1985	Vĩnh Long	Hệ thống thông tin quản lý	GDMH-LVThs
+09070441	Võ Bảo	Hùng	Nam 	28/07/1983	Thừa Thiên - Huế	Khoa học máy tính	GDMH-LVThs
+09320855	Võ Minh	Tùng	Nam 	06/07/1980	Long An	Hệ thống thông tin quản lý	GDMH-LVThs
+09070478	Võ Thị Khánh	Vân	Nữ	05/10/1983	Bình Thuận	Khoa học máy tính	GDMH-LVThs
+09070465	Vương Bá	Thịnh	Nam 	26/02/1986	Sóc Trăng	Khoa học máy tính	Nghiên cứu

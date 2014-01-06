@@ -1,0 +1,88 @@
+Mã HV	Họ	Tên	Phái
+12173181	Huỳnh Minh	Châu	Nam
+11170744	Bùi Tá Việt	Chính	Nam
+10170745	Nguyễn Hoàng	Chương	Nam
+11140004	Bùi Thế	Cường	Nam
+11170749	Huỳnh Tuấn	Dũng	Nam
+11170769	Nguyễn Trung	Hiếu	Nam
+12173182	Lê Lữ	Hòa	Nam
+11170775	Phạm Thị Ngọc	Hương	Nữ
+11326020	Vũ Thúy	Hằng	Nữ
+12172205	Nguyễn Lê	Khôi	Nam
+11170798	Hồ Đại	Minh	Nam
+12170922	Nguyễn Đức	Minh	Nam
+12170923	Nguyễn Thị Triều	My	Nữ
+12170930	Nguyễn Xuân	Nguyên	Nam
+11170808	Đinh Nguyễn Khôi	Nguyên	Nam
+12173055	Nguyễn Thị Bích	Ngọc	Nữ
+12170931	Nguyễn Mậu Yến	Nhi	Nữ
+12170933	Đặng Kim	Oanh	Nữ
+12170934	Nguyễn Thị Hoàng	Oanh	Nữ
+12170935	Phan Hoài	Phong	Nam
+12170936	Hoàng Quốc	Phú	Nam
+12170938	Trần Thị Nam	Phương	Nữ
+12170941	Nguyễn Duy	Quang	Nam
+12170940	Lê Nhật	Quang	Nam
+12170942	Lê Nguyễn Tố	Quyên	Nữ
+11170823	Lý Anh	Quân	Nam
+12170939	Nguyễn Trung	Quân	Nam
+11170826	Huỳnh Tấn	Quí	Nam
+12170955	Nguyễn Trí	Thanh	Nam
+12170957	Võ Văn	Thanh	Nam
+12170963	Võ Bạch Ngọc Hoàng	Thi	Nữ
+12170965	Trần Thanh Thái	Thiện	Nam
+12170964	Mang Quốc	Thiện	Nam
+12170968	Võ Kế	Thoại	Nam
+12170971	Nguyễn Anh	Thuy	Nữ
+12170973	Nguyễn Đỗ	Thuyên	Nam
+12170956	Trần Trung	Thành	Nam
+12170954	Lê Duy	Thành	Nam
+12170951	Chiêm Thành	Thái	Nam
+12170952	Lê	Thái	Nam
+12170966	Cao Văn	Thìn	Nam
+11170847	Võ Lục Nguyên	Thông	Nam
+12170972	Nguyễn Thị Thu	Thúy	Nữ
+12170967	Tạ Viết	Thơ	Nam
+12170970	Phạm Văn	Thượng	Nam
+12170958	Nguyễn Dương Thanh	Thảo	Nữ
+12170962	Trương Phương	Thảo	Nữ
+12170960	Nguyễn Thị Thu	Thảo	Nữ
+11170852	Đoàn Khắc	Thụy	Nam
+12170974	Chu Mạnh	Tiến	Nam
+12170975	Trần Văn	Tiếng	Nam
+12173183	Nguyễn Chí	Toàn	Nam
+12801045	Nguyễn Thị Minh	Trang	Nữ
+12170982	Nguyễn Chí	Trung	Nam
+12170976	Lê Thị Thanh	Trâm	Nữ
+12170977	Võ Ngọc Quỳnh	Trân	Nữ
+12170978	Lê Quang	Trí	Nam
+12170979	Phan Hữu	Trí	Nam
+12170980	Nguyễn Thanh	Trúc	Nữ
+12170981	Trần Ngọc Phương	Trúc	Nữ
+12170984	Lê Xuân	Trường	Nam
+12170983	Dương Quang	Trường	Nam
+11170866	Nguyễn Văn	Trọng	Nam
+12170987	Hà Công Anh	Tuấn	Nam
+12170988	Trần Khả	Tuấn	Nam
+12173184	Nguyễn Thanh	Tuấn	Nam
+12170946	Nguyễn Thị Thanh	Tâm	Nữ
+12170947	Phan Minh	Tâm	Nam
+12170945	Lê Trần Thanh	Tâm	Nữ
+12170949	Nguyễn Nhật	Tân	Nam
+12170989	Nguyễn Thanh	Tùng	Nam
+12170986	Nguyễn Thanh	Tú	Nam
+12170985	Nguyễn Hoàng Nam	Tú	Nam
+12173185	Lê Ngọc	Tú	Nam
+12170948	Bùi Trung	Tấn	Nam
+12170950	Phạm Hùng	Tấn	Nam
+12170990	Nguyễn Thị Thanh	Uyên	Nữ
+12170994	Nguyễn Bá Khánh	Vinh	Nam
+12170995	Nguyễn Trần Phước	Vinh	Nam
+12170993	Từ Quốc	Việt	Nam
+12170991	Chế Đoàn Quốc	Văn	Nam
+12170997	Phạm Đình	Vũ	Nam
+12170996	Lê Hoài	Vũ	Nam
+12170998	Lê Thị Hương	Xuân	Nữ
+12171000	Lê Hoàng Hải	Yến	Nữ
+12170999	Huỳnh Như	Yến	Nữ
+11170756	Võ Minh	Đạt	Nam

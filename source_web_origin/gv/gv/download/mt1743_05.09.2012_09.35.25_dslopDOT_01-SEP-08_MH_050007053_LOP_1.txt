@@ -1,0 +1,73 @@
+Mã HV	Họ	Tên	Phái
+00708185	Trương Tuấn	Anh	Nam
+10708004	Phạm Thế	Anh	Nam
+00708751	Trương Tuấn 	Anh	Nam
+00707161	Mai Hoàng	Anh	Nam
+10708013	Nguyễn Hùng	Anh	Nam
+10708025	Đỗ Thế	Anh	Nam
+10707002	Nguyễn Quốc	Bảo	Nam
+00708186	Nguyễn Trọng	Bảo	Nam
+00708187	Huỳnh Trần Quốc	Bửu	Nam
+00708695	Trương Quỳnh	Chi	Nữ
+10708011	Lê Thị Minh	Châu	Nữ
+00708188	Lê Việt	Cường	Nam
+00708189	Nguyễn Phương	Duy	Nam
+10708022	Huỳnh Tấn	Dũng	Nam
+00707170	Trịnh Quốc	Huy	Nam
+00707169	Lê Anh	Huy	Nam
+00708696	Cù Nguyễn Phương	Hà	Nữ
+00708193	Nguyễn Viết	Hân	Nam
+00707167	Nguyễn Văn	Hùng	Nam
+00708738	Trần Mạnh	Hùng	Nam
+10708010	Đinh Văn	Hùng	Nam
+00708192	Tôn Thất Đại	Hải	Nam
+00708191	Nguyễn Thanh	Hải	Nam
+00708197	Thiều Xuân	Khánh	Nam
+00708196	Trần Quang	Khải	Nam
+00708198	Võ Tuệ	Linh	Nữ
+10708023	Nguyễn Trần Vũ	Linh	Nam
+10708012	Nguyễn Quốc	Long	Nam
+00708199	Nguyễn Thị Tuyết	Mai	Nữ
+00708200	Hoàng Lê	Minh	Nam
+00708201	Nguyễn Quang	Minh	Nam
+00708739	Hồ	Nam	Nam
+00707173	Lê Công	Nguyên	Nam
+00707174	Lê Thành	Nguyên	Nam
+00708202	Ngô Thanh	Nguyên	Nam
+00708697	Trần Thị Quế	Nguyệt	Nữ
+00708698	Lê Trọng	Nhân	Nam
+10708007	Lương Ngọc	Nhơn	Nam
+00708203	Nguyễn Minh	Nhật	Nam
+00708204	Trầm Thế	Phiên	Nam
+00708205	Lê	Phú	Nam
+00708206	Huỳnh Văn Quốc	Phương	Nam
+00708752	Võ Tấn	Phương	Nam
+10708017	Trần Nhật	Phương	Nam
+10708016	Phạm Thanh	Phương	Nam
+10708020	Nguyễn Mai	Quang	Nam
+00708207	Võ Đình	Quang	Nam
+00708699	Hoàng Minh	Sơn	Nam
+00707693	NGUYỄN	TRƯỜNG	Nam
+00707183	Nguyễn Thị Thiên	Thanh	Nữ
+00708209	Phan Quang	Thiện	Nam
+10708003	Trần Thanh	Thuận	Nam
+00708208	Hoàng Song Cẩm	Thạch	Nam
+10708009	Nguyễn Thị Thu	Thảo	Nữ
+10708018	Lê Thị	Thủy	Nữ
+00708210	Phạm Hùng	Tiến	Nam
+00708211	Phạm Thanh	Toàn	Nam
+00707190	Nguyễn Khắc	Toản	Nam
+00708212	Lê Công	Trí	Nam
+00708213	Nguyễn Văn	Trí	Nam
+00707193	Nguyễn Huy	Trường	Nam
+00707181	Nguyễn Anh	Tài	Nam
+00707182	Trần Vĩnh	Tân	Nam
+00708740	Trần Đức	Tùng	Nam
+00708214	Ngô Thanh	Tú	Nam
+00708217	Thái Đắc	Vinh	Nam
+00708216	Nguyễn Tuấn	Việt	Nam
+10708026	Nguyễn Đức	Việt	Nam
+00708218	Lâm Hoàng	Vũ	Nam
+00707197	Nguyễn Thanh	Vũ	Nam
+00707165	Lê Quí	Đông	Nam
+00708190	Đặng Hoài	Đức	Nam

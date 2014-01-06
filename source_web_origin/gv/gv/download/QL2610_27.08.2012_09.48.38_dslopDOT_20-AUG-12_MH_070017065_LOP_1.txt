@@ -1,0 +1,35 @@
+Mã HV	Họ	Tên	Phái
+11170750	Ngô Việt	Dũng	Nam
+11170759	Nguyễn Kim	Giao	Nam
+11170770	Trần Minh	Hiếu	Nam
+11170767	Nguyễn Thị Thu	Hiền	Nữ
+11170778	Sử Khắc	Huy	Nam
+11170772	Trần Hữu	Hùng	Nam
+11170775	Phạm Thị Ngọc	Hương	Nữ
+11170764	Bùi Ngọc Thu	Hằng	Nữ
+11170782	Nguyễn Đăng	Khoa	Nam
+11170786	Trần Văn	Liêm	Nam
+11170792	Nguyễn Minh	Luân	Nam
+11170799	Lý Khiết	My	Nữ
+11170804	Ngô Vũ Thùy	Ngân	Nữ
+11170813	Trần Trà	Nương	Nữ
+11170814	Đinh Thị Kiều	Oanh	Nữ
+11170815	Nguyễn Thị Kim	Oanh	Nữ
+11170822	Vòng Ngọc	Phương	Nữ
+11170819	Lạc Thái	Phước	Nam
+11170825	Trần Duy	Quang	Nam
+11170834	Trần Duy	Tha	Nam
+11170844	Hồ Văn	Thiền	Nam
+10170971	Trương Văn	Thành	Nam
+10170821	Bạch Duy	Thành	Nam
+11170836	Nguyễn Văn Đức	Thắng	Nam
+10170843	Nguyễn Tấn	Trí	Nam
+11170871	Lữ Văn	Trường	Nam
+11170882	Trần Quang Ánh	Tuyết	Nữ
+11170878	Trần Thanh	Tuấn	Nam
+11170832	Lê Văn	Tâm	Nam
+10170820	Phan Hồ Tất	Tâm	Nam
+11170886	Nhan Dư Điền	Văn	Nam
+10170976	Nguyễn Thị Oanh	Vũ	Nữ
+11170896	Đỗ Hoàng	Yến	Nữ
+11170897	Nguyễn Châu Hoàng	Yến	Nữ
