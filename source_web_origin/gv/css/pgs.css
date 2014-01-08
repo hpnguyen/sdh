@@ -321,6 +321,9 @@ border-top: 1px solid #ececec;
 #sortableHOCVU { list-style-type: none; margin: 0; padding: 0; }
 #sortableHOCVU li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; font-size: 1em; text-align: center; }
 
+#sortableKHCN { list-style-type: none; margin: 0; padding: 0; }
+#sortableKHCN li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; font-size: 1em; text-align: center; }
+
 h1{
 	margin: 0;
 	padding: 5px;

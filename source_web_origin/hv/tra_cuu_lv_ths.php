@@ -120,16 +120,14 @@
 	 oTableData = $('#ds_lv_ths').dataTable( {
 		"bJQueryUI": true,
 		"bAutoWidth": false, 
-		"iDisplayLength": 7,
-		"bLengthChange": false,
+		"iDisplayLength": 10,
 		"sPaginationType": "full_numbers",
 		"oLanguage": {
 			"sUrl": "../datatable/media/language/vi_VI.txt"
 		},
 		"bProcessing": true,
 		"sAjaxSource": urldata,
-		"aoColumns" : [{},{},{},{},{}],
-		"aaSorting": [[4, 'desc']]
+		"aoColumns" : [{},{},{},{}]
 	} );
  }
  

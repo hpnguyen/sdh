@@ -441,3 +441,8 @@ table tr.alt_:hover td, table tr.alt:hover td {
 .disableTextBox{
 	background: #808080;
 }
+
+.bgwhite
+{
+	background:white;
+}

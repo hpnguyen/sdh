@@ -1,0 +1,25 @@
+
+	<html>
+	<head>
+	  <title>Phòng Đào Tạo Sau Đại Học - ĐHBK Tp.HCM: Thông tin Đăng Ký Môn Học</title>
+	</head>
+	<body>
+		<p><strong>Đại học Bách Khoa TP.HCM <br/>Phòng Đào Tạo Sau Đại Học</strong></p>
+		<p>
+		<table cellpadding='2' cellspacing='0' width='100%' border='0'>
+		   <tr><td colspan='2' class='NormalBold'>Thông báo v/v HV Khóa 2012 đóng học phí các môn học chung với Đại Học</td></tr>
+		   <tr><td></td>
+		   <td class='Normal' valign='top'></td></tr>
+		   <tr><td colspan='2' class='Normal' valign='top'>Ph&ograve;ng Đ&agrave;o Tạo SĐH tr&acirc;n trọng th&ocirc;ng b&aacute;o đến c&aacute;c <strong>học vi&ecirc;n kh&oacute;a 2012 </strong>về việc đ&oacute;ng học ph&iacute; c&aacute;c <strong>m&ocirc;n học chung với Đại học</strong>:
+			<ul>
+			 <li>
+			  Địa điểm đ&oacute;ng học ph&iacute;: <strong>Ph&ograve;ng kế hoạch t&agrave;i ch&aacute;nh, nh&agrave; A4 ĐHBK</strong></li>
+			 <li>
+			  Ng&agrave;y đ&oacute;ng: <strong>15/10/2012 s&aacute;ng từ 8h - 11h chiều 13h30 - 16h</strong></li>
+			</ul></td></tr>
+		</table>
+		</p>
+		<p>Email này được gửi từ hệ thống email tự động. <br/>Xin vui lòng không trả lời email này. </p>
+		<p>Trân trọng kính chào!</p>
+	</body>
+	</html>

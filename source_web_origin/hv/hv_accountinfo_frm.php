@@ -303,7 +303,6 @@ $(function() {
 	ai_jngaycap			= $("#hv_info_ngaycap_cmnd"),
 	ai_jnoicap			= $("#hv_info_noicap_cmnd"),
 	ai_jsotk			= $("#hv_info_so_tk"),
-	ai_juserfilefake 	= $("#userfilefake"),
 	ai_allFields = $([]).add(ai_jemail).add(ai_juser).add(ai_jpass).add(ai_jdiachi).add(ai_jdienthoai).add(ai_jdonvicongtac).add(ai_jcmnd).add(ai_jngaycap).add(ai_jnoicap).add(ai_jsotk),
 	ai_tips	= $("#tipAI");
 	    
