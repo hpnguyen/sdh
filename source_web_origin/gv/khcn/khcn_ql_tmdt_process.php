@@ -35,18 +35,40 @@ if ($a=='checksession'){
 	die('{"success":"1"}'); 
 }
 
+if ($a=='ThungRac'){
+	$madt = str_replace("'", "''", $_POST["m"]);
+	$today =date("Y-m-d H:i");
+	$c = str_replace("'", "''", $_POST["c"]);
+	($c == '') ? $c = '1' : $c = 'null';
+	
+	if ($madt!=''){
+		
+		$sqlstr="update NCKH_THUYET_MINH_DE_TAI set THUNG_RAC = $c
+		where MA_THUYET_MINH_DT = '$madt'";
+		$stmt = oci_parse($db_conn_khcn, $sqlstr);
+		if (oci_execute($stmt)){
+			echo '{"success":"1", "time":"'.$today.'", "ma":"'.$madt.'"}';
+		}else{
+			echo '{"success":"-1", "ma":"'.$madt.'"}';
+		}
+	}else{
+		echo '{"success":"-1", "ma":"'.$madt.'"}';
+	}
+	
+}
+
 if ($a=='regthuyetminh'){
 	
-	$tenviet = str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_ten_dt_viet"]);
-	$tenanh = str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_ten_dt_anh"]);
-	$nganhkhac = str_replace("'", "''", $_POST["khcn_frm_reg_nganhkhac"]);
-	$nganhhep = str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_cnganhhep"]);
-	$capdetai = str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_capdetai"]);
-	$loaihinhnc = str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_loaihinhnc"]);
-	$thoigian = str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_thoigianthuchien"]);
-	$kinhphi = 0;//str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_tongkinhphi"]);
-	$keywords = str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_keywords"]);
-	$huongdt = str_replace("'", "''", $_POST["khcn_frm_reg_dtkhcn_huongdt"]);
+	$tenviet = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_ten_dt_viet"]);
+	$tenanh = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_ten_dt_anh"]);
+	$nganhkhac = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nganhkhac"]);
+	$nganhhep = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_cnganhhep"]);
+	$capdetai = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_capdetai"]);
+	$loaihinhnc = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_loaihinhnc"]);
+	$thoigian = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_thoigianthuchien"]);
+	$kinhphi = 0;//str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_tongkinhphi"]);
+	$keywords = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_keywords"]);
+	$huongdt = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_huongdt"]);
 	
 	$countnganh = str_replace("'", "''", $_POST["c"]);
 	
@@ -73,7 +95,7 @@ if ($a=='regthuyetminh'){
 			{
 				for ($i=0; $i<$countnganh; $i++)
 				{
-					$nganhnhomnganh = str_replace("'", "''", $_POST["khcn_frm_reg_nganh$i"]);
+					$nganhnhomnganh = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nganh$i"]);
 					if ($nganhnhomnganh!='')
 					{
 						//file_put_contents("logs.txt", date("H:i:s d.m.Y")." $nganhnhomnganh \n", FILE_APPEND);
@@ -138,13 +160,13 @@ if ($a=='regthuyetminh'){
 
 if ($a=='addnhanlucnc'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
-	$loai = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_loai"]);
-	$masv = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_masv"]);
-	$hoten = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten"]);
-	$dvcongtac = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac"]);
-	$sothang = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi"]);
-	$fk_ma_can_bo = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_fk_ma_can_bo"]);
-	$shcc = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_shcc"]);
+	$loai = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nhanlucnghiencuu_loai"]);
+	$masv = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nhanlucnghiencuu_masv"]);
+	$hoten = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten"]);
+	$dvcongtac = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nhanlucnghiencuu_don_vi_cong_tac"]);
+	$sothang = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi"]);
+	$fk_ma_can_bo = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nhanlucnghiencuu_fk_ma_can_bo"]);
+	$shcc = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nhanlucnghiencuu_shcc"]);
 	
 	
 	if ($loai=='1'){
@@ -191,13 +213,13 @@ if ($a=='addnhanlucnc'){
 
 if ($a=='addchuyengianc'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
-	$huongnc = str_replace("'", "''", $_POST["khcn_frm_reg_chuyengia_huongnccs"]);
-	$diachi = str_replace("'", "''", $_POST["khcn_frm_reg_chuyengia_diachi"]);
-	$hoten = str_replace("'", "''", $_POST["khcn_frm_reg_chuyengia_hh_hv_ho_ten"]);
-	$dvcongtac = str_replace("'", "''", $_POST["khcn_frm_reg_chuyengia_don_vi_cong_tac"]);
-	$dienthoai = str_replace("'", "''", $_POST["khcn_frm_reg_chuyengia_dienthoai"]);
-	$email = str_replace("'", "''", $_POST["khcn_frm_reg_chuyengia_email"]);
-	$fk_ma_can_bo = str_replace("'", "''", $_POST["khcn_frm_reg_chuyengia_fk_ma_can_bo"]);
+	$huongnc = str_replace("'", "''", $_POST["khcn_ql_frm_reg_chuyengia_huongnccs"]);
+	$diachi = str_replace("'", "''", $_POST["khcn_ql_frm_reg_chuyengia_diachi"]);
+	$hoten = str_replace("'", "''", $_POST["khcn_ql_frm_reg_chuyengia_hh_hv_ho_ten"]);
+	$dvcongtac = str_replace("'", "''", $_POST["khcn_ql_frm_reg_chuyengia_don_vi_cong_tac"]);
+	$dienthoai = str_replace("'", "''", $_POST["khcn_ql_frm_reg_chuyengia_dienthoai"]);
+	$email = str_replace("'", "''", $_POST["khcn_ql_frm_reg_chuyengia_email"]);
+	$fk_ma_can_bo = str_replace("'", "''", $_POST["khcn_ql_frm_reg_chuyengia_fk_ma_can_bo"]);
 	
 	if ($ma_thuyet_minh_dt!=''){
 		$sqlstr="select get_ma_chuyen_gia_TMDT('$ma_thuyet_minh_dt') machuyengia from dual"; 
@@ -233,11 +255,11 @@ if ($a=='addchuyengianc'){
 
 if ($a=='addanphamkhoahoc'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
-	$fk_ma_an_pham_kh = str_replace("'", "''", $_POST["khcn_frm_reg_anphamkhoahoc_loai"]);
-	$ten_bb_sach_dk = str_replace("'", "''", $_POST["khcn_frm_reg_anphamkhoahoc_ten_bb_sach_dk"]);
-	$so_luong = str_replace("'", "''", $_POST["khcn_frm_reg_anphamkhoahoc_so_luong"]);
-	$dk_noi_cong_bo = str_replace("'", "''", $_POST["khcn_frm_reg_anphamkhoahoc_dk_noi_cong_bo"]);
-	$ghi_chu = str_replace("'", "''", $_POST["khcn_frm_reg_anphamkhoahoc_ghi_chu"]);
+	$fk_ma_an_pham_kh = str_replace("'", "''", $_POST["khcn_ql_frm_reg_anphamkhoahoc_loai"]);
+	$ten_bb_sach_dk = str_replace("'", "''", $_POST["khcn_ql_frm_reg_anphamkhoahoc_ten_bb_sach_dk"]);
+	$so_luong = str_replace("'", "''", $_POST["khcn_ql_frm_reg_anphamkhoahoc_so_luong"]);
+	$dk_noi_cong_bo = str_replace("'", "''", $_POST["khcn_ql_frm_reg_anphamkhoahoc_dk_noi_cong_bo"]);
+	$ghi_chu = str_replace("'", "''", $_POST["khcn_ql_frm_reg_anphamkhoahoc_ghi_chu"]);
 	
 	if ($ma_thuyet_minh_dt!=''){
 		$sqlstr="insert into NCKH_AN_PHAM_KH_TMDT(FK_MA_THUYET_MINH_DT,FK_MA_AN_PHAM_KH,TEN_BB_SACH_DK,SO_LUONG,DK_NOI_CONG_BO,GHI_CHU) 
@@ -258,11 +280,11 @@ if ($a=='addanphamkhoahoc'){
 
 if ($a=='addsohuutritue'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
-	$fk_ma_so_huu_tri_tue = str_replace("'", "''", $_POST["khcn_frm_reg_sohuutritue_hinhthuc"]);
+	$fk_ma_so_huu_tri_tue = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sohuutritue_hinhthuc"]);
 	$ten_hinh_thuc = str_replace("'", "''", $_POST["hinhthuc"]);
-	$so_luong = str_replace("'", "''", $_POST["khcn_frm_reg_sohuutritue_so_luong"]);
-	$noi_dung_du_kien = str_replace("'", "''", $_POST["khcn_frm_reg_sohuutritue_noi_dung"]);
-	$ghi_chu = str_replace("'", "''", $_POST["khcn_frm_reg_sohuutritue_ghi_chu"]);
+	$so_luong = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sohuutritue_so_luong"]);
+	$noi_dung_du_kien = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sohuutritue_noi_dung"]);
+	$ghi_chu = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sohuutritue_ghi_chu"]);
 	
 	if ($ma_thuyet_minh_dt!='' && $fk_ma_so_huu_tri_tue!=''){
 		$sqlstr="insert into NCKH_SO_HUU_TRI_TUE(FK_MA_THUYET_MINH_DT,FK_MA_SO_HUU_TRI_TUE,SO_LUONG,NOI_DUNG_DU_KIEN,GHI_CHU) 
@@ -283,9 +305,9 @@ if ($a=='addsohuutritue'){
 
 if ($a=='addsanphammem'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
-	$ten_san_pham = str_replace("'", "''", $_POST["khcn_frm_reg_sanphammem_tensp"]);
-	$chi_tieu_danh_gia = str_replace("'", "''", $_POST["khcn_frm_reg_sanphammem_ctdanhgia"]);
-	$ghi_chu = str_replace("'", "''", $_POST["khcn_frm_reg_sanphammem_ghichu"]);
+	$ten_san_pham = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphammem_tensp"]);
+	$chi_tieu_danh_gia = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphammem_ctdanhgia"]);
+	$ghi_chu = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphammem_ghichu"]);
 	$ma_san_pham_mem_tmdt = "";
 	
 	$sqlstr="select get_ma_sp_mem_TMDT('$ma_thuyet_minh_dt') maspmem from dual"; 
@@ -317,12 +339,12 @@ if ($a=='addsanphammem'){
 
 if ($a=='addsanphamcung'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
-	$ten_san_pham = str_replace("'", "''", $_POST["khcn_frm_reg_sanphamcung_tensp"]);
-	$chi_tieu_danh_gia = str_replace("'", "''", $_POST["khcn_frm_reg_sanphamcung_ctdanhgia"]);
-	$don_vi_do = str_replace("'", "''", $_POST["khcn_frm_reg_sanphamcung_don_vi_do"]);
-	$trong_nuoc = str_replace("'", "''", $_POST["khcn_frm_reg_sanphamcung_mau_tt_trong_nuoc"]);
-	$the_gioi = str_replace("'", "''", $_POST["khcn_frm_reg_sanphamcung_mau_tt_thegioi"]);
-	$so_luong_quy_mo = str_replace("'", "''", $_POST["khcn_frm_reg_sanphamcung_soluong"]);
+	$ten_san_pham = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphamcung_tensp"]);
+	$chi_tieu_danh_gia = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphamcung_ctdanhgia"]);
+	$don_vi_do = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphamcung_don_vi_do"]);
+	$trong_nuoc = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphamcung_mau_tt_trong_nuoc"]);
+	$the_gioi = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphamcung_mau_tt_thegioi"]);
+	$so_luong_quy_mo = str_replace("'", "''", $_POST["khcn_ql_frm_reg_sanphamcung_soluong"]);
 	
 	$ma_san_pham_cung_tmdt = "";
 	
@@ -357,11 +379,11 @@ if ($a=='addsanphamcung'){
 
 if ($a=='addketquadaotao'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
-	$fk_bac_dao_tao = str_replace("'", "''", $_POST["khcn_frm_reg_ketquadaotao_capdt"]);
+	$fk_bac_dao_tao = str_replace("'", "''", $_POST["khcn_ql_frm_reg_ketquadaotao_capdt"]);
 	$ten_capdt = str_replace("'", "''", $_POST["capdt"]);
-	$so_luong = str_replace(array("'",","), array("''",""), $_POST["khcn_frm_reg_ketquadaotao_so_luong"]);
-	$nhiem_vu_duoc_giao = str_replace("'", "''", $_POST["khcn_frm_reg_ketquadaotao_nhiem_vu"]);
-	$du_kien_kinh_phi = str_replace(array("'",","), array("''",""), $_POST["khcn_frm_reg_ketquadaotao_kinhphi"]);
+	$so_luong = str_replace(array("'",","), array("''",""), $_POST["khcn_ql_frm_reg_ketquadaotao_so_luong"]);
+	$nhiem_vu_duoc_giao = str_replace("'", "''", $_POST["khcn_ql_frm_reg_ketquadaotao_nhiem_vu"]);
+	$du_kien_kinh_phi = str_replace(array("'",","), array("''",""), $_POST["khcn_ql_frm_reg_ketquadaotao_kinhphi"]);
 	
 	if ($ma_thuyet_minh_dt!='' && $fk_bac_dao_tao!=''){
 		$sqlstr="insert into NCKH_KQ_DAO_TAO_TMDT(FK_MA_THUYET_MINH_DT,FK_BAC_DAO_TAO,SO_LUONG,NHIEM_VU_DUOC_GIAO,DU_KIEN_KINH_PHI) 
@@ -382,12 +404,12 @@ if ($a=='addketquadaotao'){
 
 if ($a=='addkhoanchiphi'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
-	$fk_ma_khoan_chi_phi = str_replace("'", "''", $_POST["khcn_frm_reg_tonghopkinhphi_khoan_chi_phi"]);
+	$fk_ma_khoan_chi_phi = str_replace("'", "''", $_POST["khcn_ql_frm_reg_tonghopkinhphi_khoan_chi_phi"]);
 	$ten_khoan_chi_phi = str_replace("'", "''", $_POST["tenkhoanchiphi"]);
 	
-	$kinh_phi = str_replace(array("'", ","), array("''", ""), $_POST["khcn_frm_reg_tonghopkinhphi_kinh_phi"]);
-	$khoan_chi = str_replace(array("'", ","), array("''", ""), $_POST["khcn_frm_reg_tonghopkinhphi_khoan_chi"]);
-	//$phan_tram = str_replace("'", "''", $_POST["khcn_frm_reg_tonghopkinhphi_phan_tram"]);
+	$kinh_phi = str_replace(array("'", ","), array("''", ""), $_POST["khcn_ql_frm_reg_tonghopkinhphi_kinh_phi"]);
+	$khoan_chi = str_replace(array("'", ","), array("''", ""), $_POST["khcn_ql_frm_reg_tonghopkinhphi_khoan_chi"]);
+	//$phan_tram = str_replace("'", "''", $_POST["khcn_ql_frm_reg_tonghopkinhphi_phan_tram"]);
 	
 	if ($ma_thuyet_minh_dt!='' && $fk_ma_khoan_chi_phi!=''){
 		$sqlstr="insert into NCKH_TONG_HOP_KINH_PHI(FK_MA_THUYET_MINH_DT,FK_MA_KHOAN_CHI_PHI,KINH_PHI,KHOAN_CHI) 
@@ -910,7 +932,7 @@ if ($a=='getmotanghiencuu'){
 }
 
 if ($a=='getllkh'){
-	$shcc = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_shcc"]);
+	$shcc = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_shcc"]);
 	if ($shcc==''){
 		$shcc = str_replace("'", "''", $_POST["m"]);
 	}
@@ -981,11 +1003,42 @@ if ($a=='getcq'){
 }
 
 if ($a=='refreshdata'){
+	$fttr = str_replace ("'", "''", $_REQUEST["fttr"]); // filter thung rac
+	$fcndt = str_replace ("'", "''", $_REQUEST["fcndt"]); // filter chu nhiem de tai
+	$fdcndt = str_replace ("'", "''", $_REQUEST["fdcndt"]); // filter dong chu nhiem
+	$fcdt = str_replace ("'", "''", $_REQUEST["fcdt"]); // filter cap de tai
+	$fdv = str_replace ("'", "''", $_REQUEST["fdv"]); // filter don vi
+	$fnnhan = str_replace ("'", "''", $_REQUEST["fnnhan"]); // filter nam nhan dang ky
+	$filterstr = "";
+	
+	if ($fttr != ""){
+		$filterstr .= " AND tm.THUNG_RAC is not null";
+	}else{
+		$filterstr .= " AND tm.THUNG_RAC is null";
+	}
+	if ($fcndt != ""){
+		$filterstr .= " AND tm.CNDT_HH_HV_HO_TEN = '$fcndt'";
+	}
+	if ($fdcndt != ""){
+		$filterstr .= " AND tm.DCNDT_HH_HV_HO_TEN = '$fdcndt'";
+	}
+	if ($fcdt != ""){
+		$filterstr .= " AND FK_CAP_DE_TAI='$fcdt'";
+	}
+	if ($fdv != ""){
+		$filterstr .= " AND b.ma_khoa='$fdv'";
+	}
+	if ($fnnhan != ""){
+		$filterstr .= " AND to_char(tm.NGAY_NHAN_HO_SO, 'yyyy') = '$fnnhan'";
+	}
+
 	$sqlstr="	SELECT MA_THUYET_MINH_DT, TEN_DE_TAI_VN, cdt.ten_cap, lhnc.TEN_LOAI_HINH_NC, THOI_GIAN_THUC_HIEN, TONG_KINH_PHI, FK_CAP_DE_TAI,
-				GET_NGANH_NHOM_NGANH(MA_THUYET_MINH_DT) nganh_nhomnganh, keywords, huong_de_tai
-				FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc
-				WHERE FK_CAP_DE_TAI = cdt.ma_cap(+) and FK_LOAI_HINH_NC = lhnc.MA_LOAI_HINH_NC(+)
-				and tm.FK_MA_CAN_BO = '$macb'
+				GET_NGANH_NHOM_NGANH(MA_THUYET_MINH_DT) nganh_nhomnganh, keywords, huong_de_tai, CNDT_HH_HV_HO_TEN, DCNDT_HH_HV_HO_TEN,
+				c.email, c.dien_thoai, b.ma_khoa, k.ten_khoa don_vi
+				FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc, can_bo_giang_day c, bo_mon b, khoa k
+				WHERE FK_CAP_DE_TAI = cdt.ma_cap(+) and FK_LOAI_HINH_NC = lhnc.MA_LOAI_HINH_NC(+) 
+				and tm.fk_ma_can_bo = c.ma_can_bo and b.ma_bo_mon=c.ma_bo_mon and b.ma_khoa=k.ma_khoa 
+				$filterstr
 				";
 	/*file_put_contents("logs.txt", "----------------------------------------------\n
 				". date("H:i:s d.m.Y")." $sqlstr \n
@@ -997,15 +1050,20 @@ if ($a=='refreshdata'){
 	
 	for ($i = 0; $i < $n; $i++){
 		$data.= '["'.$resDM["MA_THUYET_MINH_DT"][$i].'",
-				  "'.escapeWEB($resDM["TEN_DE_TAI_VN"][$i]).'", "'.escapeWEB($resDM["NGANH_NHOMNGANH"][$i]).'", 
-				  "'.escapeWEB($resDM["HUONG_DE_TAI"][$i]).'", "'.escapeWEB($resDM["KEYWORDS"][$i]).'", 
-				  "'.escapeWEB($resDM["TEN_CAP"][$i]).'","'.escapeWEB($resDM["TEN_LOAI_HINH_NC"][$i]).'", 
-				  "'.escapeWEB($resDM["THOI_GIAN_THUC_HIEN"][$i]).'","'.number_format(escapeWEB($resDM["TONG_KINH_PHI"][$i])).'", 
-				  "",
-				  "<img src=\'icons/print-preview-icon24x24.png\' class=khcn_tooltips title=\'In thuyết minh đề tài\' border=0 onClick=\'khcn_print_tmdt( khcn_getRowIndex(this),\"'.$resDM["FK_CAP_DE_TAI"][$i].'\"); \' style=\'cursor: pointer\'>"
+				  "'.escapeJsonString($resDM["TEN_DE_TAI_VN"][$i]).'", 
+				  "'.escapeJsonString($resDM["CNDT_HH_HV_HO_TEN"][$i]).'", 
+				  "'.escapeJsonString($resDM["DCNDT_HH_HV_HO_TEN"][$i]).'", 
+				  "'.escapeJsonString($resDM["TEN_CAP"][$i]).'", 
+				  "'.escapeJsonString($resDM["DON_VI"][$i]).'", 
+				  "'.escapeJsonString($resDM["TONG_KINH_PHI"][$i]).'", 
+				  "'.escapeJsonString($resDM["THOI_GIAN_THUC_HIEN"][$i]).'", 
+				  "'.escapeJsonString($resDM["NGANH_NHOMNGANH"][$i]).'", 
+				  "'.escapeJsonString($resDM["EMAIL"][$i]).'", 
+				  "'.escapeJsonString($resDM["DIEN_THOAI"][$i]).'",
+				  "<img src=\'icons/print-preview-icon24x24.png\' class=khcn_tooltips title=\'In thuyết minh đề tài\' border=0 onClick=\'khcn_ql_print_tmdt( khcn_ql_getRowIndex(this),\"'.$resDM["FK_CAP_DE_TAI"][$i].'\"); \' style=\'cursor: pointer\'>"
 				 ],';
 	}
-	
+	//
 	if ($n>0) 
 		$data=substr($data,0,-1);
 	
@@ -1018,15 +1076,15 @@ if ($a=='refreshdata'){
 if ($a=='updatea1a4'){
 
 	$matm = str_replace("'", "''", $_POST["m"]);
-	$tenviet = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_ten_dt_viet"]);
-	$tenanh = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_ten_dt_anh"]);
-	$nganhkhac = str_replace("'", "''", $_POST["khcn_frm_edit_nganhkhac"]);
-	$nganhhep = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cnganhhep"]);
-	//$capdetai = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_capdetai"]);
-	$loaihinhnc = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_loaihinhnc"]);
-	$thoigian = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_thoigianthuchien"]);
-	$keywords = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_keywords"]);
-	$huongdt = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_huongdt"]);
+	$tenviet = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_ten_dt_viet"]);
+	$tenanh = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_ten_dt_anh"]);
+	$nganhkhac = str_replace("'", "''", $_POST["khcn_ql_frm_edit_nganhkhac"]);
+	$nganhhep = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cnganhhep"]);
+	//$capdetai = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_capdetai"]);
+	$loaihinhnc = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_loaihinhnc"]);
+	$thoigian = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_thoigianthuchien"]);
+	$keywords = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_keywords"]);
+	$huongdt = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_huongdt"]);
 	
 	$sqlstr = "update NCKH_THUYET_MINH_DE_TAI set TEN_DE_TAI_VN='$tenviet', TEN_DE_TAI_EN='$tenanh', CHUYEN_NGANH_HEP='$nganhhep',
 	FK_LOAI_HINH_NC='$loaihinhnc',THOI_GIAN_THUC_HIEN='$thoigian',KEYWORDS='$keywords', HUONG_DE_TAI='$huongdt'
@@ -1052,8 +1110,8 @@ if ($a=='updatea1a4'){
 	
 	$countnganh = str_replace("'", "''", $_POST["c"]);
 	for ($i=0; $i<$countnganh; $i++){
-		if (isset($_POST["khcn_frm_edit_nganh$i"])){
-			$nganhnhomnganh = str_replace("'", "''", $_POST["khcn_frm_edit_nganh$i"]);
+		if (isset($_POST["khcn_ql_frm_edit_nganh$i"])){
+			$nganhnhomnganh = str_replace("'", "''", $_POST["khcn_ql_frm_edit_nganh$i"]);
 			if ($nganhnhomnganh=='999')
 				$sqlstr="insert into NCKH_NHOM_NGANH_TMDT(FK_MA_THUYET_MINH_DT,FK_MA_NHOM_NGANH,TEN_NHOM_NGANH_KHAC) values ('$matm','$nganhnhomnganh','$nganhkhac')"; 
 			else
@@ -1094,12 +1152,12 @@ if ($a=='updatea1a4'){
 
 if ($a=='updatea5'){
 	$matm = str_replace("'", "''", $_POST["m"]);
-	$kinhphi = str_replace(array("'",","), array("''",""), $_POST["khcn_frm_edit_dtkhcn_tongkinhphi"]);
-	$kinhphidhqg = str_replace(array("'",","), array("''",""), $_POST["khcn_frm_edit_dtkhcn_kinhphi_dhqg"]);
-	$kinhphihuydong = str_replace(array("'",","), array("''",""), $_POST["khcn_frm_edit_dtkhcn_kinhphi_huydong"]);
-	$huydongtuco = str_replace(array("'",","), array("''",""), $_POST["khcn_frm_edit_dtkhcn_kinhphi_tuco"]);
-	$huydongkhac = str_replace(array("'",","), array("''",""), $_POST["khcn_frm_edit_dtkhcn_kinhphi_khac"]);
-	$tochuctaitro = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_tochuctaitro"]);
+	$kinhphi = str_replace(array("'",","), array("''",""), $_POST["khcn_ql_frm_edit_dtkhcn_tongkinhphi"]);
+	$kinhphidhqg = str_replace(array("'",","), array("''",""), $_POST["khcn_ql_frm_edit_dtkhcn_kinhphi_dhqg"]);
+	$kinhphihuydong = str_replace(array("'",","), array("''",""), $_POST["khcn_ql_frm_edit_dtkhcn_kinhphi_huydong"]);
+	$huydongtuco = str_replace(array("'",","), array("''",""), $_POST["khcn_ql_frm_edit_dtkhcn_kinhphi_tuco"]);
+	$huydongkhac = str_replace(array("'",","), array("''",""), $_POST["khcn_ql_frm_edit_dtkhcn_kinhphi_khac"]);
+	$tochuctaitro = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_tochuctaitro"]);
 
 	$sqlstr = "update NCKH_THUYET_MINH_DE_TAI set TONG_KINH_PHI='$kinhphi',KINH_PHI_HUY_DONG='$kinhphihuydong',
 	KINH_PHI_TU_DHQG='$kinhphidhqg',HD_VON_TU_CO='$huydongtuco',HD_KHAC='$huydongkhac',TO_CHUC_TAI_TRO_KHAC = '$tochuctaitro'
@@ -1119,34 +1177,34 @@ if ($a=='updatea5'){
 if ($a=='updatea6'){
 
 	$matm = str_replace("'", "''", $_POST["m"]);
-	$fk_chu_nhiem_dt = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_fk_chu_nhiem_dt"]);
-	$tencn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_hh_hv_ho_ten"]);
-	$ngaysinhcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_ngay_sinh"]);
-	$phaicn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_phai"]);
-	$cmndcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_so_cmnd"]);
-	$ngaycapcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_ngay_cap"]);
-	$noicapcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_noi_cap"]);
-	$msthuecn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_ms_thue"]);
-	$sotkcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_so_tai_khoan"]);
-	$tktainganhang = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_ngan_hang"]);
-	$diachicqcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_dia_chi_cq"]);
-	$dienthoaicn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_dien_thoai"]);
-	$emailcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cndt_email"]);
-	$hdnccn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_tom_tat_hd_nc"]);
+	$fk_chu_nhiem_dt = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_fk_chu_nhiem_dt"]);
+	$tencn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_hh_hv_ho_ten"]);
+	$ngaysinhcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_ngay_sinh"]);
+	$phaicn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_phai"]);
+	$cmndcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_so_cmnd"]);
+	$ngaycapcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_ngay_cap"]);
+	$noicapcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_noi_cap"]);
+	$msthuecn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_ms_thue"]);
+	$sotkcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_so_tai_khoan"]);
+	$tktainganhang = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_ngan_hang"]);
+	$diachicqcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_dia_chi_cq"]);
+	$dienthoaicn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_dien_thoai"]);
+	$emailcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cndt_email"]);
+	$hdnccn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_tom_tat_hd_nc"]);
 	
-	$fk_dong_chu_nhiem_dt = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_fk_dong_chu_nhiem_dt"]);
-	$tendcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten"]);
-	$ngaysinhdcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_ngay_sinh"]);
-	$phaidcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_phai"]);
-	$cmnddcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_so_cmnd"]);
-	$ngaycapdcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_ngay_cap"]);
-	$noicapdcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_noi_cap"]);
-	$msthuedcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_ms_thue"]);
-	$sotkdcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_so_tai_khoan"]);
-	$tktainganhangdcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_ngan_hang"]);
-	$diachicqdcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_dia_chi_cq"]);
-	$dienthoaidcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_dien_thoai"]);
-	$emaildcn = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_dcndt_email"]);
+	$fk_dong_chu_nhiem_dt = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_fk_dong_chu_nhiem_dt"]);
+	$tendcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten"]);
+	$ngaysinhdcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_ngay_sinh"]);
+	$phaidcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_phai"]);
+	$cmnddcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_so_cmnd"]);
+	$ngaycapdcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_ngay_cap"]);
+	$noicapdcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_noi_cap"]);
+	$msthuedcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_ms_thue"]);
+	$sotkdcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_so_tai_khoan"]);
+	$tktainganhangdcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_ngan_hang"]);
+	$diachicqdcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_dia_chi_cq"]);
+	$dienthoaidcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_dien_thoai"]);
+	$emaildcn = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_email"]);
 	
 	$sqlstr = "update NCKH_THUYET_MINH_DE_TAI set CNDT_HH_HV_HO_TEN='$tencn', CNDT_NGAY_SINH=to_date('$ngaysinhcn','dd/mm/yyyy'), CNDT_PHAI='$phaicn',CNDT_SO_CMND='$cmndcn',
 	CNDT_NGAY_CAP=to_date('$ngaycapcn', 'dd/mm/yyyy'),CNDT_NOI_CAP='$noicapcn',CNDT_MS_THUE='$msthuecn',CNDT_SO_TAI_KHOAN='$sotkcn',
@@ -1172,27 +1230,27 @@ if ($a=='updatea7a8'){
 
 	$matm = str_replace("'", "''", $_POST["m"]);
 	
-	$cqct_ten_co_quan = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqct_ten_co_quan"]);
-	$cqct_ho_ten_tt = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqct_ho_ten_tt"]);
-	$cqct_dien_thoai = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqct_dien_thoai"]);
-	$cqct_fax = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqct_fax"]);
-	$cqct_email = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqct_email"]);
-	$cqct_so_tai_khoan = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqct_so_tai_khoan"]);
-	$cqct_kho_bac = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqct_kho_bac"]);
+	$cqct_ten_co_quan = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqct_ten_co_quan"]);
+	$cqct_ho_ten_tt = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqct_ho_ten_tt"]);
+	$cqct_dien_thoai = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqct_dien_thoai"]);
+	$cqct_fax = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqct_fax"]);
+	$cqct_email = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqct_email"]);
+	$cqct_so_tai_khoan = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqct_so_tai_khoan"]);
+	$cqct_kho_bac = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqct_kho_bac"]);
 	
-	$fk_cq_phoi_hop_1 = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_fk_cq_phoi_hop_1"]);
-	$cqph1_ten_co_quan = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph1_ten_co_quan"]);
-	$cqph1_ho_ten_tt = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph1_ho_ten_tt"]);
-	$cqph1_dien_thoai = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph1_dien_thoai"]);
-	$cqph1_fax = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph1_fax"]);
-	$cqph1_dia_chi = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph1_dia_chi"]);
+	$fk_cq_phoi_hop_1 = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_fk_cq_phoi_hop_1"]);
+	$cqph1_ten_co_quan = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph1_ten_co_quan"]);
+	$cqph1_ho_ten_tt = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph1_ho_ten_tt"]);
+	$cqph1_dien_thoai = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph1_dien_thoai"]);
+	$cqph1_fax = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph1_fax"]);
+	$cqph1_dia_chi = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph1_dia_chi"]);
 	
-	$fk_cq_phoi_hop_2 = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_fk_cq_phoi_hop_2"]);
-	$cqph2_ten_co_quan = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph2_ten_co_quan"]);
-	$cqph2_ho_ten_tt = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph2_ho_ten_tt"]);
-	$cqph2_dien_thoai = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph2_dien_thoai"]);
-	$cqph2_fax = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph2_fax"]);
-	$cqph2_dia_chi = str_replace("'", "''", $_POST["khcn_frm_edit_dtkhcn_cqph2_dia_chi"]);
+	$fk_cq_phoi_hop_2 = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_fk_cq_phoi_hop_2"]);
+	$cqph2_ten_co_quan = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph2_ten_co_quan"]);
+	$cqph2_ho_ten_tt = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph2_ho_ten_tt"]);
+	$cqph2_dien_thoai = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph2_dien_thoai"]);
+	$cqph2_fax = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph2_fax"]);
+	$cqph2_dia_chi = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_cqph2_dia_chi"]);
 	
 	
 	$sqlstr = "update NCKH_THUYET_MINH_DE_TAI set cqct_ten_co_quan='$cqct_ten_co_quan', cqct_ho_ten_tt='$cqct_ho_ten_tt', cqct_dien_thoai='$cqct_dien_thoai',
@@ -1430,9 +1488,9 @@ if ($a=='updateB6_2'){
 
 if ($a=='updateB7'){
 	$matm = str_replace("'", "''", $_POST["m"]);
-	$ud_kqnc_chuyen_giao = str_replace("'", "''",$_POST["khcn_frm_edit_dtkhcn_ud_kqnc_chuyen_giao"]);
-	$ud_kqnc_lv_dao_tao = str_replace("'", "''",$_POST["khcn_frm_edit_dtkhcn_ud_kqnc_lv_dao_tao"]);
-	$ud_kqnc_sxkd = str_replace("'", "''",$_POST["khcn_frm_edit_dtkhcn_ud_kqnc_sxkd"]);
+	$ud_kqnc_chuyen_giao = str_replace("'", "''",$_POST["khcn_ql_frm_edit_dtkhcn_ud_kqnc_chuyen_giao"]);
+	$ud_kqnc_lv_dao_tao = str_replace("'", "''",$_POST["khcn_ql_frm_edit_dtkhcn_ud_kqnc_lv_dao_tao"]);
+	$ud_kqnc_sxkd = str_replace("'", "''",$_POST["khcn_ql_frm_edit_dtkhcn_ud_kqnc_sxkd"]);
 		
 	$sqlstr = 	"update NCKH_THUYET_MINH_DE_TAI set ud_kqnc_chuyen_giao='$ud_kqnc_chuyen_giao', ud_kqnc_lv_dao_tao='$ud_kqnc_lv_dao_tao', 
 				 ud_kqnc_sxkd='$ud_kqnc_sxkd' where MA_THUYET_MINH_DT='$matm'";
@@ -1450,9 +1508,9 @@ if ($a=='updateB7'){
 
 if ($a=='updateB8'){
 	$matm = str_replace("'", "''", $_POST["m"]);
-	$fk_ma_khoan_chi_phi = str_replace("'", "''", $_POST["khcn_frm_reg_tonghopkinhphi_khoan_chi_phi"]);	
-	$kinh_phi = str_replace(array("'", ","), array("''", ""), $_POST["khcn_frm_reg_tonghopkinhphi_kinh_phi"]);
-	$khoan_chi = str_replace(array("'", ","), array("''", ""), $_POST["khcn_frm_reg_tonghopkinhphi_khoan_chi"]);
+	$fk_ma_khoan_chi_phi = str_replace("'", "''", $_POST["khcn_ql_frm_reg_tonghopkinhphi_khoan_chi_phi"]);	
+	$kinh_phi = str_replace(array("'", ","), array("''", ""), $_POST["khcn_ql_frm_reg_tonghopkinhphi_kinh_phi"]);
+	$khoan_chi = str_replace(array("'", ","), array("''", ""), $_POST["khcn_ql_frm_reg_tonghopkinhphi_khoan_chi"]);
 	
 	$sqlstr = 	"update NCKH_TONG_HOP_KINH_PHI set KINH_PHI='$kinh_phi', KHOAN_CHI='$khoan_chi'
 				where FK_MA_THUYET_MINH_DT='$matm' and FK_MA_KHOAN_CHI_PHI='$fk_ma_khoan_chi_phi'";

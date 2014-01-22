@@ -65,7 +65,7 @@ if ($a=='regthuyetminh'){
 		{
 			$sqlstr="
 			insert into NCKH_THUYET_MINH_DE_TAI(MA_THUYET_MINH_DT,FK_MA_CAN_BO,TEN_DE_TAI_VN,TEN_DE_TAI_EN,CHUYEN_NGANH_HEP,FK_CAP_DE_TAI,
-			FK_LOAI_HINH_NC,THOI_GIAN_THUC_HIEN,TONG_KINH_PHI, NGAY_DANG_KY, KEYWORDS, HUONG_DE_TAI) 
+			FK_LOAI_HINH_NC,THOI_GIAN_THUC_HIEN,TONG_KINH_PHI, NGAY_NHAN_HO_SO, KEYWORDS, HUONG_DE_TAI)
 			values ('$matm','$macb','$tenviet','$tenanh','$nganhhep','$capdetai','$loaihinhnc',$thoigian,$kinhphi, sysdate,'$keywords','$huongdt')"; 
 			$stmt = oci_parse($db_conn_khcn, $sqlstr);
 			/*

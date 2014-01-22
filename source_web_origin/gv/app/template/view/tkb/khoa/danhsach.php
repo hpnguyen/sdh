@@ -12,9 +12,8 @@ if ($pViewAll) {
 	date_default_timezone_set('Asia/Ho_Chi_Minh');
 	$timeDotHoc = strtotime($dothoc);
 	$timeHienTai = strtotime(date('d-m-Y'));
-	$canEdit = $timeDotHoc >= $timeHienTai;	
+	$canEdit = $timeDotHoc >= $timeHienTai && $hetHanCapNhat == false;
 }
-
 ?>
 <div align="center">
 	<h2>Phân công cán bộ giảng dạy <?php echo $pViewAll ? '': ' - cấp Khoa' ?><br/>Học kỳ <span id="phan-bo-head"><?php echo $hk ?></span></h2>
@@ -36,37 +35,43 @@ foreach($listItems as $y => $row)
 	$listArrayDataString .= "'<b class=\"special-color\">" .$row['thu']."</b>',";
 	$listArrayDataString .= "'".$row["ma_mh"]."',";
 	$listArrayDataString .= "'".$row["ten"]."',";
-	if ($canEdit) {
+	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
 		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-".$i."\" width=\"16px\" height=\"16px\" style=\"".($row["ma_can_bo"] != '' ? 'display:none; ' : '')."\" title=\"Click vào để chọn giảng viên\"/><img src=\"".$gvURL."/icons/delete-icon.png\" id=\"delete-icon-".$i."\" style=\"".($row["ma_can_bo"] != '' ? '' : 'display:none; ')."float: right\"/>',";
+	}else{
+		$listArrayDataString .= "'',";
 	}
 	
-	if ($canEdit) {
+	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
 		$listArrayDataString .= "'<div class=\"list-canbo\" rel=\"".$i."\"><span id=\"view-name-".$i."\" title=\"\">".$row["ten_cb_chinh"]."</span><input style=\"width: 163px\" id=\"project-".$i."\" class=\"project project-input\" title=\"Họ tên, số hiệu công chức, khoa, bộ môn\"/><input type=\"hidden\" id=\"project-id-".$i."\" class=\"project-id\" value=\"".$row["ma_can_bo"]."\"/><input type=\"hidden\" id=\"link-url-".$i."\" value=\"/lop/".$row["lop"]."/mamh/".$row["ma_mh"]."\"/><img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-".$i."\" style=\"display:none; float: right\"/></div>',";
 	}else{
 		$listArrayDataString .= "'".$row["ten_cb_chinh"]."',";
 	}
 	
 	//Can bo giang day phu
-	if ($canEdit) {
+	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
 		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-phu-".$i."\" width=\"16px\" height=\"16px\" style=\"".($row["ma_can_bo_phu"] != '' ? 'display:none; ' : '')."\" title=\"Click vào để chọn giảng viên\"/><img src=\"".$gvURL."/icons/delete-icon.png\" id=\"delete-icon-phu-".$i."\" style=\"".($row["ma_can_bo_phu"] != '' ? '' : 'display:none; ')."float: right\"/>',";
+	}else{
+		$listArrayDataString .= "'',";
 	}
 	
-	if ($canEdit) {
+	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
 		$listArrayDataString .= "'<div class=\"list-canbo-phu\" rel=\"".$i."\">	<span id=\"view-name-phu-".$i."\" title=\"\">".$row["ten_cb_phu"]."</span>	<input style=\"width: 163px\" id=\"project-phu-".$i."\" class=\"project project-input\" title=\"Họ tên, số hiệu công chức, khoa, bộ môn\"/>	<input type=\"hidden\" id=\"project-id-phu-".$i."\" class=\"project-id\" value=\"".$row["ma_can_bo_phu"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-phu-".$i."\" style=\"display:none; float: right\"/>	</div>',";
 	}else{
 		$listArrayDataString .= "'".$row["ten_cb_phu"]."',";
 	}
-	if ($canEdit) {
+	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
 		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-ghichu-".$i."\" width=\"16px\" height=\"16px\" title=\"Click vào để thêm ghi chú\"/>',";
+	}else{
+		$listArrayDataString .= "'',";
 	}
 	
-	if ($canEdit) {
+	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
 		$listArrayDataString .= "'<div class=\"list-ghichu\"><span id=\"view-ghichu-".$i."\" title=\"\">".$row["ghi_chu"]."</span><input type=\"text\" id=\"ghichu-".$i."\" style=\"width:50px;display:none\" value=\"".$row["ghi_chu"]."\"/><img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-ghichu-".$i."\" style=\"display:none; float: right\"/></div>',";
 	}else {
 		$listArrayDataString .= "'".$row["ghi_chu"]."',";
 	}
 	
-	$listArrayDataString .= "'<input type=\"checkbox\" title=\"".($row["khoa_xet_duyet"] == "1" ? "Đã duyệt" : "Chưa xét duyệt")."\" id=\"khoa-duyet-".$i."\"".($row["khoa_xet_duyet"] == "1" ? " value=\"1\" checked=\"checked\"": " value=\"0\"").($canEdit ? "": "disabled=\"disabled\"")."/>',";
+	$listArrayDataString .= "'<input type=\"checkbox\" title=\"".($row["khoa_xet_duyet"] == "1" ? "Đã duyệt" : "Chưa xét duyệt")."\" id=\"khoa-duyet-".$i."\"".($row["khoa_xet_duyet"] == "1" ? " value=\"1\" checked=\"checked\"": " value=\"0\"").($canEdit || $row['khoa_duoc_pc_cbgd'] == '1' ? "": "disabled=\"disabled\"")."/>',";
 	$listArrayDataString .= "'<b>".$row["lop"]."</b>',";
 	$listArrayDataString .= "'".$row["sl"]."',";
 	$listArrayDataString .= "'<b class=\"special-color\">".$row["tiet_bat_dau"].'-'.$row["tiet_ket_thuc"]."</b>',";
@@ -85,6 +90,8 @@ foreach($listItems as $y => $row)
 <div id="dialogWarning" title="Lưu Ý">
   Môn học này vẫn được duyệt trong khi chưa phân công cán bộ giảng dạy chính.
 </div>
+<div id="dialogMessage" title="Lưu Ý">
+</div>
 <div id="dataGridPhanCongCanBo" style="padding-bottom: 50px">
 	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="display" id="dataGridTablePhanCongCanBo" style="padding: 0px">
 		<thead>
@@ -92,17 +99,11 @@ foreach($listItems as $y => $row)
 		<td width="23px" align='center' class='ui-corner-tl'>T<br>h<br>ứ</td>
 		<td width="48px" align="center">Mã MH</td>
 		<td width="15%" align="center">Tên Môn Học</td>
-		<?php if ($canEdit) { ?>
 		<td width="18px"></td>
-		<?php } ?>
 		<td width="163px" align="center">Cán bộ giảng dạy chính</td>
-		<?php if ($canEdit) { ?>
 		<td width="18px"></td>
-		<?php } ?>
 		<td width="163px" align="center">Cán bộ giảng dạy phụ</td>
-		<?php if ($canEdit) { ?>
 		<td width="18px"></td>
-		<?php } ?>
 		<td width="48px" align="center">Ghi<br>chú</td>
 		<td width="30px" align="center">Khoa Duyệt</td>
 		<td width="23px" align="center">L<br>ớ<br>p</td>
@@ -119,7 +120,6 @@ foreach($listItems as $y => $row)
 	</table>
 </div>
 <script>
-<?php if ($canEdit) { ?>
 function actionScript(item, projects){
 	var name = "";
 	var nameList = "";
@@ -157,7 +157,9 @@ function actionScript(item, projects){
 						},
 						success:function(result){
 							if(result.status == undefined || result.status == 0){
-								alert(result.message);
+								//alert(result.message);
+								$("#dialogMessage").html(result.message);
+								$("#dialogMessage").dialog("open");
 							}else{
 								//fill data
 								$( "#view-name-" + name + myIndex ).html( ui.item.label );
@@ -169,7 +171,9 @@ function actionScript(item, projects){
 							}
 						},
 						error: function (xhr,status,error){
-							alert('error');
+							//alert('error');
+							$("#dialogMessage").html('error');
+							$("#dialogMessage").dialog("open");
 						},
 						complete: function(xhr,status){
 							$('#loading-icon-' + name+ myIndex).hide();
@@ -234,7 +238,9 @@ function actionScript(item, projects){
 							},
 							success:function(result){
 								if(result.status == undefined || result.status == 0){
-									alert(result.message);
+									//alert(result.message);
+									$("#dialogMessage").html(result.message);
+									$("#dialogMessage").dialog("open");
 								}else{
 									//fill data
 									$( "#view-name-" + name + myIndex ).html('');
@@ -256,7 +262,9 @@ function actionScript(item, projects){
 								$( "#project-" + name + myIndex ).hide();
 								//show data
 								$( "#view-name-" + name + myIndex ).show();
-								alert('error');
+								//alert('error');
+								$("#dialogMessage").html('error');
+								$("#dialogMessage").dialog("open");
 							},
 							complete: function(xhr,status){
 								$('#loading-icon-' + name+ myIndex).hide();
@@ -307,14 +315,18 @@ function actionScript(item, projects){
 				},
 				success:function(result){
 					if(result.status == undefined || result.status == 0){
-						alert(result.message);
+						// alert(result.message);
+						$("#dialogMessage").html(result.message);
+						$("#dialogMessage").dialog("open");
 					}else{
 						//fill data
 						$('#view-ghichu-' + myIndex).html($('#ghichu-'+ myIndex).val());
 					}
 				},
 				error: function (xhr,status,error){
-					alert('error');
+					// alert('error');
+					$("#dialogMessage").html('error');
+					$("#dialogMessage").dialog("open");
 				},
 				complete: function(xhr,status){
 					$('#loading-icon-ghichu-' + myIndex).hide();
@@ -364,11 +376,15 @@ function actionScript(item, projects){
 					},
 					success:function(result){
 						if(result.status == undefined || result.status == 0){
-							alert(result.message);
+							// alert(result.message);
+							$("#dialogMessage").html(result.message);
+							$("#dialogMessage").dialog("open");
 						}
 					},
 					error: function (xhr,status,error){
-						alert('error');
+						// alert('error');
+						$("#dialogMessage").html('error');
+						$("#dialogMessage").dialog("open");
 					},
 					complete: function(xhr,status){
 						$('#khoa-duyet-'+ myIndex).show();
@@ -378,7 +394,6 @@ function actionScript(item, projects){
 		});
 	});
 }
-<?php } ?>
 $(document).ready(function() {
 	$("#dialog").dialog({
       autoOpen: false,
@@ -386,6 +401,11 @@ $(document).ready(function() {
       resizable: false,
     });
 	$("#dialogWarning").dialog({
+      autoOpen: false,
+      modal: true,
+      resizable: false,
+    });
+    $("#dialogMessage").dialog({
       autoOpen: false,
       modal: true,
       resizable: false,
@@ -414,17 +434,11 @@ $(document).ready(function() {
             {"sClass": "center"},
             null,
             null,
-            <?php if ($canEdit) { ?>
             { "bSortable": false},
-            <?php } ?>
             null,
-            <?php if ($canEdit) { ?>
             {"bSortable": false},
-            <?php } ?>
             null,
-            <?php if ($canEdit) { ?>
             {"bSortable": false},
-            <?php } ?>
             null,
             {"sClass": "center"},
             {"sClass": "center"},
@@ -436,16 +450,11 @@ $(document).ready(function() {
             null,
             // {"bSortable": false}
         ],
-        <?php if ($canEdit) { ?>
-         "aaSorting": [[16,'asc'], [15,'asc'], [0,'asc'], [12,'asc'], [2,'asc'], [10,'asc']],
-         <?php }else{ ?> 
-         "aaSorting": [[13,'asc'], [12,'asc'], [0,'asc'], [9,'asc'], [2,'asc'], [7,'asc']],
-         <?php } ?>
+        "aaSorting": [[16,'asc'], [15,'asc'], [0,'asc'], [12,'asc'], [2,'asc'], [10,'asc']],
         //"bStateSave": true,
 		"bAutoWidth": false, 
 		"sPaginationType": "full_numbers",
 		"oLanguage": {"sUrl": "<?php echo $help->baseURL() ?>/datatable/media/language/vi_VI.txt"},
-		<?php if ($canEdit) { ?>
 		"fnInitComplete": function(oSettings, json) {
 			var projects = [
 			<?php echo $autoCompleteArrayData  ?>
@@ -464,7 +473,6 @@ $(document).ready(function() {
 			//Can bo phu
 			actionScript(1, projects);
 		}
-		<?php } ?>
 	});
 });
 </script>

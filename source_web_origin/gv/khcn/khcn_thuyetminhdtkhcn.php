@@ -65,7 +65,11 @@ else
 				<td style="width:50%" align=left><button id='khcn_reg_button' title="Bấm vào đây để đăng ký thuyết minh đề tài mới" class='khcn_tooltips'>Đăng ký Đề tài</button> <button id='khcn_edit_ttchung_button' title="Bấm vào đây để cập nhật phần thông tin chung" class='khcn_tooltips'>A. Cập nhật Thông tin chung</button> <button id='khcn_edit_mota_button' title="Bấm vào đây để cập nhật phần mô tả nghiên cứu" class='khcn_tooltips'>B. Cập nhật Mô tả nghiên cứu</button></td>
 				<td style="width:50%" align=right>
 					<table cellpadding="3">
-						<tr style='cursor:pointer;' ><td><img src='icons/idea-icon-24x24.png' border=0 width=24 height=24 /></td><td ><a class='tooltips' onclick="$('#khcn_printHuongDanInTMDT').click();" data-toggle='tooltip' title='<b><u>Chú ý:</u> Đọc hướng dẫn này trước khi in thuyết minh đề tài</b>' style='font-weight:bold;color:#0195df'>Hướng dẫn In thuyết minh đề tài</a></td></tr>
+						<tr style='cursor:pointer;' >
+							<td><img src='icons/idea-icon-24x24.png' border=0 width=24 height=24 /></td><td ><a class="fancybox-effects-d" href="./images/huongdan/tmdt/huongdan_dangkytmdt.png" title="Hướng dẫn đăng ký đề tài" style='font-weight:bold;color:#0195df'>Hướng dẫn đăng ký đề tài</a></td>
+							<td><img src='icons/idea-icon-24x24.png' border=0 width=24 height=24 /></td><td ><a class='khcn_tooltips' onclick="$('#khcn_printHuongDanInTMDT').click();" data-toggle='tooltip' title='<b><u>Chú ý:</u> Đọc hướng dẫn này trước khi in thuyết minh đề tài</b>' style='font-weight:bold;color:#0195df'>Hướng dẫn In thuyết minh đề tài</a></td>
+							
+						</tr>
 					</table>
 				</td>
 			</tr>
@@ -1053,6 +1057,22 @@ $(document).ready(function() {
 		document.getElementById("khcn_file_vonkhac").click();
 	});
 	
+	$(".fancybox-effects-d").fancybox({
+		padding: 0,
+
+		openEffect : 'elastic',
+		openSpeed  : 150,
+
+		closeEffect : 'elastic',
+		closeSpeed  : 150,
+
+		closeClick : true,
+
+		helpers : {
+			overlay : null
+		}
+	});
+	
 	<?php if ($batdau > -1 && $hethan<0 ) {?>
 	$('#khcn_reg_button').click( function() {
 		khcn_checksession().done(function(data){
@@ -1174,7 +1194,7 @@ $(document).ready(function() {
 		buttons: [
 			{
 				id: "khcn_diag_reg_dtkhcn_btn_reg",
-				text: "Đăng ký đề tài",
+				text: "Lưu đề tài",
 				click: function() {
 					bValid = true;
 					var bNganhkhac=true,

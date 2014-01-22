@@ -174,7 +174,7 @@ else if ($a == 'getname')
 			AND N.MA_BO_MON = B.MA_BO_MON
 			AND B.MA_KHOA = '$makhoa'"; 
 	
-	file_put_contents("logs.txt", $sqlstr);
+	//file_put_contents("logs.txt", $sqlstr);
 	
 	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 	

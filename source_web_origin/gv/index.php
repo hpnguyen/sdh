@@ -95,6 +95,25 @@ parse_str($a);
 <script src="../js/jQuery.download.js"></script>
 <script src="../js/pgs.js"></script>
 
+<!-- fancybox -->
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="../fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="../fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="../fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="../fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="../fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+	<!-- Add Thumbnail helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="../fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+	<script type="text/javascript" src="../fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+	<!-- Add Media helper (this is optional) -->
+	<script type="text/javascript" src="../fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+<!-- end fancybox -->
 <style>
 	
 	#tabs {}
@@ -250,6 +269,19 @@ parse_str($a);
 			
 			tabNameClick = 'XemDeCuong_All';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Xem đề cương", "front.php/index/index/decuong?hisid=<?php echo $sid;?>");
+			tab_current = 0;
+		});
+		<?php
+		}
+		
+		//Chuc nang reset password
+		if (isset($F116))
+		{			
+		?>
+		$("#ResetPassword_All").click(function() {
+			
+			tabNameClick = 'ListUser_All';					
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' />Reset password", "front.php/admin/system/listuser?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -1019,6 +1051,9 @@ parse_str($a);
 								}
 								if (isset($F115)){
 									echo "<li ><a id='XemDeCuong_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Danh Sách Nhận Đề Cương LV</a></li>";
+								}
+								if (isset($F116)){
+									echo "<li ><a id='ResetPassword_All' href='#'><img border='0' width='48' height='48' src='icons/user-password-icon.png' /><br/>Reset password</a></li>";
 								}
 								if (isset($F107)){
 									echo "<li ><a id='GiayChungNhan_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy chứng nhận</a></li>";

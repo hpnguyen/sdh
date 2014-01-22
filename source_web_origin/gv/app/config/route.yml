@@ -39,3 +39,12 @@ tkb:
       test:
         param1: 0
       test2:
+migration:
+  Migration:
+    Index:
+      index:
+admin:
+  System:
+    System:
+      listuser:
+      change:

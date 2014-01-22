@@ -8,6 +8,7 @@ class ConfigModel extends BaseTable {
 	const KH_KT = 'PC_CBGD_KH_NGAY_KT'; //Date end for khoa member can update
 	const BM_BD = 'PC_CBGD_BM_NGAY_BD'; //Date start for bo mon member can update
 	const BM_KT = 'PC_CBGD_BM_NGAY_KT'; //Date end for bo mon member can update
+	const MIGRATION_VERSION = 'MIGRATION_VERSION'; //Store current migration version
 	
 	function __construct() {
 		parent::init("config");
@@ -79,5 +80,40 @@ class ConfigModel extends BaseTable {
 		$timeHienTai = strtotime(date('d-m-Y'));
 		
 		return $timeHienTai <= $ngayHetHan;
+	}
+	
+	public function checkInitialMigration()
+	{
+		$check = $this->getSelect('*')
+		->where("name = '".self::MIGRATION_VERSION."'")
+		->execute(false, array());
+		
+		if ($check->itemsCount < 1){
+			echo "Insert config MIGRATION_VERSION\n";
+			$data = array(	'name' => self::MIGRATION_VERSION, 
+							'comments' => 'System current migration version');
+			
+			$this->getInsert($data)->execute(true, array());
+		}
+	}
+	
+	public function getLastVersion()
+	{
+		$check = $this->getSelect('*')
+		->where("name = '".self::MIGRATION_VERSION."'")
+		->execute(false, array());
+		
+		if ($check->itemsCount > 0){
+			$last = $check->result[$check->itemsCount - 1];
+			return $last['value'];
+		}else{
+			return null;
+		}
+	}
+	
+	public function updateMigrationVersion($version)
+	{
+		$data = array('value' => $version);
+		$this->getUpdate($data)->where("name = '".self::MIGRATION_VERSION."'")->execute(true, array());
 	}
 }

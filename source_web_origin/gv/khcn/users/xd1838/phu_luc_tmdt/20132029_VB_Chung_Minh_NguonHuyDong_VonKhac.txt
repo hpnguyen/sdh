@@ -1,0 +1,84 @@
+﻿1. Từ HTML là từ viết tắt của từ nào?
+a. Hyperlinks and Text Markup Language
+b. Home Tool Markup Language
+c. Hyper Text Markup Language
+d. Tất cả đều sai 
+
+2. Javascript là ngôn ngữ kịch bản có dấu được mã nguồn không?
+a. Không dấu được vì các kịch bản chạy ở client.
+b. Dấu được vì chương trình hoạt động độc lập với trình duyệt
+c. Hai phát biểu đều sai. 
+
+3. Trong Javascript đoạn mã sau cho ra kết quả gì?
+<script>
+  function switch(){
+	window.open("http://www.vnn.vn","Chao");
+  }
+</script>
+</head>
+<body onload ="switch()"></body>
+
+a. Khi chạy thì một trang khác (VNN) được hiện ra .
+b. Không chạy được vì sai
+c. Khi kết thúc thì một site khác hiện ra
+d. Hiện một trang vnn duy nhất. 
+
+4. Which of the following best describes E_ERROR among PHP Error Types?
+a. Fatal error that occurs at script runtime
+b. Nonfatal error that occurs at runtime (ex: if the script is unable to connect to MySQL)
+c. Error that occurs at complile time due to invalid syntax
+d. Non of the above
+
+5. Which of the following best describes E_WARNING among PHP Error Types?
+a. Fatal error that occurs at script runtime
+b. Nonfatal error that occurs at runtime (ex: if the script is unable to connect to MySQL)
+c. Error that occurs at complile time due to invalid syntax
+d. Non of the above
+
+6. The md5() and crypt() function can be unencrypted?
+a. True
+b. False
+
+7. If the form is submitted with the post method, then any values in the form are assigned to the &HTTP_GET_VARS array?
+a. True
+b. False
+
+8. The session will not track variable until thay have been registered using the session_register() function?
+a. True
+b. False
+
+9. Which of the following best describes E_PARSE among PHP Error Types?
+a. Fatal error that occurs at script runtime
+b. Nonfatal error that occurs at runtime (ex: if the script is unable to connect to MySQL)
+c. Error that occurs at complile time due to invalid syntax
+d. Non of the above
+
+10. The md5() and crypt() functions encrypt passwords?
+a. True
+b. False
+
+11. Once you have started the session and registered one or more variables, you can use those variables across any session anabled pages on your site?
+a. True
+b. False
+
+12. Function to seek out patterns of data ?
+a. ereg()
+b. reg()
+c. preg()
+d. zreg()
+
+13. Đọc code sau và cho biết ý nghĩa
+$("#table_A tbody input[type=checkbox]").each(function() {
+	var $input = $( this );
+	if ($input.attr("checked")=="checked")
+	{
+		$input.attr('checked', false);
+		
+		var nTr = $(this).parents('tr')[0];
+		$("td:eq(2) img",nTr).removeClass();
+		$("td:eq(2) img",nTr).attr("src", "icons/circle-red.png");
+		$("td:eq(2) img",nTr).addClass("boldfont");
+	}
+});
+
+Ý nghĩa: ..........................

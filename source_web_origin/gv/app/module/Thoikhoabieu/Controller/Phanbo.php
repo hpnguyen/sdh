@@ -54,21 +54,13 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 					$canEdit = $config->checkPhanBoCbgdHetHan();
 					unset($config);
 					
-					if($canEdit){
+					$model = new ThoiKhoaBieuModel();
+					
+					if($canEdit || ($canEdit == false && $model->expireCheckPhanBoCanBo($this->getParam('dothoc'),$this->getParam('lop'),$this->getParam('mamh')) == true)){
 						if (in_array( $this->getParam('loai'), array('0','1','2','3'))){
 							$cbgd  = $this->getPost('cbgd', null) == '' ? null : $this->getPost('cbgd', null);
 							$ghichu  = $this->getPost('ghichu', null) == '' ? null : $this->getPost('ghichu', null);
 							$duyet  = $this->getPost('duyet', '0') == '0' ? 0 : (int) $this->getPost('duyet', '0');
-							
-							$model = new ThoiKhoaBieuModel();
-							// $checkXetDuyet = $model->checkXetDuyetPhanBoCanBo(	$this->getParam('dothoc'),
-																				// $this->getParam('lop'),
-																				// $this->getParam('mamh'));
-							// if ($this->getParam('loai') == '3' && $duyet == 1 && $checkXetDuyet == false) {
-								// unset($model);
-								// $this->renderJSON(array('status' => 0, 'message' => 'Vui lòng phân công cán bộ giảng dạy chính trước khi duyệt.'));
-								// return;
-							// }
 							
 							$check = $model->phanBoCanBo(	$this->getParam('dothoc'),
 															$this->getParam('lop'),
@@ -130,14 +122,13 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 			
 			
 			$config = new ConfigModel();
-			$hetHanCapNhat = ! $config->checkPhanBoCbgdHetHan();
+			$template->hetHanCapNhat = $hetHanCapNhat = ! $config->checkPhanBoCbgdHetHan();
 			$template->thoihan = $config->getPhanBoCbgdHetHan();
 			unset($config);
-			
-			if ($template->viewAll == false && $hetHanCapNhat) {
-				echo "Đã hết hạn cho phép phân bổ cán bộ giảng dạy";
-				return;
-			}
+			// if ($template->viewAll == false && $hetHanCapNhat) {
+				// echo "Đã hết hạn cho phép phân bổ cán bộ giảng dạy";
+				// return;
+			// }
 			
 			$template->dothoc =  $this->getParam('dothoc');
 			$macb = $_SESSION['macb'];
@@ -180,12 +171,13 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 					$canEdit = $config->checkPhanBoCbgdHetHanBoMon();
 					unset($config);
 					
-					if($canEdit){
+					$model = new ThoiKhoaBieuModel();
+					
+					if($canEdit || ($canEdit == false && $model->expireCheckPhanBoCanBo($this->getParam('dothoc'),$this->getParam('lop'),$this->getParam('mamh')) == true)){
 						if ($this->getParam('loai') != '2' || $this->getParam('loai') != '1' || $this->getParam('loai') != '0'){
 							$cbgd  = $this->getPost('cbgd', null) == '' ? null : $this->getPost('cbgd', null);
 							$ghichu  = $this->getPost('ghichu', null) == '' ? null : $this->getPost('ghichu', null);
 							
-							$model = new ThoiKhoaBieuModel();
 							$check = $model->phanBoCanBo(	$this->getParam('dothoc'),
 															$this->getParam('lop'),
 															$this->getParam('mamh'),
@@ -246,14 +238,14 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 			$template = new BaseTemplate("tkb/bomon/danhsach","default/index");
 			
 			$config = new ConfigModel();
-			$hetHanCapNhat = ! $config->checkPhanBoCbgdHetHanBoMon();
+			$template->hetHanCapNhat = $hetHanCapNhat = ! $config->checkPhanBoCbgdHetHanBoMon();
 			$template->thoihan = $config->getPhanBoCbgdHetHanBoMon();
 			unset($config);
 			
-			if ($hetHanCapNhat) {
-				echo "Đã hết hạn cho phép phân bổ cán bộ giảng dạy";
-				return;
-			}
+			// if ($hetHanCapNhat) {
+				// echo "Đã hết hạn cho phép phân bổ cán bộ giảng dạy";
+				// return;
+			// }
 			
 			$template->dothoc =  $this->getParam('dothoc');
 			$macb = $_SESSION['macb'];

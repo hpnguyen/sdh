@@ -6,6 +6,7 @@ class NhanSuModel extends BaseTable {
 	const PHAN_BO_CAN_BO_ROLE_ID = 112;
 	const PHAN_BO_CAN_BO_BO_MON_ROLE_ID = 113;
 	const VIEW_ALL_PHAN_BO_CAN_BO_ROLE_ID = 114;
+	const MEMBER_CAN_RESET_USER_PASSWORD_ROLE_ID = 116;
 	
 	function __construct() {
 		parent::init("nhan_su");
@@ -88,5 +89,73 @@ class NhanSuModel extends BaseTable {
 			$ret = true;
 		}
 		return $ret;
+	}
+	
+	public function checkRoleCanDoResetUserPassword()
+	{
+		$user = base64_decode($_SESSION["uidloginPortal"]);
+		
+		$sqlstr="SELECT DISTINCT f.fk_ma_chuc_nang CHUC_NANG 
+		FROM nhan_su n, ct_nhom_nhan_su ct, ct_nhom_nguoi_dung_portal f 
+		WHERE upper(n.username)=upper('".$user."') 
+		AND n.id=ct.fk_id_ns 
+		AND ct.fk_ma_nhom = f.fk_ma_nhom 
+		AND f.fk_ma_chuc_nang = ".self::MEMBER_CAN_RESET_USER_PASSWORD_ROLE_ID;
+		$check = $this->getQuery($sqlstr)
+		->execute(false, array());
+		$ret = false;
+		
+		if($check->itemsCount > 0){
+			$ret = true;
+		}
+		return $ret;
+	}
+	
+	public function getListNhanSu()
+	{
+		$sqlstr = "SELECT n.id, n.USERNAME, n.PASSWORD, n.FK_MA_CAN_BO, c.SHCC,
+		decode(n.FK_MA_CAN_BO, null, n.ho || ' ' || n.ten,get_thanh_vien(n.FK_MA_CAN_BO)) ten_can_bo,
+		b.TEN_BO_MON, decode(k.TEN_KHOA, null, k.TEN_KHOA, pb.TEN_KHOA) khoa
+		FROM nhan_su n, can_bo_giang_day c, bo_mon b, khoa k, khoa pb
+		WHERE n.FK_MA_CAN_BO = c.MA_CAN_BO
+		and c.MA_BO_MON = b.MA_BO_MON
+		and b.MA_KHOA = k.MA_KHOA
+		and n.FK_MA_KHOA = pb.MA_KHOA
+		ORDER BY k.ten_khoa, b.TEN_BO_MON, n.ten, n.ho";
+		
+		$check = $this->getQuery($sqlstr)
+		->execute(false, array());
+		$ret = array();
+		if($check->itemsCount > 0){
+			$ret = $check->result;
+		}
+		return $ret;
+	}
+	
+	public function resetPassword($username)
+	{
+		$sqlstr = "SELECT n.id, n.USERNAME, n.PASSWORD, n.FK_MA_CAN_BO, c.SHCC,
+		decode(n.FK_MA_CAN_BO, null, n.ho || ' ' || n.ten,get_thanh_vien(n.FK_MA_CAN_BO)) ten_can_bo,
+		b.TEN_BO_MON, decode(k.TEN_KHOA, null, k.TEN_KHOA, pb.TEN_KHOA) khoa
+		FROM nhan_su n, can_bo_giang_day c, bo_mon b, khoa k, khoa pb
+		WHERE n.FK_MA_CAN_BO = c.MA_CAN_BO
+		and c.MA_BO_MON = b.MA_BO_MON
+		and b.MA_KHOA = k.MA_KHOA
+		and n.FK_MA_KHOA = pb.MA_KHOA 
+		and n.USERNAME = '".$username."'";
+		
+		$check = $this->getQuery($sqlstr)
+		->execute(false, array());
+		
+		if($check->itemsCount > 0){
+			$data = array('password' => $check->result[0]['shcc']);
+			$this->getUpdate($data)
+			->where("USERNAME = '".$username."'")
+			->execute(true, array());
+			
+			return null;
+		}else{
+			return 'Không tồn tại người dùng này.';
+		}
 	}
 }

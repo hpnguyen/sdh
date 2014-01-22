@@ -6,6 +6,8 @@ require_once('./app/libs/tcpdf/examples/tcpdf_include.php');
 require_once("./app/libs/mpdf57/mpdf.php");
 //Add auto loader
 require_once ('./app/libs/res/auto_loader.php');
+//Add log class
+include './app/logs/logfile.php';
 //Add route map
 include './app/libs/res/route.php';
 //Add front end class

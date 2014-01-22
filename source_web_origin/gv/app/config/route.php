@@ -64,5 +64,23 @@ $config = array(
 															)
 										)
 			  )
+),
+'migration' => array(
+								'Migration' => array(
+												'Index' => array(
+																'index' => array(
+																)
+								)
+				)
+),
+'admin' => array(
+								'System' => array(
+												'System' => array(
+																'listuser' => array(
+																),
+																'change' => array(
+																)
+								)
+				)
 )
 );

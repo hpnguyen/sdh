@@ -39,9 +39,9 @@ oci_free_statement($stmt);
 */
 
 echo "
-	<div align='center'><h2>Thời Khóa Biểu Giảng Dạy Cao Học<br/>Học kỳ $hk</h2></div>
+	<div align='center'><h2>Thời Khóa Biểu Giảng Dạy Cao Học<br/>Học kỳ $hk <br> <span style='color:red'>Tuần 1: $dothoc</span></h2></div>
 	<div style='margin-bottom:20px;'>
-		<div style='margin:0 0 10px 5px; ' align=left><strong>Ngày bắt đầu HK: <span id='ngaybatdauhk'></span></strong></div>
+		<div style='margin:0 0 10px 5px; font-size:12px;' align=left><strong>Ngày bắt đầu HK: <span id='ngaybatdauhk' style='color:red'>$dothoc</span></strong></div>
 		<table id='tableTKB' name='tableTKB' width='100%' border='0'  cellspacing='0' class='ui-widget ui-widget-content ui-corner-top tableData' >
 		<thead>
 		  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
@@ -55,9 +55,9 @@ echo "
 			<td>TL</td>
 			<td  align='center' style='width:200px;'>Chuyên ngành</td>
 			<td>SL</td>
-			<td>Tiết học</td>
+			<td align='center'>Tiết học</td>
 			<td>Phòng</td>
-			<td  align='center'>Tuần học</td>
+			<td  align='center'>Tuần học <br> Tuần 1: <span style='color:red'>$dothoc</span></td>
 			<td class='ui-corner-tr'>Ngày thi</td>
 		  </tr>
 		  </thead>
@@ -78,7 +78,7 @@ for ($i = 0; $i < $n; $i++)
 	echo "<td>".$resDM["CHUYEN_NGANH"][$i]."</td>";
 	echo "<td><b>".$resDM["SL"][$i]."</b></td>";
 	echo "<td align='center'><b>".$resDM["TIET_BAT_DAU"][$i].'-'.$resDM["TIET_KET_THUC"][$i]."</b></td>";
-	echo "<td>".$resDM["PHONG"][$i]."</td>";
+	echo "<td><b>".$resDM["PHONG"][$i]."</b></td>";
 	echo "<td align='center'><b>".$resDM["TUAN_HOC"][$i]."</b></td>";
 	echo "<td>".$resDM["NGAY_THI"][$i]."</td>";
 	echo "</tr>";

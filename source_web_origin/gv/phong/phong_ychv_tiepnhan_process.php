@@ -204,6 +204,7 @@ else if ($a=='refreshdata'){
 	$fnn = str_replace ("'", "''", $_REQUEST["fnn"]); // filter nguoi nhan
 	$fhvnyc = str_replace ("'", "''", $_REQUEST["fhvnyc"]); // filter hoc vien nhan yeu cau hoc vu hay chua
 	$fhvnnhan = str_replace ("'", "''", $_REQUEST["fhvnnhan"]); // filter hoc vien nam nhan hoc vu
+	$fhvnnhan1 = ($fhvnnhan - 1) ;
 	$filterstr = "";
 	
 	if ($fttr != "")
@@ -227,7 +228,7 @@ else if ($a=='refreshdata'){
 	if ($fhvnyc != "" && $fhvnyc == "1")
 		$filterstr .= " AND hvu.NGAY_TRA_KQ is not null";
 	if ($fhvnnhan != "")
-		$filterstr .= " AND to_char(hvu.NGAY_TIEP_NHAN, 'yyyy') = '$fhvnnhan'";
+		$filterstr .= " AND (hvu.NGAY_TIEP_NHAN between to_date('01/11/$fhvnnhan1', 'dd/mm/yyyy') and to_date('31/12/$fhvnnhan', 'dd/mm/yyyy'))";
 	
 	$sqlstr="	SELECT ma_gqhvu, noi_dung_yc, to_char(ngay_tiep_nhan, 'yyyy-mm-dd') ngay_tiep_nhan, to_char(ngay_hen_tra_kq, 'yyyy-mm-dd') ngay_hen_tra_kq, 
 				GET_GHI_CHU_YCHV(ma_gqhvu) ghi_chu, fk_ma_hoc_vien, hv.ho || ' ' || hv.ten ho_ten_hv, HO_TEN_HOC_VIEN ho_ten_hv_1, ma_bac, 
@@ -239,9 +240,9 @@ else if ($a=='refreshdata'){
 				WHERE fk_ma_hoc_vien = hv.ma_hoc_vien(+) and hvu.nguoi_giai_quyet = n.id(+) and hvu.NGUOI_TIEP_NHAN = n1.id(+) and hvu.tinh_trang = tt.ma_tinh_trang(+)
 				and hvu.nguoi_chuyen = n2.id(+) and hvu.nguoi_tra_kq = n3.id(+)
 				$filterstr";
-	/*file_put_contents("logs.txt", "----------------------------------------------\n
+	file_put_contents("logs.txt", "----------------------------------------------\n
 				". date("H:i:s d.m.Y")." $sqlstr \n
-				----------------------------------------------\n", FILE_APPEND);*/
+				----------------------------------------------\n", FILE_APPEND);
 	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 	$data='{
 			"aaData":[';
