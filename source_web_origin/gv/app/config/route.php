@@ -26,6 +26,14 @@ $config = array(
 											) 
 						)
 ),
+'phongbankhoa' => array(
+						'Phongban' => array(
+											'Hoso' => array(
+															'tientrinh' => array(
+																)
+											) 
+						)
+),
 'tkb' => array(
 			  'Thoikhoabieu' => array(
 			  							'Phanbo' => array(	

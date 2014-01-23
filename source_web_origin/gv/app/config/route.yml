@@ -13,6 +13,10 @@ phanbocanbo:
       save:
         param1: 0
         param2: 0
+phongbankhoa:
+  Phongban:
+    Hoso:
+      tientrinh:
 tkb:
   Thoikhoabieu:
     Phanbo:

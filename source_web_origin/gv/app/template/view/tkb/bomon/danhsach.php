@@ -30,39 +30,42 @@ foreach($listItems as $y => $row)
 	$listArrayDataString .= "'<b class=\"special-color\">" .$row['thu']."</b>',";
 	$listArrayDataString .= "'".$row["ma_mh"]."',";
 	$listArrayDataString .= "'".$row["ten"]."',";
+	
+	$checkEnable = $canEdit && $row['khoa_duoc_pc_cbgd'] == '1';
+	
 	//Can bo giang day chinh
-	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
+	if ($checkEnable) {
 		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-".$i."\" width=\"16px\" height=\"16px\" style=\"".($row["ma_can_bo"] != '' ? 'display:none; ' : '')."\" title=\"Click vào để chọn giảng viên\"/>		<img src=\"".$gvURL."/icons/delete-icon.png\" id=\"delete-icon-".$i."\" style=\"".($row["ma_can_bo"] != '' ? '' : 'display:none; ')."float: right\"/>',";
 	}else{
 		$listArrayDataString .= "'',";
 	}
 	
-	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
+	if ($checkEnable) {
 		$listArrayDataString .= "'<div class=\"list-canbo\" rel=\"".$i."\"><span id=\"view-name-".$i."\" title=\"\">".$row["ten_cb_chinh"]."</span>	<input style=\"width: 163px\" id=\"project-".$i."\" class=\"project project-input\" title=\"Họ tên, số hiệu công chức, khoa, bộ môn\"/>	<input type=\"hidden\" id=\"project-id-".$i."\" class=\"project-id\" value=\"".$row["ma_can_bo"]."\"/>	<input type=\"hidden\" id=\"link-url-".$i."\" value=\"/lop/".$row["lop"]."/mamh/".$row["ma_mh"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-".$i."\" style=\"display:none; float: right\"/>	</div>',";
 	}else{
 		$listArrayDataString .= "'".$row["ten_cb_chinh"]."',";
 	}
 	
 	//Can bo giang day phu
-	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
+	if ($checkEnable) {
 		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-phu-".$i."\" width=\"16px\" height=\"16px\" style=\"".($row["ma_can_bo_phu"] != '' ? 'display:none; ' : '')."\" title=\"Click vào để chọn giảng viên\"/>		<img src=\"".$gvURL."/icons/delete-icon.png\" id=\"delete-icon-phu-".$i."\" style=\"".($row["ma_can_bo_phu"] != '' ? '' : 'display:none; ')."float: right\"/>',";
 	}else{
 		$listArrayDataString .= "'',";
 	}
 	
-	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
+	if ($checkEnable) {
 		$listArrayDataString .= "'<div class=\"list-canbo-phu\" rel=\"".$i."\">	<span id=\"view-name-phu-".$i."\" title=\"\">".$row["ten_cb_phu"]."</span>	<input style=\"width: 163px\" id=\"project-phu-".$i."\" class=\"project project-input\" title=\"Họ tên, số hiệu công chức, khoa, bộ môn\"/>	<input type=\"hidden\" id=\"project-id-phu-".$i."\" class=\"project-id\" value=\"".$row["ma_can_bo_phu"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-phu-".$i."\" style=\"display:none; float: right\"/>	</div>',";
 	}else{
 		$listArrayDataString .= "'".$row["ten_cb_phu"]."',";
 	}
 	
-	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
+	if ($checkEnable) {
 		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-ghichu-".$i."\" width=\"16px\" height=\"16px\" title=\"Click vào để thêm ghi chú\"/>',";
 	}else{
 		$listArrayDataString .= "'',";
 	}
 	
-	if ($canEdit || $row['khoa_duoc_pc_cbgd'] == '1') {
+	if ($checkEnable) {
 		$listArrayDataString .= "'<div class=\"list-ghichu\">	<span id=\"view-ghichu-".$i."\" title=\"\">".$row["ghi_chu"]."</span>	<input type=\"text\" id=\"ghichu-".$i."\" style=\"width:50px;display:none\" value=\"".$row["ghi_chu"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-ghichu-".$i."\" style=\"display:none; float: right\"/>	</div>',";
 	}else {
 		$listArrayDataString .= "'".$row["ghi_chu"]."',";
@@ -74,7 +77,8 @@ foreach($listItems as $y => $row)
 	$listArrayDataString .= "'".$row["phong"]."',";
 	$listArrayDataString .= "'<b>".$row["tuan_hoc"]."</b>',";
 	$listArrayDataString .= "'".$row["ten_bo_mon"]."',";
-	$listArrayDataString .= "'".$row["chuyen_nganh"]."'";
+	$listArrayDataString .= "'".$row["chuyen_nganh"]."',";
+	$listArrayDataString .= "'".$row["khoi_ktbs"]."'";
 	$listArrayData[] = $listArrayDataString;
 } 
 ?>
@@ -104,6 +108,7 @@ foreach($listItems as $y => $row)
 		<td width="43px" align="center">Tuần học</td>
 		<td width="163px" align="center" >BM Quản lý MH</td>
 		<td width="163px" align="center">Chuyên ngành</td>
+		<td width="18px" align="center">KT BS</td>
 	  </tr>
 	  </thead>
 	  <tbody>
@@ -370,9 +375,11 @@ $(document).ready(function() {
             {"sClass": "center"},
             {"sClass": "center"},
             null,
-            null
+            null,
+            {"sClass": "center"}
         ],
-         "aaSorting": [[15,'asc'], [14,'asc'], [0,'asc'], [11,'asc'], [2,'asc'], [9,'asc']],
+        //"aaSorting": [[15,'asc'], [14,'asc'], [0,'asc'], [11,'asc'], [2,'asc'], [9,'asc']],
+        "aaSorting": [[16,'desc']],
         //"bStateSave": true,
 		"bAutoWidth": false, 
 		"sPaginationType": "full_numbers",

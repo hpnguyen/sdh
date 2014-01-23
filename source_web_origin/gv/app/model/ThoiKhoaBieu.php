@@ -26,7 +26,7 @@ class ThoiKhoaBieuModel extends BaseTable {
 			get_nganh_tkb(t.ma_can_bo, t.dot_hoc, t.ma_mh,t.lop) chuyen_nganh,
 				(SELECT COUNT(*) FROM dang_ky_mon_hoc DK WHERE DK.DOT_HOC = t.dot_hoc AND DK.MA_MH = t.ma_mh
 				AND DK.LOP=t.lop) SL ,
-			t.khoa_duoc_pc_cbgd 
+			t.khoa_duoc_pc_cbgd , decode(t.khoi_ktbs, 1, 'x', '') khoi_ktbs
 			FROM THOI_KHOA_BIEU t, MON_HOC m, BO_MON b, KHOA k
 			WHERE t.MA_MH = m.MA_MH 
 			AND t.MA_MH not in ('".implode("','", $this->maMonHocChung)."')
@@ -36,8 +36,9 @@ class ThoiKhoaBieuModel extends BaseTable {
 		if ($viewall == false) {
 			$sqlstr .= " and k.ma_khoa = ".$makhoa; 
 		}
-		$sqlstr .= " ORDER BY t.khoa_duoc_pc_cbgd desc,chuyen_nganh, b.ten_bo_mon, thu, T.TIET_BAT_DAU asc,  m.TEN, t.lop"; 
+		$sqlstr .= " ORDER BY khoi_ktbs desc, t.khoa_duoc_pc_cbgd desc,chuyen_nganh, b.ten_bo_mon, thu, T.TIET_BAT_DAU,  m.TEN, t.lop";
 		
+		// echo $sqlstr;
 		$check = $this->getQuery($sqlstr)
 		->execute(false, array());
 		
@@ -66,13 +67,13 @@ class ThoiKhoaBieuModel extends BaseTable {
 			get_nganh_tkb(t.ma_can_bo, t.dot_hoc, t.ma_mh,t.lop) chuyen_nganh,
 				(SELECT COUNT(*) FROM dang_ky_mon_hoc DK WHERE DK.DOT_HOC = t.dot_hoc AND DK.MA_MH = t.ma_mh
 				AND DK.LOP=t.lop) SL ,
-			t.khoa_duoc_pc_cbgd 
+			t.khoa_duoc_pc_cbgd  , decode(t.khoi_ktbs, 1, 'x', '') khoi_ktbs
 			FROM THOI_KHOA_BIEU t, MON_HOC m, BO_MON b, KHOA k
 			WHERE t.MA_MH = m.MA_MH 
 			AND t.MA_MH not in ('".implode("','", $this->maMonHocChung)."') 
 			AND (t.dot_hoc = to_date('".$dothoc."','dd-mm-yyyy'))
 			AND m.ma_bo_mon = b.ma_bo_mon and b.ma_khoa = k.ma_khoa and m.ma_bo_mon = ".$mabomon."
-			ORDER BY t.khoa_duoc_pc_cbgd desc,chuyen_nganh, b.ten_bo_mon, thu, T.TIET_BAT_DAU,  m.TEN, t.lop"; 
+			ORDER BY khoi_ktbs desc, t.khoa_duoc_pc_cbgd desc,chuyen_nganh, b.ten_bo_mon, thu, T.TIET_BAT_DAU,  m.TEN, t.lop"; 
 		
 		$check = $this->getQuery($sqlstr)
 		->execute(false, array());

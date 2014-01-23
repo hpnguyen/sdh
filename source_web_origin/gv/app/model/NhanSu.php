@@ -7,6 +7,7 @@ class NhanSuModel extends BaseTable {
 	const PHAN_BO_CAN_BO_BO_MON_ROLE_ID = 113;
 	const VIEW_ALL_PHAN_BO_CAN_BO_ROLE_ID = 114;
 	const MEMBER_CAN_RESET_USER_PASSWORD_ROLE_ID = 116;
+	const VIEW_TIEN_TRINH_HO_SO_ROLE_ID = 117;
 	
 	function __construct() {
 		parent::init("nhan_su");
@@ -107,6 +108,42 @@ class NhanSuModel extends BaseTable {
 		
 		if($check->itemsCount > 0){
 			$ret = true;
+		}
+		return $ret;
+	}
+	
+	public function checkRoleViewTienTrinhHoSo()
+	{
+		$user = base64_decode($_SESSION["uidloginPortal"]);
+		
+		$sqlstr="SELECT DISTINCT f.fk_ma_chuc_nang CHUC_NANG 
+		FROM nhan_su n, ct_nhom_nhan_su ct, ct_nhom_nguoi_dung_portal f 
+		WHERE upper(n.username)=upper('".$user."') 
+		AND n.id=ct.fk_id_ns 
+		AND ct.fk_ma_nhom = f.fk_ma_nhom 
+		AND f.fk_ma_chuc_nang = ".self::VIEW_TIEN_TRINH_HO_SO_ROLE_ID;
+		
+		$check = $this->getQuery($sqlstr)
+		->execute(false, array());
+		$ret = false;
+		
+		if($check->itemsCount > 0){
+			$ret = true;
+		}
+		return $ret;
+	}
+	
+	public function getDanhSachPhongSDH()
+	{
+		$sqlstr="SELECT id, ho || ' ' || ten ho_ten 
+		FROM nhan_su 
+		WHERE pdtsdh='1' 
+		ORDER BY ten";
+		$check = $this->getQuery($sqlstr)
+		->execute(false, array());
+		$ret = array();
+		if($check->itemsCount > 0){
+			$ret = $check->result;
 		}
 		return $ret;
 	}
