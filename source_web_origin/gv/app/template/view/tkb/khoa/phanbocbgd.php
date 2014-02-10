@@ -13,7 +13,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td align="left"><a id="khoa_phanbocbgd_btn_printpreview" style='font-size:80%'>&nbsp;Xem bản In</a></td>
+			<td align="left">
+				<a id="khoa_phanbocbgd_btn_printpreview" style='font-size:80%'>&nbsp;Xem bản In</a>
+				<a id="khoa_phanbocbgd_btn_printpreview_bo_sung" style='font-size:80%'>&nbsp;Bản In kiến thức bổ sung</a>
+			</td>
 		</tr>
 	</table>
 	
@@ -63,6 +66,7 @@
 $(function(){
  
  $( "#khoa_phanbocbgd_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
+ $( "#khoa_phanbocbgd_btn_printpreview_bo_sung" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
  
  khoa_loadTKB($("#khoa_phanbocbgd_hk").val());
  
@@ -80,10 +84,19 @@ $(function(){
 		window.open(myURL, '_blank', 'location=yes,height=450,width=1024,scrollbars=yes,status=yes');
  });
  
+ $("#khoa_phanbocbgd_btn_printpreview_bo_sung").click(function(){
+		myURL = $('#printPageURL').val();
+		var hk = encodeURIComponent($('#phan-bo-head').text());
+		var nbd = encodeURIComponent($('#ngaybatdauhk').text());
+		myURL = myURL + '&hk=' + hk + '&nbd=' + nbd + '&ktbs=1';
+		window.open(myURL, '_blank', 'location=yes,height=450,width=1024,scrollbars=yes,status=yes');
+ });
+ 
  function khoa_loadTKB(p_dothoc)
  {
 	$("#khoa_phanbocbgd_tkb_detail").html("<img border='0' src='images/ajax-loader.gif'/>");
 	$( "#khoa_phanbocbgd_btn_printpreview" ).button( "disable" );
+	$( "#khoa_phanbocbgd_btn_printpreview_bo_sung" ).button( "disable" );
 	xreq = $.ajax({
 	  type: 'POST', dataType: "html",
 	  url: 'front.php/tkb/phanbo/list?'
@@ -94,10 +107,12 @@ $(function(){
 		$("#khoa_phanbocbgd_tkb_detail").html(data);
 		$('#ngaybatdauhk').text(' ' + $("#khoa_phanbocbgd_hk").val() + ' (tuần 1)');
 		$( "#khoa_phanbocbgd_btn_printpreview" ).button( "enable" );
+		$( "#khoa_phanbocbgd_btn_printpreview_bo_sung" ).button( "enable" );
 	  },
 	  error: function(xhr, ajaxOptions, thrownError) {
 		$("#khoa_phanbocbgd_tkb_detail").html(thrownError);
 		$( "#khoa_phanbocbgd_btn_printpreview" ).button( "disable" );
+		$( "#khoa_phanbocbgd_btn_printpreview_bo_sung" ).button( "disable" );
 	  }
 	});
  }

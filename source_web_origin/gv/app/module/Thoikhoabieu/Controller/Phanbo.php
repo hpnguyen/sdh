@@ -19,7 +19,7 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		
 		//get list
 		$model = new ThoiKhoaBieuModel();
-		$template->listItems = $model->getDanhSachMonHocPhanBo($this->getParam('dothoc'),$this->getParam('makhoa'),$viewAll);
+		$template->listItems = $model->getDanhSachMonHocPhanBo($this->getParam('dothoc'),$this->getParam('makhoa'),$viewAll,$_GET['ktbs']);
 		$template->hk = $this->getGet('hk');
 		$template->nbd = $this->getGet('nbd');
 		$template->viewAll = $viewAll;
@@ -36,7 +36,7 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		$template->makhoa = $this->getParam('makhoa');
 		//get list
 		$model = new ThoiKhoaBieuModel();
-		$template->listItems = $model->getDanhSachMonHocPhanBoBoMon($this->getParam('dothoc'));
+		$template->listItems = $model->getDanhSachMonHocPhanBoBoMon($this->getParam('dothoc'),$_GET['ktbs']);
 		$template->hk = $this->getGet('hk');
 		$template->nbd = $this->getGet('nbd');
 		unset($model);

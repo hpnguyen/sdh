@@ -13,7 +13,7 @@ class ThoiKhoaBieuModel extends BaseTable {
 		parent::__destruct();
 	}
 	
-	public function getDanhSachMonHocPhanBo($dothoc,$makhoa, $viewall = false)
+	public function getDanhSachMonHocPhanBo($dothoc,$makhoa, $viewall = false, $ktbs = 0)
 	{
 		$sqlstr="SELECT DISTINCT m.TEN, T.MA_MH, t.ma_can_bo,t.ma_can_bo_phu, 
 			decode(T.THU, 9, null, 1, 'CN', t.thu) thu, T.TIET_BAT_DAU, T.TIET_KET_THUC, tuan_bat_dau,
@@ -31,7 +31,7 @@ class ThoiKhoaBieuModel extends BaseTable {
 			WHERE t.MA_MH = m.MA_MH 
 			AND t.MA_MH not in ('".implode("','", $this->maMonHocChung)."')
 			AND (t.dot_hoc = to_date('".$dothoc."','dd-mm-yyyy')) 
-			AND m.ma_bo_mon = b.ma_bo_mon and b.ma_khoa = k.ma_khoa ";
+			AND m.ma_bo_mon = b.ma_bo_mon and b.ma_khoa = k.ma_khoa ".($ktbs == 0 ? "" : "AND khoi_ktbs = 1");
 		
 		if ($viewall == false) {
 			$sqlstr .= " and k.ma_khoa = ".$makhoa; 
@@ -50,7 +50,7 @@ class ThoiKhoaBieuModel extends BaseTable {
 		return $ret;
 	}
 	
-	public function getDanhSachMonHocPhanBoBoMon($dothoc)
+	public function getDanhSachMonHocPhanBoBoMon($dothoc, $ktbs = 0)
 	{
 		$cbgd = new CanBoGiangDayModel();
 		$mabomon = $cbgd->getUserLoginMaBoMon();
@@ -73,6 +73,7 @@ class ThoiKhoaBieuModel extends BaseTable {
 			AND t.MA_MH not in ('".implode("','", $this->maMonHocChung)."') 
 			AND (t.dot_hoc = to_date('".$dothoc."','dd-mm-yyyy'))
 			AND m.ma_bo_mon = b.ma_bo_mon and b.ma_khoa = k.ma_khoa and m.ma_bo_mon = ".$mabomon."
+			".($ktbs == 0 ? "" : "AND khoi_ktbs = 1")."
 			ORDER BY khoi_ktbs desc, t.khoa_duoc_pc_cbgd desc,chuyen_nganh, b.ten_bo_mon, thu, T.TIET_BAT_DAU,  m.TEN, t.lop"; 
 		
 		$check = $this->getQuery($sqlstr)

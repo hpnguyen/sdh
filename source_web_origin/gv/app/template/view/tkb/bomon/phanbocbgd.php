@@ -13,7 +13,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td align="left"><a id="bomon_phanbocbgd_btn_printpreview" style='font-size:80%'>&nbsp;Xem bản In</a></td>
+			<td align="left">
+				<a id="bomon_phanbocbgd_btn_printpreview" style='font-size:80%'>&nbsp;Xem bản In</a>
+				<a id="bomon_phanbocbgd_btn_printpreview_bo_sung" style='font-size:80%'>&nbsp;Bản In kiến thức bổ sung</a>
+			</td>
 		</tr>
 	</table>
 	
@@ -63,6 +66,7 @@
 $(function(){
  
  $( "#bomon_phanbocbgd_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
+ $( "#bomon_phanbocbgd_btn_printpreview_bo_sung" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
  
  bomon_loadTKB($("#bomon_phanbocbgd_hk").val());
  
@@ -80,10 +84,19 @@ $(function(){
 		window.open(myURL, '_blank', 'location=yes,height=450,width=1024,scrollbars=yes,status=yes');
  });
  
+ $("#bomon_phanbocbgd_btn_printpreview_bo_sung").click(function(){
+		myURL = $('#printPageURLBoMon').val();
+		var hk = encodeURIComponent($('#phan-bo-head').text());
+		var nbd = encodeURIComponent($('#ngaybatdauhk').text());
+		myURL = myURL + '&hk=' + hk + '&nbd=' + nbd + '&ktbs=1';
+		window.open(myURL, '_blank', 'location=yes,height=450,width=1024,scrollbars=yes,status=yes');
+ });
+ 
  function bomon_loadTKB(p_dothoc)
  {
 	$("#bomon_phanbocbgd_tkb_detail").html("<img border='0' src='images/ajax-loader.gif'/>");
 	$( "#bomon_phanbocbgd_btn_printpreview" ).button( "disable" );
+	$( "#bomon_phanbocbgd_btn_printpreview_bo_sung" ).button( "disable" );
 	xreq = $.ajax({
 	  type: 'POST', dataType: "html",
 	  url: 'front.php/tkb/phanbo/listbomon?'
@@ -94,10 +107,12 @@ $(function(){
 		$("#bomon_phanbocbgd_tkb_detail").html(data);
 		$('#ngaybatdauhk').text(' ' + $("#bomon_phanbocbgd_hk").val() + ' (tuần 1)');
 		$( "#bomon_phanbocbgd_btn_printpreview" ).button( "enable" );
+		$( "#bomon_phanbocbgd_btn_printpreview_bo_sung" ).button( "enable" );
 	  },
 	  error: function(xhr, ajaxOptions, thrownError) {
 		$("#bomon_phanbocbgd_tkb_detail").html(thrownError);
 		$( "#bomon_phanbocbgd_btn_printpreview" ).button( "disable" );
+		$( "#bomon_phanbocbgd_btn_printpreview_bo_sung" ).button( "disable" );
 	  }
 	});
  }
