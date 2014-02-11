@@ -287,6 +287,18 @@ parse_str($a);
 		<?php
 		}
 		
+		//Chuc nang xem danh sach tinh trang hoc vu
+		if (isset($F117))
+		{
+		?>
+		$("#TienTrinhHoSo_All").click(function() {
+			tabNameClick = 'TienTrinhHoSo_All';					
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' />Tiến trình hồ sơ", "front.php/phongbankhoa/hoso/tientrinh?hisid=<?php echo $sid;?>");
+			tab_current = 0;
+		});
+		<?php
+		}
+		
 		if (isset($F012))
 		{			
 		?>
@@ -1055,6 +1067,10 @@ parse_str($a);
 								if (isset($F116)){
 									echo "<li ><a id='ResetPassword_All' href='#'><img border='0' width='48' height='48' src='icons/user-password-icon.png' /><br/>Reset password</a></li>";
 								}
+								if (isset($F117)){
+									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Tiến trình hồ sơ</a></li>";
+								}
+								
 								if (isset($F107)){
 									echo "<li ><a id='GiayChungNhan_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy chứng nhận</a></li>";
 								}

@@ -9,7 +9,8 @@ $queryString = "?hisid=".$_GET['hisid'];
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $timeDotHoc = strtotime($dothoc);
 $timeHienTai = strtotime(date('d-m-Y'));
-$canEdit = $timeDotHoc >= $timeHienTai && $hetHanCapNhat == false;
+$canEdit = $timeDotHoc >= $timeHienTai ; //Dot hoc chua den
+$canEdit = $canEdit || ($timeDotHoc < $timeHienTai && $hetHanCapNhat == false) ; //Dot hoc da mo nhung van cho phep sua doi
 ?>
 <div align="center">
 	<h2>Phân công cán bộ giảng dạy - cấp Bộ môn<br/>Học kỳ <span id="phan-bo-head"><?php echo $hk ?></span></h2>
