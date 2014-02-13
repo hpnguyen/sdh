@@ -27,7 +27,8 @@ foreach($listItems as $y => $row)
 	$listArrayDataString = "";
 	
 	$classAlt = ($y % 2) ? "alt" : "alt_";
-	$i = $row["ma_mh"].'_'.$row["lop"];
+	$i = $row["ma_mh"].'_'.$row["lop"].'_'.$row["thu"].'_'.$row["dot_hoc"].'_'.$row["tiet_bat_dau"].'_'.$row["tuan_bat_dau"];
+	$theSameId = $row["ma_mh"].'_'.$row["lop"];
 	$listArrayDataString .= "'<b class=\"special-color\">" .$row['thu']."</b>',";
 	$listArrayDataString .= "'".$row["ma_mh"]."',";
 	$listArrayDataString .= "'".$row["ten"]."',";
@@ -36,38 +37,38 @@ foreach($listItems as $y => $row)
 	
 	//Can bo giang day chinh
 	if ($checkEnable) {
-		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-".$i."\" width=\"16px\" height=\"16px\" style=\"".($row["ma_can_bo"] != '' ? 'display:none; ' : '')."\" title=\"Click vào để chọn giảng viên\"/>		<img src=\"".$gvURL."/icons/delete-icon.png\" id=\"delete-icon-".$i."\" style=\"".($row["ma_can_bo"] != '' ? '' : 'display:none; ')."float: right\"/>',";
+		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" order=\"".$y."\" id=\"add-icon-".$i."\" width=\"16px\" height=\"16px\" style=\"".($row["ma_can_bo"] != '' ? 'display:none; ' : '')."\" title=\"Click vào để chọn giảng viên\"/>		<img src=\"".$gvURL."/icons/delete-icon.png\" id=\"delete-icon-".$i."\" style=\"".($row["ma_can_bo"] != '' ? '' : 'display:none; ')."float: right\"/>',";
 	}else{
 		$listArrayDataString .= "'',";
 	}
 	
 	if ($checkEnable) {
-		$listArrayDataString .= "'<div class=\"list-canbo\" rel=\"".$i."\"><span id=\"view-name-".$i."\" title=\"\">".$row["ten_cb_chinh"]."</span>	<input style=\"width: 163px\" id=\"project-".$i."\" class=\"project project-input\" title=\"Họ tên, số hiệu công chức, khoa, bộ môn\"/>	<input type=\"hidden\" id=\"project-id-".$i."\" class=\"project-id\" value=\"".$row["ma_can_bo"]."\"/>	<input type=\"hidden\" id=\"link-url-".$i."\" value=\"/lop/".$row["lop"]."/mamh/".$row["ma_mh"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-".$i."\" style=\"display:none; float: right\"/>	</div>',";
+		$listArrayDataString .= "'<div class=\"list-canbo check-the-same-".$theSameId."-canbo\" order=\"".$y."\" relsame=\"check-the-same-".$theSameId."\" rel=\"".$i."\"><span id=\"view-name-".$i."\" title=\"\">".$row["ten_cb_chinh"]."</span>	<input style=\"width: 163px\" id=\"project-".$i."\" class=\"project project-input\" title=\"Họ tên, số hiệu công chức, khoa, bộ môn\"/>	<input type=\"hidden\" id=\"project-id-".$i."\" class=\"project-id\" value=\"".$row["ma_can_bo"]."\"/>	<input type=\"hidden\" id=\"link-url-".$i."\" value=\"/lop/".$row["lop"]."/mamh/".$row["ma_mh"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-".$i."\" style=\"display:none; float: right\"/>	</div>',";
 	}else{
 		$listArrayDataString .= "'".$row["ten_cb_chinh"]."',";
 	}
 	
 	//Can bo giang day phu
 	if ($checkEnable) {
-		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-phu-".$i."\" width=\"16px\" height=\"16px\" style=\"".($row["ma_can_bo_phu"] != '' ? 'display:none; ' : '')."\" title=\"Click vào để chọn giảng viên\"/>		<img src=\"".$gvURL."/icons/delete-icon.png\" id=\"delete-icon-phu-".$i."\" style=\"".($row["ma_can_bo_phu"] != '' ? '' : 'display:none; ')."float: right\"/>',";
+		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" order=\"".$y."\" id=\"add-icon-phu-".$i."\" width=\"16px\" height=\"16px\" style=\"".($row["ma_can_bo_phu"] != '' ? 'display:none; ' : '')."\" title=\"Click vào để chọn giảng viên\"/>		<img src=\"".$gvURL."/icons/delete-icon.png\" id=\"delete-icon-phu-".$i."\" style=\"".($row["ma_can_bo_phu"] != '' ? '' : 'display:none; ')."float: right\"/>',";
 	}else{
 		$listArrayDataString .= "'',";
 	}
 	
 	if ($checkEnable) {
-		$listArrayDataString .= "'<div class=\"list-canbo-phu\" rel=\"".$i."\">	<span id=\"view-name-phu-".$i."\" title=\"\">".$row["ten_cb_phu"]."</span>	<input style=\"width: 163px\" id=\"project-phu-".$i."\" class=\"project project-input\" title=\"Họ tên, số hiệu công chức, khoa, bộ môn\"/>	<input type=\"hidden\" id=\"project-id-phu-".$i."\" class=\"project-id\" value=\"".$row["ma_can_bo_phu"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-phu-".$i."\" style=\"display:none; float: right\"/>	</div>',";
+		$listArrayDataString .= "'<div class=\"list-canbo-phu check-the-same-".$theSameId."-canbo-phu\" order=\"".$y."\" relsame=\"check-the-same-".$theSameId."\" rel=\"".$i."\">	<span id=\"view-name-phu-".$i."\" title=\"\">".$row["ten_cb_phu"]."</span>	<input style=\"width: 163px\" id=\"project-phu-".$i."\" class=\"project project-input\" title=\"Họ tên, số hiệu công chức, khoa, bộ môn\"/>	<input type=\"hidden\" id=\"project-id-phu-".$i."\" class=\"project-id\" value=\"".$row["ma_can_bo_phu"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-phu-".$i."\" style=\"display:none; float: right\"/>	</div>',";
 	}else{
 		$listArrayDataString .= "'".$row["ten_cb_phu"]."',";
 	}
 	
 	if ($checkEnable) {
-		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" id=\"add-icon-ghichu-".$i."\" width=\"16px\" height=\"16px\" title=\"Click vào để thêm ghi chú\"/>',";
+		$listArrayDataString .= "'<img src=\"".$help->gvRootImageURL('add-icon16.png')."\" order=\"".$y."\" id=\"add-icon-ghichu-".$i."\" width=\"16px\" height=\"16px\" title=\"Click vào để thêm ghi chú\"/>',";
 	}else{
 		$listArrayDataString .= "'',";
 	}
 	
 	if ($checkEnable) {
-		$listArrayDataString .= "'<div class=\"list-ghichu\">	<span id=\"view-ghichu-".$i."\" title=\"\">".$row["ghi_chu"]."</span>	<input type=\"text\" id=\"ghichu-".$i."\" style=\"width:50px;display:none\" value=\"".$row["ghi_chu"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-ghichu-".$i."\" style=\"display:none; float: right\"/>	</div>',";
+		$listArrayDataString .= "'<div class=\"list-ghichu check-the-same-".$theSameId."-ghichu\" order=\"".$y."\">	<span order=\"".$y."\" id=\"view-ghichu-".$i."\" title=\"\">".$row["ghi_chu"]."</span>	<input type=\"text\" id=\"ghichu-".$i."\" style=\"width:50px;display:none\" value=\"".$row["ghi_chu"]."\"/>	<img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-ghichu-".$i."\" style=\"display:none; float: right\"/>	</div>',";
 	}else {
 		$listArrayDataString .= "'".$row["ghi_chu"]."',";
 	}
@@ -126,6 +127,8 @@ function actionScript(item, projects){
 	}
 	$(".list-canbo" + nameList).each(function(index){
 		var myIndex = $(this).attr('rel');
+		var myIndexSecond = $(this).attr('relsame');
+		var myIndexOrder = $(this).attr('order');
 		var url1= '<?php echo $postUrl ?>';
 		var url2 = jQuery('#link-url-' + myIndex).val();
 		var url3= '/loai/' + (name == '' ? 0 : 1 );
@@ -163,6 +166,20 @@ function actionScript(item, projects){
 								$( "#project-id-" + name + myIndex ).val( ui.item.value );
 								$('#delete-icon-' + name+ myIndex).show();
 								$( "#add-icon-" + name + myIndex ).hide();
+								//Check the same class
+								//Canbo
+								$( "." + myIndexSecond + "-canbo" + nameList  ).each(function(index2){
+									$currentItem = $(this);
+									if($currentItem.attr('order') != myIndexOrder){
+										var myIndexCheckSame = $(this).attr('rel');
+										$( "#view-name-" + name + myIndexCheckSame ).html( ui.item.label );
+										$( "#view-name-" + name + myIndexCheckSame ).attr("title","Mã cán bộ: " + ui.item.ma_can_bo + ", Bộ môn: " + ui.item.ten_bo_mon + ", Khoa: " + ui.item.ten_khoa);
+										$( "#project-" + name + myIndexCheckSame ).val( ui.item.label );
+										$( "#project-id-" + name + myIndexCheckSame ).val( ui.item.value );
+										$('#delete-icon-' + name+ myIndexCheckSame).show();
+										$( "#add-icon-" + name + myIndexCheckSame ).hide();
+									}
+								});
 							}
 						},
 						error: function (xhr,status,error){
@@ -196,6 +213,17 @@ function actionScript(item, projects){
 					$( "#project-" + name + myIndex ).val('');
 					$( "#project-" + name + myIndex ).hide();
 					$( "#view-name-" + name + myIndex ).show();
+					//Check the same class
+					//Canbo
+					$( "." + myIndexSecond + "-canbo" + nameList  ).each(function(index2){
+						$currentItem = $(this);
+						if($currentItem.attr('order') != myIndexOrder){
+							var myIndexCheckSame = $(this).attr('rel');
+							$( "#project-" + name + myIndexCheckSame ).val('');
+							$( "#project-" + name + myIndexCheckSame ).hide();
+							$( "#view-name-" + name + myIndexCheckSame ).show();
+						}
+					});
 				}
 			}
 		})
@@ -242,7 +270,19 @@ function actionScript(item, projects){
 									$( "#project-id-" + name + myIndex ).val('');
 									$('#delete-icon-' + name+ myIndex).hide();
 									$( "#add-icon-" + name + myIndex ).show();
-									
+									//Canbo
+									$( "." + myIndexSecond + "-canbo" + nameList  ).each(function(index2){
+										$currentItem = $(this);
+										if($currentItem.attr('order') != myIndexOrder){
+											var myIndexCheckSame = $(this).attr('rel');
+											$( "#view-name-" + name + myIndexCheckSame ).html('');
+											$( "#view-name-" + name + myIndexCheckSame ).attr("title","");
+											$( "#project-" + name + myIndexCheckSame ).val('');
+											$( "#project-id-" + name + myIndexCheckSame ).val('');
+											$('#delete-icon-' + name+ myIndexCheckSame).hide();
+											$( "#add-icon-" + name + myIndexCheckSame ).show();
+										}
+									});
 								}
 							},
 							error: function (xhr,status,error){
@@ -293,6 +333,7 @@ function actionScript(item, projects){
 			var url2 = jQuery('#link-url-' + myIndex).val() + '/loai/2';
 			var url3= '<?php echo $queryString ?>';
 			var myUrl = url1 + url2 + url3;
+			
 			var myData = {ghichu : $('#ghichu-'+ myIndex).val()};
 			$.ajax({
 				type: "POST",
@@ -310,6 +351,13 @@ function actionScript(item, projects){
 					}else{
 						//fill data
 						$('#view-ghichu-' + myIndex).html($('#ghichu-'+ myIndex).val());
+						//Ghichu
+						$( "." + myIndexSecond + "-ghichu" ).each(function(index){
+							$currentItem = $(this);
+							if($currentItem.attr('order') != myIndexOrder){
+								$("#" + $currentItem.find('span').attr('id')).html($('#ghichu-'+ myIndex).val());
+							}
+						});
 					}
 				},
 				error: function (xhr,status,error){

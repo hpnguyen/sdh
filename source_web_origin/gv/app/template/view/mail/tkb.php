@@ -1,5 +1,8 @@
 <p>
-	Phòng đào tạo sau đại học xin thông báo đến quý thầy/cô đã có <b>Thời khóa biểu giảng dạy học kỳ 2/2013-2014.</b>
+	Phòng đào tạo sau đại học xin thông báo đến quý thầy/cô đã có <b>Thời khóa biểu giảng dạy học kỳ 2/2013-2014.</b>.
+</p>
+<p>
+	Ngày bắt đầu HK2/2013-2014: <b>10/02/2014 (tuần 1)</b>.
 </p>
 <p>
 	Để xem chi tiết thông tin thời khóa biểu, xin vui lòng đăng nhập vào trang web theo đường link 

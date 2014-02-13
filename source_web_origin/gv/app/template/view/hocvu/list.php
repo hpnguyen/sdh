@@ -62,6 +62,19 @@ $(document).ready(function() {
 		"fnInitComplete": function(oSettings, json) {
 		},
 		"fnDrawCallback": function() {
+		},
+		"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
+			if (aaData[5]=="Đã xử lý") {
+				$('td:eq(5)', nRow).addClass('YCHV_DaXL');
+			}else if (aaData[5]=="Chưa xử lý") {
+				$('td:eq(5)', nRow).addClass('YCHV_ChuaXL');
+			}else if (aaData[5]=="Đang xử lý") {
+				$('td:eq(5)', nRow).addClass('YCHV_DangXL');
+			}else if (aaData[5]=="Trình lãnh đạo" || aaData[5]=="Lấy dấu") {
+				$('td:eq(5)', nRow).addClass('YCHV_TrinhLD');
+			}
+			
+			return nRow;
 		}
 	});
 });

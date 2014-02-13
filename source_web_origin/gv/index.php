@@ -293,7 +293,7 @@ parse_str($a);
 		?>
 		$("#TienTrinhHoSo_All").click(function() {
 			tabNameClick = 'TienTrinhHoSo_All';					
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' />Tiến trình hồ sơ", "front.php/phongbankhoa/hoso/tientrinh?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Service-icon.png' />Theo dõi xử lý hồ sơ", "front.php/phongbankhoa/hoso/tientrinh?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -1081,7 +1081,7 @@ parse_str($a);
 									echo "<li ><a id='ResetPassword_All' href='#'><img border='0' width='48' height='48' src='icons/user-password-icon.png' /><br/>Reset password</a></li>";
 								}
 								if (isset($F117)){
-									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Tiến trình hồ sơ</a></li>";
+									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi xử lý hồ sơ</a></li>";
 								}
 								if (isset($F118)){
 									echo "<li ><a id='KhoaXemTKB_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Xem TKB</a></li>";

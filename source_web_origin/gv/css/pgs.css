@@ -586,3 +586,9 @@ b.special-color {
 	0%{background-color:#000000;}
 	100%{background-color:#FFFFFF;}
 }
+
+/*Row data grid style*/
+.YCHV_DaXL {color: #96c716; font-weight: bold;}
+.YCHV_ChuaXL {color: #bc3604; font-weight: bold; text-transform: uppercase}
+.YCHV_DangXL {color: blue; font-weight: bold;}
+.YCHV_TrinhLD {color: blue; font-weight: bold;}

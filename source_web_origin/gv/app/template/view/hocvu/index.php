@@ -3,7 +3,7 @@ $help = Helper::getHelper('functions/util');
 $gvURL = $help->getGvRootURL();
 ?>
 <div align="center">
-	<h2>Danh sách tiến trình hồ sơ</h2>
+	<h2>Danh Sách Hồ Sơ Gửi Phòng Sau Đại Học</h2>
 </div>
 <!-- Filter -->
 <div style='margin:0 0 10px 0px;'> 
