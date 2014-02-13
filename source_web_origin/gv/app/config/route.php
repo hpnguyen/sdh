@@ -87,6 +87,14 @@ $config = array(
 																'listuser' => array(
 																),
 																'change' => array(
+																)),
+												'Mail' => array(
+																'tbtkb' => array(
+																),
+																'tkbgetemail' => array(
+																),
+																'tkbsendmaildone' => array(
+																							'id' => 0
 																)
 								)
 				)

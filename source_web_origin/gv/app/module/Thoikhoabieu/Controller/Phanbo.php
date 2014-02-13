@@ -15,11 +15,18 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		
 		$nhanSu = new NhanSuModel();
 		$viewAll = $nhanSu->checkViewAllPhanBoCanBo();
+		$viewAllKhoa = $nhanSu->checkKhoaViewTKB();
 		unset($nhansu);
 		
 		//get list
 		$model = new ThoiKhoaBieuModel();
-		$template->listItems = $model->getDanhSachMonHocPhanBo($this->getParam('dothoc'),$this->getParam('makhoa'),$viewAll,$_GET['ktbs']);
+		if($viewAllKhoa){
+			$viewAll = true;
+			$template->listItems = $model->getDanhSachMonHocPhanBo($this->getParam('dothoc'),$this->getParam('makhoa'),false,$_GET['ktbs']);
+		}else{
+			$template->listItems = $model->getDanhSachMonHocPhanBo($this->getParam('dothoc'),$this->getParam('makhoa'),$viewAll,$_GET['ktbs']);
+		}
+		
 		$template->hk = $this->getGet('hk');
 		$template->nbd = $this->getGet('nbd');
 		$template->viewAll = $viewAll;
@@ -114,10 +121,11 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 	public function listAction()
 	{
 		$nhanSu = new NhanSuModel();
-		
-		if ($this->checkLogin() && ($nhanSu->checkPhanBoCanBo() || $nhanSu->checkViewAllPhanBoCanBo()) ){
+		$khoaViewTKB = $nhanSu->checkKhoaViewTKB();
+		if ($this->checkLogin() && ($nhanSu->checkPhanBoCanBo() || $nhanSu->checkViewAllPhanBoCanBo() || $khoaViewTKB) ){
 			$template = new BaseTemplate("tkb/khoa/danhsach","default/index");
 			$template->viewAll = $nhanSu->checkViewAllPhanBoCanBo();
+			
 			unset($nhanSu);
 			
 			
@@ -151,6 +159,9 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 			$template->hk = $hk;
 			$template->thu = $thu;
 			
+			if($khoaViewTKB){
+				$template->viewAll = true;
+			}
 			//Render content to layout
 			$templateContent = $template->contentTemplate();
 			$template->renderLayout(array('title' => '','content' => $templateContent));
@@ -280,7 +291,7 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 	public function previewallAction()
 	{
 		$nhanSu = new NhanSuModel();
-		if ($this->checkLogin() && $nhanSu->checkViewAllPhanBoCanBo() ){
+		if ($this->checkLogin() && ($nhanSu->checkViewAllPhanBoCanBo() || $nhanSu->checkKhoaViewTKB())){
 			
 			$template = new BaseTemplate("tkb/khoa/phanbocbgd","default/index");
 			$template->viewAll = true;
@@ -316,5 +327,17 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 	
 	public	function test2Action(){
 		echo "test2 action of ModuleThoikhoabieuControllerPhanbo";
+		//$contentHTML = file_get_contents(ROOT_DIR.'app/libs/PHPMailer/examples/contents.html');
+		$template = new BaseTemplate("mail/tkb","default/index");
+		$template->hocky = "2/2013-2014";
+		$contentHTML = $template->contentTemplate();
+		$subject = "Thông báo đã có thời khóa biểu giảng dạy học kỳ ".$template->hocky;
+		$recipients = array(	array('hpnguyen@hcmut.edu.vn', 'Phu Nguyen'),
+				array('taint@hcmut.edu.vn', 'Ngo trung Tai'),
+				array('nttvi@hcmut.edu.vn', 'Nguyen Thi Tuong Vi')
+		);
+		//$attach = ROOT_DIR.'app/libs/PHPMailer/examples/images/phpmailer_mini.gif';
+		$attach = null;
+		Helper::getHelper('functions/mail')->sendMail($subject, $contentHTML, $recipients, null, null, $attach, null, 0);
 	}
 }

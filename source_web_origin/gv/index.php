@@ -299,6 +299,19 @@ parse_str($a);
 		<?php
 		}
 		
+		//Xem thoi khoa bieu
+		if (isset($F118))
+		{			
+		?>
+		$("#KhoaXemTKB_All").click(function() {
+			
+			tabNameClick = 'KhoaXemTKB_All';					
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Xem TKB", "front.php/tkb/phanbo/previewall?hisid=<?php echo $sid;?>");
+			tab_current = 0;
+		});
+		<?php
+		}
+		
 		if (isset($F012))
 		{			
 		?>
@@ -1070,7 +1083,9 @@ parse_str($a);
 								if (isset($F117)){
 									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Tiến trình hồ sơ</a></li>";
 								}
-								
+								if (isset($F118)){
+									echo "<li ><a id='KhoaXemTKB_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Xem TKB</a></li>";
+								}
 								if (isset($F107)){
 									echo "<li ><a id='GiayChungNhan_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy chứng nhận</a></li>";
 								}

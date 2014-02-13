@@ -9,6 +9,10 @@ require_once($path."/libs/mpdf57/mpdf.php");
 require_once($path."/libs/crontabmanager/src/CliTool.php");
 require_once($path."/libs/crontabmanager/src/CronEntry.php");
 require_once($path."/libs/crontabmanager/src/CrontabManager.php");
+// Include PHPMailer.
+require_once($path."/libs/PHPMailer/class.phpmailer.php");
+require_once($path."/libs/PHPMailer/class.pop3.php");
+require_once($path."/libs/PHPMailer/class.smtp.php");
 //Log file
 include $path.'/logs/logfile.php';
 //Add auto loader
@@ -69,9 +73,8 @@ if ($argc <1 || ! in_array($option1, $arrayOtions)) {
 	} else {
 		echo "Run cronjob: ".$option2."\n";
 		//Ready run job
-		$name = strtolower($option2);
+		$name = $option2;
 		$fileName = $name.'.php';
-		
 		if (file_exists(ROOT_DIR.'app/cronjobs/'.$fileName)){
 			include ROOT_DIR.'app/cronjobs/'.$fileName;
 			$className = "Cronjob_".ucfirst($name);

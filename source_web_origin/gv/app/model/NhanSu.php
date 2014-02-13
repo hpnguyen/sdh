@@ -8,6 +8,7 @@ class NhanSuModel extends BaseTable {
 	const VIEW_ALL_PHAN_BO_CAN_BO_ROLE_ID = 114;
 	const MEMBER_CAN_RESET_USER_PASSWORD_ROLE_ID = 116;
 	const VIEW_TIEN_TRINH_HO_SO_ROLE_ID = 117;
+	const VIEW_ALL_TKB_ROLE_ID = 118;
 	
 	function __construct() {
 		parent::init("nhan_su");
@@ -92,6 +93,25 @@ class NhanSuModel extends BaseTable {
 		return $ret;
 	}
 	
+	public function checkKhoaViewTKB()
+	{
+		$user = base64_decode($_SESSION["uidloginPortal"]);
+		
+		$sqlstr="SELECT DISTINCT f.fk_ma_chuc_nang CHUC_NANG 
+		FROM nhan_su n, ct_nhom_nhan_su ct, ct_nhom_nguoi_dung_portal f 
+		WHERE upper(n.username)=upper('".$user."') 
+		AND n.id=ct.fk_id_ns 
+		AND ct.fk_ma_nhom = f.fk_ma_nhom 
+		AND f.fk_ma_chuc_nang = ".self::VIEW_ALL_TKB_ROLE_ID;
+		$check = $this->getQuery($sqlstr)
+		->execute(false, array());
+		$ret = false;
+		
+		if($check->itemsCount > 0){
+			$ret = true;
+		}
+		return $ret;
+	}
 	public function checkRoleCanDoResetUserPassword()
 	{
 		$user = base64_decode($_SESSION["uidloginPortal"]);

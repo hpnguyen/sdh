@@ -4,6 +4,10 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 require_once('./app/libs/tcpdf/examples/tcpdf_include.php');
 // Include mPDF library.
 require_once("./app/libs/mpdf57/mpdf.php");
+// Include PHPMailer.
+require_once("./app/libs/PHPMailer/class.phpmailer.php");
+require_once("./app/libs/PHPMailer/class.pop3.php");
+require_once("./app/libs/PHPMailer/class.smtp.php");
 //Add auto loader
 require_once ('./app/libs/res/auto_loader.php');
 //Add log class
@@ -18,4 +22,6 @@ include './app/template/index.php';
 include './app/model/base/basetable.php';
 //Add helper static class
 include './app/libs/helper/helper.php';
+// Include Mailer PHP.
+require_once("./app/libs/mpdf57/mpdf.php");
 $route = new Route();
