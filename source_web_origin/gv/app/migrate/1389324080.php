@@ -1,6 +1,6 @@
 <?php
 /**
- * day la class 1
+ * Manage_mail_template
  */
 class Migration_1389324080 {
 	function __construct() {

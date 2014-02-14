@@ -8,6 +8,8 @@ require_once("./app/libs/mpdf57/mpdf.php");
 require_once("./app/libs/PHPMailer/class.phpmailer.php");
 require_once("./app/libs/PHPMailer/class.pop3.php");
 require_once("./app/libs/PHPMailer/class.smtp.php");
+// Include PhpStringParser
+require_once("./app/libs/PhpStringParser/PhpStringParser.php");
 //Add auto loader
 require_once ('./app/libs/res/auto_loader.php');
 //Add log class

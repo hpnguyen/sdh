@@ -54,4 +54,11 @@ class BaseTable extends DbFactory {
 	public function getRow($index) {
 		return $this->getSelect('*')->execute()->parse()->fetchRow($index);
 	}
+	
+	public function checkTableExist() {
+		$sql = "SELECT count(*) counter FROM dba_tables where table_name = '".strtoupper($this->tableName)."'";
+		$ret = $this->getQuery($sql)->execute()->parse()->fetchAll();
+		
+		return (int) $ret[0]['counter'] > 0;
+	}
 }

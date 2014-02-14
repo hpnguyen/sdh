@@ -13,6 +13,8 @@ require_once($path."/libs/crontabmanager/src/CrontabManager.php");
 require_once($path."/libs/PHPMailer/class.phpmailer.php");
 require_once($path."/libs/PHPMailer/class.pop3.php");
 require_once($path."/libs/PHPMailer/class.smtp.php");
+// Include PhpStringParser
+require_once($path."/libs/PhpStringParser/PhpStringParser.php");
 //Log file
 include $path.'/logs/logfile.php';
 //Add auto loader

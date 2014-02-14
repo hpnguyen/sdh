@@ -36,7 +36,8 @@ $(document).ready(function() {
 			var hk = encodeURIComponent($('#phan-bo-head').text());
 			var nbd = encodeURIComponent($('#ngaybatdauhk').text());
 			var d = encodeURIComponent($("#<?php echo $formKey ?>_select_dot_hoc").val());
-			myURL = myURL + '&hk=' + hk + '&nbd=' + nbd + '&d=' + d;
+			myURL = myURL + '&hk=' + hk + '&nbd=' + nbd + '&d=' + d<?php echo ($nganh == true ? " + '&nganh=1'" : "") ?>;
+			
 			window.open(myURL, '_blank', 'location=yes,height=450,width=1024,scrollbars=yes,status=yes');
 	 });
 	 
@@ -49,7 +50,7 @@ $(document).ready(function() {
 		  url: 'front.php/index/index/dsdecuong?'
 		  + 'd=' + p_dothoc
 		  + '&h=' + encodeURIComponent($("#<?php echo $formKey ?>_select_dot_hoc option:selected").html())
-		  + '&hisid=<?php echo $_REQUEST["hisid"]; ?>',
+		  + '&hisid=<?php echo $_REQUEST["hisid"]; ?><?php echo ($nganh == true ? "&nganh=1" : "") ?>',
 		  success: function(data) {
 			$("#<?php echo $formKey ?>_detail").html(data);
 			$( "#<?php echo $formKey ?>_btn_printpreview" ).button( "enable" );

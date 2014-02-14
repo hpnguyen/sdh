@@ -63,6 +63,13 @@ class ModuleIndexControllerIndex extends FrontController {
 		unset($tkb);
 		$config = new ConfigModel();
 		$template->dothoc =$config->getPhanBoCbgdDotHoc();
+		
+		if(isset($_GET['nganh'])){
+			$template->nganh = true;
+		}else{
+			$template->nganh = false;
+		}
+		
 		unset($config);
 		$templateContent = $template->contentTemplate();
 		$template->renderLayout(array('tidtle' => '','content' => $templateContent));
@@ -75,8 +82,15 @@ class ModuleIndexControllerIndex extends FrontController {
 		
 		$model = new DangKyDeCuongModel();
 		$dothoc = $this->getGet('d',null);
-		$makhoa = base64_decode($_SESSION['makhoa']);
-		$template->listItems = $model->getDanhSach($dothoc,$makhoa);
+		
+		if(isset($_GET['nganh'])){
+			$macb = $_SESSION['macb'];
+			$template->listItems = $model->getDanhSachNganh($dothoc,$macb);
+		}else{
+			$makhoa = base64_decode($_SESSION['makhoa']);
+			$template->listItems = $model->getDanhSach($dothoc,$makhoa);
+		}
+		
 		unset($model);
 		
 		$template->hk = $this->getGet('h');
@@ -90,8 +104,14 @@ class ModuleIndexControllerIndex extends FrontController {
 		$template = new BaseTemplate("decuong/print","default/blank");
 		$model = new DangKyDeCuongModel();
 		$dothoc = $this->getGet('d',null);
-		$makhoa = base64_decode($_SESSION['makhoa']);
-		$template->listItems = $model->getDanhSach($dothoc,$makhoa);
+		
+		if(isset($_GET['nganh'])){
+			$macb = $_SESSION['macb'];
+			$template->listItems = $model->getDanhSachNganh($dothoc,$macb);
+		}else{
+			$makhoa = base64_decode($_SESSION['makhoa']);
+			$template->listItems = $model->getDanhSach($dothoc,$makhoa);
+		}
 		unset($model);
 		
 		$template->hk = $this->getGet('hk');

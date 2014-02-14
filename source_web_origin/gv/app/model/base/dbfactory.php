@@ -132,6 +132,10 @@ class DbFactory {
 		foreach ($fields as $key => $value) {
 			if (strtoupper($value) == 'SYSDATE') {
 				$array[] = $key." = SYSDATE";
+			}elseif (strtoupper($value) == 'SYSTIMESTAMP'){
+				$array[] = $key." = SYSTIMESTAMP";
+			}elseif (strtoupper($value) == 'CURRENT_TIMESTAMP'){
+				$array[] = $key." = CURRENT_TIMESTAMP";
 			}elseif (is_string($value)){
 				$array[] = $key." = '".$value."'";
 			}elseif(is_int($value) || is_integer($value)){

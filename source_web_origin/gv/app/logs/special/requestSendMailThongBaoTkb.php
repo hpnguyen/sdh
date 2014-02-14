@@ -77,7 +77,7 @@ if ($result != ""){
 	//Read an HTML message body from an external file, convert referenced images to embedded,
 	//convert HTML into a basic plain-text alternative body
 	$mail->IsHTML(true); // set email format to HTML
-	$mail->CharSet = 'utf8'; // set charset to utf8
+	$mail->CharSet = 'utf-8'; // set charset to utf8
 	$mail->Body = file_get_contents($pathRoot.'/mail_template.html'); // HTML -> PHP!
 	
 	//Set who the message is to be sent to

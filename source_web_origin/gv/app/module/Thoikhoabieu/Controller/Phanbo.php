@@ -327,6 +327,27 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 	
 	public	function test2Action(){
 		echo "test2 action of ModuleThoikhoabieuControllerPhanbo";
+		$content = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gvbeta/app/template/view/mail/tkb.php');
+		
+		$p = new PhpStringParser(array());
+		$content =  $p->parse($content);
+		
+		$data = array(
+			'id' => 'gui_thong_bao_tkb',
+			'title' => 'Thông báo đã có thời khóa biểu giảng dạy',
+			'content' => $content
+		);
+		
+		$model = new EmailTemplateModel();
+		$t = $model->checkTableExist();
+		var_dump($t);
+		die;
+		
+		$model->migrateDown();
+		$model->migrateUp();		
+		$ret = $model->checkTemplateThongBaoTkb($data);
+		var_dump($ret);
+		/*
 		//$contentHTML = file_get_contents(ROOT_DIR.'app/libs/PHPMailer/examples/contents.html');
 		$template = new BaseTemplate("mail/tkb","default/index");
 		$template->hocky = "2/2013-2014";
@@ -339,5 +360,6 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		//$attach = ROOT_DIR.'app/libs/PHPMailer/examples/images/phpmailer_mini.gif';
 		$attach = null;
 		Helper::getHelper('functions/mail')->sendMail($subject, $contentHTML, $recipients, null, null, $attach, null, 0);
+		*/
 	}
 }
