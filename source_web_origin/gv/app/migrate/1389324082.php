@@ -1,8 +1,10 @@
 <?php
 /**
- * day la class 1
+ * Add_email_template_tkb
  */
 class Migration_1389324082 {
+	const EMAIL_TEMPLATE_TKB = "gui_thong_bao_tkb";
+	
 	function __construct() {
 		echo "Start migrate file 1389324082.php\n";
 	}
@@ -13,9 +15,26 @@ class Migration_1389324082 {
 	
 	public	function up(){
 		echo "function up\n";
+		$model = new EmailTemplateModel();
+		if ($model->checkTableExist()){
+			//Get config data from file
+			$config = Helper::getHelper('functions/util')->getDbFileConfig();
+			//Mail subject
+			$subject = $config['mail_tkb_title'];
+			//Mail content
+			$template = new BaseTemplate("mail/tkb","default/index");
+			$contentHTML = $template->contentTemplate();
+			
+			$data = array('id' => self::EMAIL_TEMPLATE_TKB, 'title' => $subject, 'content' => $contentHTML);
+			$model->checkTemplateThongBaoTkb($data);
+		}
 	}
 	
 	public	function down(){
 		echo "function down\n";
+		$model = new EmailTemplateModel();
+		if ($model->checkTableExist()){
+			$model->deleteTemplate(self::EMAIL_TEMPLATE_TKB);
+		}
 	}
 }

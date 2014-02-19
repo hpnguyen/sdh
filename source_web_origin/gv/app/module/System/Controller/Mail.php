@@ -19,18 +19,70 @@ class ModuleSystemControllerMail extends FrontController {
 		}
 	}
 		
+	// public	function tbtkbAction(){
+		// $model = new GuiEmailModel();
+		// $result = $model->getListSendMailTkb();
+// 		
+		// if(count($result) > 0){
+			// //Use log to write log
+			// $log = new logfile('cronjob_send_mail_thong_bao_tkb');
+// 			
+			// //Get config data from file
+			// $config = Helper::getHelper('functions/util')->getDbFileConfig();
+			// //Mail subject
+			// $subject = $config['mail_tkb_title'];
+			// //CC email
+			// $ccList = array(array($config['mail_tkb_cc']));
+// 			
+			// //Get list email send to
+			// $recipients = array();
+			// $firstRow = $result[0];
+			// $rowID = $firstRow['id'];
+			// $email = $firstRow['email'];
+// 			
+			// $temp = explode(",", $email);
+			// foreach ($temp as $k => $v) {
+				// $recipients[] = array($v);
+			// }
+			// //Ready attachment
+			// $attach = null;
+// 			
+			// //Get email template
+			// $template = new BaseTemplate("mail/tkb","default/index");
+			// $contentHTML = $template->contentTemplate();
+			// echo "[id,email] = [".$rowID.",".$email."]\n";
+			// $log->write("[id,email] = [".$rowID.",".$email."]");
+			// //Send mail
+			// $ret = Helper::getHelper('functions/mail')->sendMail($subject, $contentHTML, $recipients, $ccList, null, $attach, null, 0, false);
+// 			
+			// //Echo the result
+			// echo $ret['message'];
+			// if ($ret['status']) {
+				// $log->write("Send mail success");
+				// //Set table gui_email status to success
+				// $model->updateSendMailStatusForTkb($rowID);
+			// }else{
+				// $log->write("Send mail unsuccess");
+			// }
+		// }else{
+			// echo "No have email to send";
+		// }
+	// }
+	
 	public	function tbtkbAction(){
 		$model = new GuiEmailModel();
 		$result = $model->getListSendMailTkb();
 		
 		if(count($result) > 0){
+			$emailTemplateModel = new EmailTemplateModel();
+			$ret = $emailTemplateModel->getMailTemplate('gui_thong_bao_tkb');
 			//Use log to write log
 			$log = new logfile('cronjob_send_mail_thong_bao_tkb');
 			
 			//Get config data from file
 			$config = Helper::getHelper('functions/util')->getDbFileConfig();
 			//Mail subject
-			$subject = $config['mail_tkb_title'];
+			$subject = $ret['title'];
 			//CC email
 			$ccList = array(array($config['mail_tkb_cc']));
 			
@@ -48,8 +100,7 @@ class ModuleSystemControllerMail extends FrontController {
 			$attach = null;
 			
 			//Get email template
-			$template = new BaseTemplate("mail/tkb","default/index");
-			$contentHTML = $template->contentTemplate();
+			$contentHTML = $ret['content'];
 			echo "[id,email] = [".$rowID.",".$email."]\n";
 			$log->write("[id,email] = [".$rowID.",".$email."]");
 			//Send mail

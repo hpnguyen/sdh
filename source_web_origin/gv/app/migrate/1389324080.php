@@ -13,9 +13,17 @@ class Migration_1389324080 {
 	
 	public	function up(){
 		echo "function up\n";
+		$model = new EmailTemplateModel();
+		if (! $model->checkTableExist()){
+			$model->migrateUp();
+		}
 	}
 	
 	public	function down(){
 		echo "function down\n";
+		$model = new EmailTemplateModel();
+		if ($model->checkTableExist()){
+			$model->migrateDown();
+		}
 	}
 }

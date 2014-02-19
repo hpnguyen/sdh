@@ -327,24 +327,50 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 	
 	public	function test2Action(){
 		echo "test2 action of ModuleThoikhoabieuControllerPhanbo";
+		// $t = new ConfigModel();
+		// var_dump($t->checkTableColumnExist('value1111'));
+		// die;
+		$model = new EmailTemplateModel();
+		
+		$ret = $model->getMailTemplate('gui_thong_bao_tkb');
+		
+		var_dump($ret);
+		die;
+		$model = new EmailTemplateModel();
+		$model->migrateUp();
+		// Get comment of class
+		// $rc = new ReflectionClass('EmailTemplateModel');
+		// $text = $rc->getDocComment();
+		// $t1 = explode('@param', $text);
+		// var_dump($t1);
+		// die;
 		$content = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gvbeta/app/template/view/mail/tkb.php');
 		
 		$p = new PhpStringParser(array());
 		$content =  $p->parse($content);
 		
+		$template = new BaseTemplate("mail/tkb","default/index");
+		$contentHTML = $template->contentTemplate();
+		
 		$data = array(
 			'id' => 'gui_thong_bao_tkb',
 			'title' => 'Thông báo đã có thời khóa biểu giảng dạy',
-			'content' => $content
+			'content' => $contentHTML
 		);
 		
 		$model = new EmailTemplateModel();
-		$t = $model->checkTableExist();
-		var_dump($t);
-		die;
 		
-		$model->migrateDown();
-		$model->migrateUp();		
+		$ret = $model->getMailTemplate('gui_thong_bao_tkb');
+		
+		// $t = $model->checkTableExist();
+		// $model->getTableColumns();
+		// var_dump($t);
+		die;
+		//$model->deleteTemplate('gui_thong_bao_tkb');
+		//die;
+		
+		//$model->migrateDown();
+		//$model->migrateUp();		
 		$ret = $model->checkTemplateThongBaoTkb($data);
 		var_dump($ret);
 		/*

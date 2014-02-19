@@ -1,7 +1,13 @@
 <?php
-/**
- * 
- */
+/** 
+* Table email_template model class
+*
+* @param  id varchar2(100) not null primary key
+* @param  title varchar2(200)
+* @param  content long varchar
+* @param  created_at timestamp default current_timestamp
+* @param  updated_at timestamp default current_timestamp
+*/
 class EmailTemplateModel extends BaseTable {
 	
 	function __construct() {
@@ -14,22 +20,21 @@ class EmailTemplateModel extends BaseTable {
 	
 	public function migrateUp()
 	{
-		$sqlstr = "CREATE TABLE ". strtoupper($this->tableName)." 
-		(	ID VARCHAR2(100) NOT NULL PRIMARY KEY,
-			TITLE VARCHAR2(200),
-			CONTENT LONG VARCHAR,
-			CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-			UPDATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-		)";
-		echo $sqlstr;
-		return $this->getQuery($sqlstr)->execute(true, array());
+		$primaryKeys = array('id');
+		$fieldsData = array(
+			'id' => array('varchar2(100)', null),
+			'title'=> array('varchar2(200)',null),
+			'content' => array('long varchar', null),
+			'created_at' => array('timestamp', 'DEFAULT CURRENT_TIMESTAMP'),
+			'updated_at' => array('timestamp', 'DEFAULT CURRENT_TIMESTAMP')
+		);
+		
+		return $this->getCreate($primaryKeys,$fieldsData)->execute(true, array());
 	}
 	
 	public function migrateDown()
 	{
-		$sqlstr = "DROP TABLE ". strtoupper($this->tableName);
-		echo $sqlstr;
-		return $this->getQuery($sqlstr)->execute(true, array());
+		return $this->getDrop()->execute(true, array());
 	}
 	
 	public function checkTemplateThongBaoTkb($data)
@@ -40,7 +45,6 @@ class EmailTemplateModel extends BaseTable {
 			->execute(false, array());
 			
 			if ($check->itemsCount < 1){
-				echo "Insert\n";
 				$this->getInsert($data)->execute(true, array());
 			}else{
 				if(! isset($data['updated_at'])){
@@ -52,6 +56,24 @@ class EmailTemplateModel extends BaseTable {
 			return true;
 		}else{
 			return false;
+		}
+	}
+	
+	public function deleteTemplate($id)
+	{
+		$this->getDelete("id = '".$id."'")->execute(true, array());
+	}
+	
+	public function getMailTemplate($id)
+	{
+		$check = $this->getSelect('*')
+		->where("id = '".$id."'")
+		->execute(false, array());
+		
+		if($check->itemsCount > 0){
+			return $check->result[0];
+		}else{
+			return null;
 		}
 	}
 }

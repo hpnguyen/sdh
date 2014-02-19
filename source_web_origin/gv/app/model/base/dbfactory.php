@@ -152,14 +152,70 @@ class DbFactory {
 		return $this;
 	}
 	
+	public function delete($table) {
+		$this->sql =  "DELETE FROM ".$table;
+		return $this;
+	}
+	
+	public function drop($table) {
+		$this->sql =  "DROP TABLE ".$table;
+		return $this;
+	}
+	
+	public function create($table, $primaryFieldArray, $fieldArray) {
+		if (is_array($primaryFieldArray) && is_array($fieldArray)){
+			$this->sql =  "CREATE TABLE ".$table;
+			
+			$fieldArrayTemp =array();
+			foreach ($fieldArray as $key => $value) {
+				if (count($primaryFieldArray) == 1 && strtoupper($key) != strtoupper($primaryFieldArray[0])) {
+					$fieldArrayTemp[strtoupper($key)] = $value;
+				}else if(count($primaryFieldArray) != 1){
+					$fieldArrayTemp[strtoupper($key)] = $value;
+				}
+			}
+			
+			if (count($primaryFieldArray) == 1) {
+				if(array_key_exists($primaryFieldArray[0],$fieldArray)){
+					$option = $fieldArray[$primaryFieldArray[0]];
+				}else{
+					$option = $fieldArray[strtoupper($primaryFieldArray[0])];
+				}
+				$primary = strtoupper($primaryFieldArray[0])." ".strtoupper($option[0])." NOT NULL PRIMARY KEY";
+			}else{
+				$primary = " CONSTRAINT ".strtoupper($table)."_PK PRIMARY KEY (".implode(",", $primaryFieldArray).")";
+			}
+			
+			$tempSql = "";
+			
+			foreach ($fieldArrayTemp as $column => $item) {
+				if($tempSql != ""){
+					$tempSql .=",
+";
+				}
+				$tempSql .=" ".strtoupper($column)." ".strtoupper($item[0])." ".$item[1];
+			}
+			if($tempSql != ""){
+				$tempSql .=",
+".$primary;
+			}
+			
+			$this->sql = $this->sql."(".
+$tempSql."
+)";
+		}
+		
+		return $this;
+	}
+	
 	public function where($where) {
-			$this->sql .= ' WHERE '.$where;
-			return $this;
+		$this->sql .= ' WHERE '.$where;
+		return $this;
 	}
 	
 	public function order($order) {
-			$this->sql .= ' ORDER BY '.$order;
-			return $this;
+		$this->sql .= ' ORDER BY '.$order;
+		return $this;
 	}
 	
 	public function execute($executeOnly = false,$params = array(),$fieldNameLower = true) {
