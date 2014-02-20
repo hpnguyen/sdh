@@ -166,7 +166,7 @@ $(document).ready(function() {
 				$(this).addClass('row_selected');
 			});
 			
-			$("#dataGridTableDanhSachCanBo tr").on("dblclick",function() {
+			$("#dataGridTableDanhSachCanBo tbody tr").on("dblclick",function() {
 				//Show popup detail
 				var id = $(this).find('td:eq(0)').text();
 				var macanbo = $(this).find('td:eq(1)').text();

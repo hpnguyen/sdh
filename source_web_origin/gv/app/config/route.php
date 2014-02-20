@@ -95,6 +95,10 @@ $config = array(
 																),
 																'tkbsendmaildone' => array(
 																							'id' => 0
+																),
+																'template' => array(
+																),
+																'change' => array(
 																)
 								)
 				)

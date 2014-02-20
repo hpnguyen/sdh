@@ -5,6 +5,11 @@
 class ModuleSystemControllerMail extends FrontController {
 	
 	function __construct() {
+		
+	}
+	
+	private function checkValidIP()
+	{
 		$userip = ($_SERVER['X_FORWARDED_FOR']) ? $_SERVER['X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
 		$validIpArray = array('127.0.0.1');
 		
@@ -18,7 +23,6 @@ class ModuleSystemControllerMail extends FrontController {
 			die('Only request from local') ;
 		}
 	}
-		
 	// public	function tbtkbAction(){
 		// $model = new GuiEmailModel();
 		// $result = $model->getListSendMailTkb();
@@ -70,6 +74,8 @@ class ModuleSystemControllerMail extends FrontController {
 	// }
 	
 	public	function tbtkbAction(){
+		$this->checkValidIP();
+		
 		$model = new GuiEmailModel();
 		$result = $model->getListSendMailTkb();
 		
@@ -120,7 +126,48 @@ class ModuleSystemControllerMail extends FrontController {
 		}
 	}
 	
+	public function templateAction()
+	{
+		$model = new NhanSuModel();
+		if ($model->checkRoleCanUpdateEmailTemplate()) {
+			$template = new BaseTemplate("system/listemailtemplate","default/index");
+			$modelEmailTempalate = new EmailTemplateModel();
+			$template->listItems = $modelEmailTempalate->listAll();
+			unset($modelEmailTempalate);
+			$template->renderTemplate();
+		}else{
+			unset($model);
+			echo "Bạn không có quyền truy cập trang này.";
+		}
+	}
+	
+	public function changeAction()
+	{
+		$model = new NhanSuModel();
+		if ($model->checkRoleCanUpdateEmailTemplate()) {
+			unset($model);
+			try {
+				$modelEmailTemplate = new EmailTemplateModel();
+				$data = $this->getPost('data');
+				$modelEmailTemplate->checkTemplateThongBaoTkb($data);
+				$ret = $modelEmailTemplate->getMailTemplate($data['id']);
+				
+				$this->renderJSON(array('status' => 1, 
+					'message' => 'Change data successful.',
+					'updated_at' => $ret['t_updated_at']
+				));
+			} catch (Exception $e) {
+				$this->renderJSON(array('status' => 0, 'message' => $e->getMessage()));
+			}
+		}else{
+			unset($model);
+			$this->renderJSON(array('status' => 0, 'message' => "Bạn không có quyền cập nhật email."));
+		}
+	}
+	
 	public	function tkbgetemailAction(){
+		$this->checkValidIP();
+		
 		$model = new GuiEmailModel();
 		$result = $model->getListSendMailTkb();
 		if(count($result) > 0){
@@ -135,6 +182,8 @@ class ModuleSystemControllerMail extends FrontController {
 	}
 	
 	public	function tkbsendmaildoneAction(){
+		$this->checkValidIP();
+		
 		$id = $this->getParam('id',null);
 		$model = new GuiEmailModel();
 		//Set table gui_email status to success

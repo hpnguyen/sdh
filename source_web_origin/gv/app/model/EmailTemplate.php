@@ -25,11 +25,12 @@ class EmailTemplateModel extends BaseTable {
 			'id' => array('varchar2(100)', null),
 			'title'=> array('varchar2(200)',null),
 			'content' => array('long varchar', null),
+			'general_comment' => array('varchar2(100)', null),
 			'created_at' => array('timestamp', 'DEFAULT CURRENT_TIMESTAMP'),
 			'updated_at' => array('timestamp', 'DEFAULT CURRENT_TIMESTAMP')
 		);
-		
 		return $this->getCreate($primaryKeys,$fieldsData)->execute(true, array());
+		
 	}
 	
 	public function migrateDown()
@@ -66,7 +67,7 @@ class EmailTemplateModel extends BaseTable {
 	
 	public function getMailTemplate($id)
 	{
-		$check = $this->getSelect('*')
+		$check = $this->getSelect("TO_CHAR(created_at ,'DD-MM-YYYY HH24:MI:SS') t_created_at,TO_CHAR(updated_at ,'DD-MM-YYYY HH24:MI:SS') t_updated_at, email_template.*")
 		->where("id = '".$id."'")
 		->execute(false, array());
 		
@@ -75,5 +76,13 @@ class EmailTemplateModel extends BaseTable {
 		}else{
 			return null;
 		}
+	}
+	
+	public function listAll()
+	{
+		$check = $this->getSelect("TO_CHAR(created_at ,'DD-MM-YYYY HH24:MI:SS') t_created_at,TO_CHAR(updated_at ,'DD-MM-YYYY HH24:MI:SS') t_updated_at, email_template.*")
+		->execute(false, array());
+		
+		return $check->result;
 	}
 }

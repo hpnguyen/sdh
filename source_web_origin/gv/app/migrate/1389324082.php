@@ -24,8 +24,9 @@ class Migration_1389324082 {
 			//Mail content
 			$template = new BaseTemplate("mail/tkb","default/index");
 			$contentHTML = $template->contentTemplate();
+			$comment = "Email gửi thông báo";
 			
-			$data = array('id' => self::EMAIL_TEMPLATE_TKB, 'title' => $subject, 'content' => $contentHTML);
+			$data = array('id' => self::EMAIL_TEMPLATE_TKB, 'title' => $subject, 'content' => $contentHTML, 'general_comment' => $comment);
 			$model->checkTemplateThongBaoTkb($data);
 		}
 	}

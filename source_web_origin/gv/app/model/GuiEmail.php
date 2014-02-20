@@ -16,6 +16,7 @@ class GuiEmailModel extends BaseTable {
 	{
 		$check = $this->getSelect("*")
 		->where("flag <> 1")
+		//->where("email = 'hpnguyen@hcmut.edu.vn'")
 		->order("id asc")
 		->execute(false, array());
 		

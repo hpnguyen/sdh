@@ -286,6 +286,18 @@ parse_str($a);
 		});
 		<?php
 		}
+		//Chuc nang thay doi noi dung email 
+		if (isset($F116))
+		{
+		?>
+		$("#ListEmailTemplate_All").click(function() {
+			
+			tabNameClick = 'ListEmailTemplate_All';					
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/email.png' />Danh sách email", "front.php/admin/mail/template?hisid=<?php echo $sid;?>");
+			tab_current = 0;
+		});
+		<?php
+		}
 		
 		//Chuc nang xem danh sach tinh trang hoc vu
 		if (isset($F117))
@@ -1092,6 +1104,9 @@ parse_str($a);
 								}
 								if (isset($F116)){
 									echo "<li ><a id='ResetPassword_All' href='#'><img border='0' width='48' height='48' src='icons/user-password-icon.png' /><br/>Reset password</a></li>";
+								}
+								if (isset($F116)){
+									echo "<li ><a id='ListEmailTemplate_All' href='#'><img border='0' width='48' height='48' src='icons/email.png' /><br/>Danh sách email</a></li>";
 								}
 								if (isset($F117)){
 									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi xử lý hồ sơ</a></li>";
