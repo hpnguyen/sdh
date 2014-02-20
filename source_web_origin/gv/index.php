@@ -287,7 +287,7 @@ parse_str($a);
 		<?php
 		}
 		//Chuc nang thay doi noi dung email 
-		if (isset($F116))
+		if (isset($F120))
 		{
 		?>
 		$("#ListEmailTemplate_All").click(function() {
@@ -1105,7 +1105,7 @@ parse_str($a);
 								if (isset($F116)){
 									echo "<li ><a id='ResetPassword_All' href='#'><img border='0' width='48' height='48' src='icons/user-password-icon.png' /><br/>Reset password</a></li>";
 								}
-								if (isset($F116)){
+								if (isset($F120)){
 									echo "<li ><a id='ListEmailTemplate_All' href='#'><img border='0' width='48' height='48' src='icons/email.png' /><br/>Danh sách email</a></li>";
 								}
 								if (isset($F117)){
