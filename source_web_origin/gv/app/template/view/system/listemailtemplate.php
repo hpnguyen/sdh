@@ -50,10 +50,6 @@ $queryString = "?hisid=".$_GET['hisid'];
 	div.tableColumnContent {
 		height: 60px;
 	}
-	#email_template_content {
-		width: 315px;
-		height: 180px;
-	}
 	textarea.emailTemplateContent {
 		display: none;
 	}
@@ -103,15 +99,15 @@ foreach($listItems as $y => $row)
 			<input id="email_template_general_comment" name="data[general_comment]" type="text" class="general_commentDetail" value=""/>
 			</div>
 		</div>
-		<div class="tableColumnRowContent tableColumnContent">
+		<div class="tableColumnRowContent">
 			<div class="tableColumnName"><span class="titleBold">Nội dung : </span></div>
-			<div class="tableColumnDetail">
-				<textarea id="email_template_content" name="data[content]" class="contentDetail"></textarea>
-			</div>
+			<div class="tableColumnDetail"></div>
+		</div>
+		<div style="clear: both"></div>
+		<div>
+			<textarea id="email_template_content" name="data[content]" class="contentDetail"></textarea>
 		</div>
 	</form>
-	<br>
-	<br>
 	<div align="center" class="ajax-loading-bert tableColumnRow">
 		<div id="ajaxLoadingBertMessage" class="messageAlert"></div>
 		<div id="squaresWaveG">
@@ -195,8 +191,8 @@ $(document).ready(function() {
 		autoOpen: false,
 		modal: true,
 		resizable: true,
-		width: 500,
-		height: 430,
+		width: 580,
+		height: 550,
 		buttons: { "Update": function() {
 			$("#ajaxform").submit(); //Submit  the FORM
 		}} 
@@ -242,6 +238,24 @@ $(document).ready(function() {
 				$("#dialogDetail").find('input.general_commentDetail').val(general_comment);
 				$("#dialogDetail").find('textarea.contentDetail').val(content);
 				$("#dialogDetail").find('#ajaxLoadingBertMessage').html('');
+				
+				//CKeditor tool to edit content
+				var editorTool = $('#email_template_content' ).ckeditor(function( textarea ) {},
+					{
+						toolbar: [
+							{ name: 'document',	items: [ 'Source', 'Preview']},	
+							{ name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: ['Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+							{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ],items: [ 'Bold', 'Italic', 'Underline']},
+							{ name: 'links', items: [ 'Link', 'Unlink'] },
+							{ name: 'styles', items: [ 'FontSize' ]	},
+							{ name: 'colors', items: [ 'TextColor'] }
+						],
+						entities_latin : false,
+						resize_enabled : false
+					}
+				).val(content);
+				
+	
 				$("#dialogDetail").dialog('open');
 				
 			});
