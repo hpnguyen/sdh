@@ -3,7 +3,7 @@ $help = Helper::getHelper('functions/util');
 $gvURL = $help->getGvRootURL();
 ?>
 <div align="center">
-	<h2>Danh sách đủ điều kiện nhận đề cương luận văn<?php echo (isset($_GET['nganh']) ? ' theo ngành' : '') ?><br/>Học kỳ <span id="phan-bo-head"><?php echo $hk ?></span></h2>
+	<h2>Danh sách đủ điều kiện nhận đề cương luận văn<?php echo (isset($_GET['nganh']) ? ' theo ngành' : ' theo khoa') ?><br/>Học kỳ <span id="phan-bo-head"><?php echo $hk ?></span></h2>
 	
 </div>
 <div style="margin:0 0 10px 5px;" align=left><strong>Ngày bắt đầu HK: <span id='ngaybatdauhk'></span></strong></div>	
@@ -22,7 +22,7 @@ foreach($listItems as $y => $row)
 	$listArrayDataString .= "'".$row["huong_dan_1"]."',";
 	$listArrayDataString .= "'".$row["huong_dan_2"]."',";
 	$listArrayDataString .= "'".$row["dot_xet"]."',";
-	$listArrayDataString .= "'".$row["ghi_chu"]."'";
+	$listArrayDataString .= "'".str_replace(array("\r", "\n"), '<br>', $row["ghi_chu"])."'";
 	$listArrayData[] = $listArrayDataString;
 	
 }

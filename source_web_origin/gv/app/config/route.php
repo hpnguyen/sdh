@@ -102,5 +102,14 @@ $config = array(
 																)
 								)
 				)
+),
+'cronjob' => array(
+								'Cronjob' => array(
+												'Index' => array(
+																'index' => array(
+																				'name' => null
+																)
+								)
+				)
 )
 );

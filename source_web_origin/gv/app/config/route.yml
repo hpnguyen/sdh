@@ -59,3 +59,8 @@ admin:
         id: 0
       template:
       change:
+cronjob:
+  Cronjob:
+    Index:
+      index:
+        name:

@@ -17,6 +17,8 @@ require_once($path."/libs/PHPMailer/class.smtp.php");
 require_once($path."/libs/PhpStringParser/PhpStringParser.php");
 //Log file
 include $path.'/logs/logfile.php';
+//Cronjob task base class
+include $path.'/cronjobs/queueTaskBase.php';
 //Add auto loader
 require_once ($path.'/libs/res/auto_loader.php');
 //Add route map
@@ -30,7 +32,7 @@ include $path.'/model/base/basetable.php';
 //Add helper static class
 include $path.'/libs/helper/helper.php';
 
-$arrayOtions = array('-h','-a','-d','-r');
+$arrayOtions = array('-h','-a','-d','-r','-c');
 list($option,$option1,$option2) = array(null,null,null); //the arguments passed
 if (isset($argv[1])){
 	$option1 = $argv[1];
@@ -51,6 +53,7 @@ if ($argc <1 || ! in_array($option1, $arrayOtions)) {
    [-d]            Remove cronjob file out system crontab.
    [-u]            Update the changing in cronjob file to system crontab.
    [-r]  <name>    Run a cronjob.
+   [-c]  <name>    Create a cronjob.
 ";
 		exit;
 	}
@@ -72,6 +75,38 @@ if ($argc <1 || ! in_array($option1, $arrayOtions)) {
 		$crontab->enableOrUpdate(ROOT_DIR.'app/config/cronfile.conf');
 		$crontab->save();
 		echo "Update cronjob file to system crontab done\n";
+	} else if($option1 == '-c') {
+		if (empty($option2) ){
+			echo "Missing cronjob name\n";
+		}else{
+			$filename = $option2.'.php';
+			$filepath = ROOT_DIR.'app/cronjobs/'.$filename;
+			
+			if(file_exists($filepath)){
+				echo "This cronjob file is exist\n";
+			}else{
+//A default content for cronjob file
+$content = '<?php
+class Cronjob_'.ucfirst($option2).' extends Queuetaskbase {
+	function __construct() {
+		
+	}
+	
+	/*
+	 * Cronjob run function
+	 */
+	public	function run() {
+		
+	}
+}';
+				$fp = fopen($filepath,"wb");
+				fwrite($fp,$content);
+				fclose($fp);
+				chmod($filepath, 0777);
+			}
+			
+			echo "Create cronjob done\n";
+		}
 	} else {
 		echo "Run cronjob: ".$option2."\n";
 		//Ready run job
@@ -81,7 +116,7 @@ if ($argc <1 || ! in_array($option1, $arrayOtions)) {
 			include ROOT_DIR.'app/cronjobs/'.$fileName;
 			$className = "Cronjob_".ucfirst($name);
 			$job = new $className;
-			$job->execute();
+			$job->execute($name);
 		}
 		
 		echo "End cronjob\n";

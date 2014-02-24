@@ -10,6 +10,8 @@ require_once("./app/libs/PHPMailer/class.pop3.php");
 require_once("./app/libs/PHPMailer/class.smtp.php");
 // Include PhpStringParser
 require_once("./app/libs/PhpStringParser/PhpStringParser.php");
+//Cronjob task base class
+require_once ('./app/cronjobs/queueTaskBase.php');
 //Add auto loader
 require_once ('./app/libs/res/auto_loader.php');
 //Add log class

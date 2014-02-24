@@ -93,10 +93,10 @@ class Migration_'.$utc.' {
 				//$option2 = null;
 				$migrationFiles = $this->renewListMigrationFiles($this->getMigrationFiles(false), $currentMigrationVersion, $option2);
 				//var_dump($currentMigrationVersion,$option2,$migrationFiles);
-				$this->executeMigrate($currentMigrationVersion,$migrationFiles, false);
+				$this->executeMigrateDownOneLevel($currentMigrationVersion,$migrationFiles, false);
 				//check last
 				if(count($migrationFiles) == 1) {
-					$model->updateMigrationVersion(null);
+					$model->updateMigrationVersion(str_replace('.php', '', $migrationFiles[0]));
 				}
 			}elseif($option1 == '-da'){
 				//$currentMigrationVersion = '1389262793';
@@ -125,6 +125,20 @@ class Migration_'.$utc.' {
 		foreach ($migrationFiles as $key => $file) {
 			$this->doMigrate($file,$runUpFuntion);
 		}
+	}
+	
+	private function executeMigrateDownOneLevel($currentMigrationVersion,$migrationFiles, $runUpFuntion = true)
+	{
+		$lastItem = end($migrationFiles);
+		if ($lastItem == $currentMigrationVersion.'.php'){
+			echo "Migration version is currently, no migration run.\n";
+			return;
+		}elseif( $runUpFuntion == false && empty($currentMigrationVersion)){
+			echo "System cannot downgrade. Your version is in beginning\n";
+			return;
+		}
+		
+		$this->doMigrate($currentMigrationVersion.'.php',$runUpFuntion);
 	}
 	
 	private function doMigrate($file, $runUpFuntion = true)

@@ -70,10 +70,11 @@ foreach($listItems as $y => $row)
 		$listArrayDataString .= "'',";
 	}
 	
+	$text_ghi_chu = str_replace(array("\r", "\n"), '<br>', $row["ghi_chu"]);
 	if ($checkEnable) {
-		$listArrayDataString .= "'<div class=\"list-ghichu check-the-same-".$theSameId."-ghichu\" order=\"".$y."\" relsame=\"check-the-same-".$theSameId."\"><span order=\"".$y."\" id=\"view-ghichu-".$i."\" title=\"\">".$row["ghi_chu"]."</span><input order=\"".$y."\" type=\"text\" id=\"ghichu-".$i."\" style=\"width:50px;display:none\" value=\"".$row["ghi_chu"]."\"/><img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-ghichu-".$i."\" style=\"display:none; float: right\"/></div>',";
+		$listArrayDataString .= "'<div class=\"list-ghichu check-the-same-".$theSameId."-ghichu\" order=\"".$y."\" relsame=\"check-the-same-".$theSameId."\"><span order=\"".$y."\" id=\"view-ghichu-".$i."\" title=\"\">".$text_ghi_chu."</span><input order=\"".$y."\" type=\"text\" id=\"ghichu-".$i."\" style=\"width:50px;display:none\" value=\"".$text_ghi_chu."\"/><img src=\"".$gvURL."/icons/loader.gif\" id=\"loading-icon-ghichu-".$i."\" style=\"display:none; float: right\"/></div>',";
 	}else {
-		$listArrayDataString .= "'".$row["ghi_chu"]."',";
+		$listArrayDataString .= "'".$text_ghi_chu."',";
 	}
 	
 	$listArrayDataString .= "'<input type=\"checkbox\"  class=\"check-the-same-".$theSameId."-khoa-duyet\" order=\"".$y."\" rel=\"".$i."\" relsame=\"check-the-same-".$theSameId."\" title=\"".($row["khoa_xet_duyet"] == "1" ? "Đã duyệt" : "Chưa xét duyệt")."\" id=\"khoa-duyet-".$i."\"".($row["khoa_xet_duyet"] == "1" ? " value=\"1\" checked=\"checked\"": " value=\"0\"").($checkEnable ? "": "disabled=\"disabled\"")."/>',";
