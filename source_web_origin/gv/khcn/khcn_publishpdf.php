@@ -65,7 +65,8 @@ $url = urldecode($_REQUEST['url_print']);
  */
 
 // Include the main TCPDF library (search for installation path).
-require_once('../../tcpdf/examples/tcpdf_include.php');
+require_once('../../gv/app/libs/tcpdf/examples/tcpdf_include.php');
+ob_start();
 
 // create new PDF document
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
