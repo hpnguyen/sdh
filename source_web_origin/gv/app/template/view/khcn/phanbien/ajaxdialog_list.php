@@ -1,6 +1,7 @@
 <?php
 $help = Helper::getHelper('functions/util');
 $gvURL = $help->getGvRootURL();
+$rootURL = $help->baseURL();
 ?>
 <style type="text/css">
 	.viewDataFormHide {
@@ -298,16 +299,27 @@ function <?php echo $formKey ?>configTextEditor(name){
 	//CKeditor tool to edit content
 	var editorTool = $(name).ckeditor(function( textarea ) {},
 		{
-			toolbar: [
-				{ name: 'document',	items: [ 'Source', 'Preview']},	
-				{ name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: ['Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-				{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ],items: [ 'Bold', 'Italic', 'Underline']},
-				{ name: 'links', items: [ 'Link', 'Unlink'] },
-				{ name: 'styles', items: [ 'FontSize' ]	},
-				{ name: 'colors', items: [ 'TextColor'] }
+			toolbar : [
+				{ name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: ['Source', 'NewPage', 'Preview', 'Print'] },
+				{ name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+				{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+				{ name: 'insert', items: [ 'Image', 'Table', 'SpecialChar', '-' ] }, { name: 'tools', items: [ 'Maximize', 'ShowBlocks' ] },
+				{ name: 'others', items: [ '-' ] },
+				'/',
+				{ name: 'styles', items: [ 'FontSize' ] },
+				{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+				{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat', '-', 'EqnEditor' ] },
+				{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] }
 			],
 			entities_latin : false,
-			resize_enabled : false
+			resize_enabled : false,
+			enterMode : CKEDITOR.ENTER_BR,
+			shiftEnterMode : CKEDITOR.ENTER_P,
+			language : 'vi',
+			filebrowserBrowseUrl: '<?php echo $rootURL ?>/ckfinder/ckfinder.html',
+			filebrowserImageBrowseUrl: '<?php echo $rootURL ?>/ckfinder/ckfinder.html?Type=Images',
+			filebrowserUploadUrl: '<?php echo $rootURL ?>/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+			filebrowserImageUploadUrl: '<?php echo $rootURL ?>/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
 		}
 	);
 }

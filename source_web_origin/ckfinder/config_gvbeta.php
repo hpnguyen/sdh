@@ -64,7 +64,7 @@ ATTENTION: The trailing slash is required.
 */
 
 
-$baseUrl = '/gv/khcn/users/'. base64_decode($_SESSION["uidloginPortal"]) . '/';
+$baseUrl = '/gvbeta/khcn/users/'. base64_decode($_SESSION["uidloginPortal"]) . '/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
