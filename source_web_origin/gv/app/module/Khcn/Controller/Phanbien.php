@@ -51,7 +51,7 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		$dothoc = $this->getGet('d',null);
 		$makhoa = base64_decode($_SESSION['makhoa']);
 		
-		$template = new BaseTemplate("khcn/phanbien/list","default/index");
+		$template = new BaseTemplate("khcn/phanbien/list_page","default/index");
 		$template->formKey = 'xemPhanBienDeTaiList';
 		$template->hk = $this->getGet('h');
 		$template->macb = $macb;
@@ -70,7 +70,8 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 			echo "Bạn đã hết hạn được phản biện đề tài.";
 			die;
 		}
-		$template = new BaseTemplate("khcn/phanbien/ajaxdialog_list","default/index");
+		//$template = new BaseTemplate("khcn/phanbien/ajaxdialog_list","default/index");
+		$template = new BaseTemplate("khcn/phanbien/ajaxdialog_list_page","default/index");
 		$template->formKey = 'xemPhanBienDeTaiList';
 		
 		$dothoc = $this->getGet('d',null);
