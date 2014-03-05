@@ -111,5 +111,33 @@ $config = array(
 																)
 								)
 				)
+),
+'khcn' => array(
+								'Khcn' => array(
+												'Phanbien' => array(
+																'index' => array(
+																),
+																'list' => array(
+																),
+																'save' => array(
+																),
+																'ajaxdialog' => array(
+																)
+								)
+				)
+),
+'login' => array(
+								'Login' => array(
+												'Index' => array(
+																'index' => array(
+																),
+																'register' => array(
+																),
+																'logout' => array(
+																),
+																'login' => array(
+																)
+								)
+				)
 )
 );

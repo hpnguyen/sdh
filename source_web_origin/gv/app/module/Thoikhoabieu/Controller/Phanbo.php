@@ -325,67 +325,191 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		unset($test);
 	}
 	
-	public	function test2Action(){
-		echo "test2 action of ModuleThoikhoabieuControllerPhanbo";
-		// $t = new ConfigModel();
-		// var_dump($t->checkTableColumnExist('value1111'));
-		// die;
-		$model = new EmailTemplateModel();
+	private function register(){
+		$error_msg = "";
+		if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
+			var_dump($_POST['username'], $_POST['email'], $_POST['p']);
+			
+			// Sanitize and validate the data passed in
+			$username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+			
+			$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+			
+			$email = filter_var($email, FILTER_VALIDATE_EMAIL);
+			
+			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				// Not a valid email
+				$error_msg .= '
+				<p class="error">
+					The email address you entered is not valid
+				</p>';
+			}
+			
+			$password = filter_input(INPUT_POST, 'p', FILTER_SANITIZE_STRING);
+			
+			if (strlen($password) != 128) {
+				// The hashed pwd should be 128 characters long.
+				// If it's not, something really odd has happened
+				$error_msg .= '
+				<p class="error">
+					Invalid password configuration.
+				</p>';
+			}
+			
+			// Username validity and password validity have been checked client side.
+			// This should should be adequate as nobody gains any advantage from
+			// breaking these rules.
+			//
+			
+			// die;
+			// $prep_stmt = "SELECT id FROM members WHERE email = ? LIMIT 1";
+			// $stmt = $mysqli->prepare($prep_stmt);
+// 			
+			// if ($stmt) {
+				// $stmt->bind_param('s', $email);
+				// $stmt->execute();
+				// $stmt->store_result();
+// 			
+				// if ($stmt->num_rows == 1) {
+					// // A user with this email address already exists
+					// $error_msg .= '
+					// <p class="error">
+						// A user with this email address already exists.
+					// </p>';
+				// }
+			// } else {
+				// $error_msg .= '
+				// <p class="error">
+					// Database error
+				// </p>';
+			// }
+			
+			// TODO:
+			// We'll also have to account for the situation where the user doesn't have
+			// rights to do registration, by checking what type of user is attempting to
+			// perform the operation.
+			
+			if (empty($error_msg)) {
+			// Create a random salt
+				$random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
+				
+				// Create salted password
+				$password = hash('sha512', $password . $random_salt);
+				
+				var_dump(5555,$password,$random_salt,$password);
+				
+				
+				// // Insert the new user into the database
+				// if ($insert_stmt = $mysqli->prepare("INSERT INTO members (username, email, password, salt) VALUES (?, ?, ?, ?)")) {
+					// $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt);
+					// // Execute the prepared query.
+					// if (! $insert_stmt->execute()) {
+						// header('Location: ../error.php?err=Registration failure: INSERT');
+					// }
+				// }
+				// header('Location: ./register_success.php');
+			}
+			//For test 
+			die;
+		}
 		
-		$ret = $model->getMailTemplate('gui_thong_bao_tkb');
-		
-		var_dump($ret);
-		die;
-		$model = new EmailTemplateModel();
-		$model->migrateUp();
-		// Get comment of class
-		// $rc = new ReflectionClass('EmailTemplateModel');
-		// $text = $rc->getDocComment();
-		// $t1 = explode('@param', $text);
-		// var_dump($t1);
-		// die;
-		$content = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gvbeta/app/template/view/mail/tkb.php');
-		
-		$p = new PhpStringParser(array());
-		$content =  $p->parse($content);
-		
-		$template = new BaseTemplate("mail/tkb","default/index");
-		$contentHTML = $template->contentTemplate();
-		
-		$data = array(
-			'id' => 'gui_thong_bao_tkb',
-			'title' => 'Thông báo đã có thời khóa biểu giảng dạy',
-			'content' => $contentHTML
-		);
-		
-		$model = new EmailTemplateModel();
-		
-		$ret = $model->getMailTemplate('gui_thong_bao_tkb');
-		
-		// $t = $model->checkTableExist();
-		// $model->getTableColumns();
-		// var_dump($t);
-		die;
-		//$model->deleteTemplate('gui_thong_bao_tkb');
-		//die;
-		
-		//$model->migrateDown();
-		//$model->migrateUp();		
-		$ret = $model->checkTemplateThongBaoTkb($data);
-		var_dump($ret);
-		/*
-		//$contentHTML = file_get_contents(ROOT_DIR.'app/libs/PHPMailer/examples/contents.html');
-		$template = new BaseTemplate("mail/tkb","default/index");
-		$template->hocky = "2/2013-2014";
-		$contentHTML = $template->contentTemplate();
-		$subject = "Thông báo đã có thời khóa biểu giảng dạy học kỳ ".$template->hocky;
-		$recipients = array(	array('hpnguyen@hcmut.edu.vn', 'Phu Nguyen'),
-				array('taint@hcmut.edu.vn', 'Ngo trung Tai'),
-				array('nttvi@hcmut.edu.vn', 'Nguyen Thi Tuong Vi')
-		);
-		//$attach = ROOT_DIR.'app/libs/PHPMailer/examples/images/phpmailer_mini.gif';
-		$attach = null;
-		Helper::getHelper('functions/mail')->sendMail($subject, $contentHTML, $recipients, null, null, $attach, null, 0);
-		*/
 	}
+	
+	public	function test2Action(){
+		$model = new NckhChuyenGiaTmdtModel();
+		$k = $model->getList();
+		var_dump($k);
+	}
+	// public	function test2Action(){
+		// // $model = new LoginAttemptsModel();
+		// //$model = new UserMembersModel();
+		// // $model->migrateUp();
+		// //$model->migrateDown();
+		// // $username = 'test_user2';
+		// // $email = 'test2@example.com';
+		// // $password = '00807432eae173f652f2064bdca1b61b290b52d40e429a7d295d76a71084aa96c0233b82f1feac45529e0726559645acaed6f3ae58a286b9f075916ebf66cacc';
+// // 		
+		// // $model->addNew($username, $email, $password);
+		// // die;
+// 		
+		// // $this->register();
+		// // $template = new BaseTemplate("test/index","default/index");
+		// // $contentHTML = $template->contentTemplate();
+		// // $template->renderLayout(array('title' => '','content' => $contentHTML));
+		// $template = new BaseTemplate("login/protected","default/blank");
+		// $template->renderTemplate();
+	// }
+	// public	function test2Action(){
+		// echo "test2 action of ModuleThoikhoabieuControllerPhanbo";
+// 		
+		// $helper = Helper::getHelper('functions/queuetask');
+		// $helper->add('exampleFunctionTest1');
+// 		
+		// $helper->add('exampleFunctionTest2',array('test 1111','test 2222'));
+		// var_dump(11111111);
+// 		
+		// $helper->executeTaskByID(1);
+		// $helper->executeTaskByID(2);
+		// die;
+		// // $t = new ConfigModel();
+		// // var_dump($t->checkTableColumnExist('value1111'));
+		// // die;
+		// $model = new EmailTemplateModel();
+// 		
+		// $ret = $model->getMailTemplate('gui_thong_bao_tkb');
+// 		
+		// var_dump($ret);
+		// die;
+		// $model = new EmailTemplateModel();
+		// $model->migrateUp();
+		// // Get comment of class
+		// // $rc = new ReflectionClass('EmailTemplateModel');
+		// // $text = $rc->getDocComment();
+		// // $t1 = explode('@param', $text);
+		// // var_dump($t1);
+		// // die;
+		// $content = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gvbeta/app/template/view/mail/tkb.php');
+// 		
+		// $p = new PhpStringParser(array());
+		// $content =  $p->parse($content);
+// 		
+		// $template = new BaseTemplate("mail/tkb","default/index");
+		// $contentHTML = $template->contentTemplate();
+// 		
+		// $data = array(
+			// 'id' => 'gui_thong_bao_tkb',
+			// 'title' => 'Thông báo đã có thời khóa biểu giảng dạy',
+			// 'content' => $contentHTML
+		// );
+// 		
+		// $model = new EmailTemplateModel();
+// 		
+		// $ret = $model->getMailTemplate('gui_thong_bao_tkb');
+// 		
+		// // $t = $model->checkTableExist();
+		// // $model->getTableColumns();
+		// // var_dump($t);
+		// die;
+		// //$model->deleteTemplate('gui_thong_bao_tkb');
+		// //die;
+// 		
+		// //$model->migrateDown();
+		// //$model->migrateUp();		
+		// $ret = $model->checkTemplateThongBaoTkb($data);
+		// var_dump($ret);
+		// /*
+		// //$contentHTML = file_get_contents(ROOT_DIR.'app/libs/PHPMailer/examples/contents.html');
+		// $template = new BaseTemplate("mail/tkb","default/index");
+		// $template->hocky = "2/2013-2014";
+		// $contentHTML = $template->contentTemplate();
+		// $subject = "Thông báo đã có thời khóa biểu giảng dạy học kỳ ".$template->hocky;
+		// $recipients = array(	array('hpnguyen@hcmut.edu.vn', 'Phu Nguyen'),
+				// array('taint@hcmut.edu.vn', 'Ngo trung Tai'),
+				// array('nttvi@hcmut.edu.vn', 'Nguyen Thi Tuong Vi')
+		// );
+		// //$attach = ROOT_DIR.'app/libs/PHPMailer/examples/images/phpmailer_mini.gif';
+		// $attach = null;
+		// Helper::getHelper('functions/mail')->sendMail($subject, $contentHTML, $recipients, null, null, $attach, null, 0);
+		// */
+	// }
 }

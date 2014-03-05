@@ -18,9 +18,10 @@ class BaseTable extends DbFactory {
 		DbFactory::getInstance()->close();
 	}
 	
-	public function init($tableName) {
+	public function init($tableName, $config = '') {
 		$this->tableName = $tableName;
 		$this->dbConnection = DbFactory::getInstance();
+		$this->dbConnection->setDbConfigName($config);
 	}
 	
 	public function getQuery($string) {
@@ -90,11 +91,6 @@ class BaseTable extends DbFactory {
 		$ret = $this->getQuery($sql)->execute()->parse()->fetchAll();
 		
 		return (int) $ret[0]['counter'] > 0;
-	}
-	
-	public function getTableColumns()
-	{
-		
 	}
 	
 	public function checkTableColumnExist($column) {

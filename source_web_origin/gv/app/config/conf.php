@@ -14,5 +14,6 @@ $config = array(
 'mail_name_from' => 'Phòng đào tạo sau đại học trường ĐH Bách Khoa TPHCM',
 'mail_tkb_title' => 'Thông báo đã có thời khóa biểu giảng dạy',
 'mail_tkb_cc' => 'nttvi@hcmut.edu.vn',
-'mail_valid_ip_array' => '172.28.40.248,172.28.40.250'
+'mail_valid_ip_array' => '172.28.40.248,172.28.40.250',
+'prefix_value_tab_a4_nckh_pb_noi_dung' => '2014_A4_'
 );

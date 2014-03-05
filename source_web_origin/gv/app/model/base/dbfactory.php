@@ -13,6 +13,7 @@ class DbFactory {
 	public $host = null;
 	public $port = null;
 	public $sid = null;
+	private $dbConfigName = null;
 	
 	function __construct() {
 		
@@ -48,7 +49,7 @@ class DbFactory {
 		if ($this->dbConnect) {
 			oci_close($this->dbConnect);	
 		}
-		$config = Helper::getHelper('functions/util')->getDbFileConfig();
+		$config = Helper::getHelper('functions/util')->getDbFileConfig($this->dbConfigName);
 		
 		$connectString = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = ".$config['host'].")(PORT = ".$config['port'].")))(CONNECT_DATA=(SID=".$config['sid'].")))";
 		
@@ -174,7 +175,7 @@ class DbFactory {
 					$fieldArrayTemp[strtoupper($key)] = $value;
 				}
 			}
-			
+			$primary = "";
 			if (count($primaryFieldArray) == 1) {
 				if(array_key_exists($primaryFieldArray[0],$fieldArray)){
 					$option = $fieldArray[$primaryFieldArray[0]];
@@ -182,7 +183,7 @@ class DbFactory {
 					$option = $fieldArray[strtoupper($primaryFieldArray[0])];
 				}
 				$primary = strtoupper($primaryFieldArray[0])." ".strtoupper($option[0])." NOT NULL PRIMARY KEY";
-			}else{
+			}else if (count($primaryFieldArray) > 1){
 				$primary = " CONSTRAINT ".strtoupper($table)."_PK PRIMARY KEY (".implode(",", $primaryFieldArray).")";
 			}
 			
@@ -195,7 +196,7 @@ class DbFactory {
 				}
 				$tempSql .=" ".strtoupper($column)." ".strtoupper($item[0])." ".$item[1];
 			}
-			if($tempSql != ""){
+			if($tempSql != "" && $primary != ""){
 				$tempSql .=",
 ".$primary;
 			}
@@ -219,12 +220,52 @@ $tempSql."
 	}
 	
 	public function execute($executeOnly = false,$params = array(),$fieldNameLower = true) {
-		$config = Helper::getHelper('functions/util')->getDbFileConfig();
+		$config = Helper::getHelper('functions/util')->getDbFileConfig($this->dbConfigName);
 		$connectString = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = ".$config['host'].")(PORT = ".$config['port'].")))(CONNECT_DATA=(SID=".$config['sid'].")))";
 		
 		$sdlString = "".$this->sql;
 		$db_conn = oci_connect($config['user'],$config['pass'],$connectString,$config['charset']);
 		$stmt = oci_parse($db_conn, $sdlString) or die ("SQL ERROR PARSE: " . oci_error($db_conn));
+		oci_execute($stmt) or die ("SQL ERROR EXECUTE: " . oci_error($stmt));
+		
+		if (! $executeOnly) {
+			$fetArray = array();
+			while ($row = oci_fetch_assoc($stmt)) {
+				$item = array();
+				
+				foreach($row as $key => $value){
+					$name = $fieldNameLower ? strtolower($key) : $key;
+					$item[$name] =  $value;
+				}
+					
+				$fetArray[] = $item;
+			}
+			$this->itemsCount = count($fetArray);
+			if($this->itemsCount > 0) {
+				$this->result = $fetArray;
+			}
+		}
+		
+		oci_free_statement($stmt);
+		if($db_conn) {
+			oci_close($db_conn);
+		}
+		
+		return $this;
+	}
+	
+	public function bindExecute($executeOnly = false,$params = array(),$fieldNameLower = true) {
+		$config = Helper::getHelper('functions/util')->getDbFileConfig($this->dbConfigName);
+		$connectString = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = ".$config['host'].")(PORT = ".$config['port'].")))(CONNECT_DATA=(SID=".$config['sid'].")))";
+		
+		$sdlString = "".$this->sql;
+		$db_conn = oci_connect($config['user'],$config['pass'],$connectString,$config['charset']);
+		$stmt = oci_parse($db_conn, $sdlString) or die ("SQL ERROR PARSE: " . oci_error($db_conn));
+		
+		//Use params bind to sql
+		foreach ($params as $k => $v) {
+			oci_bind_by_name($stmt, $k, $v);
+		}
 		oci_execute($stmt) or die ("SQL ERROR EXECUTE: " . oci_error($stmt));
 		
 		if (! $executeOnly) {
@@ -305,5 +346,12 @@ $tempSql."
 			}
 			return null;
 	}
-
+	
+	public function setDbConfigName($name = ''){
+		$this->dbConfigName = $name;
+	}
+	
+	public function getDbConfigName(){
+		return $this->dbConfigName;
+	}
 }

@@ -50,4 +50,24 @@ class HvuGiaiQuyetHvuModel extends BaseTable {
 		}
 		return $ret;
 	}
+	
+	public function getDsKhoa($makhoa)
+	{
+		$sqlstr="SELECT distinct nk.ma_khoa_truong, nk.ten_khoa , 
+		CASE WHEN nk.ma_khoa_truong = '".$makhoa."' THEN 'selected' ELSE '' END as selected
+		FROM hvu_giai_quyet_hvu hvu, khoa nk 
+		WHERE hvu.fk_ma_hoc_vien = nk.ma_khoa_truong 
+		and thung_rac is null 
+		ORDER BY viet0dau_name(nk.ten_khoa) asc";
+		
+		$check = $this->getQuery($sqlstr)
+		->execute(false, array());
+		
+		$ret = array();
+		
+		if($check->itemsCount > 0){
+			$ret = $check->result;
+		}
+		return $ret;
+	}
 }

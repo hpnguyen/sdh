@@ -3,12 +3,21 @@ $help = Helper::getHelper('functions/util');
 $gvURL = $help->getGvRootURL();
 ?>
 <div align="center">
-	<h2>Danh Sách Hồ Sơ Gửi Phòng Sau Đại Học</h2>
+	<h2>Danh Sách Hồ Sơ Gửi Phòng Sau Đại Học<?php echo $viewSelectKhoa ? ' - (theo khoa)' : '' ?></h2>
 </div>
 <!-- Filter -->
 <div style='margin:0 0 10px 0px;'> 
 	<table width="100%" border="0" align="center" cellpadding="5"  cellspacing="0" class="ui-widget ui-widget-content ui-corner-all ">
 		<tr>
+			<?php if($viewSelectKhoa){ ?>
+			<td style="width:315px;">
+				Khoa <select id="filter_tien_trinh_ho_so_ma_khoa" style="width: 227px">
+				<?php foreach ($listItemsKhoa as $k => $itemKhoa) { ?>
+					<option value="<?php echo $itemKhoa['ma_khoa_truong'] ?>"<?php echo $itemKhoa['selected'] != '' ? ' selected="selected"' :'' ?>><?php echo $itemKhoa['ten_khoa'] ?></option>
+				<?php } ?>
+				</select>
+			</td>
+			<?php }?>
 			<td style="width:170px;">
 				Năm nhận <select id="filter_tien_trinh_ho_so_nam_nhan" title="Fillter theo năm nhận hồ sơ" style="width:50px; height:25px; padding: 0 0 0 0;" class="ui-widget-content ui-corner-all tableData">
 				<?php 
@@ -66,13 +75,21 @@ $(document).ready(function() {
 		modal: true,
 		resizable: false,
 	});
-	$('#filter_tien_trinh_ho_so_nam_nhan,#filter_tien_trinh_ho_so_tinh_trang').change(function() {
+	var idSelectChange = '#filter_tien_trinh_ho_so_nam_nhan,#filter_tien_trinh_ho_so_tinh_trang';
+	<?php if($viewSelectKhoa){ ?>
+	idSelectChange = idSelectChange + ',#filter_tien_trinh_ho_so_ma_khoa';
+	<?php }?>
+	$(idSelectChange).change(function() {
 		var postData = {
 			'namnhan' : $("#filter_tien_trinh_ho_so_nam_nhan").val(),
 			'tinhtrang' : $("#filter_tien_trinh_ho_so_tinh_trang").val()
 		}
+		var postURL = '<?php echo $gvURL ?>/front.php/phongbankhoa/hoso/tientrinh?hisid=<?php echo $_GET['hisid']?>';
+		<?php if($viewSelectKhoa){ ?>
+		postURL = postURL + '&khoa=1&makhoa=' + $('#filter_tien_trinh_ho_so_ma_khoa').val();
+		<?php }?>
 		$.ajax({type: "POST",
-			url: '<?php echo $gvURL ?>/front.php/phongbankhoa/hoso/tientrinh?hisid=<?php echo $_GET['hisid']?>',
+			url: postURL,
 			data: postData,
 			beforeSend: function(xhr){
 				$("#squaresWaveG").show();

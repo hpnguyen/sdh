@@ -61,7 +61,7 @@ parse_str($a);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Phòng Đào Tạo Sau Đại Học</title>
+<title>Cổng thông tin cán bộ Bách Khoa Tp.HCM</title>
 
 </head>
 
@@ -71,6 +71,8 @@ parse_str($a);
 
 <link href="../datatable/media/css/jquery.dataTables_themeroller.css" rel="stylesheet" type="text/css"/>
 <link href="../datatable/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
+<link href="../datatable/extras/TableTools/media/css/TableToolsKHCN.css" rel="stylesheet" type="text/css"/>
+<link href="../datatable/extras/ColVis/media/css/ColVis.css" rel="stylesheet" type="text/css"/>
 
 <script src="../js/jquery-1.8.3.min.js"></script>
 
@@ -85,6 +87,9 @@ parse_str($a);
 <script src="../js/jquery.placeholder-1.1.9.js"></script>
 <script src="../js/jquery.maskedinput-1.3.min.js"></script>
 <script src="../datatable/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../datatable/extras/TableTools/media/js/ZeroClipboard.js"></script>
+<script type="text/javascript" charset="utf-8" src="../datatable/extras/TableTools/media/js/TableTools.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="../datatable/extras/ColVis/media/js/ColVis.min.js"></script>
 
 <script src="../ckeditor/ckeditor.js"></script>
 <script src="../ckeditor/adapters/jquery.js"></script>
@@ -214,7 +219,7 @@ parse_str($a);
 		namespace = {
 			addTab_ns : function(pkey, ptabname, piconname, pcurrenttab, plink) {
 				tabNameClick = pkey;
-				addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/'"+piconname+" /> "+ptabname, plink);
+				addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/"+piconname+"' /> "+ptabname, plink);
 				tab_current = pcurrenttab;
 			},
 			get_tabOpened: function () {
@@ -242,7 +247,7 @@ parse_str($a);
 		$("#PhanBoCBGD_Bomon").click(function() {
 			
 			tabNameClick = 'PhanBoCBGD_Bomon';					
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Phân công CBGD - cấp Bộ môn", "front.php/tkb/phanbo/previewbomon?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/schedule-icon-daybu.png' /> Phân công CBGD - cấp Bộ môn", "front.php/tkb/phanbo/previewbomon?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -255,7 +260,7 @@ parse_str($a);
 		$("#PhanBoCBGD_All").click(function() {
 			
 			tabNameClick = 'PhanBoCBGD_All';					
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Xem phân công CBGD", "front.php/tkb/phanbo/previewall?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/schedule-icon-daybu.png' /> Phân công CBGD các Khoa", "front.php/tkb/phanbo/previewall?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -268,7 +273,7 @@ parse_str($a);
 		$("#XemDeCuong_All").click(function() {
 			
 			tabNameClick = 'XemDeCuong_All';					
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Xem đề cương", "front.php/index/index/decuong?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/tracuudiem.png' /> Xem đề cương", "front.php/index/index/decuong?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -311,6 +316,18 @@ parse_str($a);
 		<?php
 		}
 		
+		//Chuc nang xem danh sach tinh trang hoc vu theo khoa
+		if (isset($F121))
+		{
+		?>
+		$("#TienTrinhHoSoKhoa_All").click(function() {
+			tabNameClick = 'TienTrinhHoSoKhoa_All';					
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvu_khoa.png' />Theo dõi xử lý hồ sơ - Khoa", "front.php/phongbankhoa/hoso/tientrinh?hisid=<?php echo $sid;?>&khoa=1");
+			tab_current = 0;
+		});
+		<?php
+		}
+		
 		//Xem thoi khoa bieu
 		if (isset($F118))
 		{			
@@ -332,6 +349,19 @@ parse_str($a);
 			
 			tabNameClick = 'XemDeCuongNganh_All';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Xem đề cương ngành", "front.php/index/index/decuong?hisid=<?php echo $sid;?>&nganh=1");
+			tab_current = 0;
+		});
+		<?php
+		}
+		
+		//Phan bien de tai
+		if (isset($F054))
+		{			
+		?>
+		$("#XemPhanBienDeTai_All").click(function() {
+			
+			tabNameClick = 'XemPhanBienDeTai_All';					
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Phản biện đề tài", "front.php/khcn/phanbien/index?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -664,7 +694,7 @@ parse_str($a);
 		?>
 		$("#printHuongDanInLLKH").click(function() {
 			tabNameClick = 'printHuongDanInLLKH';					
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/print-icon.png' /> Hướng dẫn in biểu mẫu", "gv/gv_print_huongdan.php?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/print-icon.png' /> Hướng dẫn in Lý lịch khoa học", "gv/gv_print_huongdan.php?hisid=<?php echo $sid;?>");
 			tab_current = 1;
 		});
 		<?php
@@ -706,9 +736,9 @@ parse_str($a);
 		if (isset($F002))
 		{			
 		?>
-		$("#printTTGV_LLKH_MAU_R04").click(function() {
-			tabNameClick = 'printTTGV_LLKH_MAU_R04';
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/print-icon.png' /> In LLKH mẫu ĐHQG (R04)", "gv/gv_print_llkh_mau_r04.php?hisid=<?php echo $sid;?>");
+		$("#printTTGV_LLKH_MAU_R03").click(function() {
+			tabNameClick = 'printTTGV_LLKH_MAU_R03';
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/print-icon.png' /> In LLKH mẫu ĐHQG (R03)", "gv/gv_print_llkh_mau_r03.php?hisid=<?php echo $sid;?>");
 			tab_current = 1;
 		});
 		<?php
@@ -886,8 +916,7 @@ parse_str($a);
 		?>
 		$("#PhanBoCBGD_Khoa").click(function() {
 			tabNameClick = 'PhanBoCBGD_Khoa';
-			//addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Phân bổ CBGD", "khoa/khoa_phanbocbgd.php?a=form&hisid=<?php echo $sid;?>");
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Phân công CBGD - cấp Khoa", "front.php/tkb/phanbo/preview?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/schedule-icon-daybu.png' /> Phân công CBGD - cấp Khoa", "front.php/tkb/phanbo/preview?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -948,6 +977,16 @@ parse_str($a);
 		$("#QuanLyPhi_Khoa").click(function() {
 			tabNameClick = 'QuanLyPhi_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/kinhphithtn.png' /> Quản lý phí", "khoa/khoa_quanlyphi.php?hisid=<?php echo $sid;?>");
+			tab_current = 0;
+		});
+		<?php
+		}
+		if (isset($F123))
+		{
+		?>
+		$("#QuanLyPhi_Phong").click(function() {
+			tabNameClick = 'QuanLyPhi_Phong';
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/kinhphithtn.png' /> Quản lý phí các Khoa", "phong/phong_quanlyphi.php?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -1034,7 +1073,7 @@ parse_str($a);
             <ul>
                 <li><a href="#tabs-1"><strong>Sau đại học</strong></a></li>
                 <li><a href="#tabs-2"><strong>Khoa học công nghệ</strong></a></li>
-				<li><a href="#tabs-3"><strong>Nhân sự</strong></a></li>
+				<li><a href="#tabs-3"><strong>Thông tin cá nhân</strong></a></li>
                 <li><a href="#tabs-4"><strong>Bảo Mật</strong></a></li>
             </ul>
             <div id="tabs-1">
@@ -1043,10 +1082,10 @@ parse_str($a);
 						<ul id="sortableHOCVU">
 							<?php
 								if (isset($F008)){
-									echo "<li ><a id='tracuuTKB' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon.png' /><br/>Tra Cứu TKB</a></li>";
+									echo "<li ><a id='tracuuTKB' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon.png' /><br/>Thời Khoá Biểu</a></li>";
 								}
 								if (isset($F009)){
-									echo "<li ><a id='tracuuLichThi' href='#'><img border='0' width='48' height='48' src='icons/lichthi.png' /><br/>Tra Cứu Lịch Thi</a></li>";
+									echo "<li ><a id='tracuuLichThi' href='#'><img border='0' width='48' height='48' src='icons/lichthi.png' /><br/>Lịch Thi</a></li>";
 								}
 								if (isset($F010)){
 									echo "<li ><a id='tracuuDSLop' href='#'><img border='0' width='48' height='48' src='icons/dslop.png' /><br/>Danh Sách Lớp</a></li>";
@@ -1091,16 +1130,16 @@ parse_str($a);
 									echo "<li ><a id='phongNhanYCHVu' href='#'><img border='0' width='48' height='48' src='icons/ychvu-icon.png' /><br/>Quản lý<br/>Yêu cầu học vụ</a></li>";
 								}
 								if (isset($F112)){
-									echo "<li ><a id='PhanBoCBGD_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Phân công CBGD - cấp Khoa</a></li>";
+									echo "<li ><a id='PhanBoCBGD_Khoa' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công CBGD - cấp Khoa</a></li>";
 								}
 								if (isset($F113)){
-									echo "<li ><a id='PhanBoCBGD_Bomon' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Phân công CBGD - cấp Bộ môn</a></li>";
+									echo "<li ><a id='PhanBoCBGD_Bomon' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công CBGD - cấp Bộ môn</a></li>";
 								}
 								if (isset($F114)){
-									echo "<li ><a id='PhanBoCBGD_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Xem phân công CBGD</a></li>";
+									echo "<li ><a id='PhanBoCBGD_All' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công<br>CBGD các Khoa</a></li>";
 								}
 								if (isset($F115)){
-									echo "<li ><a id='XemDeCuong_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Danh Sách Nhận Đề Cương LV</a></li>";
+									echo "<li ><a id='XemDeCuong_All' href='#'><img border='0' width='48' height='48' src='icons/tracuudiem.png' /><br/>Danh Sách Nhận<br>Đề Cương LV</a></li>";
 								}
 								if (isset($F116)){
 									echo "<li ><a id='ResetPassword_All' href='#'><img border='0' width='48' height='48' src='icons/user-password-icon.png' /><br/>Reset password</a></li>";
@@ -1109,10 +1148,13 @@ parse_str($a);
 									echo "<li ><a id='ListEmailTemplate_All' href='#'><img border='0' width='48' height='48' src='icons/email.png' /><br/>Danh sách email</a></li>";
 								}
 								if (isset($F117)){
-									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi xử lý hồ sơ</a></li>";
+									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi<br>xử lý hồ sơ</a></li>";
+								}
+								if (isset($F121)){
+									echo "<li ><a id='TienTrinhHoSoKhoa_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi xử lý<br>hồ sơ các Khoa</a></li>";
 								}
 								if (isset($F118)){
-									echo "<li ><a id='KhoaXemTKB_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Xem TKB</a></li>";
+									echo "<li ><a id='KhoaXemTKB_All' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon.png' /><br/>TKB các Khoa</a></li>";
 								}
 								if (isset($F119)){
 									echo "<li ><a id='XemDeCuongNganh_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Danh Sách Nhận Đề Cương LV Ngành</a></li>";
@@ -1131,6 +1173,9 @@ parse_str($a);
 								}
 								if (isset($F111)){
 									echo "<li ><a id='QuanLyPhi_Khoa' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtn.png' /><br/>Quản lý phí</a></li>";
+								}
+								if (isset($F123)){
+									echo "<li ><a id='QuanLyPhi_Phong' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtn.png' /><br/>Quản lý phí các Khoa</a></li>";
 								}
 							?>
 						</ul>
@@ -1226,6 +1271,9 @@ parse_str($a);
 									echo "<li ><a id='printTTGV_LLKH_DS' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý<br/>Lý Lịch Khoa Học</a></li>";
 								}
 								
+								if (isset($F054)){
+									echo "<li ><a id='XemPhanBienDeTai_All' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br>Phản biện đề tài</a></li>";
+								}
 								
 							?>
 						</ul>
@@ -1238,7 +1286,7 @@ parse_str($a);
 							
 							
 							if (isset($F002)){
-								echo "<tr style='cursor:pointer;' id='printHuongDanInLLKH' ><td><img src='icons/idea-icon-24x24.png' border=0 width=24 height=24 /></td><td ><a class='tooltips' data-toggle='tooltip' title='<b><u>Chú ý:</u> Đọc hướng dẫn này trước khi in biểu mẫu (cập nhật mới)</b>' style='font-weight:bold;color:#0195df'>Hướng dẫn In biểu mẫu</a></td></tr>";
+								echo "<tr style='cursor:pointer;' id='printHuongDanInLLKH' ><td><img src='icons/idea-icon-24x24.png' border=0 width=24 height=24 /></td><td ><a class='tooltips' data-toggle='tooltip' title='<b><u>Chú ý:</u> Đọc hướng dẫn này trước khi in biểu mẫu (cập nhật mới)</b>' style='font-weight:bold;color:#0195df'>Hướng dẫn In Lý lịch khoa học</a></td></tr>";
 							}
 							
 							if (isset($F002)){
@@ -1249,7 +1297,7 @@ parse_str($a);
 							}
 				
 							if (isset($F002)){
-								echo "<tr style='cursor:pointer;' id='printTTGV_LLKH_MAU_R04' rel='popover' data-original-title='Lý lịch khoa học - Mẫu R04'><td><img src='icons/print-preview-icon24x24.png' border=0 width=24 height=24/></td><td style='font-weight:bold;color:#0195df'><a class='tooltips' data-toggle='tooltip' title='Để hoàn thành mẫu này, bạn cần điền <b>tất cả</b> các form bên trái <b>ngoại trừ form Thành tựu hoạt động KH&CN</b>' style='font-weight:bold;color:#0195df'>LLKH - Mẫu ĐHQG R04</a></td></tr>";
+								echo "<tr style='cursor:pointer;' id='printTTGV_LLKH_MAU_R03' rel='popover' data-original-title='Lý lịch khoa học - Mẫu R03'><td><img src='icons/print-preview-icon24x24.png' border=0 width=24 height=24/></td><td style='font-weight:bold;color:#0195df'><a class='tooltips' data-toggle='tooltip' title='Để hoàn thành mẫu này, bạn cần điền <b>tất cả</b> các form bên trái <b>ngoại trừ form Thành tựu hoạt động KH&CN</b>' style='font-weight:bold;color:#0195df'>LLKH - Mẫu ĐHQG R03</a></td></tr>";
 							}
 							if (isset($F002)){
 								echo "<tr style='cursor:pointer;' id='printTTGV_LLKH_MAU_BK' rel='popover' data-original-title='Lý lịch khoa học - Mẫu Trường BK'><td><img src='icons/print-preview-icon24x24.png' border=0 width=24 height=24/></td><td style='font-weight:bold;color:#0195df'><a class='tooltips' data-toggle='tooltip' title='Để hoàn thành mẫu này, bạn cần điền <b>tất cả</b> các form bên trái <b>ngoại trừ form Thành tựu hoạt động KH&CN</b>' style='font-weight:bold;color:#0195df'>LLKH - Mẫu Trường ĐHBK </a></td></tr>";
@@ -1271,7 +1319,7 @@ parse_str($a);
             </div>
 			<div id="tabs-3">
 				<div style="width:1024px; margin:auto;">
-					<div style="width:250px; margin:0 15px 0 20px; float:left;  border-right: 3px solid #aaa;">
+					<div style="width:650px; margin:0 15px 0 20px; float:left;  border-right: 3px solid #aaa;">
 						<ul id="sortableKHCN">
 							<?php
 							if (isset($F001)){
@@ -1466,18 +1514,21 @@ function ucwords (str) {
     });
 }
 
-function reverse_escapeJsonString (str, pBr) {	
-	var nstr = str.replace(/\\\\/g, "\\");
-	nstr = nstr.replace(/\\\//g, '/');
-	nstr = nstr.replace(/\\"/g, '"');
-	nstr = nstr.replace(/\\'/g, "'");
-	nstr = nstr.replace(/\\\\n/g, '\n');
-	nstr = nstr.replace(/\\\\r/g, '\r');
-	nstr = nstr.replace(/\\\\t/g, '\t');
-	nstr = nstr.replace(/\\\\f/g, '\x08');
-	nstr = nstr.replace(/\\\\b/g, '\x0c');
-	if (pBr){
-		nstr = nstr.replace(/\n/g, '<br>');
+function reverse_escapeJsonString (str, pBr) {
+	var nstr = null;
+	if (str!=null){
+		nstr = str.replace(/\\\\/g, "\\");
+		nstr = nstr.replace(/\\\//g, '/');
+		nstr = nstr.replace(/\\"/g, '"');
+		nstr = nstr.replace(/\\'/g, "'");
+		nstr = nstr.replace(/\\\\n/g, '\n');
+		nstr = nstr.replace(/\\\\r/g, '\r');
+		nstr = nstr.replace(/\\\\t/g, '\t');
+		nstr = nstr.replace(/\\\\f/g, '\x08');
+		nstr = nstr.replace(/\\\\b/g, '\x0c');
+		if (pBr){
+			nstr = nstr.replace(/\n/g, '<br>');
+		}
 	}
 	return nstr;
 }

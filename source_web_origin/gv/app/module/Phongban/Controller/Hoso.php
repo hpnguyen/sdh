@@ -22,15 +22,22 @@ class ModulePhongbanControllerHoso extends FrontController {
 		$title = 'Danh Sách Tình Trạng Yêu Cầu Học Vụ';
 		$nhanSu = new NhanSuModel();
 		
-		if($nhanSu->checkRoleViewTienTrinhHoSo()){
+		if($nhanSu->checkRoleViewTienTrinhHoSo()|| $nhanSu->checkRoleViewTienTrinhHoSoGroupByKhoa()){
 			$template = new BaseTemplate("hocvu/list","default/index");
 			$template->listNhanSuSdh = $nhanSu->getDanhSachPhongSDH();
 			$template->namNhan = $nam;
+			$template->viewSelectKhoa = $this->getGet('khoa',null) == '1' && $nhanSu->checkRoleViewTienTrinhHoSoGroupByKhoa();
+			
 			unset($nhanSu);
 			
 			$model = new HvuGiaiQuyetHvuModel();
-			$template->listItems = $model->getDsTinhTrangHocVu($makhoa,$nam,$tinhtrang);
 			
+			if($template->viewSelectKhoa && isset($_GET['makhoa'])){
+				$makhoa = $_GET['makhoa'];
+			}
+			
+			$template->listItems = $model->getDsTinhTrangHocVu($makhoa,$nam,$tinhtrang);
+				
 			if (count($template->listItems) == 0){
 				$nam = $nam -1;
 				$template->listItems = $model->getDsTinhTrangHocVu($makhoa,$nam,$tinhtrang);
@@ -45,7 +52,15 @@ class ModulePhongbanControllerHoso extends FrontController {
 				$templateMain->namNhan = $nam;
 				$templateMain->listHvuDmTinhTrang = $modelHvuDmTinhTrang->getDanhMucTinhTrang();
 				unset($modelHvuDmTinhTrang);
-				
+				$templateMain->viewSelectKhoa = $template->viewSelectKhoa;
+				if($templateMain->viewSelectKhoa){
+					if (isset($_GET['makhoa'])){
+						$maKhoa = $_GET['makhoa'];
+					}else{
+						$maKhoa = base64_decode($_SESSION['makhoa']);
+					}
+					$templateMain->listItemsKhoa = $model->getDsKhoa($maKhoa);
+				}
 				$templateMain->listView = $template->contentTemplate();
 				$templateContent = $templateMain->contentTemplate();
 				$templateMain->renderLayout(array('title' => $title,'content' => $templateContent));

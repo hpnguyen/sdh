@@ -10,6 +10,7 @@
  * isset($_GET['vuehtml']) is not mandatory
  * it allow to display the result in the HTML format
  */
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 $url = urldecode($_REQUEST['url_print']);
     // get the HTML
     //ob_start();

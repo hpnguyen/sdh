@@ -57,12 +57,23 @@ class HelperFunctionsUtil {
 		return $ret;
 	}
 	
-	function getDbFileConfig(){
+	function getModuleActionRouteUrl($url,$full = true){
+		$ret = null;
+		
+		if ($full){
+			$ret = self::getGvRootURL();
+		}
+		$ret .= "/front.php/".$url;
+		
+		return $ret;
+	}
+	
+	function getDbFileConfig($dbConfigName = ''){
 		if (function_exists ('yaml_parse_file')) {
-			$filename = ROOT_DIR.'app/config/conf.yml';
+			$filename = ROOT_DIR.'app/config/conf'.$dbConfigName.'.yml';
 			$config = yaml_parse_file ($filename);
 		}else{
-			require ROOT_DIR.'app/config/conf.php';
+			require ROOT_DIR.'app/config/conf'.$dbConfigName.'.php';
 		}
 		
 		return $config;

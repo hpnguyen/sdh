@@ -64,3 +64,17 @@ cronjob:
     Index:
       index:
         name:
+khcn:
+  Khcn:
+    Phanbien:
+      index:
+      list:
+      save:
+      ajaxdialog:
+login:
+  Login:
+    Index:
+      index:
+      register:
+      logout:
+      login:
