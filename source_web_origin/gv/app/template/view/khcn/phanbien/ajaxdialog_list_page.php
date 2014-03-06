@@ -334,14 +334,13 @@ function <?php echo $formKey ?>InitReadyAjax(){
 		
 		//Summary
 		var totalSummary = 0;
-		var item = $(this).parent().parent().parent();
-		item.find('input[type="text"]').each(function(index){
+		$(".formTabBDanhGiaInput").each(function(index){
 			var nameItemCheck = $(this).attr('name');
 			
 			if($(this).val() != ''){
 				if (error == false || (error == true && nameItemCheck != nameItem)){
 					totalSummary += parseInt($(this).val());
-					item.find("div.<?php echo $formKey ?>TotalSummaryDanhGia").html(totalSummary);
+					$(".<?php echo $formKey ?>TotalSummaryDanhGia").html(totalSummary);
 				}
 			}
 		});
