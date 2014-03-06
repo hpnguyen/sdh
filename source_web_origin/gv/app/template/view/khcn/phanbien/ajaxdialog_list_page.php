@@ -17,7 +17,7 @@ $rootURL = $help->baseURL();
 	table.TabBDanhGiaTableView tr {
 		height: 35px;
 	}
-	.span-bold {
+	.span-bold, .<?php echo $formKey ?>TotalSummaryDanhGia{
 		font-weight: bold;
 	}
 	.<?php echo $formKey ?>DialogViewPhanBien {
@@ -328,7 +328,7 @@ function <?php echo $formKey ?>InitReadyAjax(){
 			if(parseInt($(this).val()) > maxValue){
 				$(this).val('');
 				error = true;
-				alert('Điểm đánh giá không được vượt quá ' + maxValue);
+				gv_open_msg_box('Điểm đánh giá không được vượt quá ' + maxValue, 'alert', 345, 185, true);
 			}
 		}
 		
