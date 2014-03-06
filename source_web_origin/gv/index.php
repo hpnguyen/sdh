@@ -533,7 +533,7 @@ parse_str($a);
 		}
 		
 		if (isset($F001))
-		{			
+		{
 		?>
 		$("#chuyengiakhac").click(function() {
 			tabNameClick = 'chuyengiakhac';
@@ -661,7 +661,7 @@ parse_str($a);
 		?>
 		$("#phongDSHocVienDKMH_Khoa").click(function() {
 			tabNameClick = 'phongDSHocVienDKMH_Khoa';
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvientheokhoa.png' /> Danh sách HV ĐKMH", "phong/phong_dshocvien_dkmh.php?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvientheokhoa.png' /> Danh sách HV ĐKMH - Các Khoa", "phong/phong_dshocvien_dkmh.php?hisid=<?php echo $sid;?>");
 			tab_current = 0;
 		});
 		<?php
@@ -1121,7 +1121,7 @@ parse_str($a);
 									echo "<li ><a id='phongDSHocVienTN_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Học Viên<br/>Tốt nghiệp</a></li>";
 								}
 								if (isset($F019)){
-									echo "<li ><a id='phongDSHocVienDKMH_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Học Viên<br/>ĐKMH</a></li>";
+									echo "<li ><a id='phongDSHocVienDKMH_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Học Viên ĐKMH<br>các Khoa</a></li>";
 								}
 								if (isset($F020)){
 									echo "<li ><a id='phongDSNCS_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Nghiên Cứu Sinh</a></li>";
@@ -1226,7 +1226,6 @@ parse_str($a);
 								if (isset($F001)){
 									echo "<li ><a id='ctkh' href='#'><img border='0' width='48' height='48' src='icons/baibao.png' /><br/>Bài báo Tạp chí/H.Nghị Khoa Học</a></li>";
 								}
-							
 								if (isset($F001)){
 									echo "<li ><a id='giaithuong' href='#'><img border='0' width='48' height='48' src='icons/award-icon.png' /><br/>Giải thưởng KH&CN</a></li>";
 								}
@@ -1272,7 +1271,7 @@ parse_str($a);
 								}
 								
 								if (isset($F054)){
-									echo "<li ><a id='XemPhanBienDeTai_All' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br>Phản biện đề tài</a></li>";
+									echo "<li ><a id='XemPhanBienDeTai_All' href='#'><img border='0' width='48' height='48' src='icons/Hire-me-icon.png' /><br>Phản biện đề tài</a></li>";
 								}
 								
 							?>

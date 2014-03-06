@@ -34,7 +34,14 @@ foreach($listItems as $y => $row)
 	$listArrayDataString .= "'<div id= \"".$formKey."linkClickViewReportTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewReportTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">Xem</div>',";
 	$listArrayDataString .= "'',";
 	$url = $help->getModuleActionRouteUrl('khcn/phanbien/ajaxdialog?hisid='.$_GET['hisid'])."&d=".$dothoc."&madetai=".$row["ma_thuyet_minh_dt"];
-	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;Phản Biện</a>'";
+	//Check het_han_phan_bien is '1' will not render button	
+	if ((int) $row["het_han_phan_bien"] == 0){
+		$textView = "Phản Biện";
+	}else{
+		$textView = "Xem Phản Biện";
+	}
+	
+	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>'";
 	$listArrayData[] = $listArrayDataString;
 }
 ?>
@@ -45,10 +52,10 @@ foreach($listItems as $y => $row)
 		<td width="50px" align='center'>Mã ĐT</td>
 		<td align="center">Tên Đề Tài</td>
 		<td width="200px" align="center">Trạng Thái</td>
-		<td width="100px" align="center">Kết Quả Trả Lời</td>
+		<td width="150px" align="center">Kết Quả Trả Lời</td>
 		<td width="100px" align="center">Chi tiết Link TMĐT</td>
 		<td width="100px" align="center">Link LLKH Người Tham Gia</td>
-		<td width="80px" align="center"></td>
+		<td width="100px" align="center"></td>
 	  </tr>
 	  </thead>
 	  <tbody>
@@ -96,9 +103,13 @@ function <?php echo $formKey ?>InitReady(){
 	$(".<?php echo $formKey ?>linkClickViewPhanBienTab").click(function(){
 		var myURL = $(this).attr('href');
 		//console.log(myURL);
-		var dialogTitle = "Phản biện đề tài : " + $(this).parent().parent().find('td').eq(1).text() 
+		var dialogTitle = "Phản biện đề tài : " + $(this).parent().parent().find('td').eq(1).text() ;
+		<?php
+		//Only show warning message if enable to update data
+		if ((int) $row["het_han_phan_bien"] == 0){ 
+		?>
 		dialogTitle = dialogTitle + "<br> <i><span style='color: #FF0000'>Lưu ý: Nội dung cập nhật chỉ được lưu sau khi nhấn nút Lưu</span></i>";
-		
+		<?php } ?>
 		$.ajax({
 			url: myURL,
 			success: function(data) {
@@ -111,6 +122,10 @@ function <?php echo $formKey ?>InitReady(){
 					width: 1024,
 					height: 550,
 					title: dialogTitle,
+					<?php 
+					//Only show button to save data when enable to update data
+		 			if ((int) $row["het_han_phan_bien"] == 0){ 
+		 			?>
 					buttons: { "Lưu": function() {
 						$('.<?php echo $formKey ?>tabDialogTextAreaPhanBien').each(function(){
 							var parentItem = $(this).parent();
@@ -144,6 +159,7 @@ function <?php echo $formKey ?>InitReady(){
 							}
 						});
 					}},
+					<?php } ?>
 					close: function() {
 						$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
 					}

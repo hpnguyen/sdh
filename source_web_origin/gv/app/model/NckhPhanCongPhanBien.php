@@ -45,4 +45,12 @@ class NckhPhanCongPhanBienModel extends BaseTable {
 			return null;
 		}
 	}
+	
+	public function checkEnableView($madetai, $macb) {
+		$check = $this->getSelect("*")
+		->where("ma_thuyet_minh_dt =  '".$madetai."' and fk_ma_can_bo = '".$macb."'")
+		->execute(false, array());
+		
+		return $check->itemsCount > 0;
+	}
 }

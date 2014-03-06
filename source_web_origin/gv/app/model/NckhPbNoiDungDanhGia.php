@@ -34,9 +34,11 @@ class NckhPbNoiDungDanhGiaModel extends BaseTable {
 				unset($data['id']);
 				$data['update_timestamp'] ='CURRENT_TIMESTAMP';
 				// var_dump($data);
-				$this->getUpdate($data)
-				->where("id = ".$id." and fk_ma_can_bo = '".$macb."' and ma_thuyet_minh_dt = '".$madetai."'")
-				->execute(true, array());
+				
+				$whereCondition = "id = ".$id." and fk_ma_can_bo = '".$macb."' 	and ma_thuyet_minh_dt = '".$madetai.
+				"' and check_het_han_phan_bien(ma_thuyet_minh_dt,fk_ma_can_bo) = 0";
+				
+				$this->getUpdate($data)->where($whereCondition)->execute(true, array());
 			}
 			
 			return true;

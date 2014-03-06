@@ -17,7 +17,9 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 	
 	public function getList($macb, $year = '')
 	{
-		$sqlstr="SELECT a.*, b.kq_phan_hoi, c.ten_tinh_trang ,
+		$sqlstr="SELECT a.*, 
+		check_het_han_phan_bien(a.ma_thuyet_minh_dt , a.fk_ma_can_bo) as het_han_phan_bien,
+		b.kq_phan_hoi, c.ten_tinh_trang ,
 		(CASE 
 			WHEN b.kq_phan_hoi = 0 THEN '".$this->kqPhanHoi[0]."' 
 			WHEN b.kq_phan_hoi = 1 THEN '".$this->kqPhanHoi[1]."'
@@ -38,7 +40,7 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 		AND b.fk_ma_can_bo = d.fk_ma_can_bo (+)
 		AND b.fk_ma_can_bo = :macb  
 		AND TO_CHAR(b.ngay_phan_cong ,'YYYY') = '".$year."'
-		ORDER BY a.ma_thuyet_minh_dt asc";
+		ORDER BY het_han_phan_bien asc, a.ma_thuyet_minh_dt asc";
 		
 		$check = $this->getQuery($sqlstr)->bindExecute(false, array(':macb' => $macb));
 		
@@ -52,7 +54,9 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 
 	public function getListByMaDeTai($macb, $madetai, $year = '')
 	{
-		$sqlstr="SELECT a.*, b.kq_phan_hoi, c.ten_tinh_trang ,
+		$sqlstr="SELECT a.*,
+		check_het_han_phan_bien(a.ma_thuyet_minh_dt , a.fk_ma_can_bo) as het_han_phan_bien ,
+		b.kq_phan_hoi, c.ten_tinh_trang ,
 		(CASE 
 			WHEN b.kq_phan_hoi = 0 THEN '".$this->kqPhanHoi[0]."' 
 			WHEN b.kq_phan_hoi = 1 THEN '".$this->kqPhanHoi[1]."'
@@ -74,7 +78,7 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 		AND b.fk_ma_can_bo = d.fk_ma_can_bo (+)
 		AND b.fk_ma_can_bo = :macb  
 		AND TO_CHAR(b.ngay_phan_cong ,'YYYY') = '".$year."'
-		ORDER BY a.ma_thuyet_minh_dt asc";
+		ORDER BY het_han_phan_bien asc, a.ma_thuyet_minh_dt asc";
 		
 		$check = $this->getQuery($sqlstr)->bindExecute(false, array(':macb' => $macb));
 		
@@ -125,5 +129,12 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 			}
 		}
 		return $ret;
+	}
+	
+	public function checkEnableSaveEdit($madetai, $macb) {
+		$sql ="select check_het_han_phan_bien('".$madetai."', '".$macb."') as het_han_phan_bien from dual";
+		$check = $this->getQuery($sql)->execute(false, array());
+		
+		return (int) $check->result[0]['het_han_phan_bien'] == 0;
 	}
 }

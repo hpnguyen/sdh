@@ -11,12 +11,14 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		}
 	}
 	
-	private function checkEnableView($macb , $date = null){
-		return true;
+	private function checkEnableView($macb , $madetai){
+		$model = new NckhPhanCongPhanBienModel();
+		return $model->checkEnableView($madetai, $macb);
 	}
 	
-	private function checkEnableUpdate($macb , $madetai, $date = null){
-		return true;
+	private function checkEnableUpdate($macb , $madetai){
+		$model = new NckhThuyetMinhDeTaiModel();
+		return $model->checkEnableSaveEdit($madetai, $macb);
 	}
 	
 	public	function indexAction(){
@@ -44,13 +46,10 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 	
 	public	function listAction(){
 		$macb = $_SESSION['macb'];
-		if (! $this->checkEnableView($macb)){
-			echo "Bạn đã hết hạn được phản biện đề tài.";
-			die;
-		}
 		$dothoc = $this->getGet('d',null);
 		$makhoa = base64_decode($_SESSION['makhoa']);
 		
+		// $template = new BaseTemplate("khcn/phanbien/list","default/index");
 		$template = new BaseTemplate("khcn/phanbien/list_page","default/index");
 		$template->formKey = 'xemPhanBienDeTaiList';
 		$template->hk = $this->getGet('h');
@@ -66,18 +65,20 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 	
 	public	function ajaxdialogAction(){
 		$macb = $_SESSION['macb'];
-		if (! $this->checkEnableView($macb)){
-			echo "Bạn đã hết hạn được phản biện đề tài.";
+		$madetai = $this->getGet('madetai');
+		
+		if ( $this->checkEnableView($macb, $template->madetai)){
+			echo "Bạn không được phép xem phản biện đề tài này.";
 			die;
 		}
-		//$template = new BaseTemplate("khcn/phanbien/ajaxdialog_list","default/index");
+		// $template = new BaseTemplate("khcn/phanbien/ajaxdialog_list","default/index");
 		$template = new BaseTemplate("khcn/phanbien/ajaxdialog_list_page","default/index");
 		$template->formKey = 'xemPhanBienDeTaiList';
 		
 		$dothoc = $this->getGet('d',null);
 		$makhoa = base64_decode($_SESSION['makhoa']);
 		$template->hk = $this->getGet('h');
-		$template->madetai = $this->getGet('madetai');
+		$template->madetai = $madetai;
 		$template->macb = $macb;
 		
 		$model = new NckhThuyetMinhDeTaiModel();
@@ -105,7 +106,9 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 				$dataGroup1 = $this->getPost('data_group_1', null);
 				$data = array_merge($data, $dataGroup1);
 				$model = new NckhPbNoiDungModel();
+				
 				$model->doCreateUpdate($data);
+				
 				$data_group_2 = $this->getPost('data_group_2', null);
 				if ($data_group_2 != null){
 					$noidungPbKinhPhiModel = new NckhPbNoiDungKinhPhiModel();
@@ -131,10 +134,13 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 						$dataAddOrUpdate['id'] = $maxID;
 						$dataAddOrUpdate['stt'] = $idOrderByCount;
 						$dataAddOrUpdate['id_order_by'] = $idOrderByCount;
-						if ($v !=''){
-							$dataAddOrUpdate['kinh_phi_de_nghi'] = (int) $v;
-						}
 						
+						if ($v !=''){
+							$v = str_replace('.', '', $v);
+							$v = str_replace(',', '.', $v);
+							$dataAddOrUpdate['kinh_phi_de_nghi'] = floatval($v);
+						}
+						// var_dump($data_group_2['a4_kinh_phi_A4_input'],$dataAddOrUpdate);
 						$noidungPbKinhPhiModel->doCreateUpdate($dataAddOrUpdate);
 					}
 				}

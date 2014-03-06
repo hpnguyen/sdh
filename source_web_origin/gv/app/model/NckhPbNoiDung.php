@@ -33,9 +33,11 @@ class NckhPbNoiDungModel extends BaseTable {
 				//Update
 				unset($data['fk_ma_can_bo']);
 				unset($data['ma_thuyet_minh_dt']);
-				$this->getUpdate($data)
-				->where("fk_ma_can_bo = '".$macb."' and ma_thuyet_minh_dt = '".$madetai."'")
-				->execute(true, array());
+				
+				$whereCondition = "fk_ma_can_bo = '".$macb."' and ma_thuyet_minh_dt = '".$madetai.
+				"' and check_het_han_phan_bien(ma_thuyet_minh_dt,fk_ma_can_bo) = 0";
+				
+				$this->getUpdate($data)->where($whereCondition)->execute(true, array());
 			}
 			
 			return true;

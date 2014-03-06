@@ -23,11 +23,12 @@ $listArrayData = array();
 $row = $listItems[0];
 
 ?>
-
+<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 <form id="<?php echo $formKey ?>DialogTabsViewPhanBienMainForm" action="<?php echo $help->getModuleActionRouteUrl('khcn/phanbien/save?hisid='.$_GET['hisid']) ?>" method="post">
 	<input type="hidden" value="0" name="tabActiveIndex" id="<?php echo $formKey ?>tabActiveIndex" />
 	<input type="hidden" value="<?php echo $macb ?>" name="fk_ma_can_bo" id="<?php echo $formKey ?>fk_ma_can_bo" />
 	<input type="hidden" value="<?php echo $madetai ?>" name="ma_thuyet_minh_dt" id="<?php echo $formKey ?>ma_thuyet_minh_dt" />
+<?php } ?>	
 	<div id="<?php echo $formKey ?>viewPhanBien">
 		<ul class="tabs">
 			<li><a href="#<?php echo $formKey ?>tabDialogTabsViewPhanBienA1">&nbsp;A1&nbsp;</a></li>
@@ -42,9 +43,13 @@ $row = $listItems[0];
 				(a) Tính cấp thiết, tính mới, tính sáng tạo và khả năng ứng dụng của nghiên cứu;
 				(b) Sự phù hợp với định hướng khoa học và công nghệ đã công bố hoặc đặt hàng.
 			</p>
+			<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 			<textarea class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a1_tam_quan_trong]">
 				<?php echo $row["a1_tam_quan_trong"] ?>
 			</textarea>
+			<?php } else {
+				 echo $row["a1_tam_quan_trong"]; 
+			}?>
 		</div>
 		<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienA2">
 			<p>NHẬN XÉT - Chất lượng nghiên cứu:
@@ -52,15 +57,23 @@ $row = $listItems[0];
 				(b) Đóng góp vào tri thức khoa học, có ảnh hưởng đối với xã hội;
 				(c) Sản phẩm nghiên cứu phù hợp tiêu chí các loại đề tài đăng ký.
 			</p>
+			<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 			<textarea class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a2_chat_luong_nc]">
 				<?php echo $row["a2_chat_luong_nc"] ?>
 			</textarea>
+			<?php } else {
+				echo $row["a2_chat_luong_nc"]; 
+			}?>
 		</div>
 		<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienA3">
 			<p>NHẬN XÉT - Năng lực nghiên cứu của chủ nhiệm và nhóm nghiên cứu; điều kiện cơ sở vật chất - kỹ thuật phục vụ nghiên cứu.</p>
+			<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 			<textarea class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a3_nlnc_csvc]">
 				<?php echo $row["a3_nlnc_csvc"] ?>
 			</textarea>
+			<?php } else {
+				echo $row["a3_nlnc_csvc"] ;
+			} ?>
 		</div>
 		<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienA4">
 			<p>NHẬN XÉT - Kinh phí</p>
@@ -95,13 +108,25 @@ $row = $listItems[0];
 								<td align="center"><b><?php echo ($k + 1) ?></b></td>
 								<td><?php echo $dm['noi_dung'] ?></td>
 								<td align="center">
+									<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 									<input type="radio" name="data_group_2[a4_kinh_phi_A4_radio][<?php echo $dm['ma_nd'] ?>]" class="<?php echo $formKey ?>dataGridTableTabTableDataView_A4_RadioHight<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="0" <?php echo $dm['nhan_xet'] == '0' ? 'checked="checked"' : '' ?> />
+									<?php } else {
+										echo $dm['nhan_xet'] == '0' ? 'x' : '';
+									}?>
 								</td>
 								<td align="center">
+									<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 									<input type="radio" name="data_group_2[a4_kinh_phi_A4_radio][<?php echo $dm['ma_nd'] ?>]" class="<?php echo $formKey ?>dataGridTableTabTableDataView_A4_RadioLow<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="1" <?php echo $dm['nhan_xet'] == '1' ? 'checked="checked"' : '' ?> />
+									<?php } else {
+										echo $dm['nhan_xet'] == '1' ? 'x' : '';
+									}?>
 								</td>
 								<td align="center">
+									<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 									<input type="text" maxlength="15" name="data_group_2[a4_kinh_phi_A4_input][<?php echo $dm['ma_nd'] ?>]" class="formTabA4KinhPhiInput <?php echo $formKey ?>dataGridTableTabTableDataView_A4_KinhPhi<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="<?php echo isset($dm['kinh_phi_de_nghi']) ? $dm['kinh_phi_de_nghi'] : '' ?>" />
+									<?php } else {
+										echo isset($dm['kinh_phi_de_nghi']) ? $dm['kinh_phi_de_nghi'] : '';
+									}?>
 								</td>
 							</tr>
 							<?php
@@ -121,9 +146,14 @@ $row = $listItems[0];
 			//*****************************************************
 			?>
 			</div>
+			<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 			<textarea class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a4_kinh_phi_nx]">
 				<?php echo $row["a4_kinh_phi_nx"] ?>
 			</textarea>
+			<?php } else {
+				echo $row["a4_kinh_phi_nx"];
+			}?>
+			
 		</div>
 		<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienB">
 			<p>ĐÁNH GIÁ</p>
@@ -156,7 +186,7 @@ $row = $listItems[0];
 								<td><?php echo $dm['noi_dung'] ?></td>
 								<td align="center">
 									<?php 
-									if($dm['id_cha'] != '') {
+									if((int) $dm['allow_edit'] == 1) {
 										echo $dm['diem_toi_da'] ;
 									}else{
 										echo "<b>".$dm['thang_diem_truong']."</b>" ;
@@ -165,7 +195,11 @@ $row = $listItems[0];
 								</td>
 								<td align="center">
 									<?php if((int) $dm['allow_edit'] == 1) { ?>
-									<input type="text" maxlength="15" rel_max="<?php echo $dm['diem_toi_da'] ?>" name="data_group_3[b_danh_gia_input][<?php echo $dm['id'] ?>]" class="formTabBDanhGiaInput <?php echo $formKey ?>dataGridTableTabTableDataView_B_DanhGia<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="<?php echo isset($dm['diem']) ? $dm['diem'] : '' ?>" />	
+										<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
+											<input type="text" maxlength="15" rel_max="<?php echo $dm['diem_toi_da'] ?>" name="data_group_3[b_danh_gia_input][<?php echo $dm['id'] ?>]" class="formTabBDanhGiaInput <?php echo $formKey ?>dataGridTableTabTableDataView_B_DanhGia<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="<?php echo isset($dm['diem']) ? $dm['diem'] : '' ?>" />
+										<?php } else {
+											echo isset($dm['diem']) ? $dm['diem'] : '';
+										} ?>
 									<?php } ?>
 								</td>
 							</tr>
@@ -191,12 +225,19 @@ $row = $listItems[0];
 		</div>
 		<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienC">
 			<p>KẾT LUẬN</p>
+			<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 			<textarea class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[c_ket_luan]">
 				<?php echo $row["c_ket_luan"] ?>
 			</textarea>
+			<?php } else {
+				echo $row["c_ket_luan"];
+			}?>
+			
 		</div>
 	</div>
+<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 </form>
+<?php } ?>
 <script>
 function <?php echo $formKey ?>InitReadyAjax(){
 	//Config tabs view
@@ -210,9 +251,8 @@ function <?php echo $formKey ?>InitReadyAjax(){
 		show: function(event, ui) { // show event
 		} 
 	});
-	
+	<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 	<?php echo $formKey ?>configTextEditor('.<?php echo $formKey ?>tabDialogTextAreaPhanBien');
-	
 		
 	//Set input "kinh phi" only number
 	$(".formTabA4KinhPhiInput").keydown(function (e) {
@@ -293,6 +333,7 @@ function <?php echo $formKey ?>InitReadyAjax(){
 			}
 		});
 	});
+	<?php } ?>
 }
 
 function <?php echo $formKey ?>configTextEditor(name){
@@ -311,6 +352,8 @@ function <?php echo $formKey ?>configTextEditor(name){
 				{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat', '-', 'EqnEditor' ] },
 				{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] }
 			],
+			htmlEncodeOutput: false,
+			entities : false,
 			entities_latin : false,
 			resize_enabled : false,
 			enterMode : CKEDITOR.ENTER_BR,
