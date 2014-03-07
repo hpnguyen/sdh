@@ -18,6 +18,19 @@
 		?>
 		</select>
 	</div>
+	<div class="<?php echo $formKey ?>list_limit_times">
+		<?php
+		foreach ($listLimitTimes as $time) {
+			?>
+			<div align="center" style="margin:5px 0 5px 0;font-size:12px">
+			Thời gian phản biện đề tài cấp <b><?php echo $time['ten_cap'] ?></b> 
+			từ ngày <font color="red"><b><?php echo $time['t_pbdt_ngay_bd']; ?></b></font> 
+			đến <font color="red"><b><?php echo $time['t_pbdt_ngay_kt']; ?></b></font>
+			</div>
+			<?php
+		}
+		?>
+	</div>
 	<div style='clear:both;'></div>
 	<div id="<?php echo $formKey ?>_detail" align="center"></div>
 </div> <!-- end  -->

@@ -2,6 +2,9 @@
 $help = Helper::getHelper('functions/util');
 $gvURL = $help->getGvRootURL();
 $rootURL = $help->baseURL();
+$listArrayData = array();
+$row = $listItems[0];
+$defaultText = '';
 ?>
 <style type="text/css">
 	.viewDataFormHide {
@@ -12,7 +15,7 @@ $rootURL = $help->baseURL();
 		text-align: right;
 	}
 	.TabTableDataView_A4, .TabTableDataView_B {
-		padding: 0 0 25px 0;
+		padding: 0 0 10px 0;
 	}
 	table.TabBDanhGiaTableView tr {
 		height: 35px;
@@ -21,7 +24,6 @@ $rootURL = $help->baseURL();
 		font-weight: bold;
 	}
 	.<?php echo $formKey ?>DialogViewPhanBien {
-		background: #ffffff;
 		padding: 10px;
 		font-size: 13px;
 	}
@@ -36,13 +38,20 @@ $rootURL = $help->baseURL();
 	div.<?php echo $formKey ?>DialogViewPhanBien .heading {
 		font-size: 13px;
 	}
+	.<?php echo $formKey ?>tabDialogTextAreaPhanBien{
+		display: block; 
+		margin: 10px 0 0 0; 
+		background: white; 
+		border-radius: 10px; 
+		padding: 20px;
+	}
+	.dataGridTableTabTableDataView_A4, .TabBDanhGiaTableView {
+		padding: 0px; 
+		border-collapse:collapse; 
+		border: 1px solid #000000; 
+		background: #FFFFFF;
+	}
 </style>
-<?php
-$listArrayData = array();
-$row = $listItems[0];
-$defaultText = '..........................................................................................................................';
-$defaultText .= '.........................................................................................................................';
-?>
 <div class="<?php echo $formKey ?>DialogViewPhanBien">
 <?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
 <form id="<?php echo $formKey ?>DialogTabsViewPhanBienMainForm" action="<?php echo $help->getModuleActionRouteUrl('khcn/phanbien/save?hisid='.$_GET['hisid']) ?>" method="post">
@@ -58,9 +67,6 @@ $defaultText .= '...............................................................
 			(b) Sự phù hợp với định hướng khoa học và công nghệ đã công bố hoặc đặt hàng.
 		</b>
 		</p>
-		<?php if ((int) $row["het_han_phan_bien"] == 0){?>
-		<i><span style="color: #FF0000"> (Bấm vào dòng .... hoặc nội dung phía dưới để cập nhật)</span></i>	
-		<?php } ?>
 		<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a1_tam_quan_trong]">
 			<?php echo $row["a1_tam_quan_trong"] == '' || $row["a1_tam_quan_trong"] == null ? $defaultText : $row["a1_tam_quan_trong"] ?>
 		</div>
@@ -72,9 +78,6 @@ $defaultText .= '...............................................................
 			(b) Đóng góp vào tri thức khoa học, có ảnh hưởng đối với xã hội;
 			(c) Sản phẩm nghiên cứu phù hợp tiêu chí các loại đề tài đăng ký.
 		</b></p>
-		<?php if ((int) $row["het_han_phan_bien"] == 0){?>
-		<i><span style="color: #FF0000"> (Bấm vào dòng .... hoặc nội dung phía dưới để cập nhật)</span></i>	
-		<?php } ?>
 		<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a2_chat_luong_nc]">
 			<?php echo $row["a2_chat_luong_nc"] == '' || $row["a2_chat_luong_nc"] == null ? $defaultText : $row["a2_chat_luong_nc"] ?>
 		</div>
@@ -82,9 +85,6 @@ $defaultText .= '...............................................................
 	</div>
 	<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienA3">
 		<p><b>A3. Năng lực nghiên cứu của chủ nhiệm và nhóm nghiên cứu; điều kiện cơ sở vật chất - kỹ thuật phục vụ nghiên cứu.</b></p>
-		<?php if ((int) $row["het_han_phan_bien"] == 0){?>
-		<i><span style="color: #FF0000"> (Bấm vào dòng .... hoặc nội dung phía dưới để cập nhật)</span></i>	
-		<?php } ?>
 		<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a3_nlnc_csvc]">
 			<?php echo $row["a3_nlnc_csvc"] == '' || $row["a3_nlnc_csvc"] == null ? $defaultText : $row["a3_nlnc_csvc"] ?>
 		</div>
@@ -101,14 +101,14 @@ $defaultText .= '...............................................................
 				$temp = $row["join_tables"];
 				$tableJoinNckhPbDmNoiDung = $temp['nckh_pb_noi_dung_kinh_phi'];
 				?>
-				<table width="100%" cellpadding="0" cellspacing="0" border="1" class="display <?php echo $formKey ?>dataGridTableTabTableDataView_A4_<?php echo $row["ma_thuyet_minh_dt"] ?>" style="padding: 0px">
+				<table width="100%"  cellpadding="5" cellspacing="0" border="1" class="dataGridTableTabTableDataView_A4 display <?php echo $formKey ?>dataGridTableTabTableDataView_A4_<?php echo $row["ma_thuyet_minh_dt"] ?>">
 					<thead>
-					  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
+					  <tr class='heading' style='font-weight:bold; height:20pt;'>
 						<td width="50px" align='center' rowspan="2">TT</td>
 						<td align="center" rowspan="2">Nội dung đánh giá<br>(Căn cứ phụ lục giải trình các khoản chi)</td>
 						<td align="center" colspan="3">Nhận xét (đánh dấu X vào các mục)</td>
 					  </tr>
-					  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
+					  <tr class='heading' style='font-weight:bold; height:20pt;'>
 					  	<td align='center'>Cao</td>
 						<td align="center">Thấp</td>
 						<td align="center">Kinh phí đề nghị</td>
@@ -168,9 +168,7 @@ $defaultText .= '...............................................................
 			//*****************************************************
 			?>
 			</div>
-			<?php if ((int) $row["het_han_phan_bien"] == 0){?>
-			<i><span style="color: #FF0000"> (Bấm vào dòng .... hoặc nội dung phía dưới để cập nhật)</span></i>	
-			<?php } ?>
+			<p><b>Nhận xét kinh phí: </b></p>
 			<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a4_kinh_phi_nx]">
 				<?php echo $row["a4_kinh_phi_nx"] == '' || $row["a4_kinh_phi_nx"] == null ? $defaultText : $row["a4_kinh_phi_nx"] ?>
 			</div>
@@ -187,9 +185,9 @@ $defaultText .= '...............................................................
 				$temp = $row["join_tables"];
 				$tableJoinNckhPbDmNoiDungDanhGia = $temp['nckh_pb_noi_dung_danh_gia'];
 				?>
-				<table width="100%" cellpadding="0" cellspacing="0" border="1" class="TabBDanhGiaTableView display <?php echo $formKey ?>dataGridTableTabTableDataView_B_<?php echo $row["ma_thuyet_minh_dt"] ?>" style="padding: 0px">
+				<table width="100%" cellpadding="5" cellspacing="0" border="1" class="TabBDanhGiaTableView display <?php echo $formKey ?>dataGridTableTabTableDataView_B_<?php echo $row["ma_thuyet_minh_dt"] ?>">
 					<thead>
-					  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
+					  <tr class='heading' style='font-weight:bold; height:20pt;'>
 						<td width="50px" align='center' rowspan="2">TT</td>
 						<td align="center">Nội dung đánh giá</td>
 						<td align="center">Điểm tối đa</td>
@@ -246,9 +244,6 @@ $defaultText .= '...............................................................
 		</div>
 		<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienC">
 			<p><b>C. KẾT LUẬN</b></p>
-			<?php if ((int) $row["het_han_phan_bien"] == 0){?>
-			<i><span style="color: #FF0000"> (Bấm vào dòng .... hoặc nội dung phía dưới để cập nhật)</span></i>	
-			<?php } ?>
 			<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[c_ket_luan]">
 				<?php echo $row["c_ket_luan"] == '' || $row["c_ket_luan"] == null || $row["c_ket_luan"] == '<br>' ? $defaultText : $row["c_ket_luan"] ?>
 			</div>

@@ -40,6 +40,9 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		
 		$template->nganh = false;
 		
+		$modelCapDeTai = new CapDeTaiModel();
+		$template->listLimitTimes = $modelCapDeTai->getThoiHanPhanBienDeTai();
+		
 		$contentHTML = $template->contentTemplate();
 		$template->renderLayout(array('title' => '','content' => $contentHTML));
 	}

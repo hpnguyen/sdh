@@ -48,4 +48,12 @@ function escapeWEB($str) // Ap dung dc cho data json
 	
 	return str_replace($search,$replace,$str);
 }
+
+function escapeExcel($str) // Ap dung dc cho data json
+{
+	$search = array("\t");
+	$replace = array("\n"); 
+	
+	return str_replace($search,$replace,$str);
+}
 ?>
