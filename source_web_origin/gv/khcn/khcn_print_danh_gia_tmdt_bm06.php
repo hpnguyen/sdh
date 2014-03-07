@@ -252,7 +252,8 @@ if ($a != 'print_tmdt_pdf')
 			</thead>
 			<tbody>
 				<?php 	
-				$sqlstr="select a.stt, b.NOI_DUNG, a.THANG_DIEM_TRUONG, a.DIEM
+				$sqlstr="select a.stt, b.NOI_DUNG, a.THANG_DIEM_TRUONG, a.DIEM,
+				GET_NCKH_PB_ND_DG_DIEM_TEXT(a.id, a.id_cha, a.ma_nd, a.ma_thuyet_minh_dt, a.diem) DIEM_TEXT
 				from nckh_pb_noi_dung_danh_gia a, nckh_pb_dm_noi_dung b 
 				where a.ma_nd = b.ma_nd and a.MA_THUYET_MINH_DT = '$madt' and a.FK_MA_CAN_BO='$macb'
 				order by a.ID_ORDER_BY";
@@ -261,14 +262,36 @@ if ($a != 'print_tmdt_pdf')
 				oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 				$tmp='';
 				$tongdiem = 0;
+				$flag = $numrowspan = 0;
 				for ($i = 0; $i < $n; $i++)
 				{
+					$td_diem = $td_stt = "";
+					$stt = $resDM["STT"][$i];
+					if ($stt!=""){
+						$diem = $resDM["DIEM_TEXT"][$i];
+						$stt = $resDM["STT"][$i];
+						$td_stt = "<td align=center>$stt</td>";
+						$td_diem = "<td align=center>$diem</td>";
+						$flag = $numrowspan = 0;
+					}else if (!$flag || $numrowspan == 0){
+						$diem = "";
+						// đếm xem có bao nhiêu td ko cần in điểm
+						$j=$i;
+						while ($j<$n && $resDM["STT"][$j]==""){	$j++; $numrowspan++; }
+						if ($numrowspan>1) {
+							$flag = 1;
+							$rowspan="rowspan='$numrowspan'";
+							$td_stt = "<td align=center $rowspan >$stt</td>";
+							$td_diem = "<td align=center $rowspan style='background: #ebebeb;'>$diem</td>";
+						}
+					}
+					
 					$tmp.="
 					<tr class='bordertable'>
-						<td align=center>{$resDM["STT"][$i]}</td>
+						$td_stt
 						<td align=left >{$resDM["NOI_DUNG"][$i]}</td>
 						<td align=center >{$resDM["THANG_DIEM_TRUONG"][$i]}</td>
-						<td align=center>{$resDM["DIEM"][$i]}</td>
+						$td_diem
 					</tr>";
 					$tongdiem += $resDM["DIEM"][$i];
 				}

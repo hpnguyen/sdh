@@ -7,7 +7,7 @@ $gvURL = $help->getGvRootURL();
 		display: none;
 	}
 	.phanbien-button-font-size {
-		font-size : 8px !important;
+		font-size : 9px !important;
 	}
 	table.dataTable tr.row_selected td.sorting { background-color:  #075385; }
 	table.dataTable tr.row_selected td.sorting_1 { background-color:  #075385; }
@@ -19,9 +19,6 @@ $gvURL = $help->getGvRootURL();
 	table.dataTable tr.row_selected td.sorting_7 { background-color:  #075385; }
 	table.dataTable tr.row_selected td.sorting_8 { background-color:  #075385; }
 </style>
-<div align="center">
-	<h2>Danh sách đề tài</h2>
-</div>
 <?php
 $listArrayData = array();
 foreach($listItems as $y => $row)
@@ -42,12 +39,12 @@ foreach($listItems as $y => $row)
 	}
 	
 	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>";
-	$listArrayDataString .= "<a href=\"javascript: void(0);\" id=\"".$formKey."linkClickViewPrintPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPrintPhanBienTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;In</a>'";
+	$listArrayDataString .= " <a href=\"javascript: void(0);\" id=\"".$formKey."linkClickViewPrintPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPrintPhanBienTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;In</a>'";
 	$listArrayData[] = $listArrayDataString;
 }
 ?>
 <div id="<?php echo $formKey ?>dataGrid" style="padding-bottom: 50px">
-	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="display" id="<?php echo $formKey ?>dataGridTable" style="padding: 0px">
+	<table width="100%" cellpadding="5" cellspacing="0" border="0" class="display" id="<?php echo $formKey ?>dataGridTable" style="font-size: 13px">
 		<thead>
 	  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
 		<td width="50px" align='center'>Mã ĐT</td>
@@ -56,7 +53,7 @@ foreach($listItems as $y => $row)
 		<td width="150px" align="center">Kết Quả Trả Lời</td>
 		<td width="100px" align="center">Chi tiết Link TMĐT</td>
 		<td width="100px" align="center">Link LLKH Người Tham Gia</td>
-		<td width="120px" align="center"></td>
+		<td width="135px" align="center"></td>
 	  </tr>
 	  </thead>
 	  <tbody>
@@ -81,7 +78,8 @@ foreach($listItems as $y => $row)
 </div>
 <script>
 function <?php echo $formKey ?>InitReady(){
-	$( ".<?php echo $formKey ?>linkClickViewReportTab, .<?php echo $formKey ?>linkClickViewPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-button'} });
+	$( ".<?php echo $formKey ?>linkClickViewPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-button'} });
+	$( ".<?php echo $formKey ?>linkClickViewReportTab" ).button({ icons: {primary:'ui-icon ui-icon-button ui-icon-newwin newwin'} });
 	$( ".<?php echo $formKey ?>linkClickViewPrintPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
 	
 	$("#<?php echo $formKey ?>dataGridTable tbody tr").on("click",function(event) {
