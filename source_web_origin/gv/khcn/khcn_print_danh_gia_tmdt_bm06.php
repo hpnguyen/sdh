@@ -205,20 +205,22 @@ if ($a != 'print_tmdt_pdf')
 									$tongkp = 0;
 									for ($i = 0; $i < $n; $i++)
 									{
+										$tongkp += $resDM["KINH_PHI_DE_NGHI"][$i];
+										$resDM["KINH_PHI_DE_NGHI"][$i] = number_format($resDM["KINH_PHI_DE_NGHI"][$i], 2, ',', '.');
 										$tmp.="
 										<tr class='borderDOT'>
 											<td align=center>{$resDM["STT"][$i]}</td>
 											<td align=left class='borderDOT'>{$resDM["NOI_DUNG"][$i]}</td>
 											<td align=center class='borderDOT'>{$resDM["NHAN_XET_CAO"][$i]}</td>
 											<td align=center class='borderDOT'>{$resDM["NHAN_XET_THAP"][$i]}</td>
-											<td align=center>{$resDM["KINH_PHI_DE_NGHI"][$i]}</td>
+											<td align=center><div align=right style='width:50%'>{$resDM["KINH_PHI_DE_NGHI"][$i]}</div></td>
 										</tr>";
-										$tongkp += $resDM["KINH_PHI_DE_NGHI"][$i];
 									}
+									$tongkp = number_format($tongkp, 2, ',', '.');
 									$tmp.="
 										<tr class='borderDOT'>
 											<td align=center colspan=4><b>Tổng kinh phí đề nghị</b> (<em>triệu đồng</em>)</td>
-											<td align=center class='borderDOT'>$tongkp</td>
+											<td align=center class='borderDOT'><b><div align=right style='width:50%'>$tongkp</div></b></td>
 										</tr>";
 										
 									echo $tmp;

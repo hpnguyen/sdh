@@ -4264,8 +4264,7 @@ function khcn_ql_view_phanbien(pMaTM, pMaCB, pCapDT){
 				fileprint = 'khcn_print_danh_gia_tmdt_bm06.php';
 				tabname = 'Đánh giá TMĐT - Trường Mẫu BM06/KHCN-08 - ' + pMaTM;
 			}
-			
-			var links = "http://www.grad.hcmut.edu.vn/gvbeta/khcn/"+fileprint+"?a=print_tmdt_pdf&hisid=<?php echo $_REQUEST["hisid"]; ?>&mdt="+pMaTM+"&mcb="+pMaCB+"&k=";
+			var links = "http://<?php echo str_replace("khcn_ql_tmdt.php?hisid=".$_REQUEST["hisid"], "",$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]); ?>"+fileprint+"?a=print_tmdt_pdf&hisid=<?php echo $_REQUEST["hisid"]; ?>&mdt="+pMaTM+"&mcb="+pMaCB+"&k=";
 			window.open(links,tabname,'width=650,height=800,menubar=1'+',toolbar=0'+',status=0'+',scrollbars=1'+',resizable=1');				
 		}
 	});	

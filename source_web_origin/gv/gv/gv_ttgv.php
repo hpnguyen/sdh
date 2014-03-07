@@ -16,7 +16,7 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '001', $db_con
 }
 
 $macb = $_SESSION['macb'];
-$sqlstr="select cb.*, to_char(cb.NGAY_SINH,'dd-mm-yyyy') NGAY_SINH, k.ten_khoa, bm.ten_bo_mon, 
+$sqlstr="select cb.*, to_char(cb.NGAY_SINH,'dd-mm-yyyy') NGAY_SINH, to_char(cb.NGAY_CAP,'dd/mm/yyyy') NGAY_CAP, k.ten_khoa, bm.ten_bo_mon, 
 		decode(MA_HOC_HAM, 'GS','Giáo Sư' ,'PGS','Phó Giáo Sư' ,'') chuc_danh,
 		decode(MA_HOC_VI, 'TSK','Tiến Sĩ Khoa Học', 'TS','Tiến Sĩ', 'TH','Thạc Sĩ', 'CN','Cử Nhân', 'KS','Kỹ Sư', '') hoc_vi,
 		get_nam_dat_hv_cao_nhat(cb.ma_can_bo, cb.ma_hoc_vi) nam_dat_hv_cao_nhat
@@ -34,6 +34,9 @@ $filehinh  = $cbgd["HINH_ANH"][0];
 //	$filehinh  = $cbgd["HINH_ANH"][0];
 //else
 //	$filehinh  = "images/khunganh4x6.png";
+
+$search = array('\\','"');
+$replace = array('\\\\',"&quot;"); 
 ?>
 <style>
 	.disableText{
@@ -69,42 +72,102 @@ $filehinh  = $cbgd["HINH_ANH"][0];
 			</tr>
 			<tr align="left">
 				<td colspan="2" class="heading" align="right"><label>Ngày sinh </label></td>
-				<td class="fontcontent"><?php echo $cbgd["NGAY_SINH"][0];  ?></td>
+				<td class="fontcontent">
+					<input type="text" name="txtNgaySinh" id="txtNgaySinh" style="width:90px; text-align:center;" value="<?php echo htmlentities($cbgd["NGAY_SINH"][0], ENT_QUOTES, "UTF-8");?>" maxlength="10" class="text ui-widget-content ui-corner-all tableData"/>
+					&nbsp; &nbsp; <label class="heading">Phái</label>  
+					<select name="txtPhai" id="txtPhai" class="text ui-widget-content ui-corner-all tableData" style="height:23px;font-size:15px;">
+						<option value="" <?php if ($cbgd["PHAI"][0]=="") echo "selected"; ?>></option>
+						<option value="M" <?php if ($cbgd["PHAI"][0]=="M") echo "selected"; ?>>Nam</option>
+						<option value="F" <?php if ($cbgd["PHAI"][0]=="F") echo "selected"; ?>>Nữ</option>
+					</select>
+					&nbsp; &nbsp;
+					<label title="Số hiệu công chức" class=heading>SHCC</label>
+					<?php echo $cbgd["SHCC"][0];  ?>
+					<input name="macb" type="hidden" value="<?php echo htmlentities($macb, ENT_QUOTES, "UTF-8");?>" />
+				</td>
 				
 			</tr>
 			<tr align="left">
-				<td colspan="2" class="heading" align="right"><label>Số hiệu công chức</label></td>
-				<td class="fontcontent"> <?php echo $cbgd["SHCC"][0];  ?>  <input name="macb" type="hidden" value="<?php echo $macb;  ?>" /> </td>
+				<td colspan="2" class="heading" align="right"><label title="Số hiệu công chức" class=heading>CMND số</label></td>
+				<td class="fontcontent">
+					<input type="text" name="txtCMND" id="txtCMND" style="width:90px; text-align:center;" value="<?php echo htmlentities($cbgd["SO_CMND"][0], ENT_QUOTES, "UTF-8");?>" maxlength="15" class="text ui-widget-content ui-corner-all tableData"/>
+					&nbsp;
+					<label title="Ngày cấp" class=heading>Ngày cấp</label>
+					<input type="text" name="txtNgayCap" id="txtNgayCap" style="width:90px; text-align:center;" value="<?php echo htmlentities($cbgd["NGAY_CAP"][0], ENT_QUOTES, "UTF-8");?>" maxlength="10" class="text ui-widget-content ui-corner-all tableData"/>
+				</td>
 			</tr>
+			<tr align="left">
+				<td colspan="2" class="heading" align="right"><label title="Nơi cấp" class=heading>Nơi cấp CMND</label></td>
+				<td class="fontcontent">
+					<select id=txtNoiCapCMND name=txtNoiCapCMND placeholder='Nơi cấp CMND' title='Nơi cấp CMND' style='width:200px;height:24px'>
+						<option value=''>-chọn nơi cấp CMND-</option>
+						<?php $sqlstr="select ma_tinh_tp, ten_tinh_tp from dm_tinh_tp order by viet0dau_name(ten_tinh_tp)"; 
+							$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+							for ($i = 0; $i < $n; $i++)
+							{
+								if ($cbgd["NOI_CAP"][0]==$resDM["MA_TINH_TP"][$i]){
+									echo "<option value='".$resDM["MA_TINH_TP"][$i]."' selected>" .$resDM["TEN_TINH_TP"][$i]. "</option>";
+								}else{
+									echo "<option value='".$resDM["MA_TINH_TP"][$i]."'>" .$resDM["TEN_TINH_TP"][$i]. "</option>";
+								}
+							}
+							
+						  ?>
+					</select>
+					
+					&nbsp;&nbsp;<label for="txtMST" class=heading title="Mã số thuế">MST</label> <input name="txtMST" id="txtMST" title="Mã số thuế" placeholder="mã số thuế" type="text"  value="<?php echo htmlentities($cbgd["MA_SO_THUE"][0], ENT_QUOTES, "UTF-8");?>" style="width:145px" maxlength="10" class="text ui-widget-content ui-corner-all tableData" />
+				</td>
+			</tr>
+			
+			<tr align="left">
+				<td colspan="2" class="heading" align="right"><label title="Số tài khoản" for="txtSTK" class=heading>Số tài khoản</label></td>
+				<td class="fontcontent">
+					<input id="txtSTK" name="txtSTK" placeholder='số tài khoản' title='Số tài khoản' style='width:200px;height:24px' maxlength="15" value="<?php echo htmlentities($cbgd["SO_TAI_KHOAN"][0], ENT_QUOTES, "UTF-8"); ?>" class="text ui-widget-content ui-corner-all tableData"/>					
+				</td>
+			</tr>
+			<tr align="left">
+				<td colspan="2" class="heading" align="right"><label for="txtTaiNH" class=heading title="Tại ngân hàng">Tại ngân hàng</label></td>
+				<td class="fontcontent">
+					<input name="txtTaiNH" id="txtTaiNH" title="Tại ngân hàng" placeholder="tại ngân hàng" type="text"  value="<?php echo htmlentities($cbgd["NGAN_HANG_MO_TK"][0], ENT_QUOTES, "UTF-8");?>" style="width:145px" maxlength="100" class="text ui-widget-content ui-corner-all tableData" />
+					&nbsp;&nbsp;<label for="txtChiNhanhNH" class=heading title="Chi nhánh ngân hàng">CN</label> <input name="txtChiNhanhNH" id="txtChiNhanhNH" title="Chi nhánh ngân hàng" placeholder="chi nhánh ngân hàng" type="text"  value="<?php echo htmlentities($cbgd["CHI_NHANH_NGAN_HANG"][0], ENT_QUOTES, "UTF-8");?>" style="width:200px" maxlength="60" class="text ui-widget-content ui-corner-all tableData" />
+				</td>
+			</tr>
+			
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label>Khoa</label></td>
 			<td class="fontcontent"><?php echo $cbgd["TEN_KHOA"][0]; ?> <span class="heading"> - Bộ Môn</span>&nbsp;<span class="fontcontent"><?php echo $cbgd["TEN_BO_MON"][0]; ?></span></td>
 		  </tr>
 		  <tr align="left">
+			<td colspan="2" class="heading" align="right"><label for="txtCoQuan" title="Cơ quan công tác">CQ công tác</label></td>
+			<td ><input type="text" name="txtCoQuan" id="txtCoQuan" style="width:98%" value="<?php echo htmlentities($cbgd["CO_QUAN_CONG_TAC"][0], ENT_QUOTES, "UTF-8");?>" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/></td>
+		  </tr>
+		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtDiaChi">Địa chỉ CQ</label></td>
-			<td ><input type="text" name="txtDiaChi" id="txtDiaChi" style="width:98%" value="<?php echo $cbgd["DIA_CHI"][0];  ?>" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/></td>
+			<td ><input type="text" name="txtDiaChi" id="txtDiaChi" style="width:98%" value="<?php echo htmlentities($cbgd["DIA_CHI"][0], ENT_QUOTES, "UTF-8");?>" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/></td>
 		  </tr>
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtWebsite">Website CQ</label></td>
-			<td ><input type="text" name="txtWebsite" id="txtWebsite" style="width:98%" value="<?php echo $cbgd["WEBSITE_CO_QUAN"][0];  ?>" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/></td>
+			<td colspan="2"><input type="text" name="txtWebsite" id="txtWebsite" style="width:250px" value="<?php echo htmlentities($cbgd["WEBSITE_CO_QUAN"][0], ENT_QUOTES, "UTF-8");?>" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/>
+			 &nbsp;&nbsp; <label for="txtDienThoai" class="heading">Điện thoại CQ</label> <input name="txtDienThoai" type="text" id="txtDienThoai" value="<?php echo htmlentities($cbgd["DIEN_THOAI"][0], ENT_QUOTES, "UTF-8");?>" style="width:150px" maxlength="40" class="text ui-widget-content ui-corner-all tableData"/>
+			</td>
 		  </tr>
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtTenLanhDaoCQ">Lãnh đạo CQ</label></td>
-			<td ><input name="txtTenLanhDaoCQ" type="text" id="txtTenLanhDaoCQ" value="<?php echo $cbgd["TEN_NGUOI_LANH_DAO_CQ"][0];  ?>" style="width:230px;" maxlength="50" class="text ui-widget-content ui-corner-all tableData" placeholder="họ và tên người lãnh đạo CQ" />
-			&nbsp;&nbsp;<label for="txtDTLanhDaoCQ" class=heading>ĐT</label> <input name="txtDTLanhDaoCQ" placeholder="ĐT Lãnh đạo CQ" type="text" id="txtDTLanhDaoCQ" value="<?php echo $cbgd["DIEN_THOAI_LANH_DAO_CQ"][0];  ?>" style="width:130px" maxlength="25" class="text ui-widget-content ui-corner-all tableData" />
+			<td colspan="2"><input name="txtTenLanhDaoCQ" type="text" id="txtTenLanhDaoCQ" value="<?php echo htmlentities($cbgd["TEN_NGUOI_LANH_DAO_CQ"][0], ENT_QUOTES, "UTF-8");?>" style="width:250px;" maxlength="50" class="text ui-widget-content ui-corner-all tableData" placeholder="họ và tên người lãnh đạo CQ" />
+			&nbsp;&nbsp;<label for="txtDTLanhDaoCQ" class=heading title="ĐT Lãnh đạo cơ quan">ĐT Lãnh đạo</label> <input name="txtDTLanhDaoCQ" title="ĐT Lãnh đạo cơ quan" placeholder="ĐT Lãnh đạo CQ" type="text" id="txtDTLanhDaoCQ" value="<?php echo htmlentities($cbgd["DIEN_THOAI_LANH_DAO_CQ"][0], ENT_QUOTES, "UTF-8");?>" style="width:185px" maxlength="25" class="text ui-widget-content ui-corner-all tableData" />
 			</td>
 		  </tr>
 		  
 		  
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtNamCongTac">Năm BĐ công tác </label></td>
-			<td colspan="2"><input name="txtNamCongTac" type="text" id="txtNamCongTac" value="<?php echo $cbgd["NAM_BD_CONG_TAC"][0];  ?>" maxlength="4" class="text ui-widget-content ui-corner-all tableData" style="width: 40px;"/>
-			&nbsp;&nbsp;<label for="txtNamNghiHuu" class="heading">Năm nghỉ hưu </label> <input name="txtNamNghiHuu" type="text" id="txtNamNghiHuu" value="<?php echo $cbgd["NAM_NGHI_HUU"][0];  ?>" maxlength="4" class="text ui-widget-content ui-corner-all tableData" style="width: 40px;"/>
+			<td colspan="2"><input name="txtNamCongTac" type="text" id="txtNamCongTac" value="<?php echo htmlentities($cbgd["NAM_BD_CONG_TAC"][0], ENT_QUOTES, "UTF-8");  ?>" maxlength="4" class="text ui-widget-content ui-corner-all tableData" style="width: 40px;"/>
+			&nbsp;&nbsp;<label for="txtNamNghiHuu" class="heading">Năm nghỉ hưu </label> <input name="txtNamNghiHuu" type="text" id="txtNamNghiHuu" value="<?php echo htmlentities($cbgd["NAM_NGHI_HUU"][0], ENT_QUOTES, "UTF-8");?>" maxlength="4" class="text ui-widget-content ui-corner-all tableData" style="width: 40px;"/>
 			</td>
 		  </tr>
 		  
 		  <tr align="left">
-			<td colspan="2" class="heading" align="right"><label for="txtChucVu">Chức vụ </label></td>
+			<td colspan="2" class="heading" align="right"><label for="txtChucVu">Chức vụ hiện tại</label></td>
 			<td colspan="2">
 			<select name="txtChucVu" id="txtChucVu" class="text ui-widget-content ui-corner-all tableData" style="height:23px;font-size:15px;width: 175px;">
 			   <option value="">chọn chức vụ của bạn</option>
@@ -155,23 +218,23 @@ $filehinh  = $cbgd["HINH_ANH"][0];
 		  
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtDiaChiRieng">Địa chỉ riêng</label></td>
-			<td colspan="2"><input name="txtDiaChiRieng" type="text" id="txtDiaChiRieng" value="<?php echo $cbgd["DIA_CHI_RIENG"][0];  ?>" style="width:98%" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/></td>
+			<td colspan="2"><input name="txtDiaChiRieng" type="text" id="txtDiaChiRieng" value="<?php echo htmlentities($cbgd["DIA_CHI_RIENG"][0], ENT_QUOTES, "UTF-8");?>" style="width:98%" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/></td>
 		  </tr>
 		  
 		  <tr align="left">
-			<td colspan="2" class="heading" align="right"><label for="txtDienThoai">Điện thoại CQ</label></td>
-			<td colspan="2"><input name="txtDienThoai" type="text" id="txtDienThoai" value="<?php echo $cbgd["DIEN_THOAI"][0];  ?>" style="width:150px" maxlength="40" class="text ui-widget-content ui-corner-all tableData"/>
-				<span class="heading"> <label for="txtDienThoai2">Di Động </label></span><input name="txtDienThoai2" type="text" id="txtDienThoai2" value="<?php echo $cbgd["DIEN_THOAI_CN"][0];  ?>" style="width:100px" maxlength="20" class="text ui-widget-content ui-corner-all tableData" />
-				<span class="heading"> <label for="txtFax">Fax </label></span><input name="txtFax" type="text" id="txtFax" value="<?php echo $cbgd["FAX"][0];  ?>" style="width:100px" maxlength="20" class="text ui-widget-content ui-corner-all tableData" />
+			<td colspan="2" class="heading" align="right"><label for="txtDienThoai2">Điện thoại cá nhân</label></td>
+			<td colspan="2">
+				<input name="txtDienThoai2" type="text" id="txtDienThoai2" value="<?php echo htmlentities($cbgd["DIEN_THOAI_CN"][0], ENT_QUOTES, "UTF-8");?>" style="width:150px" maxlength="20" class="text ui-widget-content ui-corner-all tableData" />
+				&nbsp;&nbsp; <label for="txtFax" class="heading">Fax </label><input name="txtFax" type="text" id="txtFax" value="<?php echo htmlentities($cbgd["FAX"][0], ENT_QUOTES, "UTF-8");?>" style="width:150px" maxlength="20" class="text ui-widget-content ui-corner-all tableData" />
 			</td>
 		  </tr>
 		  <tr align="left">
 			<td colspan="2" class="heading" valign=top align="right"><label for="txtEmail"> Email chính </label></td>
-			<td colspan="2"><input placeholder="email cơ quan ..." name="txtEmail" type="text" id="txtEmail" value="<?php echo $cbgd["EMAIL"][0];  ?>" size="35" maxlength="100" class="text ui-widget-content ui-corner-all tableData"/> <br/>(<span style="color:red">@hcmut.edu.vn</span>, thông tin về học vụ của phòng SĐH đều được gửi qua email này) <span class="validateTips" id="emailValidate"> <span></td>
+			<td colspan="2"><input placeholder="email cơ quan ..." name="txtEmail" type="text" id="txtEmail" value="<?php echo htmlentities($cbgd["EMAIL"][0], ENT_QUOTES, "UTF-8");?>" size="35" maxlength="100" class="text ui-widget-content ui-corner-all tableData"/> <br/>(<span style="color:red">@hcmut.edu.vn</span>, thông tin về học vụ của phòng SĐH đều được gửi qua email này) <span class="validateTips" id="emailValidate"> <span></td>
 		  </tr>
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtEmail2">Email phụ </label></td>
-			<td colspan="2"><input placeholder="email cá nhân ..." name="txtEmail2" type="text" id="txtEmail2" value="<?php echo $cbgd["EMAIL_2"][0];  ?>" size="35" maxlength="100" class="text ui-widget-content ui-corner-all tableData"/>
+			<td colspan="2"><input placeholder="email cá nhân ..." name="txtEmail2" type="text" id="txtEmail2" value="<?php echo htmlentities($cbgd["EMAIL_2"][0], ENT_QUOTES, "UTF-8");?>" size="35" maxlength="100" class="text ui-widget-content ui-corner-all tableData"/>
 			  </td>
 		  </tr>
 		  <tr align="left">
@@ -186,14 +249,14 @@ $filehinh  = $cbgd["HINH_ANH"][0];
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtChuyenNganh">Chuyên ngành </label></td>
 			<td colspan="2">
-			  <input name="txtChuyenNganh" type="text" id="txtChuyenNganh" value="<?php echo $cbgd["CHUYEN_NGANH"][0];  ?>" style="width:98%" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/>
+			  <input name="txtChuyenNganh" type="text" id="txtChuyenNganh" value="<?php echo htmlentities($cbgd["CHUYEN_NGANH"][0], ENT_QUOTES, "UTF-8");?>" style="width:98%" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/>
 			</td>
 		  </tr>
 		  
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtChuyenMon">Chuyên môn hiện tại </label></td>
 			<td colspan="2">
-			  <input name="txtChuyenMon" type="text" id="txtChuyenMon" value="<?php echo $cbgd["CHUYEN_MON"][0];  ?>" style="width:98%" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/>
+			  <input name="txtChuyenMon" type="text" id="txtChuyenMon" value="<?php echo htmlentities($cbgd["CHUYEN_MON"][0], ENT_QUOTES, "UTF-8");?>" style="width:98%" maxlength="200" class="text ui-widget-content ui-corner-all tableData"/>
 			</td>
 		  </tr>
 		  
@@ -201,16 +264,16 @@ $filehinh  = $cbgd["HINH_ANH"][0];
 			<td colspan="2" class="heading" align="right">Chức danh</td>
 			<td colspan="2" class="fontcontent">
 			  <?php echo $cbgd["CHUC_DANH"][0];	?>
-			  <input name="txtMaHocHam" type="hidden" id="txtMaHocHam" value="<?php echo $cbgd["MA_HOC_HAM"][0];  ?>" size="4" maxlength="4"/>
+			  <input name="txtMaHocHam" type="hidden" id="txtMaHocHam" value="<?php echo htmlentities($cbgd["MA_HOC_HAM"][0], ENT_QUOTES, "UTF-8");  ?>" size="4" maxlength="4"/>
 			  <span class="heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for=txtNamPhongHocHam>Năm công nhận</label></span> 
-			  <input name="txtNamPhongHocHam" type="text" id="txtNamPhongHocHam" value="<?php echo $cbgd["NAM_PHONG_HOC_HAM"][0];  ?>" size="4" maxlength="4" class="text ui-widget-content ui-corner-all tableData"/>
+			  <input name="txtNamPhongHocHam" type="text" id="txtNamPhongHocHam" value="<?php echo htmlentities($cbgd["NAM_PHONG_HOC_HAM"][0], ENT_QUOTES, "UTF-8");  ?>" size="4" maxlength="4" class="text ui-widget-content ui-corner-all tableData"/>
 			</td>
 		  </tr>
 		  
 		  <tr align="left">
 			<td colspan="2" class="heading" align="right"><label for="txtChucDanhNghienCuu">Chức danh nghiên cứu</label></td>
 			<td colspan="2" class="fontcontent">
-				<input name="txtChucDanhNghienCuu" type="text" id="txtChucDanhNghienCuu" value="<?php echo $cbgd["CHUC_DANH_NGHIEN_CUU"][0];  ?>" style="width:202px" maxlength="100" class="text ui-widget-content ui-corner-all tableData"/>
+				<input name="txtChucDanhNghienCuu" type="text" id="txtChucDanhNghienCuu" value="<?php echo htmlentities($cbgd["CHUC_DANH_NGHIEN_CUU"][0], ENT_QUOTES, "UTF-8");  ?>" style="width:202px" maxlength="100" class="text ui-widget-content ui-corner-all tableData"/>
 			</td>
 		  </tr>
 		  
@@ -259,11 +322,28 @@ $filehinh  = $cbgd["HINH_ANH"][0];
 //jQuery.ajax
 //$(document).ready(function(){
 $(function(){ 
-  //$(".tooltips_ttgv").tooltip();
+  $(".tooltips_ttgv").tooltip({ track: true });
+  
  // ok
  $( "#btnLuuTTGV" ).button({ icons: {primary:'ui-icon ui-icon-check'} });
  $( "#btnLuuTTGV" ).button( "disable" );
  // cancel
+ 
+ 
+ $("#txtNgaySinh").datepicker({
+	defaultDate: "-30y",
+	changeMonth: true,
+	changeYear: true,
+	showButtonPanel: false,
+	dateFormat: "dd/mm/yy"
+ });
+ $("#txtNgayCap").datepicker({
+	changeMonth: true,
+	changeYear: true,
+	showButtonPanel: false,
+	dateFormat: "dd/mm/yy"
+ });
+ $("#txtNgaySinh, #txtNgayCap").mask("99/99/9999");
  
  if ($('#txtMaHocHam').val() != 'GS' && $('#txtMaHocHam').val() != 'PGS')
  {
@@ -276,8 +356,12 @@ $(function(){
 	//$('#txtNamPhongHocHam').removeClass("disableTextBox");
  }
  
+ 
+ 
 // Check validate fields TTGV
-var txtDiaChi 	= $("#txtDiaChi"),
+var txtNgaySinh 	= $("#txtNgaySinh"),
+	txtPhai			= $("#txtPhai"),
+	txtDiaChi 		= $("#txtDiaChi"),
 	txtDienThoai	= $("#txtDienThoai"),
 	txtDienThoai2	= $("#txtDienThoai2"),
 	txtEmail		= $("#txtEmail"),
@@ -290,7 +374,7 @@ var txtDiaChi 	= $("#txtDiaChi"),
 	txtFax = $("#txtFax"), 
 	txtWebsite = $("#txtWebsite"), 
 	formchange 		= false,
-	allFieldsTTGV = $( [] ).add( txtWebsite ).add( txtFax ).add( txtTenLanhDaoCQ ).add( txtDTLanhDaoCQ ).add( txtChucDanhNghienCuu ).add( txtDiaChi ).add( txtDienThoai ).add( txtDienThoai2 ).add( txtEmail ).add( txtEmail2 ).add(  ).add( txtChuyenNganh ).add( txtNamPhongHocHam ),
+	allFieldsTTGV = $( [] ).add( txtNgaySinh ).add( txtPhai ).add( txtWebsite ).add( txtFax ).add( txtTenLanhDaoCQ ).add( txtDTLanhDaoCQ ).add( txtChucDanhNghienCuu ).add( txtDiaChi ).add( txtDienThoai ).add( txtDienThoai2 ).add( txtEmail ).add( txtEmail2 ).add(  ).add( txtChuyenNganh ).add( txtNamPhongHocHam ),
 	ttgv_tips = $( "#tipTTGV" );
 		
 	// 
@@ -353,6 +437,8 @@ var txtDiaChi 	= $("#txtDiaChi"),
 		
 		allFieldsTTGV.removeClass( "ui-state-error" );
 		//alert(2);
+		bValid = bValid && ttgv_checkLength( txtNgaySinh, "\"Ngày sinh\"", 0, 10);
+		bValid = bValid && ttgv_checkLength( txtPhai, "\"Phái\"", 0, 1);
 		
 		bValid = bValid && ttgv_checkLength( txtDiaChi, "\"Địa chỉ\"", 0, 200);
 		bValid = bValid && ttgv_checkLength( txtDienThoai, "\"Số đt CQ\"", 4, 40 );
@@ -383,12 +469,12 @@ var txtDiaChi 	= $("#txtDiaChi"),
 								txtEmail.addClass( "ui-state-error" );
 								txtEmail.focus();
 								ttgv_updateTips("Email này đã có người đăng ký");
-								gv_open_msg_box("Email này đã có người đăng ký","alert",250,150);
+								gv_open_msg_box("Email này đã có người đăng ký","alert",250,180);
 							}else
 							{
 								$( "#btnLuuTTGV" ).button( "disable" );
 								ttgv_updateTips("Cập nhật thành công");
-								gv_open_msg_box("Cập nhật thành công","info",250,150);
+								gv_open_msg_box("Cập nhật thành công","info",250,180);
 								formchange =  false;
 							}
 						 }// end function(data)	

@@ -156,6 +156,8 @@ if (isset($_SESSION["uidloginPortal"]) && isset($_SESSION["macb"]))
 		
 	}// end if $cat == "ctkh"
 	else if ($cat=="ttgv"){
+			$txtNgaySinh = str_replace($searchdb, $replacedb,$_POST['txtNgaySinh']);
+			$txtPhai = str_replace($searchdb, $replacedb,$_POST['txtPhai']);
 			$txtDiaChi = str_replace($searchdb, $replacedb,$_POST['txtDiaChi']);
 			$txtDiaChiRieng = str_replace($searchdb, $replacedb,$_POST['txtDiaChiRieng']);
 			$txtDienThoai = str_replace($searchdb, $replacedb,$_POST['txtDienThoai']);
@@ -175,7 +177,15 @@ if (isset($_SESSION["uidloginPortal"]) && isset($_SESSION["macb"]))
 			$txtBoMonQL = str_replace($searchdb, $replacedb,$_POST['txtBoMonQL']);
 				
 			$txtNamPhongHH = str_replace($searchdb, $replacedb,$_POST['txtNamPhongHocHam']);
-				
+			$txtCMND = str_replace($searchdb, $replacedb,$_POST['txtCMND']);
+			$txtNgayCap = str_replace($searchdb, $replacedb,$_POST['txtNgayCap']);
+			$txtNoiCap = str_replace($searchdb, $replacedb,$_POST['txtNoiCapCMND']);			
+			
+			$txtMST = str_replace($searchdb, $replacedb,$_POST['txtMST']);
+			$txtSTK = str_replace($searchdb, $replacedb,$_POST['txtSTK']);
+			$txtTaiNH = str_replace($searchdb, $replacedb,$_POST['txtTaiNH']);
+			$txtChiNhanhNH = str_replace($searchdb, $replacedb,$_POST['txtChiNhanhNH']);			
+
 			// check unique email 1
 			$sqlstr = "select ma_can_bo from can_bo_giang_day 
 			where ma_can_bo <> '".$macb."' and email='".$txtEmail."'";
@@ -187,7 +197,9 @@ if (isset($_SESSION["uidloginPortal"]) && isset($_SESSION["macb"]))
 			if ($n>0) {
 				echo '{"email_check":"Exist"}';
 			}else {
-				$sqlstr = "UPDATE can_bo_giang_day SET 
+				$sqlstr = "UPDATE can_bo_giang_day SET
+				ngay_sinh=to_date('$txtNgaySinh','dd/mm/yyyy'),
+				phai = '$txtPhai',
 				dia_chi='$txtDiaChi', 
 				dia_chi_rieng='$txtDiaChiRieng',
 				dien_thoai = '$txtDienThoai', 
@@ -205,7 +217,14 @@ if (isset($_SESSION["uidloginPortal"]) && isset($_SESSION["macb"]))
 				dien_thoai_lanh_dao_cq = '$txtDTLanhDaoCQ',
 				chuc_danh_nghien_cuu = '$txtChucDanhNghienCuu',
 				fax = '$txtFax',
-				website_co_quan = '$txtWebsite'
+				website_co_quan = '$txtWebsite',
+				SO_CMND = '$txtCMND',
+				NGAY_CAP = to_date('$txtNgayCap','dd/mm/yyyy'),
+				NOI_CAP = '$txtNoiCap',
+				MA_SO_THUE = '$txtMST',
+				SO_TAI_KHOAN = '$txtSTK',
+				NGAN_HANG_MO_TK = '$txtTaiNH',
+				CHI_NHANH_NGAN_HANG = '$txtChiNhanhNH'
 				WHERE ma_can_bo='".$macb."'";
 				
 				$stmt = oci_parse($db_conn, $sqlstr);
