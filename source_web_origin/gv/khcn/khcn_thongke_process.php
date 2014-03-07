@@ -35,9 +35,7 @@ else if ($a=='thongke_capnhat_llkh_khoa') {
 	order by k.ten_khoa";
 	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 	
-	/*file_put_contents("logs.txt", "----------------------------------------------\n
-	". date("H:i:s d.m.Y")." $sqlstr \n
-	----------------------------------------------\n");*/
+	//file_put_contents("logs.txt", $sqlstr);
 	
 	$data='{
 			"aaData":[';

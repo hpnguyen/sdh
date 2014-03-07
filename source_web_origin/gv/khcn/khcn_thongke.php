@@ -92,23 +92,16 @@ $(function(){
 	});
 	
 	$( "#khcn_thongke_capnhat_llkh_tu" ).datepicker({
-		defaultDate: "-2m",
-		changeMonth: false,
-		numberOfMonths: 3,
-		dateFormat: "dd/mm/yy",
-		onClose: function( selectedDate ) {
-		$( "#khcn_thongke_capnhat_llkh_den" ).datepicker( "option", "minDate", selectedDate );
-		}
+		defaultDate: "-6m",
+		changeMonth: true,
+		changeYear: true,
+		dateFormat: "dd/mm/yy"
 	});
 	
 	$( "#khcn_thongke_capnhat_llkh_den" ).datepicker({
-		defaultDate: "-2m",
 		changeMonth: true,
-		numberOfMonths: 3,
-		dateFormat: "dd/mm/yy",
-		onClose: function( selectedDate ) {
-		$( "#khcn_thongke_capnhat_llkh_tu" ).datepicker( "option", "maxDate", selectedDate );
-		}
+		changeYear: true,
+		dateFormat: "dd/mm/yy"
 	});
 	
 	$( "#khcn_thongke_capnhat_llkh_tu, #khcn_thongke_capnhat_llkh_den" ).mask("99/99/9999");
@@ -117,13 +110,12 @@ $(function(){
 	var d = new Date();
 	var m = d.getMonth()+1, y = d.getFullYear(), firstDay = new Date(y, m, 1), lastDay = new Date(y, m + 1, 0);
 	
-	$( "#khcn_thongke_capnhat_llkh_tu" ).val('01/' + m + '/' + y);
-	$( "#khcn_thongke_capnhat_llkh_den" ).val(lastDay.getDate() + '/' + m + '/' + y);
+	//$( "#khcn_thongke_capnhat_llkh_tu" ).val('01/' + m + '/' + y);
+	//$( "#khcn_thongke_capnhat_llkh_den" ).val(lastDay.getDate() + '/' + m + '/' + y);
 	$( "#khcn_thongke_capnhat_baibao_tu, #khcn_thongke_capnhat_baibao_den" ).val(y);
 	
 	$('#khcn_thongke_capnhat_llkh_tu, #khcn_thongke_capnhat_llkh_den').change(function() {
-		khcn_RefreshTableThongKe(oTable_khcn_thongke_llkh_theo_khoa, "#khcn_thongke_capnhat_llkh_khoa", khcn_thongke_linkdata+"&a=thongke_capnhat_llkh_khoa&tu="+$( "#khcn_thongke_capnhat_llkh_tu" ).val() + "&den=" +$( "#khcn_thongke_capnhat_llkh_den" ).val());
-		khcn_RefreshTableThongKe(oTable_khcn_thongke_llkh_chucdanh, "#khcn_thongke_capnhat_llkh_chucdanh", khcn_thongke_linkdata+"&a=thongke_capnhat_llkh_chucdanh&tu="+$( "#khcn_thongke_capnhat_llkh_tu" ).val() + "&den=" +$( "#khcn_thongke_capnhat_llkh_den" ).val());
+		khcn_RefreshTableThongKeLLKH(oTable_khcn_thongke_llkh_theo_khoa, "#khcn_thongke_capnhat_llkh_khoa", khcn_thongke_linkdata+"&a=thongke_capnhat_llkh_khoa&tu="+$( "#khcn_thongke_capnhat_llkh_tu" ).val() + "&den=" +$( "#khcn_thongke_capnhat_llkh_den" ).val());
 	});
 	
 	$('#khcn_thongke_capnhat_baibao_tu, #khcn_thongke_capnhat_baibao_den').change(function() {
@@ -204,6 +196,42 @@ function khcn_thongke_checksession(){
 	});
 }
 
+function khcn_RefreshTableThongKe(tableId, pTableName, urlData){
+	table = $(tableId).dataTable();
+	oSettings = table.fnSettings();
+	$(pTableName + '_processing').attr('style', 'visibility:visible');
+	$.getJSON(urlData, null, function( json )
+	{
+		table.fnClearTable(this);
+		for (var i=0; i<json.aaData.length; i++)
+		{
+			table.oApi._fnAddData(oSettings, json.aaData[i]);
+		}
+		oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		table.fnDraw();
+		$(pTableName + '_processing').attr('style', 'visibility:hidden');
+	});
+}
+
+function khcn_RefreshTableThongKeLLKH(tableId, pTableName, urlData){
+	table = $(tableId).dataTable();
+	oSettings = table.fnSettings();
+	$(pTableName + '_processing').attr('style', 'visibility:visible');
+	$.getJSON(urlData, null, function( json )
+	{
+		table.fnClearTable(this);
+		for (var i=0; i<json.aaData.length; i++)
+		{
+			table.oApi._fnAddData(oSettings, json.aaData[i]);
+		}
+		oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+		table.fnDraw();
+		$(pTableName + '_processing').attr('style', 'visibility:hidden');
+		
+		khcn_RefreshTableThongKe(oTable_khcn_thongke_llkh_chucdanh, "#khcn_thongke_capnhat_llkh_chucdanh", khcn_thongke_linkdata+"&a=thongke_capnhat_llkh_chucdanh&tu="+$( "#khcn_thongke_capnhat_llkh_tu" ).val() + "&den=" +$( "#khcn_thongke_capnhat_llkh_den" ).val());
+	});
+}
+
 function khcn_init_thongke_capnhat_table(pUrldata){
 	gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
 	khcn_thongke_checksession().done(function(data){
@@ -213,7 +241,6 @@ function khcn_init_thongke_capnhat_table(pUrldata){
 			return;
 		}else{
 			oTable_khcn_thongke_llkh_theo_khoa = $("#khcn_thongke_capnhat_llkh_khoa").dataTable( {
-				"sDom": 'T<"clear">lfrtip',
 				"bJQueryUI": false,
 				"bStateSave": true,
 				"bAutoWidth": false, 
@@ -226,11 +253,6 @@ function khcn_init_thongke_capnhat_table(pUrldata){
 				"sAjaxSource": pUrldata,
 				"fnDrawCallback": function( oSettings ) {
 					$(document).tooltip({ track: true });
-				}, 
-				"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
-					
-				},
-				"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
 				},
 				"aoColumns": [
 					{ "sClass" : "left", "bSortable": true },
@@ -252,7 +274,6 @@ function khcn_init_thongke_capnhat_table_chucdanh(pUrldata){
 			return;
 		}else{
 			oTable_khcn_thongke_llkh_chucdanh = $("#khcn_thongke_capnhat_llkh_chucdanh").dataTable( {
-				"sDom": 'T<"clear">lfrtip',
 				"bJQueryUI": false,
 				"bStateSave": true,
 				"bAutoWidth": false, 
@@ -282,24 +303,6 @@ function khcn_init_thongke_capnhat_table_chucdanh(pUrldata){
 	});
 }
 
-function khcn_RefreshTableThongKe(tableId, pTableName, urlData){
-	//$(document).tooltip( "destroy" );
-	table = $(tableId).dataTable();
-	oSettings = table.fnSettings();
-	$(pTableName + '_processing').attr('style', 'visibility:visible');
-	$.getJSON(urlData, null, function( json )
-	{
-		table.fnClearTable(this);
-		for (var i=0; i<json.aaData.length; i++)
-		{
-			table.oApi._fnAddData(oSettings, json.aaData[i]);
-		}
-		oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-		table.fnDraw();
-		$(pTableName + '_processing').attr('style', 'visibility:hidden');
-	});
-}
-
 function khcn_init_thongke_baibao_table_khoa(pUrldata){
 	gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
 	khcn_thongke_checksession().done(function(data){
@@ -309,7 +312,6 @@ function khcn_init_thongke_baibao_table_khoa(pUrldata){
 			return;
 		}else{
 			oTable_khcn_thongke_capnhat_baibao_khoa = $("#khcn_thongke_capnhat_baibao_khoa").dataTable( {
-				"sDom": 'T<"clear">lfrtip',
 				"bJQueryUI": false,
 				"bStateSave": true,
 				"bAutoWidth": false, 

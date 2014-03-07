@@ -41,7 +41,8 @@ foreach($listItems as $y => $row)
 		$textView = "Xem Phản Biện";
 	}
 	
-	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>'";
+	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>";
+	$listArrayDataString .= "<a href=\"javascript: void(0);\" id=\"".$formKey."linkClickViewPrintPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPrintPhanBienTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;In</a>'";
 	$listArrayData[] = $listArrayDataString;
 }
 ?>
@@ -55,7 +56,7 @@ foreach($listItems as $y => $row)
 		<td width="150px" align="center">Kết Quả Trả Lời</td>
 		<td width="100px" align="center">Chi tiết Link TMĐT</td>
 		<td width="100px" align="center">Link LLKH Người Tham Gia</td>
-		<td width="100px" align="center"></td>
+		<td width="120px" align="center"></td>
 	  </tr>
 	  </thead>
 	  <tbody>
@@ -81,6 +82,7 @@ foreach($listItems as $y => $row)
 <script>
 function <?php echo $formKey ?>InitReady(){
 	$( ".<?php echo $formKey ?>linkClickViewReportTab, .<?php echo $formKey ?>linkClickViewPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-button'} });
+	$( ".<?php echo $formKey ?>linkClickViewPrintPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
 	
 	$("#<?php echo $formKey ?>dataGridTable tbody tr").on("click",function(event) {
 		$("#<?php echo $formKey ?>dataGridTable tbody tr").each(function (){
@@ -202,6 +204,31 @@ function <?php echo $formKey ?>InitReady(){
 		}
 	});
 	
+	//Print phan_bien
+	$(".<?php echo $formKey ?>linkClickViewPrintPhanBienTab").click(function(){
+		var matmdt = $(this).parent().parent().find('td').eq(0).text();
+		var tabname = "";
+ 		var fileprint='';
+ 		var key = '<?php echo $formKey ?>print_tmdt_' + matmdt;
+ 		var tabOpened = window.ns.get_tabOpened();
+ 		var tabCurrent = $('#' + tabOpened['XemPhanBienDeTai_All']).index()-1;
+ 		var cap_dt = parseInt($(this).attr('rel_cap_de_tai'));
+  		
+		if (cap_dt == 23) { // Cap DHQG Loai C
+			fileprint = 'khcn_print_danh_gia_tmdt_m01.php';
+			tabname = 'Đánh giá TMĐT - ĐHQG Mẫu M01 - ' + matmdt;
+		}else if (cap_dt > 30 && cap_dt < 35) { // Cap truong
+			fileprint = 'khcn_print_danh_gia_tmdt_bm06.php';
+			tabname = 'Đánh giá TMĐT - Trường Mẫu BM06/KHCN-08 - ' + matmdt;
+		}
+		
+		if (cap_dt == 23 || (cap_dt > 30 && cap_dt < 35)){
+			var links = "<?php echo $gvURL ?>/khcn/"+fileprint+"?a=print_tmdt_pdf&hisid=<?php echo $_REQUEST["hisid"]; ?>&mdt="+matmdt+"&mcb=<?php echo $macb ?>&k=";
+			window.open(links,tabname,'width=650,height=800,menubar=1'+',toolbar=0'+',status=0'+',scrollbars=1'+',resizable=1');
+		}else{
+			alert("Không có mẫu để xem");
+		}
+	});
 }
 
 

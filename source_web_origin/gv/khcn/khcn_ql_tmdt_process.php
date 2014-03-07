@@ -58,7 +58,7 @@ if ($a=='ThungRac'){
 }
 
 if ($a=='regthuyetminh'){
-	
+	$macb = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_macb"]);
 	$tenviet = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_ten_dt_viet"]);
 	$tenanh = str_replace("'", "''", $_POST["khcn_ql_frm_reg_dtkhcn_ten_dt_anh"]);
 	$nganhkhac = str_replace("'", "''", $_POST["khcn_ql_frm_reg_nganhkhac"]);
@@ -83,8 +83,8 @@ if ($a=='regthuyetminh'){
 		{
 			$sqlstr="
 			insert into NCKH_THUYET_MINH_DE_TAI(MA_THUYET_MINH_DT,FK_MA_CAN_BO,TEN_DE_TAI_VN,TEN_DE_TAI_EN,CHUYEN_NGANH_HEP,FK_CAP_DE_TAI,
-			FK_LOAI_HINH_NC,THOI_GIAN_THUC_HIEN,TONG_KINH_PHI, NGAY_DANG_KY, KEYWORDS, HUONG_DE_TAI) 
-			values ('$matm','$macb','$tenviet','$tenanh','$nganhhep','$capdetai','$loaihinhnc',$thoigian,$kinhphi, sysdate,'$keywords','$huongdt')"; 
+			FK_LOAI_HINH_NC,THOI_GIAN_THUC_HIEN,TONG_KINH_PHI, NGAY_DANG_KY, KEYWORDS, HUONG_DE_TAI, FK_TINH_TRANG) 
+			values ('$matm','$macb','$tenviet','$tenanh','$nganhhep','$capdetai','$loaihinhnc',$thoigian,$kinhphi, sysdate,'$keywords','$huongdt', '01')";
 			$stmt = oci_parse($db_conn_khcn, $sqlstr);
 			/*
 				file_put_contents("logs.txt", "----------------------------------------------\n
@@ -427,6 +427,45 @@ if ($a=='addkhoanchiphi'){
 	}
 }
 
+if ($a=='addphanbien'){
+	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
+	$ma_can_bo = str_replace("'", "''", $_POST["khcn_ql_diag_phanbien_add_tmdt_fk_ma_can_bo"]);
+	$kq_phan_hoi = str_replace("'", "''", $_POST["khcn_ql_diag_phanbien_add_tmdt_kq"]);
+	if ($kq_phan_hoi==''){
+		$kq_phan_hoi='null';
+	}
+	
+	if ($ma_thuyet_minh_dt!='' && $ma_can_bo!=''){
+		$sqlstr="insert into NCKH_PHAN_CONG_PHAN_BIEN(MA_THUYET_MINH_DT,FK_MA_CAN_BO,KQ_PHAN_HOI,NGAY_PHAN_CONG) 
+		values ('$ma_thuyet_minh_dt' , '$ma_can_bo' , $kq_phan_hoi , sysdate)"; 
+		$stmt = oci_parse($db_conn_khcn, $sqlstr);
+		if (!oci_execute($stmt)){
+			$e = oci_error($stmt);
+			$msgerr = $e['message']. " sql: " . $e['sqltext'];
+			die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
+		}
+		
+		$sqlstr="select decode(a.KQ_PHAN_HOI, '1', '<font color=green>Đồng ý phản biện</font>', '0', '<font color=red>Không phản biện</font>', '<font color=blue>Chưa phản hồi</font>') KQ_PHAN_HOI, 
+		nvl(to_char(a.NGAY_PHAN_CONG, 'HH24:MI dd/mm/yyyy'),' ') NGAY_PHAN_CONG, get_thanh_vien(a.FK_MA_CAN_BO) HO_TEN,
+		nvl(to_char(a.NGAY_PHAN_HOI, 'HH24:MI dd/mm/yyyy'),' ') NGAY_PHAN_HOI, a.FK_MA_CAN_BO, b.shcc, c.FK_CAP_DE_TAI
+		from nckhda.NCKH_PHAN_CONG_PHAN_BIEN a, CAN_BO_GIANG_DAY b, nckhda.NCKH_THUYET_MINH_DE_TAI c
+		where a.MA_THUYET_MINH_DT = '$ma_thuyet_minh_dt' and a.fk_ma_can_bo = b.ma_can_bo and a.FK_MA_CAN_BO ='$ma_can_bo' and a.MA_THUYET_MINH_DT=c.MA_THUYET_MINH_DT"; 
+		
+		$stmt = oci_parse($db_conn, $sqlstr);
+		if (!oci_execute($stmt)){
+			$e = oci_error($stmt);
+			$msgerr = $e['message']. " sql: " . $e['sqltext'];
+			die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
+		}
+		$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+		
+		echo '{"success":"1", "ma_can_bo":"'.escapeJsonString($ma_can_bo).'", "kq_phan_hoi":"'.escapeJsonString($resDM["KQ_PHAN_HOI"][0]).'", 
+				"ngay_phan_cong":"'.escapeJsonString($resDM["NGAY_PHAN_CONG"][0]).'", "ho_ten":"'.escapeJsonString($resDM["HO_TEN"][0]).'",
+				"shcc":"'.escapeJsonString($resDM["SHCC"][0]).'", "capdt":"'.escapeJsonString($resDM["FK_CAP_DE_TAI"][0]).'"
+		}';
+	}
+}
+
 if ($a=='removenhanlucnc'){
 	$loai = str_replace("'", "''", $_POST["loai"]);
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
@@ -561,13 +600,31 @@ if ($a=='removekhoanchiphi'){
 	}
 }
 
+if ($a=='removephanbien'){
+	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
+	$ma_remove = str_replace("'", "''", $_POST["mcb"]);
+	//$sqlstr="delete NCKH_PHAN_CONG_PHAN_BIEN where FK_MA_CAN_BO='$ma_remove' and MA_THUYET_MINH_DT='$ma_thuyet_minh_dt'"; 
+	$sqlstr="BEGIN NCKH_PB_NOI_DUNG_XOA('$ma_thuyet_minh_dt', '$ma_remove'); END;"; 
+	
+	$stmt = oci_parse($db_conn_khcn, $sqlstr);
+	if (oci_execute($stmt)){
+		echo '{"success":"1"}';
+	}
+	else{
+		$e = oci_error($stmt);
+		$msgerr = $e['message']. " sql: " . $e['sqltext'];
+		die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
+	}
+}
+
 if ($a=='getthuyetminhinfo'){
 	$m = str_replace("'", "''", $_POST["m"]);
 
 	$sqlstr="SELECT tm.*,to_char(tm.CNDT_NGAY_SINH,'dd/mm/yyyy') CNDT_NGAY_SINH, to_char(tm.CNDT_NGAY_CAP,'dd/mm/yyyy') CNDT_NGAY_CAP, cdt.ten_cap, lhnc.TEN_LOAI_HINH_NC,
-	to_char(tm.DCNDT_NGAY_SINH,'dd/mm/yyyy') DCNDT_NGAY_SINH, to_char(tm.DCNDT_NGAY_CAP,'dd/mm/yyyy') DCNDT_NGAY_CAP
-	FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc
-	WHERE MA_THUYET_MINH_DT='$m' and FK_CAP_DE_TAI = cdt.ma_cap(+) and FK_LOAI_HINH_NC = lhnc.MA_LOAI_HINH_NC(+)";
+	to_char(tm.DCNDT_NGAY_SINH,'dd/mm/yyyy') DCNDT_NGAY_SINH, to_char(tm.DCNDT_NGAY_CAP,'dd/mm/yyyy') DCNDT_NGAY_CAP, n.USERNAME
+	FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc, nhan_su n
+	WHERE MA_THUYET_MINH_DT='$m' and FK_CAP_DE_TAI = cdt.ma_cap(+) and FK_LOAI_HINH_NC = lhnc.MA_LOAI_HINH_NC(+)
+	and tm.FK_MA_CAN_BO=n.FK_MA_CAN_BO(+)";
 
 	//file_put_contents("logs.txt", date("H:i:s d.m.Y")." $sqlstr \n", FILE_APPEND);
 		
@@ -582,10 +639,15 @@ if ($a=='getthuyetminhinfo'){
 	
 	$data='{';
 	if ($n){
+		
+		$_SESSION["khcn_username"]=base64_encode($resDM["USERNAME"][0]);
+		
 		if ($resDM["VB_CHUNG_MINH_VON_KHAC_LINK"][0]!=''){
 			$path = pathinfo($resDM["VB_CHUNG_MINH_VON_KHAC_LINK"][0]);
 			$filename = $path['basename'];
 		}else $filename='';
+		
+		$ma_can_bo = $resDM["FK_MA_CAN_BO"][0];
 		
 		$data.= '
 				"info":{
@@ -678,7 +740,7 @@ if ($a=='getthuyetminhinfo'){
 		
 		$sqlstr="SELECT ma_can_bo,get_thanh_vien(ma_can_bo) HO_TEN,to_char(NGAY_SINH, 'dd/mm/yyyy') NGAY_SINH,PHAI,EMAIL,SO_CMND,
 		to_char(NGAY_CAP,'dd/mm/yyyy') NGAY_CAP,NOI_CAP,DIA_CHI,DIEN_THOAI_CN,SO_TAI_KHOAN,NGAN_HANG_MO_TK,MA_SO_THUE 
-		FROM CAN_BO_GIANG_DAY WHERE MA_CAN_BO='$macb'";
+		FROM CAN_BO_GIANG_DAY WHERE MA_CAN_BO='$ma_can_bo'";
 		$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);
 		if (oci_fetch_all($stmt, $resDM)){
 			$data.= '
@@ -722,7 +784,7 @@ if ($a=='getthuyetminhinfo'){
 		}
 		
 		// Du lieu A9
-		$sqlstr="SELECT * FROM NCKH_NHAN_LUC_TMDT_CBGD WHERE FK_MA_THUYET_MINH_DT='$m'";
+		$sqlstr="SELECT * FROM NCKH_NHAN_LUC_TMDT_CBGD WHERE FK_MA_THUYET_MINH_DT='$m' order by MA_NHAN_LUC_TMDT_CBGD";
 		$stmt = oci_parse($db_conn_khcn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 		$data.= '
 			,"nhanluc_cbgd":[
@@ -737,7 +799,7 @@ if ($a=='getthuyetminhinfo'){
 		$data=substr($data,0,-1);
 		$data.= ']';
 		
-		$sqlstr="SELECT * FROM NCKH_NHAN_LUC_TMDT_SV WHERE FK_MA_THUYET_MINH_DT='$m'";
+		$sqlstr="SELECT * FROM NCKH_NHAN_LUC_TMDT_SV WHERE FK_MA_THUYET_MINH_DT='$m' order by MA_NHAN_LUC_TMDT_SV";
 		$stmt = oci_parse($db_conn_khcn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 		$data.= '
 			,"nhanluc_sv":[
@@ -762,9 +824,9 @@ if ($a=='getmotanghiencuu'){
 	$m = str_replace("'", "''", $_POST["m"]);
 
 	$sqlstr="SELECT TQ_TINH_HINH_NC, Y_TUONG_KH, KQ_NC_SO_KHOI, TAI_LIEU_TK, MUC_TIEU_NC_VN, MUC_TIEU_NC_EN, NOI_DUNG_NC, PA_PHOI_HOP, 
-	MUC_CL_SP_DANG_II, UD_KQNC_CHUYEN_GIAO, UD_KQNC_LV_DAO_TAO, UD_KQNC_SXKD, PHU_LUC_GIAI_TRINH_LINK, FK_CAP_DE_TAI
-	FROM NCKH_THUYET_MINH_DE_TAI tm
-	WHERE MA_THUYET_MINH_DT='$m'";
+	MUC_CL_SP_DANG_II, UD_KQNC_CHUYEN_GIAO, UD_KQNC_LV_DAO_TAO, UD_KQNC_SXKD, PHU_LUC_GIAI_TRINH_LINK, FK_CAP_DE_TAI, n.USERNAME
+	FROM NCKH_THUYET_MINH_DE_TAI tm, nhan_su n
+	WHERE MA_THUYET_MINH_DT='$m' and tm.FK_MA_CAN_BO=n.FK_MA_CAN_BO(+)";
 		
 	$stmt = oci_parse($db_conn_khcn, $sqlstr);
 	if (!oci_execute($stmt))
@@ -777,6 +839,9 @@ if ($a=='getmotanghiencuu'){
 	$data='{';
 	if ($n){
 		//file_put_contents("logs.txt", date("H:i:s d.m.Y")." ". escapeJsonString($resDM["TQ_TINH_HINH_NC"][0]));
+		
+		$_SESSION["khcn_username"]=base64_encode($resDM["USERNAME"][0]);
+		
 		if ($resDM["PHU_LUC_GIAI_TRINH_LINK"][0]!=''){
 			$path = pathinfo($resDM["PHU_LUC_GIAI_TRINH_LINK"][0]);
 			$filename = $path['basename'];
@@ -931,11 +996,52 @@ if ($a=='getmotanghiencuu'){
 	//echo str_replace($searchdb, $replacedb,$resDM["TQ_TINH_HINH_NC"][0]);
 }
 
+if ($a=='getphanbien'){
+	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
+	
+	$sqlstr="select decode(a.KQ_PHAN_HOI, '1', '<font color=green>Đồng ý phản biện</font>', '0', '<font color=red>Không phản biện</font>', '<font color=blue>Chưa phản hồi</font>') KQ_PHAN_HOI, 
+	nvl(to_char(a.NGAY_PHAN_CONG, 'HH24:MI dd/mm/yyyy'),' ') NGAY_PHAN_CONG, get_thanh_vien(a.FK_MA_CAN_BO) HO_TEN,
+	nvl(to_char(a.NGAY_PHAN_HOI, 'HH24:MI dd/mm/yyyy'),' ') NGAY_PHAN_HOI, a.FK_MA_CAN_BO, b.shcc, c.FK_CAP_DE_TAI
+	from nckhda.NCKH_PHAN_CONG_PHAN_BIEN a, can_bo_giang_day b, nckhda.NCKH_THUYET_MINH_DE_TAI c
+	where a.MA_THUYET_MINH_DT = '$ma_thuyet_minh_dt' and a.fk_ma_can_bo = b.ma_can_bo and a.MA_THUYET_MINH_DT=c.MA_THUYET_MINH_DT"; 
+	
+	$stmt = oci_parse($db_conn, $sqlstr);
+	if (!oci_execute($stmt)){
+		$e = oci_error($stmt);
+		$msgerr = $e['message']. " sql: " . $e['sqltext'];
+		die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
+	}
+	$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+	
+	//file_put_contents("logs.txt", $sqlstr);
+	
+	$data='{"success": "1","dsphanbien":[';
+	if ($n){
+		for ($i=0; $i<$n; $i++)
+		{
+			$data.= '{
+				"ma_can_bo":"'.escapeJsonString($resDM["FK_MA_CAN_BO"][$i]).'",
+				"shcc":"'.escapeJsonString($resDM["SHCC"][$i]).'",
+				"ho_ten":"'.escapeJsonString($resDM["HO_TEN"][$i]).'",
+				"kq_phan_hoi":"'.escapeJsonString($resDM["KQ_PHAN_HOI"][$i]).'",
+				"ngay_phan_hoi":"'.escapeJsonString($resDM["NGAY_PHAN_HOI"][$i]).'",
+				"ngay_phan_cong":"'.escapeJsonString($resDM["NGAY_PHAN_CONG"][$i]).'",
+				"capdt":"'.escapeJsonString($resDM["FK_CAP_DE_TAI"][0]).'"
+			},';
+		}
+		$data=substr($data,0,-1);
+	}
+	$data.=']}';
+	echo $data;
+}
+
 if ($a=='getllkh'){
 	$shcc = str_replace("'", "''", $_POST["khcn_ql_frm_edit_dtkhcn_dcndt_shcc"]);
 	if ($shcc==''){
 		$shcc = str_replace("'", "''", $_POST["m"]);
 	}
+	
+	
 	$sqlstr="SELECT ma_can_bo,get_thanh_vien(ma_can_bo) HOTEN,to_char(NGAY_SINH, 'dd/mm/yyyy') NGAY_SINH,PHAI,EMAIL,SO_CMND,
 	to_char(NGAY_CAP,'dd/mm/yyyy') NGAY_CAP,NOI_CAP,DIA_CHI,DIEN_THOAI_CN,SO_TAI_KHOAN,NGAN_HANG_MO_TK,MA_SO_THUE, CO_QUAN_CONG_TAC
 	FROM CAN_BO_GIANG_DAY WHERE SHCC='$shcc'";
@@ -1009,6 +1115,7 @@ if ($a=='refreshdata'){
 	$fcdt = str_replace ("'", "''", $_REQUEST["fcdt"]); // filter cap de tai
 	$fdv = str_replace ("'", "''", $_REQUEST["fdv"]); // filter don vi
 	$fnnhan = str_replace ("'", "''", $_REQUEST["fnnhan"]); // filter nam nhan dang ky
+	$ftrangthai = str_replace ("'", "''", $_REQUEST["ftrangthai"]); // filter trang thai
 	$filterstr = "";
 	
 	if ($fttr != ""){
@@ -1017,7 +1124,7 @@ if ($a=='refreshdata'){
 		$filterstr .= " AND tm.THUNG_RAC is null";
 	}
 	if ($fcndt != ""){
-		$filterstr .= " AND tm.CNDT_HH_HV_HO_TEN = '$fcndt'";
+		$filterstr .= " AND tm.FK_MA_CAN_BO = '$fcndt'"; // Nguoi so huu de tai la Chu nhiem de tai
 	}
 	if ($fdcndt != ""){
 		$filterstr .= " AND tm.DCNDT_HH_HV_HO_TEN = '$fdcndt'";
@@ -1029,41 +1136,71 @@ if ($a=='refreshdata'){
 		$filterstr .= " AND b.ma_khoa='$fdv'";
 	}
 	if ($fnnhan != ""){
-		$filterstr .= " AND to_char(tm.NGAY_NHAN_HO_SO, 'yyyy') = '$fnnhan'";
+		$filterstr .= " AND to_char(tm.NGAY_DANG_KY, 'yyyy') = '$fnnhan'";
+		/* $fnnhan1=($fnnhan-1);
+		$filterstr .= " AND (tm.NGAY_DANG_KY between to_date('01/10/$fnnhan1', 'dd/mm/yyyy') and to_date('31/12/$fnnhan', 'dd/mm/yyyy'))"; */
+	}
+	if ($ftrangthai != ""){
+		$filterstr .= " AND tm.FK_TINH_TRANG = '$ftrangthai'";		
 	}
 
-	$sqlstr="	SELECT MA_THUYET_MINH_DT, TEN_DE_TAI_VN, cdt.ten_cap, lhnc.TEN_LOAI_HINH_NC, THOI_GIAN_THUC_HIEN, TONG_KINH_PHI, FK_CAP_DE_TAI,
-				GET_NGANH_NHOM_NGANH(MA_THUYET_MINH_DT) nganh_nhomnganh, keywords, huong_de_tai, CNDT_HH_HV_HO_TEN, DCNDT_HH_HV_HO_TEN,
-				c.email, c.dien_thoai, b.ma_khoa, k.ten_khoa don_vi
-				FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc, can_bo_giang_day c, bo_mon b, khoa k
+	$sqlstr="	SELECT MA_THUYET_MINH_DT, TEN_DE_TAI_VN, cdt.ten_cap, lhnc.TEN_LOAI_HINH_NC, THOI_GIAN_THUC_HIEN, FK_CAP_DE_TAI,
+				keywords, huong_de_tai, CNDT_HH_HV_HO_TEN, DCNDT_HH_HV_HO_TEN,
+				c.email, c.dien_thoai, b.ma_khoa, k.ten_khoa don_vi, nvl(tm.FK_TINH_TRANG,'01') FK_TINH_TRANG, tt.TEN_TINH_TRANG,
+				c.MA_CAN_BO, c.SHCC, TONG_KINH_PHI, KINH_PHI_TU_DHQG, KINH_PHI_HUY_DONG,
+				MUC_TIEU_NC_VN,NOI_DUNG_NC,
+				get_can_bo_tg(MA_THUYET_MINH_DT) CB_THAM_GIA,
+				get_nganh_nhom_nganh(MA_THUYET_MINH_DT) NGANH_NHOMNGANH,
+				get_an_pham_kh(MA_THUYET_MINH_DT) AN_PHAM_KH,
+				get_dk_shtt(MA_THUYET_MINH_DT) DK_SHTT,
+				get_sp_mem_cung(MA_THUYET_MINH_DT) SP_MEM_CUNG,
+				get_gt_chuyen_gia(MA_THUYET_MINH_DT) GT_CHUYEN_GIA,
+				get_dao_tao(MA_THUYET_MINH_DT) DAO_TAO
+				FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc, can_bo_giang_day c, bo_mon b, khoa k, NCKH_DM_TINH_TRANG tt
 				WHERE FK_CAP_DE_TAI = cdt.ma_cap(+) and FK_LOAI_HINH_NC = lhnc.MA_LOAI_HINH_NC(+) 
 				and tm.fk_ma_can_bo = c.ma_can_bo and b.ma_bo_mon=c.ma_bo_mon and b.ma_khoa=k.ma_khoa 
+				and nvl(tm.FK_TINH_TRANG,'01') = tt.MA_TINH_TRANG (+)
 				$filterstr
 				";
-	/*file_put_contents("logs.txt", "----------------------------------------------\n
-				". date("H:i:s d.m.Y")." $sqlstr \n
-		----------------------------------------------\n", FILE_APPEND);*/
+				
+	//file_put_contents("logs.txt", " $sqlstr");
 	
 	$stmt = oci_parse($db_conn_khcn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 	$data='{
 			"aaData":[';
 	
 	for ($i = 0; $i < $n; $i++){
+		$SendTMDT = '"<img src=\'icons/Send-Document-icon.png\' class=khcn_tooltips title=\'Cập nhật trạng thái TMĐT\' border=0 onClick=\'khcn_ql_trangthai_tmdt( khcn_ql_getRowIndex(this),\"'.$resDM["FK_CAP_DE_TAI"][$i].'\"); \' style=\'cursor: pointer\'>"';
 		$data.= '["'.$resDM["MA_THUYET_MINH_DT"][$i].'",
 				  "'.escapeJsonString($resDM["TEN_DE_TAI_VN"][$i]).'", 
 				  "'.escapeJsonString($resDM["CNDT_HH_HV_HO_TEN"][$i]).'", 
 				  "'.escapeJsonString($resDM["DCNDT_HH_HV_HO_TEN"][$i]).'", 
-				  "'.escapeJsonString($resDM["TEN_CAP"][$i]).'", 
+				  "'.escapeJsonString('<b>'.$resDM["TEN_CAP"][$i].'<b>').'",
 				  "'.escapeJsonString($resDM["DON_VI"][$i]).'", 
-				  "'.escapeJsonString($resDM["TONG_KINH_PHI"][$i]).'", 
+				  "'.escapeJsonString($resDM["TONG_KINH_PHI"][$i]).'",
+				  "'.escapeJsonString($resDM["KINH_PHI_TU_DHQG"][$i]).'",
+				  "'.escapeJsonString($resDM["KINH_PHI_HUY_DONG"][$i]).'",
 				  "'.escapeJsonString($resDM["THOI_GIAN_THUC_HIEN"][$i]).'", 
 				  "'.escapeJsonString($resDM["NGANH_NHOMNGANH"][$i]).'", 
 				  "'.escapeJsonString($resDM["EMAIL"][$i]).'", 
 				  "'.escapeJsonString($resDM["DIEN_THOAI"][$i]).'",
-				  "<img src=\'icons/print-preview-icon24x24.png\' class=khcn_tooltips title=\'In thuyết minh đề tài\' border=0 onClick=\'khcn_ql_print_tmdt( khcn_ql_getRowIndex(this),\"'.$resDM["FK_CAP_DE_TAI"][$i].'\"); \' style=\'cursor: pointer\'>"
+				  '.$SendTMDT.',
+				  "'.escapeJsonString('<b>'.$resDM["TEN_TINH_TRANG"][$i].'</b>').'",
+				  "<img src=\'icons/print-preview-icon24x24.png\' class=khcn_tooltips title=\'Xem bản in TMĐT\' border=0 onClick=\'khcn_ql_print_tmdt( khcn_ql_getRowIndex(this),\"'.$resDM["FK_CAP_DE_TAI"][$i].'\"); \' style=\'cursor: pointer\'>",
+				  "'.escapeJsonString($resDM["CB_THAM_GIA"][$i]).'",
+				  "'.escapeJsonString($resDM["TEN_LOAI_HINH_NC"][$i]).'",
+				  "'.escapeJsonString(escapeExcel($resDM["MUC_TIEU_NC_VN"][$i])).'",
+				  "'.escapeJsonString(escapeExcel($resDM["NOI_DUNG_NC"][$i])).'",
+				  "'.escapeJsonString($resDM["AN_PHAM_KH"][$i]).'",
+				  "'.escapeJsonString($resDM["DK_SHTT"][$i]).'",
+				  "'.escapeJsonString($resDM["SP_MEM_CUNG"][$i]).'",
+				  "'.escapeJsonString($resDM["DAO_TAO"][$i]).'",
+				  "'.escapeJsonString($resDM["GT_CHUYEN_GIA"][$i]).'",
+				  "'.escapeJsonString($resDM["SHCC"][$i]).'"
 				 ],';
 	}
-	//
+	// data 25 la item cuoi cung
+	
 	if ($n>0) 
 		$data=substr($data,0,-1);
 	
@@ -1171,7 +1308,7 @@ if ($a=='updatea5'){
 	}
 	oci_free_statement($stmt);
 		
-	echo '{"success":"1", "tongkinhphi":"'.escapeJsonString($kinhphi).'"}';
+	echo '{"success":"1", "tongkinhphi":"'.escapeJsonString($kinhphi).'", "kinhphitruong":"'.escapeJsonString($kinhphidhqg).'", "kinhphikhac":"'.escapeJsonString($kinhphihuydong).'"}';
 }
 
 if ($a=='updatea6'){
@@ -1223,7 +1360,7 @@ if ($a=='updatea6'){
 	}
 	oci_free_statement($stmt);
 		
-	echo '{"success":"1"}';
+	echo '{"success":"1", "cndt":"'.escapeJsonString($tencn).'", "dcndt":"'.escapeJsonString($tendcn).'"}';
 }
 
 if ($a=='updatea7a8'){
@@ -1517,6 +1654,25 @@ if ($a=='updateB8'){
 	$stmt = oci_parse($db_conn_khcn, $sqlstr);	
 	if (oci_execute($stmt)){
 		echo '{"success":"1", "fk_ma_khoan_chi_phi":"'.$fk_ma_khoan_chi_phi.'" ,"kinh_phi":"'.$kinh_phi.'", "khoan_chi":"'.$khoan_chi.'"}';
+	}else{
+		$e = oci_error($stmt);
+		$msgerr = $e['message']. " sql: " . $e['sqltext'];
+		die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
+	}
+	
+	oci_free_statement($stmt);
+}
+
+if ($a=='updateS'){
+	$matm = str_replace("'", "''", $_POST["m"]);
+	$matrangthai = str_replace("'", "''", $_POST["b"]); // trang thai de tai
+	$tentrangthai = str_replace("'", "''", $_POST["c"]); // ten trang thai de tai
+	
+	//$("#dkmh_nganh option:selected").html()
+	$sqlstr = 	"update NCKH_THUYET_MINH_DE_TAI set FK_TINH_TRANG='$matrangthai' where MA_THUYET_MINH_DT='$matm'";
+	$stmt = oci_parse($db_conn_khcn, $sqlstr);	
+	if (oci_execute($stmt)){
+		echo '{"success":"1", "fk_tinh_trang":"'.$matrangthai.'" ,"tinh_trang":"'.escapeJsonString($tentrangthai).'", "edit_allow":"0"}';
 	}else{
 		$e = oci_error($stmt);
 		$msgerr = $e['message']. " sql: " . $e['sqltext'];

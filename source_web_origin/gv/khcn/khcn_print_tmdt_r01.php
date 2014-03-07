@@ -64,11 +64,11 @@ if ($a != 'print_tmdt_pdf')
 ?>
 	<style>
 		.fontcontent {
-			font-size: 13px;
+			font-size: 15px;
 			font-family: Arial, Helvetica, sans-serif;
 			color: #000000;
 			font-weight: normal;
-
+			line-height: 1.5;
 		}
 		.bordertable {
 			border-color: #000000; 
@@ -146,7 +146,7 @@ if ($a != 'print_tmdt_pdf')
 				<tr align="left">
 					<td align=left></td>
 					<td>
-						Tổng kinh phí: <span id=khcn_print_r01_tong_kinh_phi<?php echo $key; ?> style='line-height: 15pt'></span> <em>(triệu đồng)</em>, gồm
+						Tổng kinh phí: <span id=khcn_print_r01_tong_kinh_phi<?php echo $key; ?> style='line-height: 15pt'></span>, gồm
 						<div align=left style='margin: 5px 0 0 0; line-height: 15pt' id=khcn_print_r01_tong_kinh_phi_ct<?php echo $key; ?>></div>
 					</td>
 				</tr>
@@ -164,7 +164,14 @@ if ($a != 'print_tmdt_pdf')
 				<tr align="left">
 					<td align=left></td><td align=left><span id=khcn_print_r01_tom_tat_hoat_dong_nc<?php echo $key; ?>></span></td>
 				</tr>
-
+				
+				<tr class="tr_dongchunhiem_<?php echo $key; ?>"  align="left">
+					<td align=left></td><td><b>Đồng chủ nhiệm</b></td>
+				</tr>
+				<tr class="tr_dongchunhiem_<?php echo $key; ?>" align="left">
+					<td align=left></td><td><span id=khcn_print_r01_dong_chu_nhiem<?php echo $key; ?> style='line-height: 15pt'></span></td>
+				</tr>
+				
 				<tr align="left">
 					<td align=left><b><?php echo "A".$z++."."; ?></b></td><td><b>Cơ quan chủ trì</b></td>
 				</tr>
@@ -188,7 +195,7 @@ if ($a != 'print_tmdt_pdf')
 						<table id=khcn_print_r01_A9_table_nhanluc<?php echo $key; ?> cellspacing="0" cellpadding="5" border=1 class="fontcontent bordertable" border=1 style='width:100%'>
 							<thead>
 								<tr style='height:20px;font-weight:bold'>
-									<td align=center>TT</td><td align=left>Học hàm, học vị, Họ và tên</td><td align=left>SHCC/MSSV</td><td align=left>Đơn vị công tác</td><td align=center title="Số tháng làm việc quy đổi">Số thàng làm việc quy đổi</td>
+									<td align=center>TT</td><td align=left>Học hàm, học vị, Họ và tên</td><td align=left>SHCC/MSSV</td><td align=left>Đơn vị công tác</td><td align=center title="Số tháng làm việc quy đổi">Số tháng làm việc quy đổi</td>
 								</tr>
 							</thead>
 							<thead>
@@ -442,19 +449,29 @@ if ($a != 'print_tmdt_pdf')
 								<td align=left valign=top width=50% >
 									<div style="width:300px; margin-top:20px" align=center>
 										<span><em>Ngày ...... tháng ...... năm .........</em></span><br/>
-										<b>Chủ tịch hội đồng thẩm định <sup>i</sup></b><br/>
-										<i>(Họ tên, chữ ký)</i>
+										<b>Chủ tịch hội đồng thẩm định <sup>i</sup></b>
 										<br/><br/><br/><br/><br/><br/>
 										
 									</div>
 								</td>
 								<td align=right width=50%>
 									<div style="width:400px; margin-top:20px" align=center>
-										<span><em>Ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span><br/>
-										<b>Chủ nhiệm</b><br/>
-										<i>(Họ tên và chữ ký)</i>
-										<br/><br/><br/><br/><br/><br/>
-										<b><span id=khcn_print_r01_chunhiemkyten<?php echo $key; ?>></span></b>
+										<span><em>Ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span>
+										<table width=100% class=fontcontent>
+											<tr>
+												<td align=center>
+													<b>Chủ nhiệm</b>
+													<br><br><br><br>
+													<b><span id=khcn_print_r01_chunhiemkyten<?php echo $key; ?> ></span></b>
+												</td>
+												<td align=center id="td_dongchunhiem<?php echo $key; ?>">
+													<b>Đồng chủ nhiệm</b>
+													<br><br><br><br>
+													<b><span id=khcn_print_r01_dongchunhiemkyten<?php echo $key; ?>></span></b>
+												</td>
+											</tr>
+										</table>
+										
 									</div>
 								</td>
 							</tr>
@@ -462,8 +479,7 @@ if ($a != 'print_tmdt_pdf')
 								<td align=left valign=top width=50% >
 									<div style="width:300px; margin-top:20px" align=center>
 										<span><em>Ngày ...... tháng ...... năm .........</em></span><br/>
-										<b>Cơ quan chủ trì <sup>ii</sup></b><br/>
-										<i>(Họ tên, chữ ký, đóng dấu)</i>
+										<b>Cơ quan chủ trì <sup>ii</sup></b>
 										<br/><br/><br/><br/><br/><br/>
 										
 									</div>
@@ -471,8 +487,7 @@ if ($a != 'print_tmdt_pdf')
 								<td align=right width=50%>
 									<div style="width:400px; margin-top:20px" align=center>
 										<span><em>Ngày ...... tháng ...... năm .........</em></span><br/>
-										<b>Cơ quan chủ quản <sup>iii</sup></b><br/>
-										<i>(Họ tên, chữ ký, đóng dấu)</i>
+										<b>Cơ quan chủ quản <sup>iii</sup></b>
 										<br/><br/><br/><br/><br/><br/>
 										
 									</div>
@@ -564,6 +579,7 @@ $(function(){
 	
 	return false;
  });
+ $("#print_tmdt_r01_btn_printpdf<?php echo $key; ?>").button("disable");
  
  gv_processing_diglog("open","Khoa học & Công nghệ" ,"Đang xử lý ... vui lòng chờ");
  urlgetdata = "khcn/khcn_thuyetminhdtkhcn_process.php";
@@ -580,7 +596,7 @@ $(function(){
    url: urlgetdata,
    success: function(data) {
 		if (data.success){
-			var nhomnganh = '', kinhphi='', chunhiem='', chutri='', strtmp;
+			var nhomnganh = '', kinhphi='', chunhiem='', dongchunhiem='', chutri='', strtmp;
 			$('#khcn_print_r01_masodt<?php echo $key;?>').html(reverse_escapeJsonString(data.info.masodetai));
 			$('#khcn_print_r01_ten_dt_viet<?php echo $key; ?>').html(reverse_escapeJsonString(data.info.tendetaivn));
 			$('#khcn_print_r01_ten_dt_anh<?php echo $key; ?>').html(reverse_escapeJsonString(data.info.tendetaien));
@@ -604,13 +620,14 @@ $(function(){
 			$("#khcn_print_r01_tg_thuc_hien<?php echo $key; ?>").html(reverse_escapeJsonString(data.info.thoigianthuchien) + " tháng (kể từ khi được duyệt)");
 			
 			// A5 Kinh phí
-			$("#khcn_print_r01_tong_kinh_phi<?php echo $key; ?>").html(reverse_escapeJsonString(data.info.tongkinhphi));
-			if (data.info.kinhphidhqg){
-				kinhphi = "- Kinh phí từ ĐHQG-HCM: " + data.info.kinhphidhqg + " triệu đồng";}
+			$("#khcn_print_r01_tong_kinh_phi<?php echo $key; ?>").html( (parseFloat(reverse_escapeJsonString(data.info.tongkinhphi))*1000000).formatMoney(0,',','.') + ' đồng' + ' (Bằng chữ: '+reverse_escapeJsonString(data.info.chutongkinhphi)+')');
+			kinhphi = "- Kinh phí từ ĐHQG-HCM: " + (parseFloat(reverse_escapeJsonString(data.info.kinhphidhqg))*1000000).formatMoney(0,',','.') + ' đồng' + ' (Bằng chữ: '+reverse_escapeJsonString(data.info.chukinhphidhqg)+')';
+				
 			if (data.info.kinhphihuydong){
-				kinhphi += "<br>- Kinh phí từ nguồn huy động: " + reverse_escapeJsonString(data.info.kinhphihuydong) + " triệu đồng, trong đó:";
-				kinhphi += "<br> &nbsp; &nbsp; &nbsp; Vốn tự có: " + reverse_escapeJsonString(data.info.vontuco) + " triệu đồng";
-				kinhphi += "<br> &nbsp; &nbsp; &nbsp; Vốn khác: " + reverse_escapeJsonString(data.info.vonkhac) + " triệu đồng";
+				kinhphi += "<br>- Kinh phí từ nguồn huy động: " + (parseFloat(reverse_escapeJsonString(data.info.kinhphihuydong))*1000000).formatMoney(0,',','.') + ' đồng' + ' (Bằng chữ: '+reverse_escapeJsonString(data.info.chukinhphihuydong)+'), trong đó:';
+				kinhphi += "<br> &nbsp; &nbsp; &nbsp; Vốn tự có: " + (parseFloat(reverse_escapeJsonString(data.info.vontuco))*1000000).formatMoney(0,',','.') + ' đồng' + ' (Bằng chữ: '+reverse_escapeJsonString(data.info.chuvontuco)+')';
+				kinhphi += "<br> &nbsp; &nbsp; &nbsp; Vốn khác: " + (parseFloat(reverse_escapeJsonString(data.info.vonkhac))*1000000).formatMoney(0,',','.') + ' đồng' + ' (Bằng chữ: '+reverse_escapeJsonString(data.info.chuvonkhac)+')';
+					
 				if (data.info.tochuctaitrokhac){
 					kinhphi += "<br> Đã nộp hồ sơ đề nghị tài trợ từ nguồn kinh phí khác, tổ chức tài trợ: " + reverse_escapeJsonString(data.info.tochuctaitrokhac);
 				}
@@ -619,15 +636,28 @@ $(function(){
 			
 			// A6
 			chunhiem = 'Học hàm, học vị, họ và tên: ' + reverse_escapeJsonString(data.info.cndt_hh_hv_ho_ten);
-			chunhiem += '<br>Ngày, tháng, năm sinh: ' + reverse_escapeJsonString(data.info.cndt_ngay_sinh) + ' Phái: ' + data.info.cndt_phai;
-			chunhiem += '<br>Số CMND: ' + reverse_escapeJsonString(data.info.cndt_so_cmnd) + ' Ngày cấp: ' + reverse_escapeJsonString(data.info.cndt_ngay_cap) + ' Nơi cấp: ' + reverse_escapeJsonString(data.info.cndt_noi_cap);
+			chunhiem += '<br>Ngày, tháng, năm sinh: ' + reverse_escapeJsonString(data.info.cndt_ngay_sinh) + ', Phái: ' + data.info.cndt_ten_phai;
+			chunhiem += '<br>Số CMND: ' + reverse_escapeJsonString(data.info.cndt_so_cmnd) + ', Ngày cấp: ' + reverse_escapeJsonString(data.info.cndt_ngay_cap) + ', Nơi cấp: ' + reverse_escapeJsonString(data.info.cndt_ten_noi_cap);
 			chunhiem += '<br>Mã số thuế cá nhân: ' + reverse_escapeJsonString(data.info.cndt_ms_thue);
 			chunhiem += '<br>Số tài khoản: ' + reverse_escapeJsonString(data.info.cndt_so_tai_khoan) + ' Tại ngân hàng: ' + reverse_escapeJsonString(data.info.cndt_ngan_hang);
 			chunhiem += '<br>Địa chỉ cơ quan: ' + reverse_escapeJsonString(data.info.cndt_dia_chi_cq);
-			chunhiem += '<br>Điện thoại: ' + reverse_escapeJsonString(data.info.cndt_dien_thoai) + ' Email: ' + reverse_escapeJsonString(data.info.cndt_email);
+			chunhiem += '<br>Điện thoại: ' + reverse_escapeJsonString(data.info.cndt_dien_thoai) + ', Email: ' + reverse_escapeJsonString(data.info.cndt_email);
 			$("#khcn_print_r01_chu_nhiem<?php echo $key; ?>").html(chunhiem);
 			
 			$("#khcn_print_r01_tom_tat_hoat_dong_nc<?php echo $key; ?>").html(reverse_escapeJsonString(data.info.tom_tat_hd_nc, 1));
+			
+			if (data.info.dcndt_hh_hv_ho_ten != ""){
+				dongchunhiem = 'Học hàm, học vị, họ và tên: ' + reverse_escapeJsonString(data.info.dcndt_hh_hv_ho_ten);
+				dongchunhiem += '<br>Ngày, tháng, năm sinh: ' + reverse_escapeJsonString(data.info.dcndt_ngay_sinh) + ', Phái: ' + data.info.dcndt_ten_phai;
+				dongchunhiem += '<br>Số CMND: ' + reverse_escapeJsonString(data.info.dcndt_so_cmnd) + ', Ngày cấp: ' + reverse_escapeJsonString(data.info.dcndt_ngay_cap) + ', Nơi cấp: ' + reverse_escapeJsonString(data.info.dcndt_ten_noi_cap);
+				dongchunhiem += '<br>Mã số thuế cá nhân: ' + reverse_escapeJsonString(data.info.dcndt_ms_thue);
+				dongchunhiem += '<br>Số tài khoản: ' + reverse_escapeJsonString(data.info.dcndt_so_tai_khoan) + ' Tại ngân hàng: ' + reverse_escapeJsonString(data.info.dcndt_ngan_hang);
+				dongchunhiem += '<br>Địa chỉ cơ quan: ' + reverse_escapeJsonString(data.info.dcndt_dia_chi_cq);
+				dongchunhiem += '<br>Điện thoại: ' + reverse_escapeJsonString(data.info.dcndt_dien_thoai) + ', Email: ' + reverse_escapeJsonString(data.info.dcndt_email);
+				$("#khcn_print_r01_dong_chu_nhiem<?php echo $key; ?>").html(dongchunhiem);
+			}else{
+				$(".tr_dongchunhiem_<?php echo $key; ?>").hide();
+			}
 			
 			// A7
 			chutri = 'Tên cơ quan: ' + reverse_escapeJsonString(data.info.cqct_ten_co_quan);
@@ -655,7 +685,7 @@ $(function(){
 			
 			if (data.nhanluc_cbgd.length){
 				for (var i=0; i<data.nhanluc_cbgd.length; i++){
-					$( "#khcn_print_r01_A9_table_nhanluc<?php echo $key; ?> tbody:eq(0)" ).append( "<tr style='font-size:12px;' >" +
+					$( "#khcn_print_r01_A9_table_nhanluc<?php echo $key; ?> tbody:eq(0)" ).append( "<tr>" +
 					"<td align=center>" + (i+1) + "</td>" +
 					"<td align=left>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].ho_ten) + "</td>" +
 					"<td align=left>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].shcc) +  "</td>" +
@@ -669,7 +699,7 @@ $(function(){
 			}
 			if (data.nhanluc_sv.length){
 				for (var i=0; i<data.nhanluc_sv.length; i++){
-					$( "#khcn_print_r01_A9_table_nhanluc<?php echo $key; ?> tbody:eq(1)" ).append( "<tr style='font-size:12px;' >" +
+					$( "#khcn_print_r01_A9_table_nhanluc<?php echo $key; ?> tbody:eq(1)" ).append( "<tr>" +
 					"<td align=center>" + (i+1) + "</td>" +
 					"<td align=left>" + reverse_escapeJsonString(data.nhanluc_sv[i].ho_ten) + " ("+reverse_escapeJsonString(data.nhanluc_sv[i].ma_sv)+")"+ "</td>" +
 					"<td align=left>" + reverse_escapeJsonString(data.nhanluc_sv[i].ma_sv) + "</td>" +
@@ -682,7 +712,13 @@ $(function(){
 				$( "#khcn_print_r01_A9_table_nhanluc<?php echo $key; ?> .tr_ncs_cao_hoc<?php echo $key; ?>" ).remove();
 			}
 			
+			// Chu ky dong chu nhiem, chu nhiem
 			$("#khcn_print_r01_chunhiemkyten<?php echo $key; ?>").html(reverse_escapeJsonString(data.info.cndt_hh_hv_ho_ten));
+			if (data.info.dcndt_hh_hv_ho_ten!=''){
+				$("#khcn_print_r01_dongchunhiemkyten<?php echo $key; ?>").html(reverse_escapeJsonString(data.info.dcndt_hh_hv_ho_ten));
+			}else{
+				$("#td_dongchunhiem<?php echo $key; ?>").remove();
+			}
 			
 			
 			// Get MO TA NGHIEN CUU
@@ -702,7 +738,7 @@ $(function(){
 						$('#khcn_print_r01_tai_lieu_tk<?php echo $key; ?>').html(reverse_escapeJsonString(data.mota.tai_lieu_tk));
 						if (data.chuyengianc.length){
 							for (var i=0; i<data.chuyengianc.length; i++){
-								$( "#khcn_print_r01_B4_table_chuyengianc<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+								$( "#khcn_print_r01_B4_table_chuyengianc<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=center>" + (i+1) + "</td>" +
 								"<td align=left>" + reverse_escapeJsonString(data.chuyengianc[i].ho_ten) + "</td>" +
 								"<td align=left>" + reverse_escapeJsonString(data.chuyengianc[i].huong_nc_chuyen_sau) + "</td>" +
@@ -725,11 +761,11 @@ $(function(){
 						
 						if (data.anphamkhoahoc.length){
 							for (var i=0; i<data.anphamkhoahoc.length; i++){
-								$( "#khcn_print_r01_B6_table_anphamkh<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+								$( "#khcn_print_r01_B6_table_anphamkh<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=left colspan=5>" + reverse_escapeJsonString(data.anphamkhoahoc[i].ten_an_pham_kh) + "</td>" +
 								"</tr>" );
 								
-								$( "#khcn_print_r01_B6_table_anphamkh<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+								$( "#khcn_print_r01_B6_table_anphamkh<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=center>" + (i+1) + "</td>" +
 								"<td align=left>" + reverse_escapeJsonString(data.anphamkhoahoc[i].ten_bb_sach_dk) + "</td>" +
 								"<td align=center>" + reverse_escapeJsonString(data.anphamkhoahoc[i].so_luong) + "</td>" +
@@ -741,7 +777,7 @@ $(function(){
 						
 						if (data.sohuutritue.length){
 							for (var i=0; i<data.sohuutritue.length; i++){
-								$( "#khcn_print_r01_B6_table_sohuutritue<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+								$( "#khcn_print_r01_B6_table_sohuutritue<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=center>" + (i+1) + "</td>" +
 								"<td align=left>" + reverse_escapeJsonString(data.sohuutritue[i].ten_hinh_thuc) + "</td>" +
 								"<td align=center>" + reverse_escapeJsonString(data.sohuutritue[i].so_luong) + "</td>" +
@@ -753,7 +789,7 @@ $(function(){
 						
 						if (data.sanphammem.length){
 							for (var i=0; i<data.sanphammem.length; i++){
-								$( "#khcn_print_r01_B6_table_sanphammem<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+								$( "#khcn_print_r01_B6_table_sanphammem<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=center>" + (i+1) + "</td>" +
 								"<td align=left>" + reverse_escapeJsonString(data.sanphammem[i].ten_san_pham) + "</td>" +
 								"<td align=center>" + reverse_escapeJsonString(data.sanphammem[i].chi_tieu_danh_gia) + "</td>" +
@@ -764,7 +800,7 @@ $(function(){
 						
 						if (data.sanphamcung.length){
 							for (var i=0; i<data.sanphamcung.length; i++){
-								$( "#khcn_print_r01_B6_table_sanphamcung<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+								$( "#khcn_print_r01_B6_table_sanphamcung<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=center>" + (i+1) + "</td>" +
 								"<td align=left>" + reverse_escapeJsonString(data.sanphamcung[i].ten_san_pham) + "</td>" +
 								"<td align=center>" + reverse_escapeJsonString(data.sanphamcung[i].don_vi_do) + "</td>" +
@@ -780,7 +816,7 @@ $(function(){
 						
 						if (data.ketquadaotao.length){
 							for (var i=0; i<data.ketquadaotao.length; i++){
-								$( "#khcn_print_r01_B6_table_ketquadaotao<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+								$( "#khcn_print_r01_B6_table_ketquadaotao<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=center>" + (i+1) + "</td>" +
 								"<td align=left>" + reverse_escapeJsonString(data.ketquadaotao[i].ten_capdt) + "</td>" +
 								"<td align=center>" + reverse_escapeJsonString(data.ketquadaotao[i].so_luong) + "</td>" +
@@ -794,23 +830,25 @@ $(function(){
 						$('#khcn_print_r01_B7_ud_kqnc_chuyen_giao<?php echo $key; ?>').html(reverse_escapeJsonString(data.mota.ud_kqnc_chuyen_giao));
 						
 						// B8 tong hop kinh phi
-						var tongkhoanchi = 0;
-						for (var i=0; i<data.khoanchiphi.length; i++){ tongkhoanchi += parseInt(data.khoanchiphi[i].kinh_phi);}
+						var tongkhoanchi = 0, tongphantram=0;
+						for (var i=0; i<data.khoanchiphi.length; i++){ tongkhoanchi += parseFloat(data.khoanchiphi[i].kinh_phi);}
 						for (var i=0; i<data.khoanchiphi.length; i++){
-							$( "#khcn_print_r01_B8_table_khoanchiphi<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+							$( "#khcn_print_r01_B8_table_khoanchiphi<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=center>" + (i+1) + "</td>" +
 								"<td align=left>" + reverse_escapeJsonString(data.khoanchiphi[i].ten_khoan_chi_phi) + "</td>" +
-								"<td align=right>" + reverse_escapeJsonString(data.khoanchiphi[i].kinh_phi) + "</td>" +
-								"<td align=right>" + reverse_escapeJsonString(data.khoanchiphi[i].khoan_chi) + "</td>" +
-								"<td align=right>" + ((parseInt(data.khoanchiphi[i].kinh_phi)/tongkhoanchi)*100).formatMoney(2,'.',',') + "%</td>" +
+								"<td align=right>" + parseFloat(reverse_escapeJsonString(data.khoanchiphi[i].kinh_phi)).formatMoney(2,',','.') + "</td>" +
+								"<td align=right>" + parseFloat(reverse_escapeJsonString(data.khoanchiphi[i].khoan_chi)).formatMoney(2,',','.') + "</td>" +
+								"<td align=right>" + ((parseFloat(data.khoanchiphi[i].kinh_phi)/tongkhoanchi)*100).formatMoney(2,'.',',') + "%</td>" +
 								"</tr>" );
+							tongphantram += (parseFloat(data.khoanchiphi[i].kinh_phi)/tongkhoanchi)*100;
 						}
-						$( "#khcn_print_r01_B8_table_khoanchiphi<?php echo $key; ?> tbody" ).append( "<tr style='font-size:12px;' >" +
+						
+						$( "#khcn_print_r01_B8_table_khoanchiphi<?php echo $key; ?> tbody" ).append( "<tr>" +
 								"<td align=center></td>" +
 								"<td align=left><b>Cộng:</b></td>" +
-								"<td align=right>" + tongkhoanchi + "</td>" +
+								"<td align=right>" + tongkhoanchi.formatMoney(2,',','.') + "</td>" +
 								"<td align=right></td>" +
-								"<td align=right>100%</td>" +
+								"<td align=right>"+tongphantram.formatMoney(0,'.',',')+"%</td>" +
 								"</tr>" );
 						
 						<?php
