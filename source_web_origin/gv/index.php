@@ -1201,7 +1201,9 @@ parse_str($a);
 								{
 									echo "<li ><a id='khcn_dangky_tmdt' href='#'><img border='0' width='48' height='48' src='icons/register-icon.png' /><br/>Đăng ký<br>Thuyết minh đề tài</a></li>";
 								}
-								
+								if (isset($F054)){
+									echo "<li ><a id='XemPhanBienDeTai_All' href='#'><img border='0' width='48' height='48' src='icons/Hire-me-icon.png' /><br>Phản biện đề tài</a></li>";
+								}
 								if (isset($F050))
 								{
 									echo "<li ><a id='khcn_quanly_tmdt' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý<br>Thuyết minh đề tài</a></li>";
@@ -1270,9 +1272,7 @@ parse_str($a);
 									echo "<li ><a id='printTTGV_LLKH_DS' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý<br/>Lý Lịch Khoa Học</a></li>";
 								}
 								
-								if (isset($F054)){
-									echo "<li ><a id='XemPhanBienDeTai_All' href='#'><img border='0' width='48' height='48' src='icons/Hire-me-icon.png' /><br>Phản biện đề tài</a></li>";
-								}
+								
 								
 							?>
 						</ul>

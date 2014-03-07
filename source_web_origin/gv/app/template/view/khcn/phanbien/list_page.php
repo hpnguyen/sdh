@@ -49,8 +49,8 @@ foreach($listItems as $y => $row)
 	  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
 		<td width="50px" align='left'>Mã ĐT</td>
 		<td align="left">Tên Đề Tài</td>
-		<td width="200px" align="left">Trạng Thái</td>
-		<td width="150px" align="left">Kết Quả Trả Lời</td>
+		<td width="110px" align="left">Trạng Thái</td>
+		<td width="130px" align="left">Kết Quả Trả Lời</td>
 		<td width="100px" align="center">Chi tiết Link TMĐT</td>
 		<td width="100px" align="center">Link LLKH Người Tham Gia</td>
 		<td width="135px" align="center"></td>
