@@ -28,7 +28,7 @@ foreach($listItems as $y => $row)
 	$listArrayDataString .= "'".$row["ten_de_tai_vn"]."',";
 	$listArrayDataString .= "'".$row["ten_tinh_trang"]."',";
 	$listArrayDataString .= "'".$row["text_kq_phan_hoi"]."',";
-	$listArrayDataString .= "'<div id= \"".$formKey."linkClickViewReportTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewReportTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">Xem</div>',";
+	$listArrayDataString .= "'<div id= \"".$formKey."linkClickViewReportTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewReportTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;Xem</div>',";
 	$listArrayDataString .= "'',";
 	$url = $help->getModuleActionRouteUrl('khcn/phanbien/ajaxdialog?hisid='.$_GET['hisid'])."&d=".$dothoc."&madetai=".$row["ma_thuyet_minh_dt"];
 	//Check het_han_phan_bien is '1' will not render button	
@@ -47,10 +47,10 @@ foreach($listItems as $y => $row)
 	<table width="100%" cellpadding="5" cellspacing="0" border="0" class="display" id="<?php echo $formKey ?>dataGridTable" style="font-size: 13px">
 		<thead>
 	  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
-		<td width="50px" align='center'>Mã ĐT</td>
-		<td align="center">Tên Đề Tài</td>
-		<td width="200px" align="center">Trạng Thái</td>
-		<td width="150px" align="center">Kết Quả Trả Lời</td>
+		<td width="50px" align='left'>Mã ĐT</td>
+		<td align="left">Tên Đề Tài</td>
+		<td width="200px" align="left">Trạng Thái</td>
+		<td width="150px" align="left">Kết Quả Trả Lời</td>
 		<td width="100px" align="center">Chi tiết Link TMĐT</td>
 		<td width="100px" align="center">Link LLKH Người Tham Gia</td>
 		<td width="135px" align="center"></td>
@@ -78,8 +78,8 @@ foreach($listItems as $y => $row)
 </div>
 <script>
 function <?php echo $formKey ?>InitReady(){
-	$( ".<?php echo $formKey ?>linkClickViewPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-button'} });
-	$( ".<?php echo $formKey ?>linkClickViewReportTab" ).button({ icons: {primary:'ui-icon ui-icon-button ui-icon-newwin newwin'} });
+	$( ".<?php echo $formKey ?>linkClickViewPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-button ui-icon-newwin'} });
+	$( ".<?php echo $formKey ?>linkClickViewReportTab" ).button({ icons: {primary:'ui-icon ui-icon-button ui-icon-newwin'} });
 	$( ".<?php echo $formKey ?>linkClickViewPrintPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
 	
 	$("#<?php echo $formKey ?>dataGridTable tbody tr").on("click",function(event) {
@@ -254,6 +254,18 @@ $(document).ready(function() {
 		},
 		"fnDrawCallback": function() {
 			<?php echo $formKey ?>InitReady();
+		},
+		"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
+			
+			if (aaData[3] == "Đồng ý phản biện"){
+				$('td:eq(3)', nRow).css({'color': 'green', 'font-weight': 'bold'});
+			}else if (aaData[3] == "Không đồng ý"){
+				$('td:eq(3)', nRow).css({'color': 'red', 'font-weight': 'bold'});
+			}else if (aaData[3] == "Chưa trả lời"){
+				$('td:eq(3)', nRow).css({'color': 'blue', 'font-weight': 'bold'});
+			}
+			
+			return nRow;
 		}
 	});
 	

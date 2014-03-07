@@ -4,16 +4,16 @@
 		font-weight: bold;
 	}
 	.<?php echo $formKey ?>phan_bien_top_title {
-		padding: 20px 0 25px 0;
+		padding: 10px 0 15px 0;
 	}
 </style>
 <div id="<?php echo $formKey ?>_main_content_div" >
 	<div align="center" class="<?php echo $formKey ?>phan_bien_top_title">
-		<span class="<?php echo $formKey ?>phan_bien_title">Danh sách đề tài </span>
+		<span class="<?php echo $formKey ?>phan_bien_title">Danh sách Đề tài phản biện năm </span>
 		<select name="<?php echo $formKey ?>_select_dot_hoc" id="<?php echo $formKey ?>_select_dot_hoc" style="font-size:15px;">
 		<?php 
 			foreach ($listYear as $item) {
-				echo "<option value='".$item["t_year"]."'".($item["selected"] != null ? " selected=\"selected\"": '').">" .$item["t_year"]. "</option>";
+				echo "<option value='".$item["t_year"]."'".($item["selected"] != null ? " selected=\"selected\"": '').">" .($item["t_year"]+1). "</option>";
 			}
 		?>
 		</select>
