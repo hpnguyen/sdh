@@ -42,7 +42,15 @@ foreach($listItems as $y => $row)
 	$listArrayDataString .= "'".$row["ma_thuyet_minh_dt"]."',";
 	$listArrayDataString .= "'".$row["ten_de_tai_vn"]."',";
 	// $listArrayDataString .= "'".$row["ten_tinh_trang"]."',";
-	$listArrayDataString .= "'".$row["text_kq_phan_hoi"]."',";
+	if ((int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == null){
+		$listArrayDataString .= "'<select id=\"".$formKey."selectClickPhanBienPhanHoi_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."selectClickPhanBienPhanHoi\"  rel=\"".$row["ma_thuyet_minh_dt"]."\">";
+		$listArrayDataString .= "<option value=\"\" selected=\"selected\">Chưa trả lời</option>";
+		$listArrayDataString .= "<option value=\"1\">Chọn đồng ý</option>";
+		$listArrayDataString .= "<option value=\"0\">Chọn không đồng ý</option>";
+		$listArrayDataString .= "</select>',";
+	}else{
+		$listArrayDataString .= "'".$row["text_kq_phan_hoi"]."',";
+	}
 	$listArrayDataString .= "'<div id= \"".$formKey."linkClickViewReportTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewReportTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;Xem</div>',";
 	// $listArrayDataString .= "'',";
 	$url = $help->getModuleActionRouteUrl('khcn/phanbien/ajaxdialog?hisid='.$_GET['hisid'])."&d=".$dothoc."&madetai=".$row["ma_thuyet_minh_dt"];
@@ -251,6 +259,60 @@ function <?php echo $formKey ?>InitReady(){
 		}else{
 			alert("Không có mẫu để xem");
 		}
+	});
+	
+	$(".<?php echo $formKey ?>selectClickPhanBienPhanHoi").change(function(){
+		var that = this;
+		
+		if($(that).val() != ''){
+			var myWarningMessage = "Bạn xác định không đồng ý phản biện đề tài này ?"; 
+			var sayYes = $(that).val() == '1';
+			var myURL = '<?php echo $help->getModuleActionRouteUrl('khcn/phanbien/no?hisid='.$_GET['hisid'])."&d=".$dothoc; ?>';
+	
+			if(sayYes){
+				myWarningMessage = "Bạn xác định đồng ý phản biện đề tài này ?";
+				myURL = '<?php echo $help->getModuleActionRouteUrl('khcn/phanbien/yes?hisid='.$_GET['hisid'])."&d=".$dothoc; ?>';
+			}
+			
+			jConfirm(myWarningMessage, 'Xác nhận', function(r) {
+				if(r){
+					$.ajax({
+						type: "POST",
+						url: myURL,
+						data: {'ma_thuyet_minh_dt' : $(that).attr('rel')},
+						beforeSend: function(xhr){
+							gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
+						},
+						success: function(data) {
+							gv_processing_diglog("close");
+							
+							if(data.status == '0') {
+								jAlert(data.message, 'Thông báo');
+							}else{
+								var currentRow = $(that).parent().parent();
+								var column2 = currentRow.find('td').eq(2);
+								
+								if(sayYes){
+									//Confirm yes
+									var button = currentRow.find('td').eq(4).find('.<?php echo $formKey ?>linkClickViewPhanBienTab');
+									button.find('span').html('Phản biện');
+									column2.html('Đồng ý phản biện').removeClass('type2').addClass('type1');
+								}else{
+									column2.html('Không đồng ý').removeClass('type2').addClass('type0');
+								}
+							}
+						},
+						complete: function(xhr,status){
+							$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
+						}
+					});
+				}else{
+					$(that).val('');
+				}
+			});
+		}
+		
+			
 	});
 }
 

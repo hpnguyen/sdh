@@ -68,4 +68,16 @@ class NckhPhanCongPhanBienModel extends BaseTable {
 		}
 		return $ret;
 	}
+	
+	public function updateYes($madetai, $macb) {
+		$this->getUpdate(array('kq_phan_hoi' => 1, 'ngay_phan_hoi' => 'SYSDATE'))
+		->where("ma_thuyet_minh_dt =  '".$madetai."' and fk_ma_can_bo = '".$macb."'")
+		->execute(true, array());
+	}
+	
+	public function updateNo($madetai, $macb) {
+		$this->getUpdate(array('kq_phan_hoi' => 0, 'ngay_phan_hoi' => 'SYSDATE'))
+		->where("ma_thuyet_minh_dt =  '".$madetai."' and fk_ma_can_bo = '".$macb."'")
+		->execute(true, array());
+	}
 }

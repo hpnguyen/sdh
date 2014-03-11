@@ -71,6 +71,8 @@ khcn:
       list:
       save:
       ajaxdialog:
+      yes:
+      no:
 login:
   Login:
     Index:

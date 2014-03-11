@@ -1160,9 +1160,9 @@ $hoten = $resDM["HO_TEN"][0];
 	<div style='margin: 5px 0 5px 0;' align=left class=heading>Phản hồi mặc định</div>
 	<div style='margin: 5px 0 5px 0;' align=left >
 		<select id=khcn_ql_diag_phanbien_add_tmdt_kq name=khcn_ql_diag_phanbien_add_tmdt_kq  style='width:100%; height:25px; padding: 2px; font-size:14px' >
-			<!--<option value="">Chưa trả lời</option>-->
-			<option value="1" selected>Đồng ý phản biện</option>
-			<!--<option value="0">Không phản biện</option>-->
+			<option value="">Chưa trả lời</option>
+			<option value="1">Đồng ý phản biện</option>
+			<option value="0">Không phản biện</option>
 		</select>
 	</div>
 	<div style='margin: 5px 0 5px 0;' align=left class=heading>Họ tên</div>
@@ -4049,25 +4049,34 @@ function khcn_ql_remove_ketquadaotao(pindex, ploai){
 }
 
 function khcn_ql_remove_phanbien(pindex){
-	gv_processing_diglog("open","Khoa học & Công nghệ", "Đang xóa dữ liệu ...");
-	i = pindex + 1;
-	t = document.getElementById('khcn_ql_frm_edit_dtkhcn_table_phanbien');
-	macb = t.rows[i].cells[0].innerHTML;
-	//alert(i + ' ' + macb);
-	dataString = 'a=removephanbien&m='+khcn_ql_matm_selected+ '&mcb='+macb;
 	
-	xreq = $.ajax({
-	  type: 'POST', dataType: "json", data: dataString,
-	  url: khcn_ql_linkdata,
-	  success: function(data) {
-		gv_processing_diglog("close");
-		if (data.success == 1){
-			t.deleteRow( i );
-		}else{
-			gv_open_msg_box("<font style='color:red;'>Không thể xóa thông tin.</font><p>Chi tiết lỗi: <br/><div style='margin: 5px 0 0 5px'>" + reverse_escapeJsonString(data.msgerr)+'</div></p>', 'alert', 250, 180, true);
+	jConfirm('Bạn muốn xoá thông tin mời phản biện này?', 'Xác nhận xoá thông tin mời phản biện', function(r) {
+		//jAlert('Confirmed: ' + r, 'Confirmation Results');
+		if (r){
+			gv_processing_diglog("open","Khoa học & Công nghệ", "Đang xóa dữ liệu ...");
+			i = pindex + 1;
+			t = document.getElementById('khcn_ql_frm_edit_dtkhcn_table_phanbien');
+			macb = t.rows[i].cells[0].innerHTML;
+			//alert(i + ' ' + macb);
+			dataString = 'a=removephanbien&m='+khcn_ql_matm_selected+ '&mcb='+macb;
+			
+			xreq = $.ajax({
+			  type: 'POST', dataType: "json", data: dataString,
+			  url: khcn_ql_linkdata,
+			  success: function(data) {
+				gv_processing_diglog("close");
+				if (data.success == 1){
+					t.deleteRow( i );
+				}else{
+					gv_open_msg_box("<font style='color:red;'>Không thể xóa thông tin.</font><p>Chi tiết lỗi: <br/><div style='margin: 5px 0 0 5px'>" + reverse_escapeJsonString(data.msgerr)+'</div></p>', 'alert', 250, 180, true);
+				}
+			  }
+			});
 		}
-	  }
 	});
+	
+	
+	
 }
 
 function khcn_ql_edit_khoanchiphi(pindex, ploai){

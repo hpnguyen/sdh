@@ -100,6 +100,10 @@ parse_str($a);
 <script src="../js/jQuery.download.js"></script>
 <script src="../js/pgs.js"></script>
 
+<!-- jquery alerts Core files -->
+<script src="../js/jquery.alerts.js" type="text/javascript"></script>
+<link href="../css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
+
 <!-- fancybox -->
 	<!-- Add mousewheel plugin (this is optional) -->
 	<script type="text/javascript" src="../fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
@@ -1053,6 +1057,9 @@ parse_str($a);
 			switch ($link) {
 				case "DangKyThuyetMinhDeTai":
 					echo "$('#khcn_dangky_tmdt').click();";
+					break;
+				case "PhanBienDeTai":
+					echo "$('#XemPhanBienDeTai_All').click();";
 					break;
 			}
 			

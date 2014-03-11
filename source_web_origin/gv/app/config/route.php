@@ -122,6 +122,10 @@ $config = array(
 																'save' => array(
 																),
 																'ajaxdialog' => array(
+																),
+																'yes' => array(
+																),
+																'no' => array(
 																)
 								)
 				)

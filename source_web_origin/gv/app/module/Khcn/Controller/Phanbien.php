@@ -23,6 +23,11 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		return $model->checkEnableSaveEdit($madetai, $macb) && $modelNckhPhanCongPhanBien->checkEnableSaveUpdate($madetai, $macb);
 	}
 	
+	private function checkEnableDoYesOrNo($macb , $madetai){
+		$model = new NckhThuyetMinhDeTaiModel();
+		return $model->checkEnableSaveEdit($madetai, $macb);
+	}
+	
 	public	function indexAction(){
 		$template = new BaseTemplate("khcn/phanbien/index","default/index");
 		$template->formKey = 'xemPhanBienDeTaiIndex';
@@ -167,6 +172,40 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 				$this->renderJSON(array('status' => 0, 'message' => 'lỗi xử lý : '.$e->getMessage()));
 			}
 				
+		}
+	}
+	
+	public	function yesAction(){
+		$macb = $_SESSION['macb'];
+		$maDeTai = $this->getPost('ma_thuyet_minh_dt', null);
+		
+		if (! $this->checkEnableDoYesOrNo($macb, $maDeTai)){
+			$this->renderJSON(array('status' => 0, 'message' => 'Đã hết hạn phản biện đề tài.'));
+			die;
+		}
+		try {
+			$model = new NckhPhanCongPhanBienModel();
+			$model->updateYes($maDeTai, $macb);
+			$this->renderJSON(array('status' => 1, 'message' => 'Bạn đã được phép phản biện đề tài này.'));
+		} catch (Exception $e) {
+			$this->renderJSON(array('status' => 0, 'message' => 'lỗi xử lý : '.$e->getMessage()));
+		}
+	}
+	
+	public	function noAction(){
+		$macb = $_SESSION['macb'];
+		$maDeTai = $this->getPost('ma_thuyet_minh_dt', null);
+		
+		if (! $this->checkEnableDoYesOrNo($macb, $maDeTai)){
+			$this->renderJSON(array('status' => 0, 'message' => 'Đã hết hạn phản biện đề tài.'));
+			die;
+		}
+		try {
+			$model = new NckhPhanCongPhanBienModel();
+			$model->updateNo($maDeTai, $macb);
+			$this->renderJSON(array('status' => 1, 'message' => 'Bạn đã từ chối phản biện thành công.'));
+		} catch (Exception $e) {
+			$this->renderJSON(array('status' => 0, 'message' => 'lỗi xử lý : '.$e->getMessage()));
 		}
 	}
 }
