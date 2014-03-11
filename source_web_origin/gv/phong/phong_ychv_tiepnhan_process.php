@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', '1');
+//ini_set('display_errors', '1');
 
 function escapeWEB1($str) // Ap dung dc cho data json
 {
@@ -39,31 +39,71 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 if ($a=='checksession'){
 	die('{"success":"1"}'); 
-}else if ($a=='getname') {
-	$sqlstr="	SELECT ho || ' ' || ten ho_ten, to_char(ngay_sinh, 'dd/mm/yyyy') ngay_sinh, khoa, ten_nganh, noi_sinh, ma_bac
-				FROM view_hv_sdh
-				WHERE ma_hoc_vien = '$m'"; 
-	$stmt = oci_parse($db_conn, $sqlstr);
-	oci_execute($stmt);
-	$n = oci_fetch_all($stmt, $resDM);
-	oci_free_statement($stmt);
-	
-	//echo $sqlstr;
-	if ($resDM["HO_TEN"][0]!="")
-		echo '{"hoten":"'.escapeWEB($resDM["HO_TEN"][0]).'", "ngaysinh":"'.$resDM["NGAY_SINH"][0].'", "khoa":"'.$resDM["KHOA"][0].'", "tennganh":"'.escapeWEB($resDM["TEN_NGANH"][0]).'", "noisinh":"'.escapeWEB($resDM["NOI_SINH"][0]).'", "error":"0"}';
-	else
-		echo '{"hoten":"", "error":"1"}';
+}
+else if ($a=='getname') {
+	if (strlen($m)==7 || strlen($m)==8) { // truong hop nhap ma hv, thi sinh du thi
+		$sqlstr="	SELECT ho || ' ' || ten ho_ten, to_char(ngay_sinh, 'dd/mm/yyyy') ngay_sinh, khoa, ten_nganh, noi_sinh, ma_bac
+					FROM view_hv_sdh
+					WHERE ma_hoc_vien = '$m'"; 
+		$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+		
+		//echo $sqlstr;
+		if ($resDM["HO_TEN"][0]!=""){
+			echo '{"hoten":"'.escapeJsonString($resDM["HO_TEN"][0]).'", "ngaysinh":"'.$resDM["NGAY_SINH"][0].'", "khoa":"'.$resDM["KHOA"][0].'", "tennganh":"'.escapeJsonString($resDM["TEN_NGANH"][0]).'", "noisinh":"'.escapeJsonString($resDM["NOI_SINH"][0]).'", "error":"0"}';
+		}else{
+			echo '{"hoten":"", "error":"1"}';
+		}
+	}elseif (strlen($m)==2){ // Truong hop nhap ma khoa
+		$sqlstr="SELECT ten_khoa FROM khoa WHERE ma_khoa_truong = '$m'"; 
+		$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+		//echo $sqlstr;
+		
+		if ($resDM["TEN_KHOA"][0]!=""){
+			echo '{"hoten":"'.escapeJsonString($resDM["TEN_KHOA"][0]).'", "ngaysinh":"", "khoa":"", "tennganh":"", "noisinh":"", "error":"0"}';
+		}else{
+			echo '{"hoten":"", "error":"1"}';
+		}
+	}
+	/* file_put_contents("logs.txt", "----------------------------------------------\n
+				". date("H:i:s d.m.Y")." $sqlstr \n
+				----------------------------------------------\n"); */
 }
 else if ($a=='getychvu'){
-	$sqlstr="	SELECT to_char(add_working_days(so_ngay_xu_ly, sysdate), 'dd/mm/yyyy') ngay_tra, nvl(don_gia,0) don_gia, ghi_chu, n.ho || ' ' || n.ten ho_ten, h.nguoi_giai_quyet
-				FROM hvu_dm_yc_hvu h, nhan_su n
-				WHERE ma_yc = '$m' and h.nguoi_giai_quyet=n.id"; 
+	$sqlstr="	SELECT to_char(add_working_days(so_ngay_xu_ly, sysdate), 'dd/mm/yyyy') ngay_tra, nvl(don_gia,0) don_gia, h.ghi_chu, 
+				n.ho || ' ' || n.ten ho_ten_ngq, h.nguoi_giai_quyet, 
+				n1.ho || ' ' || n1.ten ho_ten_npt, h.nguoi_phu_trach, npt.ma_nhom_phu_trach
+				FROM hvu_dm_yc_hvu h, nhan_su n, nhan_su n1, hvu_dm_nhom_phu_trach npt
+				WHERE ma_yc = '$m' and h.nguoi_giai_quyet=n.id and h.nguoi_phu_trach=n1.id and h.nguoi_phu_trach = npt.nguoi_phu_trach"; 
 	$stmt = oci_parse($db_conn, $sqlstr);
 	oci_execute($stmt);
 	$n = oci_fetch_all($stmt, $resDM);
 	oci_free_statement($stmt);
 	
-	$result = '{"ngaytra":"'.$resDM["NGAY_TRA"][0].'", "dg":"'.$resDM["DON_GIA"][0].'", "gc":"'.$resDM["GHI_CHU"][0].'", "gq":"'.$resDM["HO_TEN"][0].'", "mngq":"'.$resDM["NGUOI_GIAI_QUYET"][0].'"}';
+	$result = '{"ngaytra":"'.$resDM["NGAY_TRA"][0].'", 
+				"dg":"'.$resDM["DON_GIA"][0].'", 
+				"gc":"'.$resDM["GHI_CHU"][0].'", 
+				"gq":"'.$resDM["HO_TEN_NGQ"][0].'", 
+				"mngq":"'.$resDM["NGUOI_GIAI_QUYET"][0].'", 
+				"pt":"'.$resDM["HO_TEN_NPT"][0].'", 
+				"mnpt":"'.$resDM["NGUOI_PHU_TRACH"][0].'", 
+				"mnhompt":"'.$resDM["MA_NHOM_PHU_TRACH"][0].'"
+				}';
+	
+	echo $result;
+}
+else if ($a=='getnpt'){
+	$m = str_replace("'", "''", $_POST["mnhom"]);
+	$sqlstr="	SELECT n.ho || ' ' || n.ten ho_ten_npt, nguoi_phu_trach
+				FROM hvu_dm_nhom_phu_trach, nhan_su n
+				WHERE ma_nhom_phu_trach = '$m' and nguoi_phu_trach = n.id"; 
+	$stmt = oci_parse($db_conn, $sqlstr);
+	oci_execute($stmt);
+	$n = oci_fetch_all($stmt, $resDM);
+	oci_free_statement($stmt);
+	
+	$result = '{"pt":"'.$resDM["HO_TEN_NPT"][0].'", 
+				"mnpt":"'.$resDM["NGUOI_PHU_TRACH"][0].'"
+				}';
 	
 	echo $result;
 }
@@ -82,6 +122,7 @@ else if ($a=='addychvu'){
 			$mann = $_POST["mnn"]; // Ma nguoi nhan
 			$tennn = $_POST["tnn"]; // Ten nguoi nhan
 			$mangq = $_POST["mngq$i"]; // Ma nguoi giai quyet
+			$manpt = $_POST["mnpt$i"]; // Ma nguoi phu trach
 			$mayc = $_POST["myc$i"]; // Ma yeu cau
 			$noidung = str_replace($searchdb, $replacedb,$_POST["n$i"]); // Noi dung
 			$sl = $_POST["s$i"]; // So luong
@@ -103,8 +144,8 @@ else if ($a=='addychvu'){
 				{
 					$sqlstr="
 					insert into hvu_giai_quyet_hvu(MA_GQHVU,FK_MA_HOC_VIEN,HO_TEN_HOC_VIEN,FK_MA_YC,NOI_DUNG_YC,NGAY_TIEP_NHAN,
-													NGAY_HEN_TRA_KQ,NGUOI_TIEP_NHAN,SO_LUONG,DON_GIA,GHI_CHU,NGUOI_GIAI_QUYET, TINH_TRANG) 
-					values ('$magqhv','$mhv','$thv','$mayc','$noidung', sysdate,to_date('$ngaytra','dd/mm/yyyy'),'$mann',$sl,$phi,'$ghichu','$mangq', 0)"; 
+													NGAY_HEN_TRA_KQ,NGUOI_TIEP_NHAN,SO_LUONG,DON_GIA,GHI_CHU,NGUOI_GIAI_QUYET,NGUOI_PHU_TRACH,TINH_TRANG) 
+					values ('$magqhv','$mhv','$thv','$mayc','$noidung', sysdate,to_date('$ngaytra','dd/mm/yyyy'),'$mann',$sl,$phi,'$ghichu','$mangq','$manpt', 0)"; 
 					$stmt = oci_parse($db_conn, $sqlstr);
 					
 						/*file_put_contents("logs.txt", "----------------------------------------------\n
@@ -177,8 +218,8 @@ else if ($a=='addychvu'){
 					</div>
 				</td>
 			</tr>
-			<tr><td align=center colspan=2><div style='font-weight: bold; font-size: 15px; margin: 10px 0 10px 0;' >BIÊN NHẬN HỌC VỤ</div></td></tr>
-			<tr><td align=left style='' colspan=2><div style='font-size: 14px'>Phòng ĐT-SĐH có nhận phiếu đề nghị giải quyết học vụ của học viên <b>$tenhv</b> (<b>$m</b>):</div></td></tr>
+			<tr><td align=center colspan=2><div style='font-weight: bold; font-size: 15px; margin: 10px 0 10px 0;' >BIÊN NHẬN HỒ SƠ</div></td></tr>
+			<tr><td align=left style='' colspan=2><div style='font-size: 14px'>Phòng ĐT-SĐH có nhận phiếu đề nghị giải quyết hồ sơ của <b>$tenhv</b> (<b>$m</b>):</div></td></tr>
 			<tr><td align=center colspan=2>$html1</td></tr>
 			<tr>
 				<td align=center style='width:50%'></td>
@@ -200,6 +241,7 @@ else if ($a=='addychvu'){
 else if ($a=='refreshdata'){
 	$fttr = str_replace ("'", "''", $_REQUEST["fttr"]); // filter thung rac
 	$ftt = str_replace ("'", "''", $_REQUEST["ftt"]); // filter tinh trang
+	$fnpt = str_replace ("'", "''", $_REQUEST["fnpt"]); // filter nguoi phu trach
 	$fnxl = str_replace ("'", "''", $_REQUEST["fnxl"]); // filter nguoi xu ly
 	$fnn = str_replace ("'", "''", $_REQUEST["fnn"]); // filter nguoi nhan
 	$fhvnyc = str_replace ("'", "''", $_REQUEST["fhvnyc"]); // filter hoc vien nhan yeu cau hoc vu hay chua
@@ -219,8 +261,12 @@ else if ($a=='refreshdata'){
 		else
 			$filterstr .= " AND hvu.TINH_TRANG = $ftt";
 	}
-	if ($fnxl != "")
-		$filterstr .= " AND hvu.NGUOI_GIAI_QUYET = '$fnxl'";
+	if ($fnxl != ""){
+		$filterstr .= " AND (hvu.NGUOI_GIAI_QUYET = '$fnxl' )";
+	}
+	if ($fnpt != ""){
+		$filterstr .= " AND (hvu.NGUOI_PHU_TRACH = '$fnpt')";
+	}
 	if ($fnn != "")
 		$filterstr .= " AND hvu.NGUOI_TIEP_NHAN = '$fnn'";
 	if ($fhvnyc != "" && $fhvnyc == "0")
@@ -232,17 +278,19 @@ else if ($a=='refreshdata'){
 	
 	$sqlstr="	SELECT ma_gqhvu, noi_dung_yc, to_char(ngay_tiep_nhan, 'yyyy-mm-dd') ngay_tiep_nhan, to_char(ngay_hen_tra_kq, 'yyyy-mm-dd') ngay_hen_tra_kq, 
 				GET_GHI_CHU_YCHV(ma_gqhvu) ghi_chu, fk_ma_hoc_vien, hv.ho || ' ' || hv.ten ho_ten_hv, HO_TEN_HOC_VIEN ho_ten_hv_1, ma_bac, 
-				decode(nvl(trang_thai_in, 1), '1', 'checked', '') tt_in, (n.ten) ten_nguoi_giai_quyet, (n.id) id_nguoi_giai_quyet,
+				decode(nvl(trang_thai_in, 1), '1', 'checked', '') tt_in, trim(n.ten || ' (' || n.username || ')') ten_nguoi_giai_quyet, (n.id) id_nguoi_giai_quyet,
 				tt.ten_tat ten_tinh_trang, hvu.ket_qua, (n1.ho || ' ' || n1.ten) ten_nguoi_tiep_nhan, hvu.so_luong,don_gia, 
 				decode(ngay_tra_kq, null, 0, 1) tra_hv, (n2.ho || ' ' || n2.ten) ten_nguoi_chuyen, vi_tri_luu, to_char(ngay_tra_kq, 'yyyy-mm-dd hh:mi') ngay_tra_kq,
-				get_qua_trinh_gq(ma_gqhvu) qua_trinh_chuyen, ceil(ngay_hen_tra_kq-sysdate) het_han, (n3.ho || ' ' || n3.ten) ten_nguoi_tra
-				FROM hvu_giai_quyet_hvu hvu, view_hv_sdh hv, nhan_su n, hvu_dm_tinh_trang tt, nhan_su n1, nhan_su n2, nhan_su n3
-				WHERE fk_ma_hoc_vien = hv.ma_hoc_vien(+) and hvu.nguoi_giai_quyet = n.id(+) and hvu.NGUOI_TIEP_NHAN = n1.id(+) and hvu.tinh_trang = tt.ma_tinh_trang(+)
-				and hvu.nguoi_chuyen = n2.id(+) and hvu.nguoi_tra_kq = n3.id(+)
+				get_qua_trinh_gq(ma_gqhvu) qua_trinh_chuyen, ceil(ngay_hen_tra_kq-sysdate) het_han, 
+				(n3.ho || ' ' || n3.ten) ten_nguoi_tra, (n4.ten) ten_nguoi_phu_trach, hvu.NGUOI_PHU_TRACH id_nguoi_phu_trach
+				FROM hvu_giai_quyet_hvu hvu, view_hv_sdh hv, nhan_su n, hvu_dm_tinh_trang tt, nhan_su n1, nhan_su n2, nhan_su n3, nhan_su n4
+				WHERE fk_ma_hoc_vien = hv.ma_hoc_vien(+) and hvu.nguoi_giai_quyet = n.id(+)
+				and hvu.NGUOI_TIEP_NHAN = n1.id(+) and hvu.tinh_trang = tt.ma_tinh_trang(+)
+				and hvu.nguoi_chuyen = n2.id(+) and hvu.nguoi_tra_kq = n3.id(+) and hvu.NGUOI_PHU_TRACH = n4.id(+)
 				$filterstr";
-	file_put_contents("logs.txt", "----------------------------------------------\n
+	/*file_put_contents("logs.txt", "----------------------------------------------\n
 				". date("H:i:s d.m.Y")." $sqlstr \n
-				----------------------------------------------\n", FILE_APPEND);
+				----------------------------------------------\n", FILE_APPEND);*/
 	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 	$data='{
 			"aaData":[';
@@ -260,10 +308,21 @@ else if ($a=='refreshdata'){
 			$ho_ten = $resDM["HO_TEN_HV_1"][$i];
 		}
 		
+		if ($resDM["TEN_NGUOI_GIAI_QUYET"][$i]!="()"){
+			//$ho_ten_ngq = "<a class=\'chuyennguoigiaiquyet tooltips\' style=\'cursor:pointer; font-weight:bold;\'>".$resDM["TEN_NGUOI_GIAI_QUYET"][$i]."</a>";
+			$ho_ten_ngq = "<a class='chuyennguoigiaiquyet tooltips' style='cursor:pointer; font-weight:bold; color: #0093DD;'>".$resDM["TEN_NGUOI_GIAI_QUYET"][$i]."</a>";
+		}else{
+			$ho_ten_ngq = "<img class='chuyennguoigiaiquyet tooltips' src='icons/arrow_right.png' title='Chuyển giải quyết' border=0 style='cursor:pointer'>";
+		}
+		
 		$data.= '["<input type=checkbox id=selectYCHV'.$i.' name=selectYCHV'.$i.' value=\''.$resDM["MA_GQHVU"][$i].'\' '.''.'>",
-				  "'.$resDM["MA_GQHVU"][$i].'", "'.escapeJsonString($resDM["NOI_DUNG_YC"][$i]).'", "'.$resDM["SO_LUONG"][$i].'",
+				  "'.$resDM["MA_GQHVU"][$i].'", 
+				  "'.escapeJsonString($resDM["NOI_DUNG_YC"][$i]).'", 
+				  "'.$resDM["SO_LUONG"][$i].'",
+				  "'.$resDM["TEN_NGUOI_PHU_TRACH"][$i].'",
 				  "<img class=\'giaiquyethv tooltips\' src=\'icons/document_save.png\' title=\'Xử lý học vụ\' border=0 style=\'cursor:pointer\' >",
-				  "<img class=\'chuyennguoigiaiquyet tooltips\' src=\'icons/arrow_right.png\' title=\'Chuyển giải quyết\' border=0 style=\'cursor:pointer\' >", "'.$resDM["TEN_NGUOI_GIAI_QUYET"][$i].'",
+				  
+				  "'.$ho_ten_ngq.'",
 				  "'.$resDM["NGAY_TIEP_NHAN"][$i].'", "'.$resDM["NGAY_HEN_TRA_KQ"][$i].'",
 				  "'.$trahv.'", "'.$resDM["FK_MA_HOC_VIEN"][$i].'",
 				  "'.escapeJsonString($ho_ten).'",
@@ -273,9 +332,9 @@ else if ($a=='refreshdata'){
 				  "'.$resDM["TEN_NGUOI_CHUYEN"][$i].'",
 				  "'.escapeJsonString($resDM["VI_TRI_LUU"][$i]).'", "'.escapeJsonString($resDM["QUA_TRINH_CHUYEN"][$i]).'",
 				  "'.escapeJsonString($resDM["GHI_CHU"][$i]).'", "'.$resDM["HET_HAN"][$i].'",
-				  "'.escapeJsonString($resDM["NGAY_TRA_KQ"][$i]).'", "'.$resDM["ID_NGUOI_GIAI_QUYET"][$i].'"
+				  "'.escapeJsonString($resDM["NGAY_TRA_KQ"][$i]).'", "'.$resDM["ID_NGUOI_GIAI_QUYET"][$i].'", "'.$resDM["ID_NGUOI_PHU_TRACH"][$i].'"
 				 ],';
-		// data[24] là item cuối
+		// data[25] là item cuối
 	}
 	
 	if ($n>0) 

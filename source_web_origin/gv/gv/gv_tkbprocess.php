@@ -19,10 +19,11 @@ $sqlstr="	SELECT DISTINCT MON_HOC.TEN, T.MA_MH, t.ma_can_bo,
 			(TUAN_BAT_DAU)||'->'||(TUAN_KET_THUC) Tuan_hoc, T.PHONG,
 			t.dot_hoc, so_tiet_lt, so_tiet_bt, so_tiet_th, so_tiet_tl, t.lop, TO_CHAR(d.ngay_thi,'DD/MM/YY') NGAY_THI, get_nganh_tkb(t.ma_can_bo, t.dot_hoc, t.ma_mh,t.lop) chuyen_nganh,
 				(SELECT COUNT(*) FROM dang_ky_mon_hoc DK WHERE DK.DOT_HOC = t.dot_hoc AND DK.MA_MH = t.ma_mh
-				AND DK.LOP=t.lop) SL
+				AND DK.LOP=t.lop) SL,
+			TO_CHAR(t.dot_hoc,'DD/MM/YYYY') dot_hoc_f
 			FROM THOI_KHOA_BIEU t, MON_HOC, LICH_THI d
 			WHERE T.MA_MH = MON_HOC.MA_MH
-			AND (t.dot_hoc = to_date('".$dothoc."','dd-mm-yyyy'))
+			AND (t.dot_hoc = '".$dothoc."')
 			AND (t.ma_can_bo='".$macb."' or t.ma_can_bo_phu='".$macb."')
 			AND d.dot_hoc(+) = t.dot_hoc
 			and d.ma_mh(+) = t.ma_mh
@@ -33,15 +34,17 @@ oci_execute($stmt);
 $n = oci_fetch_all($stmt, $resDM);
 oci_free_statement($stmt);
 
+$dot_hoc_f = $resDM["DOT_HOC_F"][0];
+
 /*file_put_contents("logs.txt", "----------------------------------------------\n
 ". date("H:i:s d.m.Y")." $sqlstr \n
 ----------------------------------------------\n", FILE_APPEND);
 */
 
 echo "
-	<div align='center'><h2>Thời Khóa Biểu Giảng Dạy Cao Học<br/>Học kỳ $hk <br> <span style='color:red'>Tuần 1: $dothoc</span></h2></div>
+	<div align='center'><h2>Thời Khóa Biểu Giảng Dạy Cao Học<br/>Học kỳ $hk <br> <span style='color:red'>Tuần 1: $dot_hoc_f</span></h2></div>
 	<div style='margin-bottom:20px;'>
-		<div style='margin:0 0 10px 5px; font-size:12px;' align=left><strong>Ngày bắt đầu HK: <span id='ngaybatdauhk' style='color:red'>$dothoc</span></strong></div>
+		<div style='margin:0 0 10px 5px; font-size:12px;' align=left><strong>Ngày bắt đầu HK: <span id='ngaybatdauhk' style='color:red'>$dot_hoc_f (tuần 1)</span></strong></div>
 		<table id='tableTKB' name='tableTKB' width='100%' border='0'  cellspacing='0' class='ui-widget ui-widget-content ui-corner-top tableData' >
 		<thead>
 		  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
@@ -57,7 +60,7 @@ echo "
 			<td>SL</td>
 			<td align='center'>Tiết học</td>
 			<td>Phòng</td>
-			<td  align='center'>Tuần học <br> Tuần 1: <span style='color:red'>$dothoc</span></td>
+			<td  align='center'>Tuần học <br> Tuần 1: <span style='color:red'>$dot_hoc_f</span></td>
 			<td class='ui-corner-tr'>Ngày thi</td>
 		  </tr>
 		  </thead>

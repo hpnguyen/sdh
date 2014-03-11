@@ -38,7 +38,7 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 		<table  border="0" cellspacing="0" cellpadding="5" align=left width=100% class="ui-corner-all">
 			<tr>
 				<td align=left >
-					<input placeholder="mã" title="- Học viên: mã học viên<br/>- Thí sinh dự thi: Năm + SBD (2013415)" type=text name=tnychv_mahv id=tnychv_mahv maxlength=10 style="width:95px;font-weight:bold;font-size:12px" class="text ui-widget-content ui-corner-all tableData"> <span id=phong_tnychv_get_info style="margin-left: 5px;"></span> <input placeholder="họ và tên" title="" type=text name=phong_tnychv_ho_ten id=phong_tnychv_ho_ten maxlength=100 style="width:150px;font-weight:bold;font-size:12px" class="text ui-widget-content ui-corner-all tableData"> 
+					<input placeholder="mã" title="- Học viên: mã học viên<br>- Thí sinh dự thi: Năm + SBD (2013415)<br>- Khoa: mã khoa 2 ký tự" type=text name=tnychv_mahv id=tnychv_mahv maxlength=10 style="width:95px;font-weight:bold;font-size:12px" class="text ui-widget-content ui-corner-all tableData"> <span id=phong_tnychv_get_info style="margin-left: 5px;"></span> <input placeholder="tên hv/khoa" title="" type=text name=phong_tnychv_ho_ten id=phong_tnychv_ho_ten maxlength=100 style="width:350px;font-weight:bold;font-size:12px" class="text ui-widget-content ui-corner-all tableData"> 
 				</td>
 				
 				<td align=left colspan=2> 
@@ -89,6 +89,27 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 				</td>
 			</tr>
 			<tr>
+				<td align=left colspan=3>
+					<select id=phong_tnychv_nhom_pt style='width:100%;height:25px; padding: 0 0 0 0; font-size:12px' class="text ui-widget-content ui-corner-all tableData">
+						<option value='' selected style='color:black;'>-chọn tổ phụ trách-</option>
+					  <?php $sqlstr="select MA_NHOM_PHU_TRACH, TEN_NHOM_PHU_TRACH
+								from HVU_DM_NHOM_PHU_TRACH order by TEN_NHOM_PHU_TRACH"; 
+						$stmt = oci_parse($db_conn, $sqlstr);
+						oci_execute($stmt);
+						$n = oci_fetch_all($stmt, $resDM);
+						oci_free_statement($stmt);
+						
+						for ($i = 0; $i < $n; $i++)
+						{
+							echo "<option value='".$resDM["MA_NHOM_PHU_TRACH"][$i]."'>" .$resDM["TEN_NHOM_PHU_TRACH"][$i]. "</option>";
+						}
+						
+					  ?>
+					</select>
+					
+				</td>
+			</tr>
+			<tr>
 				<td colspan=3>
 					SL
 					<input placeholder="sl" type=text name=tnychv_sl id=tnychv_sl maxlength=2 style="width:25px;font-weight:bold;text-align:center;font-size:12px" value=1 class="text ui-widget-content ui-corner-all tableData">
@@ -97,7 +118,9 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 				
 					&nbsp;&nbsp;Thu phí <input type=text name=tnychv_don_gia id=tnychv_don_gia data-v-min=0 data-v-max=999999 maxlength=10 style="width:55px;font-weight:bold;text-align:right;font-size:12px" class="text ui-widget-content ui-corner-all tableData">
 				
-				&nbsp;&nbsp;Giải quyết: <span id=phong_tnychv_nguoi_giai_quyet style='font-weight:bold;margin-left:10px;font-size:12px'></span> <input type=hidden id="ma_ngq" value="">
+				&nbsp;&nbsp;Phụ trách: <span id=phong_tnychv_nguoi_phu_trach style='font-weight:bold;font-size:12px'></span> <input type=hidden id="ma_npt" value="">
+				
+				&nbsp;&nbsp;Giải quyết: <span id=phong_tnychv_nguoi_giai_quyet style='font-weight:bold;font-size:12px'></span> <input type=hidden id="ma_ngq" value="">
 				</td>
 			</tr>
 			
@@ -148,7 +171,7 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 	<div style='margin:0 0 10px 0;'>
 		<table width="100%" height="20" border="0" align="center" cellpadding="5" cellspacing="0" class="ui-widget ui-widget-content ui-corner-all ">
 			<tr>
-				<td style="width:50%" align=left><button id=phong_tnychv_btn_new>Nhận yêu cầu mới</button> <button id=phong_tnychv_btn_print style="margin:0 0 0 10px;">In biên nhận</button> <button id=phong_tnychv_btn_refresh style="margin:0 0 0 10px;">Làm mới danh sách</button></td>
+				<td style="width:50%" align=left><button id=phong_tnychv_btn_new>Nhận yêu cầu</button> <button id=phong_tnychv_btn_print style="margin:0 0 0 10px;">In biên nhận</button> <button id=phong_tnychv_btn_refresh style="margin:0 0 0 10px;">Làm mới danh sách</button></td>
 				<td style="width:50%" align=right><button id=phong_tnychv_btn_trash style="margin:0 0 0 10px;">Thùng rác</button></td>
 			</tr>
 		</table>
@@ -159,7 +182,7 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 		<table width="100%" border="0" align="center" cellpadding="5"  cellspacing="0" class="ui-widget ui-widget-content ui-corner-all ">
 			<tr>
 				<td style="width:85px;">
-					<select id=filter_phong_tnychv_nam_nhan title="Fillter theo năm nhận hồ sơ" style='width:100%; height:25px; padding: 0 0 0 0;' class="ui-widget-content ui-corner-all tableData">
+					<select id=filter_phong_tnychv_nam_nhan title="Năm nhận hồ sơ" style='width:100%; height:25px; padding: 0 0 0 0;' class="ui-widget-content ui-corner-all tableData">
 					  <?php 
 						$nam =date("Y");
 						echo "<option value=''>-năm nhận-</option>";
@@ -176,21 +199,46 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 					</select>
 				</td>
 				<td style="width:85px;">
-					<select id=filter_phong_tnychv_thung_rac title="Fillter theo HS hiện tại / HS trong thùng rác" style='width:100%;height:25px; padding: 0 0 0 0;' class=" ui-widget-content ui-corner-all tableData" >
+					<select id=filter_phong_tnychv_thung_rac title="HS hiện tại / HS trong thùng rác" style='width:100%;height:25px; padding: 0 0 0 0;' class=" ui-widget-content ui-corner-all tableData" >
 						<option value=''>Hiện tại</option>
 						<option value='1'>Thùng rác</option>
 					</select>
 				</td>
-							
+				
 				<td>
-					<select id=filter_phong_tnychv_nguoi_xl title="Fillter theo chuyên viên xử lý HS" style='width:100%;height:25px; padding: 0 0 0 0;' class=" ui-widget-content ui-corner-all tableData" >
+					<select id=filter_phong_tnychv_nguoi_pt title="Chuyên viên phụ trách HS" style='width:100%;height:25px; padding: 0 0 0 0;' class=" ui-widget-content ui-corner-all tableData" >
+					  <?php 
+						// Kiem tra quyền xem tat ca
+						//if (allowPermisstion($usr, '045', $db_conn))
+						//{
+							$sqlstr="select p.NGUOI_PHU_TRACH, n.HO || ' ' || n.TEN HO_TEN
+								from HVU_DM_NHOM_PHU_TRACH p, NHAN_SU n where p.NGUOI_PHU_TRACH = n.id order by HO_TEN"; 
+							$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+							echo "<option value=''>-tất cả CV phụ trách-</option>";
+							for ($i = 0; $i < $n; $i++)
+								if ($id==$resDM["ID"][$i])
+									echo "<option value='".$resDM["NGUOI_PHU_TRACH"][$i]."' style='background: #075385; color: white; font-weight:bold'>" .$resDM["HO_TEN"][$i]. "</option>";
+								else
+									echo "<option value='".$resDM["NGUOI_PHU_TRACH"][$i]."'>" .$resDM["HO_TEN"][$i]. "</option>";
+								//echo "<option value='".$resDM["NGUOI_PHU_TRACH"][$i]."'>" .$resDM["HO_TEN"][$i]. "</option>";
+						//}
+						// Kiem tra quyền xem hs do mình xử lý
+						//else {
+						//	echo "<option value=''>-tất cả CV phụ trách-</option>";
+						//}
+					  ?>
+					</select>
+				</td>
+				
+				<td>
+					<select id=filter_phong_tnychv_nguoi_xl title="Chuyên viên xử lý HS" style='width:100%;height:25px; padding: 0 0 0 0;' class=" ui-widget-content ui-corner-all tableData" >
 					  <?php 
 						// Kiem tra quyền xem tat ca
 						if (allowPermisstion($usr, '045', $db_conn))
 						{
 							$sqlstr="select id, ho || ' ' || ten ho_ten from nhan_su where pdtsdh='1' order by ten"; 
 							$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
-							echo "<option value=''>-tất cả chuyên viên xử lý-</option>";
+							echo "<option value=''>-tất cả CV xử lý-</option>";
 							for ($i = 0; $i < $n; $i++)
 								if ($id==$resDM["ID"][$i])
 									echo "<option value='".$resDM["ID"][$i]."' style='background: #075385; color: white; font-weight:bold'>" .$resDM["HO_TEN"][$i]. "</option>";
@@ -212,12 +260,12 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 					  ?>
 					</select>
 				</td>
-				
+				<!--
 				<td>
-					<select id=filter_phong_tnychv_nguoi_nhan title="Fillter theo chuyên viên nhận HS" style='width:100%;height:25px; padding: 0px 0 0 0;' class="text ui-widget-content ui-corner-all tableData" >
+					<select id=filter_phong_tnychv_nguoi_nhan title="Chuyên viên nhận HS" style='width:100%;height:25px; padding: 0px 0 0 0;' class="text ui-widget-content ui-corner-all tableData" >
 					  <?php $sqlstr="select id, ho || ' ' || ten ho_ten from nhan_su where pdtsdh='1' order by ten"; 
 						$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
-						echo "<option value=''>-tất cả chuyên viên nhận-</option>";
+						echo "<option value=''>-tất cả CV nhận-</option>";
 						for ($i = 0; $i < $n; $i++)
 						{
 							if ($id==$resDM["ID"][$i])
@@ -229,9 +277,9 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 					  ?>
 					</select>
 				</td>
-				
+				-->
 				<td>
-					<select id=filter_phong_tnychv_hv_nhan_yc title="Fillter theo HS đã/chưa trả cho học viên" style='width:100%;height:25px; padding: 0 0 0 0;' class=" ui-widget-content ui-corner-all tableData">
+					<select id=filter_phong_tnychv_hv_nhan_yc title="Hồ sơ đã/chưa trả cho học viên" style='width:100%;height:25px; padding: 0 0 0 0;' class=" ui-widget-content ui-corner-all tableData">
 						<option value=''>-Hồ sơ ĐÃ & CHƯA trả-</option>
 						<option value='1'>Hồ sơ ĐÃ trả</option>
 						<option value='0'>Hồ sơ CHƯA trả</option>
@@ -239,7 +287,7 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 				</td>
 				
 				<td>
-					<select id=filter_phong_tnychv_tinh_trang title="Fillter theo tình trạng HS" style='width:100%; height:25px; padding: 0 0 0 0;' class="ui-widget-content ui-corner-all tableData" >
+					<select id=filter_phong_tnychv_tinh_trang title="Tình trạng HS" style='width:100%; height:25px; padding: 0 0 0 0;' class="ui-widget-content ui-corner-all tableData" >
 					  <?php $sqlstr="select MA_TINH_TRANG, TEN_TAT	from HVU_DM_TINH_TRANG"; 
 						$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 						echo "<option value=''>-tất cả tình trạng-</option>";
@@ -266,14 +314,14 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 				<th style="width: 40px" align=left>Mã</th>
 				<th align=left>Nội dung</th>
 				<th style="width: 20px" align=right>SL</th>
+				<th align=left  style="width: 40px" title='Chuyên viên phụ trách'>CV<br>P.Trách</th>
 				<th style="width: 15px"></th>
-				<th style="width: 15px"></th>
-				<th style="width: 40px" align=center>CV xử lý</th>
+				<th style="width: 40px" align=left>CV<br>Xử lý</th>
 				<th style="width: 60px">Ngày nhận</th>
 				<th style="width: 60px">Hẹn trả</th>
-				<th style="width: 20px" align=center>Trả HV</th>
-				<th style="width: 60px" align=left>Mã HV</th>
-				<th align=left>Tên học viên</th>
+				<th style="width: 20px" align=center>Trả HS</th>
+				<th style="width: 60px" align=left>Mã HV/Khoa</th>
+				<th align=left>Học viên / Khoa</th>
 				<th style="width: 60px">Tình trạng</th>
 				<th align=left>Kết quả</th>
 				<th style="width: 50px" align=right>Thu phí</th>
@@ -286,14 +334,14 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
 				<th align=left>Mã</th>
 				<th align=left>Nội dung</th>
 				<th align=right>SL</th>
+				<th align=left>CV<br>P.Trách</th>
 				<th ></th>
-				<th ></th>
-				<th align=center>CV xử lý</th>
+				<th align=left>CV<br>Xử lý</th>
 				<th >Ngày nhận</th>
 				<th >Hẹn trả</th>
-				<th align=center>Trả HV</th>
+				<th align=center>Trả HS</th>
 				<th align=left>Mã HV</th>
-				<th align=left>Tên học viên</th>
+				<th align=left>Học viên / Khoa</th>
 				<th >Tình trạng</th>
 				<th align=left>Kết quả</th>
 				<th align=right>Thu phí</th>
@@ -374,6 +422,34 @@ $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt
  var ychv_validateMaHV = 0;
  var ychv_listMahvu, ychv_classname=''; 
  var ychv_linkdata = "phong/phong_ychv_tiepnhan_process.php?hisid=<?php echo $_REQUEST["hisid"]; ?>";
+ var ychv_col_idx = new Array(); 
+ ychv_col_idx['chk'] 		= 0;
+ ychv_col_idx['ma'] 		= 1;
+ ychv_col_idx['noi_dung']	= 2;
+ ychv_col_idx['sl']			= 3;
+ ychv_col_idx['cv_ptrach']	= 4;
+ ychv_col_idx['xl']			= 5;
+ //ychv_col_idx['chuyen']		= 6;
+ ychv_col_idx['cv_xl']		= 6;
+ ychv_col_idx['ngay_nhan']	= 7;
+ ychv_col_idx['hen_tra']	= 8;
+ ychv_col_idx['tra_hv']		= 9;
+ ychv_col_idx['ma_hv']		= 10;
+ ychv_col_idx['ten_hv']		= 11;
+ ychv_col_idx['tinh_trang']	= 12;
+ ychv_col_idx['ket_qua']	= 13;
+ ychv_col_idx['thu_phi']	= 14;
+ ychv_col_idx['chi_tiet']	= 15;
+ ychv_col_idx['ten_nguoi_tiep_nhan']= 16;
+ ychv_col_idx['so_luong']			= 17;
+ ychv_col_idx['ten_nguoi_chuyen']	= 18;
+ ychv_col_idx['vi_tri_luu']			= 19;
+ ychv_col_idx['qua_trinh_chuyen']	= 20;
+ ychv_col_idx['ghi_chu']			= 21;
+ ychv_col_idx['het_han']			= 22;
+ ychv_col_idx['ngay_tra_kq']		= 23;
+ ychv_col_idx['id_nguoi_giai_quyet']= 24;
+ ychv_col_idx['id_nguoi_phu_trach'] = 25;
  
 function getRowIndex( el ) {
     while( (el = el.parentNode) && el.nodeName.toLowerCase() !== 'tr' );
@@ -396,88 +472,126 @@ function MaHVinList(pMaHV){
 function initialTableYCHV(urldata){
 	gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
 	phong_ychv_checksession().done(function(data){
-		gv_processing_diglog("close", "...");
 		if (data.success != 1){
 			gv_open_msg_box("<font style='color:red;'>Không thể khởi tạo danh sách yêu cầu vì:</font> <br/><div style='margin: 5px 0 0 5px'>" + reverse_escapeJsonString(data.msg) +'</div>', 'alert', 250, 180, true);
 			return;
 		}else{
-			$("#ychv_so_ngay_canh_bao").val(ychv_SoNgayCanhBaoHetHan);
-			oTableYCHV = $('#tnychv_dsychv').dataTable( {
-				"bJQueryUI": false,
-				"bStateSave": true,
-				"bAutoWidth": false, 
-				"iDisplayLength": 50,
-				"sPaginationType": "full_numbers",
-				"oLanguage": {
-					"sUrl": "../datatable/media/language/vi_VI.txt"
-				},
-				"bProcessing": true,
-				"sAjaxSource": urldata,
-				"fnDrawCallback": function( oSettings ) {
-					$(document).tooltip({ track: true });
-					//$("#ychv_tong_thu_phi").html(ychv_tongtien.formatMoney(0, '.', ',') + ' VNĐ');
-					//ychv_tongtien = 0;
-				}, 
-				"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
-					aaData[02] = reverse_escapeJsonString(aaData[02]);
-					aaData[13] = reverse_escapeJsonString(aaData[13]);
-					aaData[19] = reverse_escapeJsonString(aaData[19]);
-					aaData[20] = reverse_escapeJsonString(aaData[20]);
-					aaData[21] = reverse_escapeJsonString(aaData[21]);
-					aaData[23] = reverse_escapeJsonString(aaData[23]);
+			dataString = 'a=getnewychv&hisid=<?php echo $_REQUEST["hisid"]; ?>';
+			xreq = $.ajax({
+			  type: 'POST', dataType: "json",
+			  url: 'phong/phong_ychv_tiepnhan_process.php',
+			  data: dataString,
+			  success: function(data) {
+				if (data.success==-1){
+					gv_processing_diglog("close", "Đang xử lý ... vui lòng chờ");
+					gv_open_msg_box('Có lỗi trong quá trình lấy ds ychv đk online', 'alert', 250, 180);
+				}
+				else{
+					gv_processing_diglog("close", "...");
 					
-					$('td:eq(1)', nRow).css({'font-weight': 'bold'});
+					$("#ychv_so_ngay_canh_bao").val(ychv_SoNgayCanhBaoHetHan);
+					oTableYCHV = $('#tnychv_dsychv').dataTable( {
+						"bJQueryUI": false,
+						"bStateSave": true,
+						"bAutoWidth": false, 
+						"iDisplayLength": 50,
+						"sPaginationType": "full_numbers",
+						"sDom": 'T<"clear">lfrtip',
+						"oTableTools": {
+							"sSwfPath": "../datatable/extras/TableTools/media/swf/copy_csv_xls_pdf.swf",
+							"aButtons": [
+								{
+									"sExtends": "copy",
+									"sButtonText": "Copy"
+								},
+								{
+									"sExtends": "xls",
+									"sButtonText": "Excel"
+								},
+								{
+									"sExtends": "print",
+									"sButtonText": "Print"
+								}
+								 
+							]
+						},
+						"oLanguage": {
+							"sUrl": "../datatable/media/language/vi_VI.txt"
+						},
+						"bProcessing": true,
+						"sAjaxSource": urldata,
+						"fnDrawCallback": function( oSettings ) {
+							$(document).tooltip({ track: true });
+							//$("#ychv_tong_thu_phi").html(ychv_tongtien.formatMoney(0, '.', ',') + ' VNĐ');
+							//ychv_tongtien = 0;
+						}, 
+						"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
+							aaData[ychv_col_idx['noi_dung']] = reverse_escapeJsonString(aaData[ychv_col_idx['noi_dung']]);
+							aaData[ychv_col_idx['ket_qua']] = reverse_escapeJsonString(aaData[ychv_col_idx['ket_qua']]);
+							aaData[ychv_col_idx['vi_tri_luu']] = reverse_escapeJsonString(aaData[ychv_col_idx['vi_tri_luu']]);
+							aaData[ychv_col_idx['qua_trinh_chuyen']] = reverse_escapeJsonString(aaData[ychv_col_idx['qua_trinh_chuyen']]);
+							aaData[ychv_col_idx['ghi_chu']] = reverse_escapeJsonString(aaData[ychv_col_idx['ghi_chu']]);
+							aaData[ychv_col_idx['ngay_tra_kq']] = reverse_escapeJsonString(aaData[ychv_col_idx['ngay_tra_kq']]);
+							
+							$('td:eq('+ychv_col_idx['ma']+')', nRow).css({'font-weight': 'bold'});
+							
+							//if (!(parseInt(aaData[ychv_col_idx['het_han']]) > ychv_SoNgayCanhBaoHetHan) && aaData[ychv_col_idx['tinh_trang']]=="Chưa XL" && aaData[ychv_col_idx['ngay_tra_kq']]=="")  //ychv_SoNgayCanhBaoHetHan
+							if (!(parseInt(aaData[ychv_col_idx['het_han']]) > ychv_SoNgayCanhBaoHetHan) && aaData[ychv_col_idx['ngay_tra_kq']]=="" && aaData[ychv_col_idx['tinh_trang']]!="Đã XL" && aaData[ychv_col_idx['hen_tra']]!="")  //ychv_SoNgayCanhBaoHetHan
+							{
+								$(nRow).addClass( 'toihan' );
+							}
+							$('td:eq('+ychv_col_idx['hen_tra']+')', nRow).css({'font-weight': 'bold'});
+							$('td:eq('+ychv_col_idx['thu_phi']+')', nRow).css({'font-weight': 'bold'});
+							
+							// tinh tổng tiền
+							
+							if (aaData[ychv_col_idx['tinh_trang']]=="Đã XL")
+							{
+								//ychv_tongtien += parseInt(aaData[ychv_col_idx['thu_phi']].replace(",", ""));
+								$('td:eq('+ychv_col_idx['tinh_trang']+')', nRow).addClass('YCHV_DaXL'); //css({'color': '#96c716', 'font-weight': 'bold'});
+							}
+							else if (aaData[ychv_col_idx['tinh_trang']]=="Chưa XL")
+								$('td:eq('+ychv_col_idx['tinh_trang']+')', nRow).addClass('YCHV_ChuaXL'); //css({'color': '#bc3604', 'font-weight': 'bold'});
+							else if (aaData[ychv_col_idx['tinh_trang']]=="Đang XL")
+								$('td:eq('+ychv_col_idx['tinh_trang']+')', nRow).addClass('YCHV_DangXL'); //css({'color': 'blue', 'font-weight': 'bold'});
+							else if (aaData[ychv_col_idx['tinh_trang']]=="Trình LĐ" || aaData[ychv_col_idx['tinh_trang']]=="Lấy dấu")
+								$('td:eq('+ychv_col_idx['tinh_trang']+')', nRow).addClass('YCHV_TrinhLD'); //css({'color': 'blue', 'font-weight': 'bold'});
+							
+							if (aaData[ychv_col_idx['ghi_chu']]!=''){
+								nRow.setAttribute( 'title', '<b>Chú ý</b>: ' + aaData[ychv_col_idx['ghi_chu']] ); 
+								$(nRow).addClass("ghichuTooltip");
+							}
+							
+							return nRow;
+						},
+						"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
+							//alert(1);
+						},
+						"aaSorting": [[ ychv_col_idx['ngay_nhan'], 'desc' ], [ ychv_col_idx['ma'] , 'desc' ]],
+						"aoColumns": [
+							{ "sClass" : "center", "bSortable": false },
+							null,
+							null,
+							{ "sClass" : "center", "bSortable": false },
+							null,
+							{ "sClass" : "center", "bSortable": false },
+							null, null, null, 
+							{ "sClass": "center", "bSortable": false }, 
+							null, null, null, 
+							{ "sClass" : "left", "bSortable": false },
+							{ "sClass" : "right", "bSortable": false },
+							{ "bSortable": false }
+						]
+					} );
 					
-					//if (!(parseInt(aaData[22]) > ychv_SoNgayCanhBaoHetHan) && aaData[12]=="Chưa XL" && aaData[23]=="")  //ychv_SoNgayCanhBaoHetHan
-					if (!(parseInt(aaData[22]) > ychv_SoNgayCanhBaoHetHan) && aaData[23]=="" && aaData[12]!="Đã XL" && aaData[8]!="")  //ychv_SoNgayCanhBaoHetHan
-					{
-						$(nRow).addClass( 'toihan' );
-					}
-					$('td:eq(8)', nRow).css({'font-weight': 'bold'});
-					$('td:eq(14)', nRow).css({'font-weight': 'bold'});
-					
-					// tinh tổng tiền
-					
-					if (aaData[12]=="Đã XL")
-					{
-						//ychv_tongtien += parseInt(aaData[14].replace(",", ""));
-						$('td:eq(12)', nRow).addClass('YCHV_DaXL'); //css({'color': '#96c716', 'font-weight': 'bold'});
-					}
-					else if (aaData[12]=="Chưa XL")
-						$('td:eq(12)', nRow).addClass('YCHV_ChuaXL'); //css({'color': '#bc3604', 'font-weight': 'bold'});
-					else if (aaData[12]=="Đang XL")
-						$('td:eq(12)', nRow).addClass('YCHV_DangXL'); //css({'color': 'blue', 'font-weight': 'bold'});
-					else if (aaData[12]=="Trình LĐ" || aaData[12]=="Lấy dấu")
-						$('td:eq(12)', nRow).addClass('YCHV_TrinhLD'); //css({'color': 'blue', 'font-weight': 'bold'});
-					
-					if (aaData[21]!=''){
-						nRow.setAttribute( 'title', '<b>Chú ý</b>: ' + aaData[21] ); 
-						$(nRow).addClass("ghichuTooltip");
-					}
-					
-					return nRow;
-				},
-				"fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
-					//alert(1);
-				},
-				"aoColumns": [
-					{ "sClass" : "center", "bSortable": false },
-					null,
-					null,
-					{ "sClass" : "center", "bSortable": false },
-					{ "sClass" : "center", "bSortable": false },
-					{ "sClass" : "center", "bSortable": false },
-					null, null, null, 
-					{ "sClass": "center", "bSortable": false }, 
-					null, null, null, 
-					{ "sClass" : "left", "bSortable": false },
-					{ "sClass" : "right", "bSortable": false },
-					{ "bSortable": false }
-				],
-				"aaSorting": [[7, 'desc'], [1, 'desc']]
-			} );
+				}
+			  }
+			});
 		}
 	});
+	
+		
+	
  }
  
 function RefreshTableYCHV(tableId, urlData){
@@ -510,10 +624,10 @@ function fnFormatDetails ( nTr ){
     var aData = oTableYCHV.fnGetData( nTr );
 	
     var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';    
-    sOut += '<tr><td><b>Vị trí lưu:</b></td><td colspan=3 style="color:red">'+aData[19]+'</td></tr>';
-	sOut += '<tr><td><b>Ghi chú:</b></td><td colspan=3 style="color:red">'+aData[21]+'</td></tr>';
-	sOut += '<tr><td>Người nhận:</td><td style="width:150px">'+aData[16]+'</td><td align=right>Người chuyển:</td><td>'+aData[18]+'</td></tr>';
-	sOut += '<tr><td>Quá trình xử lý:</td><td colspan=3>'+aData[20]+'</td></tr>';
+    sOut += '<tr><td><b>Vị trí lưu:</b></td><td colspan=3 style="color:red">'+aData[ychv_col_idx['vi_tri_luu']]+'</td></tr>';
+	sOut += '<tr><td><b>Ghi chú:</b></td><td colspan=3 style="color:red">'+aData[ychv_col_idx['ghi_chu']]+'</td></tr>';
+	sOut += '<tr><td>Người nhận:</td><td style="width:150px">'+aData[ychv_col_idx['ten_nguoi_tiep_nhan']]+'</td><td align=right>Người chuyển:</td><td>'+aData[ychv_col_idx['ten_nguoi_chuyen']]+'</td></tr>';
+	sOut += '<tr><td>Quá trình xử lý:</td><td colspan=3>'+aData[ychv_col_idx['qua_trinh_chuyen']]+'</td></tr>';
     sOut += '</table>';
    
     return sOut;
@@ -527,8 +641,10 @@ function getFilter(){
 		linkfilter += "&ftt="+$("#filter_phong_tnychv_tinh_trang").val();
 	if ($("#filter_phong_tnychv_nguoi_xl").val() != "" )
 		linkfilter += "&fnxl="+$("#filter_phong_tnychv_nguoi_xl").val();
-	if ($("#filter_phong_tnychv_nguoi_nhan").val() != "" )
-		linkfilter += "&fnn="+$("#filter_phong_tnychv_nguoi_nhan").val();
+	if ($("#filter_phong_tnychv_nguoi_pt").val() != "" )
+		linkfilter += "&fnpt="+$("#filter_phong_tnychv_nguoi_pt").val();
+	//if ($("#filter_phong_tnychv_nguoi_nhan").val() != "" )
+		//linkfilter += "&fnn="+$("#filter_phong_tnychv_nguoi_nhan").val();
 	if ($("#filter_phong_tnychv_hv_nhan_yc").val() != "" )
 		linkfilter += "&fhvnyc="+$("#filter_phong_tnychv_hv_nhan_yc").val();
 	if ($("#filter_phong_tnychv_nam_nhan").val() != "" )
@@ -554,8 +670,9 @@ $(document).ready(function() {
 	
 	var mahvu = $("#phong_tnychv_hvu").val(), tenhv = $("#phong_tnychv_ho_ten").val(), mahv = $("#tnychv_mahv").val();
 	var noidung='', strfind='', ngaytra, ghichu, tenyc = $("#phong_tnychv_hvu option:selected").html();
+	var manhompt = $("#phong_tnychv_nhom_pt").val();
 	
-	if ( (mahv!='' || tenhv!='') && mahvu !='')
+	if ( (mahv!='' || tenhv!='') && mahvu !='' && manhompt !='')
 	{
 		if ( (mahvu.length == 4 || mahvu=='000') )
 		{
@@ -607,7 +724,7 @@ $(document).ready(function() {
 				"<td align=right>" + parseInt(soluong*phi.replace(",","")).formatMoney(0,'.',',') + "</td>" +
 				"<td align=right>" + ngaytra + "</td>" +
 				"<td align=left>" + ghichu + "</td>" + "<input type=hidden id='manguoiqgychv"+i+"' value='"+$("#ma_ngq").val()+"'>" + "<input type=hidden id='mahvqgychv"+i+"' value='"+$("#tnychv_mahv").val()+"'>" +
-				"<td align=right>" + mahv + "</td>" +
+				"<td align=right>" + mahv + "</td>" + "<input type=hidden id='manguoiptychv"+i+"' value='"+$("#ma_npt").val()+"'>" +
 				"<td align=left>" + tenhv + "</td>" +
 				"<td><button class='tnychv_remove' style='height:26px;width:28px;' onclick='removeRow( getRowIndex(this) );'></button></td>" +
 				"</tr>" );			
@@ -634,11 +751,14 @@ $(document).ready(function() {
 	else
 	{
 		if (ychv_validateMaHV==0)
+			//$("#phong_tnychv_ho_ten").focus();
 			gv_open_msg_box("Nhập sai mã học viên", 'info', 250, 180);
 		else if ($("tnychv_mahv").val()=='')
-			gv_open_msg_box("Bạn chưa nhập mã học viên", 'info', 250, 180);
+			gv_open_msg_box("Bạn chưa nhập <b>mã học viên</b>", 'info', 250, 180);
 		else if (mahvu=='')
-			gv_open_msg_box("Bạn chưa chọn yêu cầu học vụ", 'info', 250, 180);
+			gv_open_msg_box("Bạn chưa chọn <b>yêu cầu học vụ</b>", 'info', 250, 180);
+		else if (manhompt=='')
+			gv_open_msg_box("Bạn chưa chọn <b>tổ phụ trách</b>", 'info', 250, 180);
 	}	
 	
  });
@@ -668,6 +788,7 @@ $(document).ready(function() {
  });
  
  $("#tnychv_mahv").change(function(e){
+	gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
 	$("#phong_tnychv_get_info").html("<img border='0' src='../images/ajax-loader.gif'/>");
 	dataString = 'a=getname&hisid=<?php echo $_REQUEST["hisid"]; ?>'+'&m='+$("#tnychv_mahv").val();
 	xreq = $.ajax({
@@ -676,14 +797,15 @@ $(document).ready(function() {
 	  data: dataString,
 	  success: function(data) {
 		//alert (data);
+		gv_processing_diglog("close");
 		if (data.error==0)
 		{
 			ychv_validateMaHV = 1;
-			$("#phong_tnychv_ho_ten").val(data.hoten);
-			$("#phong_tnychv_chuyennganh").html(data.tennganh);
-			$("#phong_tnychv_khoa").html(data.khoa);
-			$("#phong_tnychv_ngaysinh").html(data.ngaysinh);
-			$("#phong_tnychv_noisinh").html(data.noisinh);
+			$("#phong_tnychv_ho_ten").val(reverse_escapeJsonString(data.hoten));
+			$("#phong_tnychv_chuyennganh").html(reverse_escapeJsonString(data.tennganh));
+			$("#phong_tnychv_khoa").html(reverse_escapeJsonString(data.khoa));
+			$("#phong_tnychv_ngaysinh").html(reverse_escapeJsonString(data.ngaysinh));
+			$("#phong_tnychv_noisinh").html(reverse_escapeJsonString(data.noisinh));
 			$("#phong_tnychv_get_info").html("");
 		}
 		else
@@ -696,7 +818,8 @@ $(document).ready(function() {
 			$("#phong_tnychv_ngaysinh").html("");
 			$("#phong_tnychv_noisinh").html("");
 			
-			gv_open_msg_box("<font color=red>Không tìm thấy thông tin</font>", 'alert', 250, 180);
+			$("#phong_tnychv_ho_ten").focus();
+			//gv_open_msg_box("<font color=red>Không tìm thấy thông tin</font>", 'alert', 250, 180);
 		}
 	  },
 	  error: function(xhr, ajaxOptions, thrownError) {
@@ -707,12 +830,14 @@ $(document).ready(function() {
  
  $("#phong_tnychv_hvu").change(function(e){
 	//$("#phong_tnychv_get_info").html("<img border='0' src='../images/ajax-loader.gif'/>");
+	gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
 	dataString = 'a=getychvu&hisid=<?php echo $_REQUEST["hisid"]; ?>'+'&m='+$("#phong_tnychv_hvu").val();
 	xreq = $.ajax({
 	  type: 'POST', dataType: "json",
 	  url: 'phong/phong_ychv_tiepnhan_process.php',
 	  data: dataString,
 	  success: function(data) {
+		gv_processing_diglog("close");
 		$("#tnychv_ngaytrakq").val(data.ngaytra);
 		if (data.dg==''){
 			$("#tnychv_don_gia").autoNumeric('set', 0);
@@ -721,8 +846,15 @@ $(document).ready(function() {
 		}
 		//$("#tnychv_don_gia").val(parseInt(data.dg).formatMoney(0,'.',','));
 		$("#tnychv_ghi_chu").val(data.gc);
+		// nguoi giai quyet
 		$("#phong_tnychv_nguoi_giai_quyet").html(data.gq);
 		$("#ma_ngq").val(data.mngq);
+		// nguoi phu trach
+		$("#phong_tnychv_nguoi_phu_trach").html(data.pt);
+		$("#ma_npt").val(data.mnpt);
+		// nhom phu trach
+		$("#phong_tnychv_nhom_pt").val(data.mnhompt);
+		
 	  },
 	  error: function(xhr, ajaxOptions, thrownError) {
 
@@ -730,7 +862,23 @@ $(document).ready(function() {
 	});
  });
  
- $("#filter_phong_tnychv_nam_nhan, #filter_phong_tnychv_thung_rac, #filter_phong_tnychv_tinh_trang, #filter_phong_tnychv_nguoi_xl, #filter_phong_tnychv_nguoi_nhan, #filter_phong_tnychv_hv_nhan_yc").change(function(e){	
+ $("#phong_tnychv_nhom_pt").change(function(e){
+	gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
+	dataString = 'a=getnpt&hisid=<?php echo $_REQUEST["hisid"]; ?>'+'&mnhom='+$("#phong_tnychv_nhom_pt").val();
+	xreq = $.ajax({
+	  type: 'POST', dataType: "json",
+	  url: 'phong/phong_ychv_tiepnhan_process.php',
+	  data: dataString,
+	  success: function(data) {
+		gv_processing_diglog("close");
+		// nguoi phu trach
+		$("#phong_tnychv_nguoi_phu_trach").html(data.pt);
+		$("#ma_npt").val(data.mnpt);
+	  }
+	});
+ });
+ 
+ $("#filter_phong_tnychv_nam_nhan, #filter_phong_tnychv_thung_rac, #filter_phong_tnychv_tinh_trang, #filter_phong_tnychv_nguoi_pt, #filter_phong_tnychv_nguoi_xl, #filter_phong_tnychv_hv_nhan_yc").change(function(e){	
 	
 	RefreshTableYCHV(oTableYCHV,getFilter());
 	
@@ -855,15 +1003,15 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
 			var nTr = $(this).parents('tr')[0];
 			var aData = oTableYCHV.fnGetData( nTr );
 			if (i==0){
-				tenhv = nTr.cells[11].innerHTML;
-				mahv = nTr.cells[10].innerHTML;
+				tenhv = nTr.cells[ychv_col_idx['ten_hv']].innerHTML;
+				mahv = nTr.cells[ychv_col_idx['ma_hv']].innerHTML;
 			}
-			if (mahv == nTr.cells[10].innerHTML)
+			if (mahv == nTr.cells[ychv_col_idx['ma_hv']].innerHTML)
 			{
-				maychv = nTr.cells[1].innerHTML;
-				noidung = nTr.cells[2].innerHTML;
-				sl = nTr.cells[3].innerHTML;
-				ngaytra = nTr.cells[8].innerHTML;
+				maychv = nTr.cells[ychv_col_idx['ma']].innerHTML;
+				noidung = nTr.cells[ychv_col_idx['noi_dung']].innerHTML;
+				sl = nTr.cells[ychv_col_idx['sl']].innerHTML;
+				ngaytra = nTr.cells[ychv_col_idx['hen_tra']].innerHTML;
 				
 				html1 += "<tr><td align=left style='font-weight:bold'>"+maychv+"</td> <td align=left>"+noidung+"</td><td align=center>"+sl+"</td><td align=right>"+ngaytra+"</td></tr>";
 			}						
@@ -891,8 +1039,8 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
 					"</div>"+
 				"</td>"+
 			"</tr>"+
-			"<tr><td align=center colspan=2><div style='font-weight: bold; font-size: 15px; margin: 10px 0 10px 0;' >BIÊN NHẬN HỌC VỤ</div></td></tr>"+
-			"<tr><td align=left style='' colspan=2><div style='font-size: 14px'>Phòng ĐT-SĐH có nhận phiếu đề nghị giải quyết học vụ của học viên <b>"+tenhv+"</b> (<b>"+mahv+"</b>):</div></td></tr>"+
+			"<tr><td align=center colspan=2><div style='font-weight: bold; font-size: 15px; margin: 10px 0 10px 0;' >BIÊN NHẬN HỒ SƠ</div></td></tr>"+
+			"<tr><td align=left style='' colspan=2><div style='font-size: 14px'>Phòng ĐT-SĐH có nhận phiếu đề nghị giải quyết hồ sơ của <b>"+tenhv+"</b> (<b>"+mahv+"</b>):</div></td></tr>"+
 			"<tr><td align=center colspan=2>"+html1+"</td></tr>"+
 			"<tr>"+
 				"<td align=center style='width:50%'></td>"+
@@ -906,7 +1054,7 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
 			"</table>";
 	//gv_open_msg_box(html, 'info', 600, 400);
 	if (i!=0)
-		print_llkh_writeConsole(html, 0, "Biên nhận học vụ", "style='font-family:Times New Roman, Arial,Helvetica,sans-serif;'");
+		print_llkh_writeConsole(html, 0, "Biên nhận hồ sơ", "style='font-family:Times New Roman, Arial,Helvetica,sans-serif;'");
 	else
 		gv_open_msg_box("Vui lòng chọn yêu cầu học vụ cần in", 'info', 250, 180);
 	
@@ -946,7 +1094,7 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
  $("#phong_tnyc_frm_addYC").dialog({
 	resizable: false,
 	autoOpen: false,
-	width:750, height:500,
+	width:750, height:580,
 	modal: true,
 	buttons: [
 		{
@@ -1027,11 +1175,11 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
 							var nTr = $(this).parents('tr')[0];
 							var aData = oTableYCHV.fnGetData( nTr );
 							
-							nTr.cells[6].innerHTML=tennxl[tennxl.length-1];
+							nTr.cells[ychv_col_idx['cv_xl']].innerHTML="<a class='chuyennguoigiaiquyet tooltips' style='cursor:pointer; font-weight:bold; color: #0093DD;'>" + tennxl[tennxl.length-1] + "</a>";
 							if (ghichu!=""){
-								aData[21] = aData[21] + '; ' + ghichu;
+								aData[ychv_col_idx['ghi_chu']] = aData[ychv_col_idx['ghi_chu']] + '; ' + ghichu;
 							}
-							aData[6] = tennxl[tennxl.length-1];
+							aData[ychv_col_idx['cv_xl']] = tennxl[tennxl.length-1];
 							
 							if ( oTableYCHV.fnIsOpen(nTr) ){
 								oTableYCHV.fnOpen( nTr, fnFormatDetails(nTr), 'details' );	
@@ -1039,10 +1187,10 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
 							}
 							
 							// Cập nhật tooltip của Row
-							if (aData[21]=='') 
+							if (aData[ychv_col_idx['ghi_chu']]=='') 
 								nTr.setAttribute( 'title', ''); 
 							else
-								nTr.setAttribute( 'title', '<b>Chú ý</b>: ' + aData[21]);
+								nTr.setAttribute( 'title', '<b>Chú ý</b>: ' + aData[ychv_col_idx['ghi_chu']]);
 							
 							// bo check
 							$input.attr('checked', false);
@@ -1124,7 +1272,7 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
 							var aData = oTableYCHV.fnGetData( nTr );
 							
 							// cap nhat tinh trang
-							nTr.cells[12].innerHTML=tinhtrang; 
+							nTr.cells[ychv_col_idx['tinh_trang']].innerHTML=tinhtrang; 
 							$('td:eq(12)', nTr).removeClass();
 							if (tinhtrang=="Đã XL")
 							{
@@ -1138,16 +1286,16 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
 							else if (tinhtrang=="Trình LĐ" || tinhtrang=="Lấy dấu")
 								$('td:eq(12)', nTr).addClass('YCHV_TrinhLD');
 							
-							if (!(parseInt(aData[22]) > ychv_SoNgayCanhBaoHetHan) && aData[23]=="" && tinhtrang!="Đã XL")  //ychv_SoNgayCanhBaoHetHan
+							if (!(parseInt(aData[ychv_col_idx['het_han']]) > ychv_SoNgayCanhBaoHetHan) && aData[ychv_col_idx['ngay_tra_kq']]=="" && tinhtrang!="Đã XL")  //ychv_SoNgayCanhBaoHetHan
 								$(nTr).addClass( 'toihan' );
 															
 							////
 							
-							nTr.cells[13].innerHTML=ketquaxuly; // cap nhat ket qua xu ly
-							nTr.cells[8].innerHTML=hentra; // cap nhat ngay hen tra ket qua xu ly
+							nTr.cells[ychv_col_idx['ket_qua']].innerHTML=ketquaxuly; // cap nhat ket qua xu ly
+							nTr.cells[ychv_col_idx['hen_tra']].innerHTML=hentra; // cap nhat ngay hen tra ket qua xu ly
 							
-							aData[19] = vitriluu; // Cap nhat vi tri luu o muc detail
-							aData[8] = hentra;
+							aData[ychv_col_idx['vi_tri_luu']] = vitriluu; // Cap nhat vi tri luu o muc detail
+							aData[ychv_col_idx['hen_tra']] = hentra;
 							if ( oTableYCHV.fnIsOpen(nTr) )
 							{
 								oTableYCHV.fnOpen( nTr, fnFormatDetails(nTr), 'details' );	
@@ -1200,19 +1348,8 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
  $('input[placeholder],textarea[placeholder]').placeholder();
 
  $('#tnychv_don_gia').autoNumeric('init', {'wEmpty': 'zero'});
- /*
- $("#tnychv_don_gia").each(function() {
-		formatNumberVND($(this));
- });
- 
- $("#tnychv_don_gia").keydown(function(e) {
-		handleKeyDown(e);
-	}).keyup(function(e) {
-		handleKeyUp(e);
-		if (!ignoreEvent(e)) formatNumberVND($(this));
-	});
-*/	
- $('#tnychv_dsychv tbody td img').live( 'click', function () {
+	
+ $('#tnychv_dsychv tbody td img, #tnychv_dsychv tbody td a').live( 'click', function () {
         var nTr = $(this).parents('tr')[0];
 		nTrClicked = nTr;
 		
@@ -1253,7 +1390,7 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
     });
  
  $('#tnychv_dsychv tbody td input[type=checkbox]').live('click', function() {
-	var nTr = $(this).parents('td')[0];
+	var nTr = $(this).parents('td')[ychv_col_idx['chk']];
 	$(nTr).toggleClass('row_selected');
 	
  } );
@@ -1313,11 +1450,12 @@ function openXuLy(nTr){
 			return;
 		}else{
 			var aData = oTableYCHV.fnGetData( nTr );
-			var ychv_hentra = aData[8], ychv_hentra_arr;
+			var ychv_hentra = aData[ychv_col_idx['hen_tra']], ychv_hentra_arr;
 			var s = getYCHVselected(nTr, true), tinhtrang;
 			
 			// Kiểm tra đã có người xử lý hay chưa
-			if (aData[6]=='' && s.indexOf(",") < 0)	{
+			if (aData[ychv_col_idx['cv_xl']]=='' && s.indexOf(",") < 0)	{
+				gv_processing_diglog("close", "...");
 				gv_open_msg_box("Yêu cầu học vụ này chưa chuyển cho chuyên viên xử lý. Vui lòng chuyển cho chuyên viên có trách nhiệm xử lý học vụ này.", 'alert', 250, 200);
 				return;
 			}
@@ -1330,7 +1468,7 @@ function openXuLy(nTr){
 					ychv_hentra_arr = ychv_hentra.split("-");
 					ychv_hentra = ychv_hentra_arr[2] + '/' + ychv_hentra_arr[1] + '/' + ychv_hentra_arr[0];
 				} 
-				switch (aData[12]) {
+				switch (aData[ychv_col_idx['tinh_trang']]) {
 					case "Chưa XL":
 						tinhtrang = 0;
 						break;
@@ -1352,8 +1490,8 @@ function openXuLy(nTr){
 				
 				$("#phong_tnychv_tinhtrang_xuly").val(tinhtrang);
 				$("#phong_tnychv_hentra_xuly").val(ychv_hentra);
-				$("#phong_tnychv_vitriluu_xuly").val(aData[19]);
-				$("#phong_tnychv_ketqua_xuly").val(aData[13]);
+				$("#phong_tnychv_vitriluu_xuly").val(aData[ychv_col_idx['vi_tri_luu']]);
+				$("#phong_tnychv_ketqua_xuly").val(aData[ychv_col_idx['ket_qua']]);
 				
 				gv_processing_diglog("close", "...");
 				$('#phong_tnychv_xuly').dialog('open');	
@@ -1402,20 +1540,20 @@ function updateTraHV(nTr, pTraHS){
 									var nTr = $(this).parents('tr')[0];
 									var aData = oTableYCHV.fnGetData( nTr );
 									if (pTraHS == 'PhucHoiCapnhatTraHV'){
-										//nTr.cells[9].innerHTML="<img src='icons/circle-red.png' border=0 class='trahvicon' style='cursor:pointer'>"; // cap nhat trạng thái trả cho hv
-										$("td:eq(9) img",nTr).removeClass();
-										$("td:eq(9) img",nTr).attr("src", "icons/circle-red.png");
-										$("td:eq(9) img",nTr).attr("title", "");
-										$("td:eq(9) img",nTr).addClass("trahvicon");
+										//nTr.cells[ychv_col_idx['tra_hv']].innerHTML="<img src='icons/circle-red.png' border=0 class='trahvicon' style='cursor:pointer'>"; // cap nhat trạng thái trả cho hv
+										$("td:eq("+ychv_col_idx['tra_hv']+") img",nTr).removeClass();
+										$("td:eq("+ychv_col_idx['tra_hv']+") img",nTr).attr("src", "icons/circle-red.png");
+										$("td:eq("+ychv_col_idx['tra_hv']+") img",nTr).attr("title", "");
+										$("td:eq("+ychv_col_idx['tra_hv']+") img",nTr).addClass("trahvicon");
 									}
 									else
 									{
-										//nTr.cells[9].innerHTML="<img class='phuchoitrahvicon tooltips' title='Trả ngày: "+data.time+"' src='icons/circle-green.png' border=0 style='cursor:pointer'>"; // cap nhat trạng thái trả cho hv
+										//nTr.cells[ychv_col_idx['tra_hv']].innerHTML="<img class='phuchoitrahvicon tooltips' title='Trả ngày: "+data.time+"' src='icons/circle-green.png' border=0 style='cursor:pointer'>"; // cap nhat trạng thái trả cho hv
 										
-										$("td:eq(9) img",nTr).attr("src", "icons/circle-green.png");
-										$("td:eq(9) img",nTr).attr("title", "Trả ngày: "+data.time+"<br/>Người trả: "+data.name);
-										$("td:eq(9) img",nTr).removeClass();
-										$("td:eq(9) img",nTr).addClass("phuchoitrahvicon tooltips");
+										$("td:eq("+ychv_col_idx['tra_hv']+") img",nTr).attr("src", "icons/circle-green.png");
+										$("td:eq("+ychv_col_idx['tra_hv']+") img",nTr).attr("title", "Trả ngày: "+data.time+"<br/>Người trả: "+data.name);
+										$("td:eq("+ychv_col_idx['tra_hv']+") img",nTr).removeClass();
+										$("td:eq("+ychv_col_idx['tra_hv']+") img",nTr).addClass("phuchoitrahvicon tooltips");
 										$(nTr).removeClass( 'toihan' ); // loai vo class toihan khoi yeu cau hoc vu đã đánh dấu trả cho học viên
 									}
 									
@@ -1442,7 +1580,7 @@ function getYCHVselected(nTr, AutoSelectFirst, pType){
 	var s = '';
 	
 	if (AutoSelectFirst)
-		$("td:eq(0) input[type=checkbox]", nTr).attr("checked", true);
+		$("td:eq("+ychv_col_idx['chk']+") input[type=checkbox]", nTr).attr("checked", true);
 		
 	$("#tnychv_dsychv tbody input[type=checkbox]").each(function() 
 	{
@@ -1467,10 +1605,10 @@ function getYCHVselected(nTr, AutoSelectFirst, pType){
 				// Kiểm tra xử lý của chính mình
 				else if (allowPermisstion($usr, '048', $db_conn)) {
 			?>
-					if (aData[24] == '<?php echo $id; ?>'){
+					if (aData[ychv_col_idx['id_nguoi_giai_quyet']] == '<?php echo $id; ?>' || aData[ychv_col_idx['id_nguoi_phu_trach']] == '<?php echo $id; ?>'){
 						s += $input.attr('value')+','; 
 					}else{
-						$('td:eq(0) input[type=checkbox]', nTrTam).attr('checked', false);
+						$('td:eq('+ychv_col_idx['chk']+') input[type=checkbox]', nTrTam).attr('checked', false);
 					}
 			<?php
 				}
@@ -1531,10 +1669,11 @@ function SaveHVandPrint(p_print){
 			mahv = tableData.rows[i+1].cells[6].innerHTML;
 			tenhv = tableData.rows[i+1].cells[7].innerHTML;
 			mangq = $("#manguoiqgychv"+i).val();
+			manpt = $("#manguoiptychv"+i).val();
 			
 			//alert (ma + noidung + sl + phi + ngaytra + ghichu);
 			dataString +='&mhv'+i+'='+ mahv +'&tenhv'+i+'='+ encodeURIComponent(tenhv) +'&myc'+i+'='+ mayc +'&n'+i+'=' + encodeURIComponent(noidung) +'&s'+i+'='+ sl + '&p'+i+'='+ phi 
-			+'&nt'+i+'='+ encodeURIComponent(ngaytra) +'&g'+i+'='+ encodeURIComponent(ghichu) + '&mngq'+i+'='+mangq;
+			+'&nt'+i+'='+ encodeURIComponent(ngaytra) +'&g'+i+'='+ encodeURIComponent(ghichu) + '&mngq'+i+'='+mangq+ '&mnpt'+i+'='+manpt;
 		}
 		//alert (dataString);
 		
@@ -1548,8 +1687,11 @@ function SaveHVandPrint(p_print){
 			if (data.success == 1)
 			{
 				if (p_print==1){
-					print_llkh_writeConsole(reverse_escapeJsonString(data.html), 0, "Biên nhận học vụ", "style='font-family:Times New Roman, Arial,Helvetica,sans-serif;'");
+					print_llkh_writeConsole(reverse_escapeJsonString(data.html), 0, "Biên nhận hồ sơ", "style='font-family:Times New Roman, Arial,Helvetica,sans-serif;'");
 				}
+				
+				RefreshTableYCHV(oTableYCHV,getFilter());
+				$( "#phong_tnyc_frm_addYC" ).dialog( "close" );
 			}
 			else{
 				gv_open_msg_box("Có lỗi trong quá trình lưu, chi tiết lỗi: <br/><div style='margin: 5px 0 0 5px'>" + data.msgerr+'</div>', 'alert', 250, 180, true);
@@ -1560,8 +1702,7 @@ function SaveHVandPrint(p_print){
 		});
 		
 		//$(document).tooltip("destroy");
-		RefreshTableYCHV(oTableYCHV,getFilter());
-		$( "#phong_tnyc_frm_addYC" ).dialog( "close" );
+		
 		
 	}
 	else
@@ -1573,8 +1714,8 @@ function SaveHVandPrint(p_print){
 function SaveStateFilter(){
 //#filter_phong_tnychv_nam_nhan, #filter_phong_tnychv_thung_rac, #filter_phong_tnychv_tinh_trang, #filter_phong_tnychv_nguoi_xl, #filter_phong_tnychv_nguoi_nhan, #filter_phong_tnychv_hv_nhan_yc, #ychv_so_ngay_canh_bao
 	var filterstr = $("#filter_phong_tnychv_nam_nhan").val()+"&"+$("#filter_phong_tnychv_thung_rac").val()+"&"+$("#filter_phong_tnychv_tinh_trang").val()
-	+"&" + $("#filter_phong_tnychv_nguoi_xl").val()+"&"+$("#filter_phong_tnychv_nguoi_nhan").val()
-	+"&"+$("#filter_phong_tnychv_hv_nhan_yc").val()+"&"+$("#ychv_so_ngay_canh_bao").val();
+	+"&" + $("#filter_phong_tnychv_nguoi_xl").val()//+"&"+$("#filter_phong_tnychv_nguoi_nhan").val()
+	+"&"+$("#filter_phong_tnychv_hv_nhan_yc").val()+"&"+$("#ychv_so_ngay_canh_bao").val()+"&"+$("#filter_phong_tnychv_nguoi_pt").val();
 	
 	$.cookie("FilterYCHVPGS", filterstr, { expires : 30 });
 }
@@ -1590,10 +1731,10 @@ function LoadStateFilter(){
 			$("#filter_phong_tnychv_thung_rac").val(cookieValueArr[1]);
 			$("#filter_phong_tnychv_tinh_trang").val(cookieValueArr[2]);
 			$("#filter_phong_tnychv_nguoi_xl").val(cookieValueArr[3]);
-			$("#filter_phong_tnychv_nguoi_nhan").val(cookieValueArr[4]);
-			$("#filter_phong_tnychv_hv_nhan_yc").val(cookieValueArr[5]);
-			ychv_SoNgayCanhBaoHetHan = cookieValueArr[6];
-			//$("#ychv_so_ngay_canh_bao").val(cookieValueArr[6]);
+			//$("#filter_phong_tnychv_nguoi_nhan").val(cookieValueArr[4]);
+			$("#filter_phong_tnychv_hv_nhan_yc").val(cookieValueArr[4]);
+			ychv_SoNgayCanhBaoHetHan = cookieValueArr[5];
+			$("#filter_phong_tnychv_nguoi_pt").val(cookieValueArr[6]);
 			//alert(cookieValueArr[6]);
 		}
 	}

@@ -20,7 +20,12 @@ class CapDeTaiModel extends BaseTable {
 	
 	public function getThoiHanPhanBienDeTai()
 	{
-		$check = $this->getSelect("cap_de_tai.*, to_char(pbdt_ngay_bd ,'DD-MM-YYYY') as t_pbdt_ngay_bd, to_char(pbdt_ngay_kt ,'HH24:MI DD-MM-YYYY') as t_pbdt_ngay_kt")
+		$check = $this->getSelect("cap_de_tai.*, 
+		to_char(pbdt_ngay_bd ,'DD-MM-YYYY') as t_pbdt_ngay_bd, 
+		to_char(pbdt_ngay_kt ,'HH24:MI DD-MM-YYYY') as t_pbdt_ngay_kt,
+		CASE WHEN SYSDATE >=  pbdt_ngay_bd and SYSDATE <=  pbdt_ngay_kt THEN 0
+		ELSE 1
+		END as het_han_phan_bien")
 		->where("pbdt_ngay_bd is not null and pbdt_ngay_kt is not null")
 		->order("ma_cap asc")
 		->execute(false, array());

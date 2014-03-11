@@ -340,7 +340,7 @@ var jtxtTenTapChi 			= $("#txtTenTapChi"),
 	tipsCTKH				= $("#tipCTKH");
 	
 	// 
-	function updateTips( t ) {
+	function bbao_updateTips( t ) {
 		tipsCTKH
 					.text( t )
 					.addClass( "ui-state-highlight" );
@@ -349,23 +349,23 @@ var jtxtTenTapChi 			= $("#txtTenTapChi"),
 		}, 1000 );
 	}
 	
-	// Checklength
-	function checkLength( o, n, min, max) {
+	// bbao_checkLength
+	function bbao_checkLength( o, n, min, max) {
 		if (min==0 && (o.val().length==0))
 		{	
 			o.addClass( "ui-state-error" );
 			o.focus();	
-			updateTips( "Thông tin " + n + " không được phép để trống.");
+			bbao_updateTips( "Thông tin " + n + " không được phép để trống.");
 			
 			return false;
 		}else if (min==max && o.val().length<min){
 			o.addClass( "ui-state-error" );
 			o.focus();	
-			updateTips( "Thông tin " + n + " phải đủ " + min + " ký tự.");
+			bbao_updateTips( "Thông tin " + n + " phải đủ " + min + " ký tự.");
 		}else if ( o.val().length > max || o.val().length < min ) {
 			o.addClass( "ui-state-error" );
 			o.focus();		
-			updateTips( "Chiều dài của " + n + " từ " +
+			bbao_updateTips( "Chiều dài của " + n + " từ " +
 						min + " đến " + max + " ký tự.");
 			return false;
 		} else {
@@ -374,12 +374,12 @@ var jtxtTenTapChi 			= $("#txtTenTapChi"),
 	}
 	
 	// Check Regexp
-	function checkRegexp( o, regexp, n ) {
+	function bbao_checkRegexp( o, regexp, n ) {
 		//alert('a');
 		if ( o.val()!='' && !( regexp.test( o.val() ) ) ) {
 			o.addClass( "ui-state-error" );
 			o.focus();
-			updateTips( n );
+			bbao_updateTips( n );
 			return false;
 		} else {
 			return true;
@@ -397,7 +397,7 @@ var jtxtTenTapChi 			= $("#txtTenTapChi"),
 	
 	$( "#formthemcongtrinhkhoahocdiv" ).dialog({
 			autoOpen: false,
-			height: 550,
+			height: 600,
 			width: 650,
 			modal: true,
 			buttons: {
@@ -406,32 +406,32 @@ var jtxtTenTapChi 			= $("#txtTenTapChi"),
 					allFieldsCTKH.removeClass( "ui-state-error" );
 					loaiBaiBao = jtxtLoaiCongTrinh.val();
 					
-					bValid = bValid && checkLength( jtxtLoaiCongTrinh, "\"Loại công trình\"", 0, 100);
-					bValid = bValid && checkLength( jtxtTenBaiBao, "\"Tên bài báo\"", 0, 2000);
-					bValid = bValid && checkLength( jtxtTenTacGia, "\"Tác giả bài báo\"", 0, 100);
-					bValid = bValid && checkLength( jtxtLoaiTacGia, "\"Loại tác giả\"", 0, 3);
-					bValid = bValid && checkRegexp( jtxtIF,/^[-+]?[0-9]*\.?[0-9]+$/i, "Thông tin \"Điểm IF\" phải là Số");
+					bValid = bValid && bbao_checkLength( jtxtLoaiCongTrinh, "\"Loại công trình\"", 0, 100);
+					bValid = bValid && bbao_checkLength( jtxtTenBaiBao, "\"Tên bài báo\"", 0, 2000);
+					bValid = bValid && bbao_checkLength( jtxtTenTacGia, "\"Tác giả bài báo\"", 0, 100);
+					bValid = bValid && bbao_checkLength( jtxtLoaiTacGia, "\"Loại tác giả\"", 0, 3);
+					bValid = bValid && bbao_checkRegexp( jtxtIF,/^[-+]?[0-9]*\.?[0-9]+$/i, "Thông tin \"Điểm IF\" phải là Số");
 					
 					if (loaiBaiBao=='BQ' && jtxtISBN.val()!='')
 					{
-						bValid = bValid && checkLength( jtxtLoaiCongTrinh, "\"Loại công trình\"", 0, 10);
+						bValid = bValid && bbao_checkLength( jtxtLoaiCongTrinh, "\"Loại công trình\"", 0, 10);
 					}
 					
-					bValid = bValid && checkLength( jtxtTenTapChi, "\"Tên tạp chí\"", 0, 500);
+					bValid = bValid && bbao_checkLength( jtxtTenTapChi, "\"Tên tạp chí\"", 0, 500);
 					
 					if (loaiBaiBao=='BT' || loaiBaiBao=='BQ')
 					{
-						bValid = bValid && checkLength( jtxtSoTapChi, "\"Số tạp chí\"", 0, 50);
+						bValid = bValid && bbao_checkLength( jtxtSoTapChi, "\"Số tạp chí\"", 0, 50);
 					}
 					else if (loaiBaiBao=='HT' || loaiBaiBao=='HQ')
 					{
-						bValid = bValid && checkLength( jtxtThanhPho, "\"Thành Phố\"", 0, 50);
-						bValid = bValid && checkLength( jtxtQuocGia, "\"Quốc Gia\"", 0, 50);
+						bValid = bValid && bbao_checkLength( jtxtThanhPho, "\"Thành Phố\"", 0, 50);
+						bValid = bValid && bbao_checkLength( jtxtQuocGia, "\"Quốc Gia\"", 0, 50);
 					}
 					
-					//bValid = bValid && checkLength( jtxtTrangDangBaiBao, "\"Trang\"", 0, 20);
-					bValid = bValid && checkLength( jtxtNamXB, "\"Năm\"", 4, 4);
-					bValid = bValid && checkRegexp( jtxtNamXB,/^[0-9]{4,4}$/i, "Thông tin \"Năm\" phải là Số");
+					//bValid = bValid && bbao_checkLength( jtxtTrangDangBaiBao, "\"Trang\"", 0, 20);
+					bValid = bValid && bbao_checkLength( jtxtNamXB, "\"Năm\"", 4, 4);
+					bValid = bValid && bbao_checkRegexp( jtxtNamXB,/^[0-9]{4,4}$/i, "Thông tin \"Năm\" phải là Số");
 					
 					if (bValid) {
 

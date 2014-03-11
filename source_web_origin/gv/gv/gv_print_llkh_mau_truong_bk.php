@@ -15,10 +15,17 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '002', $db_con
 }
 
 $macb = $_POST['m'];
-$a = $_POST['a'];
+$a = $_REQUEST['a']; // get_llkh
+$b = $_REQUEST['b']; // export_file
+$c = $_REQUEST['c']; // id ma thuyet minh de tai
+$d = $_REQUEST['d']; // ten file
+$e = $_REQUEST['e']; // ma can bo
 
 if ($macb == '') 
 	$macb = $_SESSION['macb'];
+
+if ($e != '')
+	$macb = $e;
 
 $sqlstr="select cb.*, to_char(cb.NGAY_SINH,'dd-mm-yyyy') NGAY_SINH, decode(PHAI, 'M', 'Nam', 'F', 'Nữ') phai_desc, k.ten_khoa, bm.ten_bo_mon,
 		v.ten_chuc_vu, bmql.ten_bo_mon ten_bo_mon_ql, qghv.ten_quoc_gia ten_nuoc_hv, hv.TEN ten_hv, cb.CHUYEN_MON_BC_BO_GDDT,
@@ -51,7 +58,25 @@ if ($cbgd["HINH_ANH"][0]!="")
 	$filehinh  = $cbgd["HINH_ANH"][0];
 else
 	$filehinh  = "images/llkh/khunganh4x6.png";
+?>
 
+<?php
+if ($b == 'export_htm')
+{
+	ob_start();
+?>
+  <html>
+  <head>
+	  <base href="http://www.pgs.hcmut.edu.vn/" />
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	  <title>Lý lịch khoa học - mẫu Trường BK</title>
+  </head>
+  <body>
+<?php
+}
+?>
+
+<?php
 if ($a != 'get_llkh')
 {
 ?>
@@ -1206,7 +1231,27 @@ $(function(){
 </script>
 <?php 
 }
+?>
+<?php
+if ($b == 'export_htm')
+{
+?>
+  </body>
+  </html>
+<?php
+	$usr = base64_decode($_SESSION["uidloginPortal"]);
+	$uploaddir = "users/$usr/tmdt_llkh";
+	if (!mkdir('../khcn/'.$uploaddir, 0, true)) {	
+		//echo '../khcn/'.$uploaddir;
+	}
+	$filename = "../khcn/$uploaddir/$c"."_".$d.".htm";
 
+	//save buffer in a file
+	$buffer = ob_get_flush();
+	file_put_contents($filename, $buffer);
+}
+?>
+<?php
 if (isset ($db_conn))
 	oci_close($db_conn);
 ?>

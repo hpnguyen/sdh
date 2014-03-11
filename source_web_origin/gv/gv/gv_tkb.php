@@ -14,6 +14,10 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '008', $db_con
 	die('Truy cập bất hợp pháp'); 
 }
 
+$sqlstr="select value dot_hoc_dkmh from config where name='DOT_HOC_DKMH'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$dot_hoc_ht=$resDM["DOT_HOC_DKMH"][0];
+
 $macb = $_SESSION['macb'];
 ?>
 
@@ -24,18 +28,18 @@ $macb = $_SESSION['macb'];
 			<td align=right style="width:60px;font-weight:bold"><label for='gv_tkb_txtKhoa'>Chọn HK</label></td>	
 			<td align=left style="width:100px;">
 				<select name="gv_tkb_txtKhoa" id="gv_tkb_txtKhoa" style="font-size:15px;">
-				   <?php $sqlstr="select (hoc_ky || '/' || nam_hoc_tu || '-' || nam_hoc_den) nam_hoc, to_char(dot_hoc,'dd-mm-yyyy') dot_hoc
+				   <?php $sqlstr="select (hoc_ky || '/' || nam_hoc_tu || '-' || nam_hoc_den) nam_hoc, dot_hoc
 								from dot_hoc_nam_hoc_ky
 								where dot_hoc in (select distinct dot_hoc from thoi_khoa_bieu where ma_can_bo='".$macb."' or ma_can_bo_phu='".$macb."')
 								order by nam_hoc_tu desc, dot_hoc desc"; 
-					$stmt = oci_parse($db_conn, $sqlstr);
-					oci_execute($stmt);
-					$n = oci_fetch_all($stmt, $resDM);
-					oci_free_statement($stmt);
+					$stmt = oci_parse($db_conn, $sqlstr); oci_execute($stmt); $n = oci_fetch_all($stmt, $resDM); oci_free_statement($stmt);
 					
-					for ($i = 0; $i < $n; $i++)
-					{
-						echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["NAM_HOC"][$i]. "</option>";
+					for ($i = 0; $i < $n; $i++){
+						if ($dot_hoc_ht == $resDM["DOT_HOC"][$i]){
+							echo "<option value='".$resDM["DOT_HOC"][$i]."' selected='selected'>" .$resDM["NAM_HOC"][$i]. "</option>";
+						}else{
+							echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["NAM_HOC"][$i]. "</option>";
+						}
 					}
 					
 				  ?>
@@ -60,7 +64,7 @@ $(function(){
  
  loadTKB($("#gv_tkb_txtKhoa").val());
  
- $('#ngaybatdauhk').text(' ' + $("#gv_tkb_txtKhoa").val() + ' (tuần 1)');
+// $('#ngaybatdauhk').text(' ' + $("#gv_tkb_txtKhoa").val() + ' (tuần 1)');
  
  $("#gv_tkb_txtKhoa").change(function(e) {
 	loadTKB($("#gv_tkb_txtKhoa").val());
@@ -82,7 +86,7 @@ $(function(){
 	  + '&hisid=<?php echo $_REQUEST["hisid"]; ?>',
 	  success: function(data) {
 		$("#gv_tkb_detail").html(data);
-		$('#ngaybatdauhk').text(' ' + $("#gv_tkb_txtKhoa").val() + ' (tuần 1)');
+		//$('#ngaybatdauhk').text(' ' + $("#gv_tkb_txtKhoa").val() + ' (tuần 1)');
 		$( "#gv_tkb_btn_printpreview" ).button( "enable" );
 	  },
 	  error: function(xhr, ajaxOptions, thrownError) {

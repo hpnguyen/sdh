@@ -124,7 +124,7 @@ if ($a != 'get_llkh')
 					</td>
 				</tr>
 				<tr align="left">
-					<td align=left colspan=2> <b><?php echo $z++ . "."; ?> Cơ quan - nơi làm việc của cá nhân đăng ký chủ nhiệm đề tài, Dự án:</b>
+					<td align=left colspan=2> <b><?php echo $z++ . "."; ?> Cơ quan - nơi làm việc của cá nhân tham gia đề tài, dự án:</b>
 						<div style="margin:10px 0 10px 15px">
 						Tên người lãnh đạo Cơ quan: <?php echo $cbgd["TEN_NGUOI_LANH_DAO_CQ"][0];?>
 						</div>

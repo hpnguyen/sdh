@@ -15,6 +15,10 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '009', $db_con
 }
 
 $macb = $_SESSION['macb'];
+
+$sqlstr="select value dot_hoc_dkmh from config where name='DOT_HOC_DKMH'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$dot_hoc_ht=$resDM["DOT_HOC_DKMH"][0];
 ?>
 
 <div id="gvLichThi" >
@@ -23,20 +27,18 @@ $macb = $_SESSION['macb'];
 			<td align=right style="width:60px;font-weight:bold"><label for='gv_lichthi_txtKhoaThi'>Chọn HK</label></td>	
 			<td align=left style="width:100px;">
 				<select name="gv_lichthi_txtKhoaThi" id="gv_lichthi_txtKhoaThi" style="font-size:15px;">
-					   <?php $sqlstr="select (hoc_ky || '/' || nam_hoc_tu || '-' || nam_hoc_den) nam_hoc, to_char(dot_hoc,'dd-mm-yyyy') dot_hoc
+					   <?php $sqlstr="select (hoc_ky || '/' || nam_hoc_tu || '-' || nam_hoc_den) nam_hoc, dot_hoc
 									from dot_hoc_nam_hoc_ky
 									where dot_hoc in (select distinct dot_hoc from thoi_khoa_bieu where ma_can_bo='".$macb."')
 									order by nam_hoc_tu desc, dot_hoc desc"; 
-						$stmt = oci_parse($db_conn, $sqlstr);
-						oci_execute($stmt);
-						$n = oci_fetch_all($stmt, $resDM);
-						oci_free_statement($stmt);
-						
-						for ($i = 0; $i < $n; $i++)
-						{
-							echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["NAM_HOC"][$i]. "</option>";
+						$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+						for ($i = 0; $i < $n; $i++){
+							if ($dot_hoc_ht == $resDM["DOT_HOC"][$i]){
+								echo "<option value='".$resDM["DOT_HOC"][$i]."' selected='selected'>" .$resDM["NAM_HOC"][$i]. "</option>";
+							}else{
+								echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["NAM_HOC"][$i]. "</option>";
+							}
 						}
-						
 					  ?>
 				</select>
 			</td>
@@ -60,7 +62,7 @@ $(function(){
  
  gv_lichthi_loadLichThi();
  
- $('#thingaybatdauhk').text(' ' + $("#gv_lichthi_txtKhoaThi").val() + ' (tuần 1)');
+ //$('#thingaybatdauhk').text(' ' + $("#gv_lichthi_txtKhoaThi").val() + ' (tuần 1)');
  
  $("#gv_lichthi_txtKhoaThi").change(function(e) {
 	gv_lichthi_loadLichThi();
@@ -76,7 +78,7 @@ $(function(){
 		function(data){
 			//alert(data);
 			$("#gv_lichthi_detail ").html(data);
-			$('#thingaybatdauhk').text(' ' + $("#gv_lichthi_txtKhoaThi").val() + ' (tuần 1)');
+			//$('#thingaybatdauhk').text(' ' + $("#gv_lichthi_txtKhoaThi").val() + ' (tuần 1)');
 	}, "html");
  }
  

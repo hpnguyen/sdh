@@ -1,3 +1,0 @@
-Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Trạng thái
-50008003	ĐINH VIẾT	TUẤN	Nam 	14/07/1972	Lâm Ðồng	Khoa học máy tính	Nghỉ
-50008002	NGÔ MINH	VƯƠNG	Nam 	05/08/1981	Bình Thuận	Khoa học máy tính	Đang học

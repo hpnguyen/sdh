@@ -9,6 +9,21 @@ $gvURL = $help->getGvRootURL();
 	.phanbien-button-font-size {
 		font-size : 9px !important;
 	}
+	/*Don't agree*/
+	.type0 {
+		color: #ff0000;
+		font-weight: bold;
+	}
+	/*Agree*/
+	.type1 {
+		color: rgb(0, 128, 0);
+		font-weight: bold;
+	}
+	/*Not answer yet*/
+	.type2 {
+		color: #0000ff;
+		font-weight: bold;
+	}
 	table.dataTable tr.row_selected td.sorting { background-color:  #075385; }
 	table.dataTable tr.row_selected td.sorting_1 { background-color:  #075385; }
 	table.dataTable tr.row_selected td.sorting_2 { background-color:  #075385; }
@@ -26,19 +41,20 @@ foreach($listItems as $y => $row)
 	$listArrayDataString = "";
 	$listArrayDataString .= "'".$row["ma_thuyet_minh_dt"]."',";
 	$listArrayDataString .= "'".$row["ten_de_tai_vn"]."',";
-	$listArrayDataString .= "'".$row["ten_tinh_trang"]."',";
+	// $listArrayDataString .= "'".$row["ten_tinh_trang"]."',";
 	$listArrayDataString .= "'".$row["text_kq_phan_hoi"]."',";
 	$listArrayDataString .= "'<div id= \"".$formKey."linkClickViewReportTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewReportTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;Xem</div>',";
-	$listArrayDataString .= "'',";
+	// $listArrayDataString .= "'',";
 	$url = $help->getModuleActionRouteUrl('khcn/phanbien/ajaxdialog?hisid='.$_GET['hisid'])."&d=".$dothoc."&madetai=".$row["ma_thuyet_minh_dt"];
 	//Check het_han_phan_bien is '1' will not render button	
-	if ((int) $row["het_han_phan_bien"] == 0){
+	if ((int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == '1'){
 		$textView = "Phản Biện";
 	}else{
 		$textView = "Xem Phản Biện";
 	}
 	
-	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>";
+	
+	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel_kq_phan_hoi=\"".$row["kq_phan_hoi"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>";
 	$listArrayDataString .= " <a href=\"javascript: void(0);\" id=\"".$formKey."linkClickViewPrintPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPrintPhanBienTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;In</a>'";
 	$listArrayData[] = $listArrayDataString;
 }
@@ -49,11 +65,11 @@ foreach($listItems as $y => $row)
 	  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
 		<td width="50px" align='left'>Mã ĐT</td>
 		<td align="left">Tên Đề Tài</td>
-		<td width="110px" align="left">Trạng Thái</td>
-		<td width="130px" align="left">Kết Quả Trả Lời</td>
-		<td width="100px" align="center">Chi tiết Link TMĐT</td>
-		<td width="100px" align="center">Link LLKH Người Tham Gia</td>
-		<td width="135px" align="center"></td>
+		<!-- <td width="110px" align="left">Trạng Thái</td> -->
+		<td width="200px" align="left">Kết Quả Trả Lời</td>
+		<td width="100px" align="center">Nội dung TMĐT</td>
+		<!-- <td width="100px" align="center">Link LLKH Người Tham Gia</td> -->
+		<td width="170px" align="center"></td>
 	  </tr>
 	  </thead>
 	  <tbody>
@@ -102,14 +118,13 @@ function <?php echo $formKey ?>InitReady(){
 	
 	$(".<?php echo $formKey ?>linkClickViewPhanBienTab").click(function(){
 		var myURL = $(this).attr('href');
+		var initialCheckPhanHoi = $(this).attr('rel_kq_phan_hoi'); 
 		//console.log(myURL);
 		var dialogTitle = "Phản biện đề tài : " + $(this).parent().parent().find('td').eq(1).text() ;
-		<?php
-		//Only show warning message if enable to update data
-		if ((int) $row["het_han_phan_bien"] == 0){ 
-		?>
-		dialogTitle = dialogTitle + "<br> <i><span style='color: #FF0000'>Lưu ý: Nội dung cập nhật chỉ được lưu sau khi nhấn nút Lưu</span></i>";
-		<?php } ?>
+		
+		if (initialCheckPhanHoi == '1'){
+			dialogTitle = dialogTitle + "<br> <i><span style='color: #FF0000'>Lưu ý: Nội dung cập nhật chỉ được lưu sau khi nhấn nút Lưu</span></i>";
+		}
 		$.ajax({
 			url: myURL,
 			success: function(data) {
@@ -131,12 +146,10 @@ function <?php echo $formKey ?>InitReady(){
 							var parentItem = $(this).parent();
 							var currentName = $(this).attr('name');
 							var currentHtmlValue = $(this).html();
-							if (currentHtmlValue != '................................................................................................'){
-								if (currentHtmlValue == '<br>'){
-									currentHtmlValue = '';
-								}
-								parentItem.find('textarea[name="' + currentName + '"]').val(currentHtmlValue);
+							if (currentHtmlValue == '<br>'){
+								currentHtmlValue = '';
 							}
+							parentItem.find('textarea[name="' + currentName + '"]').val(currentHtmlValue);
 						});
 						$.ajax({
 							type: "POST",
@@ -158,6 +171,7 @@ function <?php echo $formKey ?>InitReady(){
 								$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", false);
 							}
 						});
+						
 					}},
 					<?php } ?>
 					close: function() {
@@ -166,11 +180,22 @@ function <?php echo $formKey ?>InitReady(){
 				});
 				
 				$("#<?php echo $formKey ?>DialogTabsViewPhanBien").dialog('open');
+				
+				if (initialCheckPhanHoi == '1'){
+					//Enable save button
+					$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", false);
+					$(".ui-dialog-buttonset").show();
+				}else{
+					//Disable save button
+					$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", true);
+					$(".ui-dialog-buttonset").hide();
+				}
 			},
 			complete: function(xhr,status){
 				$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
 			}
 		});
+		
 		return false;
 	});
 	
@@ -238,11 +263,11 @@ $(document).ready(function() {
 		"aoColumns": [
 			{"sClass": "center"},
 			null,
-			null,
+			// null,
 			null,
 			{"sClass": "center"},
-			{"sClass": "center"},
-			{"sClass": "center"}
+			// {"sClass": "center"},
+			{"sClass": "right"}
 		],
 		//"aaSorting": [[0,'asc'], [2,'asc'], [3,'asc']],
 		"bAutoWidth": false, 
@@ -257,12 +282,12 @@ $(document).ready(function() {
 		},
 		"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
 			
-			if (aaData[3] == "Đồng ý phản biện"){
-				$('td:eq(3)', nRow).css({'color': 'green', 'font-weight': 'bold'});
-			}else if (aaData[3] == "Không đồng ý"){
-				$('td:eq(3)', nRow).css({'color': 'red', 'font-weight': 'bold'});
-			}else if (aaData[3] == "Chưa trả lời"){
-				$('td:eq(3)', nRow).css({'color': 'blue', 'font-weight': 'bold'});
+			if (aaData[2] == "Đồng ý phản biện"){
+				$('td:eq(2)', nRow).addClass('type1');
+			}else if (aaData[2] == "Không đồng ý"){
+				$('td:eq(2)', nRow).addClass('type0');
+			}else if (aaData[2] == "Chưa trả lời"){
+				$('td:eq(2)', nRow).addClass('type2');
 			}
 			
 			return nRow;

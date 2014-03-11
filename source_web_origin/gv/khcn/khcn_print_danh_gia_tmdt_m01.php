@@ -346,6 +346,8 @@ if ($a != 'print_tmdt_pdf')
 				<div style="width:100%;" align=center>
 					<span><em>Ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span><br>
 					<b>Người đánh giá</b>
+					<br><br><br><br>
+					<b><?php echo $cbgd["HOTENCB"][0]; ?></b>
 				</div>
 			</td>
 		</tr>

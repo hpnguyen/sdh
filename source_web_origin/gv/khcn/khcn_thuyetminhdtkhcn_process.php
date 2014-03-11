@@ -1,6 +1,9 @@
 <?php
 ini_set('display_errors', '1');
 
+//  bien nay dung de set folder upload hinh cho ckfinder upload hinh trong ckeditor, chi dung cho tool quan ly tmdt
+$_SESSION["khcn_username"]="";
+
 if (isset($_REQUEST["hisid"])){
 	session_id($_REQUEST["hisid"]);
 	session_start();
@@ -605,10 +608,11 @@ if ($a=='getthuyetminhinfo'){
 	DECODE(tm.CNDT_PHAI, 'F', 'Nữ', 'M', 'Nam', '') CNDT_TEN_PHAI, DECODE(tm.DCNDT_PHAI, 'F', 'Nữ', 'M', 'Nam', '') DCNDT_TEN_PHAI,
 	num2str(tm.TONG_KINH_PHI*1000000) || ' đồng' CHU_TONG_KINH_PHI, num2str(tm.KINH_PHI_TU_DHQG*1000000) || ' đồng' CHU_KINH_PHI_TU_DHQG, 
 	num2str(tm.KINH_PHI_HUY_DONG*1000000) || ' đồng' CHU_KINH_PHI_HUY_DONG, num2str(tm.HD_VON_TU_CO*1000000) || ' đồng' CHU_HD_VON_TU_CO, 
-	num2str(tm.HD_KHAC*1000000) || ' đồng' CHU_HD_KHAC
-	FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc, DM_TINH_TP tp1, DM_TINH_TP tp2
+	num2str(tm.HD_KHAC*1000000) || ' đồng' CHU_HD_KHAC, n.USERNAME
+	FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc, DM_TINH_TP tp1, DM_TINH_TP tp2, nhan_su n
 	WHERE MA_THUYET_MINH_DT='$m' and FK_CAP_DE_TAI = cdt.ma_cap(+) and FK_LOAI_HINH_NC = lhnc.MA_LOAI_HINH_NC(+)
-	and CNDT_NOI_CAP = tp1.MA_TINH_TP(+) and DCNDT_NOI_CAP = tp2.MA_TINH_TP(+)";
+	and CNDT_NOI_CAP = tp1.MA_TINH_TP(+) and DCNDT_NOI_CAP = tp2.MA_TINH_TP(+)
+	and tm.FK_MA_CAN_BO=n.FK_MA_CAN_BO(+)";
 
 	//file_put_contents("logs.txt", date("H:i:s d.m.Y")." $sqlstr \n", FILE_APPEND);
 		
@@ -623,6 +627,7 @@ if ($a=='getthuyetminhinfo'){
 	
 	$data='{';
 	if ($n){
+		
 		if ($resDM["VB_CHUNG_MINH_VON_KHAC_LINK"][0]!=''){
 			$path = pathinfo($resDM["VB_CHUNG_MINH_VON_KHAC_LINK"][0]);
 			$filename = $path['basename'];

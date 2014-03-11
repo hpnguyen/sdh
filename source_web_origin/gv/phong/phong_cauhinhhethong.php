@@ -16,7 +16,6 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '053', $db_con
 
 $macb = $_SESSION['macb'];
 
-
 // Tham so he thong cho ĐKMH
 $sqlstr="select to_char(to_date(value), 'dd/mm/yyyy') dot_hoc_f, value dot_hoc_dkmh from config where name='DOT_HOC_DKMH'";
 $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
@@ -88,6 +87,10 @@ $tracuu_dot_ts_web = $resDM["VALUE"][0];
 $sqlstr = "SELECT value FROM config WHERE name = 'YCHVU_DK_CHO_PHEP'";
 $stmt = oci_parse($db_conn, $sqlstr); oci_execute($stmt); oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 $chophep_dkychv_online = $resDM["VALUE"][0];
+
+$sqlstr = "SELECT value FROM config WHERE name = 'YCHVU_DK_TB'";
+$stmt = oci_parse($db_conn, $sqlstr); oci_execute($stmt); oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$thongbao_ychv_online = $resDM["VALUE"][0];
 // end
 
 // Đăng ký đề cương
@@ -107,6 +110,53 @@ $sqlstr="SELECT value , (sysdate - to_date(value,'dd/mm/yyyy')) bat_dau FROM con
 $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 $ngaybatdau_dkdc = $resDM["VALUE"][0]; $batdau_dkdc = $resDM["BAT_DAU"][0];
 // END Tham so he thong cho ĐKMH theo nguyen vong
+
+// Đợt học đóng HP
+$sqlstr="SELECT value FROM config WHERE name='DOT_HOC_DONG_HP'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$dot_hoc_dong_hp = $resDM["VALUE"][0];
+// END
+
+// Tra cuu thong tin thi sinh du thi
+$sqlstr="select value thongbao from config where name = 'TRA_CUU_TT_TSDT_TB'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$thongbao_tracuu_TSDT = $resDM["THONGBAO"][0];
+
+$sqlstr="select value TRACUU from config where name = 'TRA_CUU_TT_TSDT'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$tracuu_TSDT = $resDM["TRACUU"][0];
+// END
+
+// Tra cuu diem tuyen sinh
+$sqlstr="select value thongbao from config where name = 'TRA_CUU_DIEM_TS_TB'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$thongbao_tracuu_diemTS = $resDM["THONGBAO"][0];
+
+$sqlstr="select value TRACUU from config where name = 'TRA_CUU_DIEM_TS'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$tracuu_diemTS = $resDM["TRACUU"][0];
+// END
+
+// Tra cuu diem phuc tra
+$sqlstr="select value thongbao from config where name = 'TRA_CUU_PT_TS_TB'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$thongbao_tracuu_diemPT = $resDM["THONGBAO"][0];
+
+$sqlstr="select value TRACUU from config where name = 'TRA_CUU_PT_TS'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$tracuu_diemPT = $resDM["TRACUU"][0];
+// END
+
+// Tra cuu nv2
+$sqlstr="select value thongbao from config where name = 'TRA_CUU_NV2_TB'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$thongbao_tracuu_NV2 = $resDM["THONGBAO"][0];
+
+$sqlstr="select value TRACUU from config where name = 'TRA_CUU_NV2'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$tracuu_NV2 = $resDM["TRACUU"][0];
+// END
+
 ?>
 
 <div id="phong_cauhinh_accordion">
@@ -117,7 +167,23 @@ $ngaybatdau_dkdc = $resDM["VALUE"][0]; $batdau_dkdc = $resDM["BAT_DAU"][0];
 			Đăng ký môn học <b>HK <?php echo $dkmh_hknamhoc; ?></b>
 		</div>
 		<div align="left" style="margin:0 0 5px 10px">
-			Đợt học đăng ký môn học<input type=text id="phong_cauhinh_dkmh_dothoc" name="phong_cauhinh_dkmh_dothoc" style="width:95px; text-align:center"> (DD-MON-YYYY)
+			Đợt học đăng ký môn học 
+			<select id=phong_cauhinh_dkmh_dothoc name=phong_cauhinh_dkmh_dothoc style="font-size:15px;">
+				<?php
+				$sqlstr="select d.hoc_ky||'/'||d.nam_hoc_tu||'-'||d.nam_hoc_den HOC_KY, d.dot_hoc
+						from dot_hoc_nam_hoc_ky d
+						where d.nam_hoc_tu >= 2012
+						order by dot_hoc desc";
+				$stmt = oci_parse($db_conn, $sqlstr); oci_execute($stmt); $n = oci_fetch_all($stmt, $resDM); oci_free_statement($stmt);
+				for ($i = 0; $i < $n; $i++){
+					if ($dkmh_dot_hoc == $resDM["DOT_HOC"][$i]) {
+						echo "<option value='".$resDM["DOT_HOC"][$i]."' selected='selected'>" .$resDM["HOC_KY"][$i]. " (".strtoupper($resDM["DOT_HOC"][$i]).")</option>";
+					}else{
+						echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["HOC_KY"][$i]." (".strtoupper($resDM["DOT_HOC"][$i]).")</option>";
+					}
+				}
+				?>
+			</select>
 		</div>
 		<div align="left" style="margin-left: 10px">
 			Đăng ký từ <input type=text id="phong_cauhinh_dkmh_tu" name="phong_cauhinh_dkmh_tu" style="width:90px; text-align:center"> đến <input type=text id="phong_cauhinh_dkmh_den" name="phong_cauhinh_dkmh_den" style="width:90px; text-align:center">
@@ -132,7 +198,26 @@ $ngaybatdau_dkdc = $resDM["VALUE"][0]; $batdau_dkdc = $resDM["BAT_DAU"][0];
 	<div class="tableData">
 	<p>
 		<div align="left" style="margin: 0 0 10px 10px">
-			Đăng ký môn học theo nguyện vọng <b>HK <?php echo $dkmh_hknamhoc; ?></b>
+			Đăng ký môn học theo nguyện vọng <b>HK <?php echo $dkmh_nv_hknamhoc; ?></b>
+		</div>
+		<div align="left" style="margin:0 0 5px 10px">
+			Đợt học đăng ký môn học 
+			<select id=phong_cauhinh_dkmh_nv_dothoc name=phong_cauhinh_dkmh_nv_dothoc style="font-size:15px;">
+				<?php
+				$sqlstr="select d.hoc_ky||'/'||d.nam_hoc_tu||'-'||d.nam_hoc_den HOC_KY, d.dot_hoc
+						from dot_hoc_nam_hoc_ky d
+						where d.nam_hoc_tu >= 2012
+						order by dot_hoc desc";
+				$stmt = oci_parse($db_conn, $sqlstr); oci_execute($stmt); $n = oci_fetch_all($stmt, $resDM); oci_free_statement($stmt);
+				for ($i = 0; $i < $n; $i++){
+					if ($dkmh_nv_dot_hoc == $resDM["DOT_HOC"][$i]) {
+						echo "<option value='".$resDM["DOT_HOC"][$i]."' selected='selected'>" .$resDM["HOC_KY"][$i]. " (".strtoupper($resDM["DOT_HOC"][$i]).")</option>";
+					}else{
+						echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["HOC_KY"][$i]." (".strtoupper($resDM["DOT_HOC"][$i]).")</option>";
+					}
+				}
+				?>
+			</select>
 		</div>
 		<div align="left" style="margin-left: 10px">
 			Đăng ký từ <input type=text id="phong_cauhinh_dkmh_nguyenvong_tu" name="phong_cauhinh_dkmh_nguyenvong_tu" style="width:90px; text-align:center"> đến <input type=text id="phong_cauhinh_dkmh_nguyenvong_den" name="phong_cauhinh_dkmh_nguyenvong_den" style="width:90px; text-align:center">
@@ -166,7 +251,7 @@ $ngaybatdau_dkdc = $resDM["VALUE"][0]; $batdau_dkdc = $resDM["BAT_DAU"][0];
 	<p>
 		<div align="left" style="margin-left: 10px">
 			<table>
-				<tr><td>Đăng ký yêu cầu học vụ online</td><td><select id="phong_cauhinh_dangky_ychv_online_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_dangky_ychv_online_tb" name="phong_cauhinh_dangky_ychv_online_tb" style="width:500px; text-align:left"></td></tr>
+				<tr><td>Đăng ký yêu cầu học vụ online</td><td><select id="phong_cauhinh_dangky_ychv_online_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_dangky_ychv_online_tb" name="phong_cauhinh_dangky_ychv_online_tb" style="width:500px; text-align:left" value="<?php echo htmlentities($thongbao_ychv_online, ENT_QUOTES, "UTF-8");?>"></td></tr>
 			</table>
 		</div>
 		<div align="left" style="margin: 10px 0 0 10px">
@@ -182,8 +267,25 @@ $ngaybatdau_dkdc = $resDM["VALUE"][0]; $batdau_dkdc = $resDM["BAT_DAU"][0];
 			Đăng ký đề cương <b>HK <?php echo $hk_dkdc; ?></b>
 		</div>
 		<div align="left" style="margin:0 0 5px 10px">
-			Đợt học đăng ký đề cương <input type=text id="phong_cauhinh_dkdc_dothoc" name="phong_cauhinh_dkdc_dothoc" style="width:95px; text-align:center"> (DD-MON-YYYY)
+			Đợt học đăng ký đề cương 
+			<select id=phong_cauhinh_dkdc_dothoc name=phong_cauhinh_dkdc_dothoc style="font-size:15px;">
+				<?php
+				$sqlstr="select d.hoc_ky||'/'||d.nam_hoc_tu||'-'||d.nam_hoc_den HOC_KY, d.dot_hoc
+						from dot_hoc_nam_hoc_ky d
+						where d.nam_hoc_tu >= 2012
+						order by dot_hoc desc";
+				$stmt = oci_parse($db_conn, $sqlstr); oci_execute($stmt); $n = oci_fetch_all($stmt, $resDM); oci_free_statement($stmt);
+				for ($i = 0; $i < $n; $i++){
+					if ($dothoc_dkdc == $resDM["DOT_HOC"][$i]) {
+						echo "<option value='".$resDM["DOT_HOC"][$i]."' selected='selected'>" .$resDM["HOC_KY"][$i]. " (".strtoupper($resDM["DOT_HOC"][$i]).")</option>";
+					}else{
+						echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["HOC_KY"][$i]." (".strtoupper($resDM["DOT_HOC"][$i]).")</option>";
+					}
+				}
+				?>
+			</select>
 		</div>
+		
 		<div align="left" style="margin-left: 10px">
 			Đăng ký từ <input type=text id="phong_cauhinh_dkdc_tu" name="phong_cauhinh_dkdc_tu" style="width:90px; text-align:center"> đến <input type=text id="phong_cauhinh_dkdc_den" name="phong_cauhinh_dkdc_den" style="width:90px; text-align:center">
 		</div>
@@ -193,19 +295,62 @@ $ngaybatdau_dkdc = $resDM["VALUE"][0]; $batdau_dkdc = $resDM["BAT_DAU"][0];
 	</p>
 	</div>
 	
+	<h3>Đợt học đóng học phí</h3>
+	<div class="tableData">
+	<p>
+		<div align="left" style="margin: 0 0 10px 10px">
+			Đợt học đóng HP 
+			<select id=phong_cauhinh_kqdhp_txtHK name=phong_cauhinh_kqdhp_txtHK style="font-size:15px;">
+				<?php
+				$sqlstr="select d.hoc_ky||'/'||d.nam_hoc_tu||'-'||d.nam_hoc_den HOC_KY, d.dot_hoc
+						from dot_hoc_nam_hoc_ky d
+						where d.nam_hoc_tu >= 2012
+						order by dot_hoc desc";
+				$stmt = oci_parse($db_conn, $sqlstr);
+				oci_execute($stmt);
+				$n = oci_fetch_all($stmt, $resDM);
+				oci_free_statement($stmt);
+
+				for ($i = 0; $i < $n; $i++){
+					if ($dot_hoc_dong_hp == $resDM["DOT_HOC"][$i]) {
+						echo "<option value='".$resDM["DOT_HOC"][$i]."' selected='selected'>" .$resDM["HOC_KY"][$i]. " (".strtoupper($resDM["DOT_HOC"][$i]).")</option>";
+					}else{
+						echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["HOC_KY"][$i]." (".strtoupper($resDM["DOT_HOC"][$i]).")</option>";
+					}
+				}
+				?>
+			</select>
+		</div>
+		
+		<div align="left" style="margin: 10px 0 0 10px">
+			<button id="phong_cauhinh_btn_dothp_save">Save</button>
+		</div>
+	</p>
+	</div>
+	
 	<h3>Tra cứu thông tin</h3>
 	<div class="tableData">
 	<p>
 		<div align="left" style="margin:0 0 10px 10px">
-			<b>Khoá TS Web</b> <input type=text id="phong_cauhinh_tracuu_khoa_ts_web" name="phong_cauhinh_tracuu_khoa_ts_web" style="width:40px; text-align:center"> <b>Đợt TS Web</b> <input type=text id="phong_cauhinh_tracuu_dot_ts_web" name="phong_cauhinh_tracuu_dot_ts_web" style="width:20px; text-align:center">
+			<b>Khoá TS Web</b> <input type=text id="phong_cauhinh_tracuu_khoa_ts_web" name="phong_cauhinh_tracuu_khoa_ts_web" style="width:40px; text-align:center"> 
+			<b>Đợt TS Web</b> 
+			<select id="phong_cauhinh_tracuu_dot_ts_web" name="phong_cauhinh_tracuu_dot_ts_web" style="font-size:15px;">
+				<option value='1'>1</option>
+				<option value='2'>2</option>
+			</select>
+			
 		</div>
 		<div align="left" style="margin-left: 10px">
 			<table>
-				<tr><td>Tra cứu thông tin thí sinh dự thi</td><td><select id="phong_cauhinh_tracuu_tsdt_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_tracuu_tsdt_tb" name="phong_cauhinh_tracuu_tsdt_tb" style="width:500px; text-align:left"></td></tr>
-				<tr><td>Tra cứu điểm tuyển sinh</td><td><select id="phong_cauhinh_tracuu_dts_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_tracuu_diemts_tb" name="phong_cauhinh_tracuu_diemts_tb" style="width:500px; text-align:left"></td></tr>
-				<tr><td>Tra cứu điểm phúc tra</td><td><select id="phong_cauhinh_tracuu_dpt_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_tracuu_diempt_tb" name="phong_cauhinh_tracuu_diempt_tb" style="width:500px; text-align:left"></td></tr>
-				<tr><td>Tra cứu nguyện vọng 2</td><td><select id="phong_cauhinh_tracuu_nv2_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_tracuu_nv2_tb" name="phong_cauhinh_tracuu_nv2_tb" style="width:500px; text-align:left"></td></tr>
+				<tr><td>Tra cứu thông tin thí sinh dự thi</td><td><select id="phong_cauhinh_tracuu_tsdt_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_tracuu_tsdt_tb" name="phong_cauhinh_tracuu_tsdt_tb" style="width:500px; text-align:left" value="<?php echo htmlentities($thongbao_tracuu_TSDT, ENT_QUOTES, "UTF-8");?>"></td></tr>
+				<tr><td>Tra cứu điểm tuyển sinh</td><td><select id="phong_cauhinh_tracuu_dts_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_tracuu_diemts_tb" name="phong_cauhinh_tracuu_diemts_tb" style="width:500px; text-align:left" value="<?php echo htmlentities($thongbao_tracuu_diemTS, ENT_QUOTES, "UTF-8");?>" ></td></tr>
+				<tr><td>Tra cứu điểm phúc tra</td><td><select id="phong_cauhinh_tracuu_dpt_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_tracuu_diempt_tb" name="phong_cauhinh_tracuu_diempt_tb" style="width:500px; text-align:left" value="<?php echo htmlentities($thongbao_tracuu_diemPT, ENT_QUOTES, "UTF-8");?>"></td></tr>
+				<tr><td>Tra cứu nguyện vọng 2</td><td><select id="phong_cauhinh_tracuu_nv2_onoff"><option value="1">On</option><option value="0">Off</option></select></td><td>Thông báo khi off</td><td><input type=text id="phong_cauhinh_tracuu_nv2_tb" name="phong_cauhinh_tracuu_nv2_tb" style="width:500px; text-align:left" value="<?php echo htmlentities($thongbao_tracuu_NV2, ENT_QUOTES, "UTF-8");?>"></td></tr>
 			</table>
+		</div>
+		
+		<div align="left" style="margin: 10px 0 0 10px">
+			<button id="phong_cauhinh_btn_tracuu_save">Save</button>
 		</div>
 	</p>
 	</div>
@@ -230,10 +375,10 @@ $(function(){
 	});
 	
 	$( "#phong_cauhinh_dkmh_tu, #phong_cauhinh_dkmh_den, #phong_cauhinh_dkmh_nguyenvong_tu, #phong_cauhinh_dkmh_nguyenvong_den, #phong_cauhinh_dkdc_tu, #phong_cauhinh_dkdc_den" ).mask("99/99/9999");
-	$( "#phong_cauhinh_dkmh_dothoc, #phong_cauhinh_dkdc_dothoc" ).mask("99-aaa-9999");
+	//$( "#phong_cauhinh_dkdc_dothoc" ).mask("99-aaa-9999");
 	
 	// Khoi tao du lieu
-	$( "#phong_cauhinh_dkmh_dothoc" ).val('<?php echo $dkmh_dot_hoc;?>');
+	//$( "#phong_cauhinh_dkmh_dothoc" ).val('<?php echo $dkmh_dot_hoc;?>');
 	$( "#phong_cauhinh_dkmh_tu" ).val('<?php echo $dkmh_ngaybatdau;?>');
 	$( "#phong_cauhinh_dkmh_den" ).val('<?php echo $dkmh_ngayhethan;?>');
 	
@@ -248,9 +393,16 @@ $(function(){
 	
 	$( "#phong_cauhinh_dangky_ychv_online_onoff" ).val('<?php echo $chophep_dkychv_online;?>');
 	
-	$( "#phong_cauhinh_dkdc_dothoc" ).val('<?php echo $dothoc_dkdc;?>');
+	//$( "#phong_cauhinh_dkdc_dothoc" ).val('<?php echo $dothoc_dkdc;?>');
 	$( "#phong_cauhinh_dkdc_tu" ).val('<?php echo $ngaybatdau_dkdc;?>');
 	$( "#phong_cauhinh_dkdc_den" ).val('<?php echo $ngayhethan_dkdc;?>');
+	// end
+	
+	// Tra cuu
+	$( "#phong_cauhinh_tracuu_tsdt_onoff" ).val('<?php echo $tracuu_TSDT;?>');
+	$( "#phong_cauhinh_tracuu_dts_onoff" ).val('<?php echo $tracuu_diemTS;?>');
+	$( "#phong_cauhinh_tracuu_dpt_onoff" ).val('<?php echo $tracuu_diemPT;?>');
+	$( "#phong_cauhinh_tracuu_nv2_onoff" ).val('<?php echo $tracuu_NV2;?>');
 	// end
 	
 	$("#phong_cauhinh_btn_dkmh_save").click(function(){
@@ -272,6 +424,15 @@ $(function(){
 	$("#phong_cauhinh_btn_dkdc_save").click(function(){
 		phong_cauhinh_save_dkdc();
 	});
+	
+	$("#phong_cauhinh_btn_dothp_save").click(function(){
+		phong_cauhinh_save_dotdonghp();
+	});
+	
+	$("#phong_cauhinh_btn_tracuu_save").click(function(){
+		phong_cauhinh_save_tracuu();
+	});
+	
 	
 	
 });
@@ -323,7 +484,7 @@ function phong_cauhinh_save_dkmh_nv(){
 			gv_open_msg_box("<font style='color:red;'>Không thể save vì:</font> <br/><div style='margin: 5px 0 0 5px'>" + reverse_escapeJsonString(data.msg) +'</div>', 'alert', 250, 180, true);
 			return;
 		}else{
-			dataString = 'a=saveDKMHNVconf&from='+ $("#phong_cauhinh_dkmh_nguyenvong_tu").val() + '&to=' + $("#phong_cauhinh_dkmh_nguyenvong_den").val();
+			dataString = 'a=saveDKMHNVconf&from='+ $("#phong_cauhinh_dkmh_nguyenvong_tu").val() + '&to=' + $("#phong_cauhinh_dkmh_nguyenvong_den").val() +'&dothoc='+$("#phong_cauhinh_dkmh_nv_dothoc").val();
 			xreq = $.ajax({
 			  type: 'POST', dataType: "json",
 			  url: phong_cauhinh_linkdata,
@@ -379,7 +540,7 @@ function phong_cauhinh_save_dkychv(){
 			gv_open_msg_box("<font style='color:red;'>Không thể save vì:</font> <br/><div style='margin: 5px 0 0 5px'>" + reverse_escapeJsonString(data.msg) +'</div>', 'alert', 250, 180, true);
 			return;
 		}else{
-			dataString = 'a=saveDKYCHVconf&value1='+ $("#phong_cauhinh_dangky_ychv_online_onoff").val();
+			dataString = 'a=saveDKYCHVconf&value1='+$("#phong_cauhinh_dangky_ychv_online_onoff").val()+'&value2='+$("#phong_cauhinh_dangky_ychv_online_tb").val();
 			xreq = $.ajax({
 			  type: 'POST', dataType: "json",
 			  url: phong_cauhinh_linkdata,
@@ -427,6 +588,65 @@ function phong_cauhinh_save_dkdc(){
 	});
 }
 
+function phong_cauhinh_save_dotdonghp(){
+	gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
+	phong_cauhinh_checksession().done(function(data){
+		if (data.success != 1){
+			gv_processing_diglog("close", "...");
+			gv_open_msg_box("<font style='color:red;'>Không thể save vì:</font> <br/><div style='margin: 5px 0 0 5px'>" + reverse_escapeJsonString(data.msg) +'</div>', 'alert', 250, 180, true);
+			return;
+		}else{
+			dataString = 'a=saveDotHPconf&dothocdonghp='+$("#phong_cauhinh_kqdhp_txtHK").val();
+			xreq = $.ajax({
+			  type: 'POST', dataType: "json",
+			  url: phong_cauhinh_linkdata,
+			  data: dataString,
+			  success: function(data) {
+				if (data.success==-1){
+					gv_processing_diglog("close");
+					gv_open_msg_box("Save uncompleted. Error: " + reverse_escapeJsonString(data.msg), 'info', 250, 180);
+				}
+				else{
+					gv_processing_diglog("close");
+					gv_open_msg_box("Save completed", 'info', 250, 180);
+				}
+			  }
+			});
+		}
+	});
+}
+
+function phong_cauhinh_save_tracuu(){
+	gv_processing_diglog("open", "Đang xử lý ... vui lòng chờ");
+	phong_cauhinh_checksession().done(function(data){
+		if (data.success != 1){
+			gv_processing_diglog("close", "...");
+			gv_open_msg_box("<font style='color:red;'>Không thể save vì:</font> <br/><div style='margin: 5px 0 0 5px'>" + reverse_escapeJsonString(data.msg) +'</div>', 'alert', 250, 180, true);
+			return;
+		}else{
+			dataString = 'a=saveTraCuuconf&khoatsweb='+$("#phong_cauhinh_tracuu_khoa_ts_web").val()+ '&dottsweb='+$("#phong_cauhinh_tracuu_dot_ts_web").val() +
+			'&tracuutsdt='+$("#phong_cauhinh_tracuu_tsdt_onoff").val()+'&tracuutsdt_tb='+$("#phong_cauhinh_tracuu_tsdt_tb").val()+
+			'&tracuudiemts='+$("#phong_cauhinh_tracuu_dts_onoff").val()+'&tracuudiemts_tb='+$("#phong_cauhinh_tracuu_diemts_tb").val()+
+			'&tracuudiempt='+$("#phong_cauhinh_tracuu_dpt_onoff").val()+'&tracuudiempt_tb='+$("#phong_cauhinh_tracuu_diempt_tb").val()+
+			'&tracuunv2='+$("#phong_cauhinh_tracuu_nv2_onoff").val()+'&tracuunv2_tb='+$("#phong_cauhinh_tracuu_nv2_tb").val();
+			xreq = $.ajax({
+			  type: 'POST', dataType: "json",
+			  url: phong_cauhinh_linkdata,
+			  data: dataString,
+			  success: function(data) {
+				if (data.success==-1){
+					gv_processing_diglog("close");
+					gv_open_msg_box("Save uncompleted. Error: " + reverse_escapeJsonString(data.msg), 'info', 250, 180);
+				}
+				else{
+					gv_processing_diglog("close");
+					gv_open_msg_box("Save completed", 'info', 250, 180);
+				}
+			  }
+			});
+		}
+	});
+}
 </script>
 
 

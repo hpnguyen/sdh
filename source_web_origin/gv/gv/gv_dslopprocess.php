@@ -15,23 +15,22 @@ $usr = base64_decode($_SESSION['uidloginPortal']);
 $macb = $_SESSION['macb'];
 
 if ($_REQUEST["act"]=='dsmonhoc') {
-	$dothoc = $_REQUEST['txtKhoaDSLop'];
+	$dothoc = str_replace ("'", "''",$_REQUEST['txtKhoaDSLop']);
 	$sqlstr="	SELECT DISTINCT m.ten, t.ma_mh, t.lop, get_nganh_tkb(t.ma_can_bo, t.dot_hoc, t.ma_mh,t.lop) chuyen_nganh, t.dot_hoc,
 						(SELECT COUNT(*) FROM dang_ky_mon_hoc DK WHERE DK.DOT_HOC = t.dot_hoc AND DK.MA_MH = t.ma_mh
-						AND DK.LOP=t.lop) SL
+						AND DK.LOP=t.lop) SL,
+					TO_CHAR(t.dot_hoc,'DD/MM/YYYY') dot_hoc_f
 				FROM THOI_KHOA_BIEU t, MON_HOC m, LICH_THI d
 				WHERE T.MA_MH = m.MA_MH
-				AND (t.dot_hoc = to_date('".$dothoc."','dd-mm-yyyy'))
+				AND (t.dot_hoc = '$dothoc')
 				AND (t.ma_can_bo='".$macb."' or t.ma_can_bo_phu ='".$macb."')
 				AND d.dot_hoc(+) = t.dot_hoc
 				and d.ma_mh(+) = t.ma_mh
 				and d.lop(+)=t.lop
 				ORDER BY t.lop, m.ten"; 
-	$stmt = oci_parse($db_conn, $sqlstr);
-	oci_execute($stmt);
-	$n = oci_fetch_all($stmt, $resDM);
-	oci_free_statement($stmt);
-
+	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+	$dot_hoc_f = $resDM["DOT_HOC_F"][0];
+	
 	for ($i = 0; $i < $n; $i++)
 	{
 		$floadDSLop = "onClick=\"loadDSLop('".$resDM["DOT_HOC"][$i]."','".$resDM["LOP"][$i]."','".$resDM["MA_MH"][$i]."')\" style='cursor:pointer'";
@@ -48,6 +47,7 @@ if ($_REQUEST["act"]=='dsmonhoc') {
 	} 
 	echo "
 		<script type='text/javascript'>
+			$('#dslopngaybatdauhk').text(' $dot_hoc_f (tuần 1)');
 			$('a[rel=tooltip]').tooltip({ placement: 'top' });
 			loadDSLop('".$resDM["DOT_HOC"][0]."','".$resDM["LOP"][0]."','".$resDM["MA_MH"][0]."');
 		</script>

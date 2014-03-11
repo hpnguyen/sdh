@@ -359,10 +359,9 @@ parse_str($a);
 		{			
 		?>
 		$("#XemPhanBienDeTai_All").click(function() {
-			
 			tabNameClick = 'XemPhanBienDeTai_All';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Phản biện đề tài", "front.php/khcn/phanbien/index?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 1;
 		});
 		<?php
 		}

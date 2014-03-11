@@ -4,7 +4,28 @@ $gvURL = $help->getGvRootURL();
 $rootURL = $help->baseURL();
 $listArrayData = array();
 $row = $listItems[0];
-$defaultText = '';
+$diemMucDanhGia = array(
+array( 'name' => 'I',
+	'title' => 'Từ 86 điểm trở lên',
+	'min' => 86,
+	'max' => 100),
+array( 'name' => 'II',
+	'title' => 'Từ 70 đến 85 điểm',
+	'min' => 70,
+	'max' => 85),
+array( 'name' => 'III (Không đạt)',
+	'title' => 'Dưới 70 điểm',
+	'min' => 0,
+	'max' => 69)
+);
+
+if ((int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == '1'){
+	$checkCanEditUpdate = true;
+	$textEditorConfigText =' contenteditable="true"';
+}else{
+	$checkCanEditUpdate = false;
+	$textEditorConfigText = '';
+}
 ?>
 <style type="text/css">
 	.viewDataFormHide {
@@ -45,15 +66,23 @@ $defaultText = '';
 		border-radius: 10px; 
 		padding: 20px;
 	}
-	.dataGridTableTabTableDataView_A4, .TabBDanhGiaTableView {
+	.dataGridTableTabTableDataView_A4, .TabBDanhGiaTableView , .TabBDanhGiaTableViewXepLoai{
 		padding: 0px; 
 		border-collapse:collapse; 
 		border: 1px solid #000000; 
 		background: #FFFFFF;
 	}
+	.TabBDanhGiaTableViewXepLoai {
+		margin-left: 65px;
+	}
+	<?php if (! $checkCanEditUpdate)	{ ?>
+	#dialogTitlePhanBien {
+		display: none;
+	}
+	<?php } ?>
 </style>
 <div class="<?php echo $formKey ?>DialogViewPhanBien">
-<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>
+<?php if ($checkCanEditUpdate)	{ ?>
 <form id="<?php echo $formKey ?>DialogTabsViewPhanBienMainForm" action="<?php echo $help->getModuleActionRouteUrl('khcn/phanbien/save?hisid='.$_GET['hisid']) ?>" method="post">
 	<input type="hidden" value="0" name="tabActiveIndex" id="<?php echo $formKey ?>tabActiveIndex" />
 	<input type="hidden" value="<?php echo $macb ?>" name="fk_ma_can_bo" id="<?php echo $formKey ?>fk_ma_can_bo" />
@@ -67,8 +96,8 @@ $defaultText = '';
 			(b) Sự phù hợp với định hướng khoa học và công nghệ đã công bố hoặc đặt hàng.
 		</b>
 		</p>
-		<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a1_tam_quan_trong]">
-			<?php echo $row["a1_tam_quan_trong"] == '' || $row["a1_tam_quan_trong"] == null ? $defaultText : $row["a1_tam_quan_trong"] ?>
+		<div<?php echo $textEditorConfigText ?> class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a1_tam_quan_trong]">
+			<?php echo $row["a1_tam_quan_trong"] == '' || $row["a1_tam_quan_trong"] == null ? '' : $row["a1_tam_quan_trong"] ?>
 		</div>
 		<textarea class="viewDataFormHide" name="data_group_1[a1_tam_quan_trong]"><?php echo $row["a1_tam_quan_trong"] ?></textarea>
 	</div>
@@ -78,15 +107,15 @@ $defaultText = '';
 			(b) Đóng góp vào tri thức khoa học, có ảnh hưởng đối với xã hội;
 			(c) Sản phẩm nghiên cứu phù hợp tiêu chí các loại đề tài đăng ký.
 		</b></p>
-		<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a2_chat_luong_nc]">
-			<?php echo $row["a2_chat_luong_nc"] == '' || $row["a2_chat_luong_nc"] == null ? $defaultText : $row["a2_chat_luong_nc"] ?>
+		<div<?php echo $textEditorConfigText ?> class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a2_chat_luong_nc]">
+			<?php echo $row["a2_chat_luong_nc"] == '' || $row["a2_chat_luong_nc"] == null ? '' : $row["a2_chat_luong_nc"] ?>
 		</div>
 		<textarea class="viewDataFormHide" name="data_group_1[a2_chat_luong_nc]"><?php echo $$row["a2_chat_luong_nc"] ?></textarea>
 	</div>
 	<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienA3">
 		<p><b>A3. Năng lực nghiên cứu của chủ nhiệm và nhóm nghiên cứu; điều kiện cơ sở vật chất - kỹ thuật phục vụ nghiên cứu.</b></p>
-		<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a3_nlnc_csvc]">
-			<?php echo $row["a3_nlnc_csvc"] == '' || $row["a3_nlnc_csvc"] == null ? $defaultText : $row["a3_nlnc_csvc"] ?>
+		<div<?php echo $textEditorConfigText ?> class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a3_nlnc_csvc]">
+			<?php echo $row["a3_nlnc_csvc"] == '' || $row["a3_nlnc_csvc"] == null ? '' : $row["a3_nlnc_csvc"] ?>
 		</div>
 		<textarea class="viewDataFormHide" name="data_group_1[a3_nlnc_csvc]"><?php echo $row["a3_nlnc_csvc"] ?></textarea>
 	</div>
@@ -106,7 +135,7 @@ $defaultText = '';
 					  <tr class='heading' style='font-weight:bold; height:20pt;'>
 						<td width="50px" align='center' rowspan="2">TT</td>
 						<td align="center" rowspan="2">Nội dung đánh giá<br>(Căn cứ phụ lục giải trình các khoản chi)</td>
-						<td align="center" colspan="3">Nhận xét (đánh dấu X vào các mục)</td>
+						<td align="center" colspan="3">Nhận xét (Chọn các mục)</td>
 					  </tr>
 					  <tr class='heading' style='font-weight:bold; height:20pt;'>
 					  	<td align='center'>Cao</td>
@@ -123,7 +152,7 @@ $defaultText = '';
 								<td align="center"><b><?php echo ($k + 1) ?></b></td>
 								<td><?php echo $dm['noi_dung'] ?></td>
 								<td align="center">
-									<?php if ((int) $row["het_han_phan_bien"] == 0)	{?>
+									<?php if ($checkCanEditUpdate)	{?>
 										<input type="radio" name="data_group_2[a4_kinh_phi_A4_radio][<?php echo $dm['ma_nd'] ?>]" class="<?php echo $formKey ?>dataGridTableTabTableDataView_A4_RadioHight<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="0" <?php echo $dm['nhan_xet'] == '0' ? 'checked="checked"' : '' ?> />
 									<?php } else {
 										echo $dm['nhan_xet'] == '0' ? 'x' : '';
@@ -131,7 +160,7 @@ $defaultText = '';
 									
 								</td>
 								<td align="center">
-									<?php if ((int) $row["het_han_phan_bien"] == 0)	{?>
+									<?php if ($checkCanEditUpdate)	{?>
 										<input type="radio" name="data_group_2[a4_kinh_phi_A4_radio][<?php echo $dm['ma_nd'] ?>]" class="<?php echo $formKey ?>dataGridTableTabTableDataView_A4_RadioLow<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="1" <?php echo $dm['nhan_xet'] == '1' ? 'checked="checked"' : '' ?> />
 									<?php } else {
 										echo $dm['nhan_xet'] == '1' ? 'x' : '';
@@ -139,7 +168,7 @@ $defaultText = '';
 									
 								</td>
 								<td align="center">
-									<?php if ((int) $row["het_han_phan_bien"] == 0)	{?>
+									<?php if ($checkCanEditUpdate)	{?>
 										<input type="text" data-v-min="0.00" data-v-max="9999999.99" name="data_group_2[a4_kinh_phi_A4_input][<?php echo $dm['ma_nd'] ?>]" class="formTabA4KinhPhiInput <?php echo $formKey ?>dataGridTableTabTableDataView_A4_KinhPhi<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="<?php echo isset($dm['kinh_phi_de_nghi']) ? $dm['kinh_phi_de_nghi'] : '' ?>" />
 									<?php 
 									} else {
@@ -169,8 +198,8 @@ $defaultText = '';
 			?>
 			</div>
 			<p><b>Nhận xét kinh phí: </b></p>
-			<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a4_kinh_phi_nx]">
-				<?php echo $row["a4_kinh_phi_nx"] == '' || $row["a4_kinh_phi_nx"] == null ? $defaultText : $row["a4_kinh_phi_nx"] ?>
+			<div<?php echo $textEditorConfigText ?> class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a4_kinh_phi_nx]">
+				<?php echo $row["a4_kinh_phi_nx"] == '' || $row["a4_kinh_phi_nx"] == null ? '' : $row["a4_kinh_phi_nx"] ?>
 			</div>
 			<textarea class="viewDataFormHide" name="data_group_1[a4_kinh_phi_nx]"><?php echo $row["a4_kinh_phi_nx"] ?></textarea>
 		</div>
@@ -188,7 +217,7 @@ $defaultText = '';
 				<table width="100%" cellpadding="5" cellspacing="0" border="1" class="TabBDanhGiaTableView display <?php echo $formKey ?>dataGridTableTabTableDataView_B_<?php echo $row["ma_thuyet_minh_dt"] ?>">
 					<thead>
 					  <tr class='heading' style='font-weight:bold; height:20pt;'>
-						<td width="50px" align='center' rowspan="2">TT</td>
+						<td width="50px" align='center'>TT</td>
 						<td align="center">Nội dung đánh giá</td>
 						<td align="center">Điểm tối đa</td>
 						<td align="center">Điểm đánh giá</td>
@@ -198,6 +227,7 @@ $defaultText = '';
 						<?php
 						$sumDanhGia = 0;
 						$sumDanhGiaDiemMax = 0;
+						$stringTongCong = '';
 						foreach ($tableJoinNckhPbDmNoiDungDanhGia as $k => $dm) {
 							?>
 							<tr>
@@ -205,8 +235,16 @@ $defaultText = '';
 								<td><?php echo $dm['noi_dung'] ?></td>
 								<td align="center">
 									<?php 
+									if ($dm['stt'] != '') {
+										if ($stringTongCong != '') {
+											$stringTongCong .=',';
+										}
+										
+										$stringTongCong .= str_replace('.', '', $dm['stt']);
+									}
+									
 									if((int) $dm['allow_edit'] == 1) {
-										echo $dm['diem_toi_da'] ;
+										echo $dm['stt'] != '' ? '<b>'.$dm['diem_toi_da'].'</b>' : $dm['diem_toi_da'] ;
 									}else{
 										echo "<b>".$dm['thang_diem_truong']."</b>" ;
 									}
@@ -214,7 +252,7 @@ $defaultText = '';
 								</td>
 								<td align="center">
 									<?php if((int) $dm['allow_edit'] == 1) { ?>
-										<?php if ((int) $row["het_han_phan_bien"] == 0)	{?>
+										<?php if ($checkCanEditUpdate)	{?>
 										<input type="text" maxlength="15" rel_max="<?php echo $dm['diem_toi_da'] ?>" name="data_group_3[b_danh_gia_input][<?php echo $dm['id'] ?>]" class="formTabBDanhGiaInput <?php echo $formKey ?>dataGridTableTabTableDataView_B_DanhGia<?php echo $row["ma_thuyet_minh_dt"] ?>_<?php echo $dm['ma_nd'] ?>" value="<?php echo isset($dm['diem']) ? $dm['diem'] : '' ?>" />
 										<?php } else {
 											echo isset($dm['diem']) ? $dm['diem'] : '';
@@ -228,12 +266,51 @@ $defaultText = '';
 						}
 						?>
 							<tr>
-								<td align="center" colspan="2"><b>Tổng cộng</b></td>
+								<td align="center" colspan="2"><b>Tổng cộng <?php echo $stringTongCong != '' ? 'điểm mục '.$stringTongCong : ''?></b></td>
 								<td align="center"><b><?php echo $sumDanhGiaDiemMax ?></b></td>
-								<td align="center"><div class="<?php echo $formKey ?>TotalSummaryDanhGia"><?php echo $sumDanhGia ?></div></td>
+								<td align="center"><div><b><span class="<?php echo $formKey ?>TotalSummaryDanhGia"><?php echo $sumDanhGia ?></span>/<?php echo $sumDanhGiaDiemMax ?></b></div></td>
+							</tr>
+							<tr>
+								<td align="center" colspan="2"><b>Xếp loại</b></td>
+								<td align="center" colspan="2">
+									<div>
+										<b>
+											<span class="<?php echo $formKey ?>TotalSummaryXepLoai">
+											<?php 
+											if($sumDanhGia != 0){
+												foreach ($diemMucDanhGia as $k => $mucDanhGia) {
+													if ($sumDanhGia >= (int) $mucDanhGia['min'] && $sumDanhGia <= (int) $mucDanhGia['max']) {
+														echo $mucDanhGia['name'];
+													} 
+												}
+											}
+											?>
+											</span>
+										</b>
+									</div>
+								</td>
 							</tr>
 					</tbody>
 				</table>
+				<p>
+					<table width="50%" cellpadding="5" cellspacing="0" border="1" class="TabBDanhGiaTableViewXepLoai">
+						<thead>
+							<tr class='heading' style='font-weight:bold; height:20pt;'>
+								<td align='center'>Xếp loại:</td>
+								<td align="center">Tổng điểm đánh giá</td>
+							</tr>
+						</thead>
+						<tbody>
+						<?php foreach ($diemMucDanhGia as $k => $mucDanhGia) { ?>
+							<tr>
+								<td align="center"><?php echo $mucDanhGia['name'] ?></td>
+								<td align="center"><?php echo $mucDanhGia['title'] ?></td>
+							</tr>
+						<?php } ?>
+						</tbody>
+					</table>
+				</p>
+					
 				<?php
 			}
 			//*****************************************************
@@ -244,15 +321,15 @@ $defaultText = '';
 		</div>
 		<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienC">
 			<p><b>C. KẾT LUẬN</b></p>
-			<div contenteditable="true" class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[c_ket_luan]">
-				<?php echo $row["c_ket_luan"] == '' || $row["c_ket_luan"] == null || $row["c_ket_luan"] == '<br>' ? $defaultText : $row["c_ket_luan"] ?>
+			<div<?php echo $textEditorConfigText ?> class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[c_ket_luan]">
+				<?php echo $row["c_ket_luan"] == '' || $row["c_ket_luan"] == null || $row["c_ket_luan"] == '<br>' ? '' : $row["c_ket_luan"] ?>
 			</div>
 			<br>
 			<br>
 			<textarea class="viewDataFormHide" name="data_group_1[c_ket_luan]"><?php echo $row["c_ket_luan"] ?></textarea>
 		</div>
 	</div>
-<?php if ((int) $row["het_han_phan_bien"] == 0)	{ ?>	
+<?php if ($checkCanEditUpdate)	{ ?>	
 </form>
 <?php } ?>
 </div>
@@ -260,7 +337,7 @@ $defaultText = '';
 /*************************************************************************
  * Add the script function when het_han_phan_bien is '0'
  ************************************************************************/ 
-if ((int) $row["het_han_phan_bien"] == 0)	{ 
+if ($checkCanEditUpdate)	{ 
 ?>
 <script>
 function <?php echo $formKey ?>InitReadyAjax(){
@@ -335,7 +412,14 @@ function <?php echo $formKey ?>InitReadyAjax(){
 			if($(this).val() != ''){
 				if (error == false || (error == true && nameItemCheck != nameItem)){
 					totalSummary += parseInt($(this).val());
+					
 					$(".<?php echo $formKey ?>TotalSummaryDanhGia").html(totalSummary);
+					//Set value danh_gia
+					<?php foreach ($diemMucDanhGia as $k => $mucDanhGia) { ?>
+					if(totalSummary >= <?php echo $mucDanhGia['min'] ?> && totalSummary <= <?php echo $mucDanhGia['max'] ?>) {
+						$('.<?php echo $formKey ?>TotalSummaryXepLoai').html('<?php echo $mucDanhGia['name'] ?>');
+					}
+					<?php } ?>
 				}
 			}
 		});

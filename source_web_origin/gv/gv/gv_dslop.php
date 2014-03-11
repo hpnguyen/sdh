@@ -15,6 +15,10 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '010', $db_con
 }
 
 $macb = $_SESSION['macb'];
+
+$sqlstr="select value dot_hoc_dkmh from config where name='DOT_HOC_DKMH'";
+$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+$dot_hoc_ht=$resDM["DOT_HOC_DKMH"][0];
 ?>
 
 <div id="gvDSLop" >
@@ -24,7 +28,7 @@ $macb = $_SESSION['macb'];
 			<td align=right style="width:60px;font-weight:bold"><label for='txtKhoaDSLop'>Chọn HK</label></td>	
 			<td align=left style="width:100px;">
 				<select name="txtKhoaDSLop" id="txtKhoaDSLop" style="font-size:15px;">
-					   <?php $sqlstr="select (hoc_ky || '/' || nam_hoc_tu || '-' || nam_hoc_den) nam_hoc, to_char(dot_hoc,'dd-mm-yyyy') dot_hoc
+					   <?php $sqlstr="select (hoc_ky || '/' || nam_hoc_tu || '-' || nam_hoc_den) nam_hoc, dot_hoc
 									from dot_hoc_nam_hoc_ky
 									where dot_hoc in (select distinct dot_hoc from thoi_khoa_bieu where ma_can_bo='".$macb."' or ma_can_bo_phu='".$macb."')
 									order by nam_hoc_tu desc, dot_hoc desc"; 
@@ -33,9 +37,12 @@ $macb = $_SESSION['macb'];
 						$n = oci_fetch_all($stmt, $resDM);
 						oci_free_statement($stmt);
 						
-						for ($i = 0; $i < $n; $i++)
-						{
-							echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["NAM_HOC"][$i]. "</option>";
+						for ($i = 0; $i < $n; $i++){
+							if ($dot_hoc_ht == $resDM["DOT_HOC"][$i]){
+								echo "<option value='".$resDM["DOT_HOC"][$i]."' selected='selected'>" .$resDM["NAM_HOC"][$i]. "</option>";
+							}else{
+								echo "<option value='".$resDM["DOT_HOC"][$i]."'>" .$resDM["NAM_HOC"][$i]. "</option>";
+							}
 						}
 						
 					  ?>
@@ -84,7 +91,7 @@ $macb = $_SESSION['macb'];
 	$.post("gv/gv_dslopprocess.php", dataString ,
 		function(data){
 			$("#gv_divdslop").html(data);
-			$('#dslopngaybatdauhk').text(' ' + $("#txtKhoaDSLop").val() + ' (tuần 1)');
+			//$('#dslopngaybatdauhk').text(' ' + $("#txtKhoaDSLop").val() + ' (tuần 1)');
 			$("#gv_dslop_btn_printpreview" ).button("enable");
 	}, "html");
  }
@@ -118,7 +125,7 @@ $(function(){
  loadDSMonHoc();
  
  
- $('#dslopngaybatdauhk').text(' ' + $("#txtKhoaDSLop").val() + ' (tuần 1)');
+ //$('#dslopngaybatdauhk').text(' ' + $("#txtKhoaDSLop").val() + ' (tuần 1)');
  
  $("#txtKhoaDSLop").change(function(e) {
 	loadDSMonHoc();
@@ -137,7 +144,7 @@ $(function(){
 		function(data){
 			//alert(data);
 			$("#tableDSMonHoc tbody").html(data);
-			$('#dslopngaybatdauhk').text(' ' + $("#txtKhoaDSLop").val() + ' (tuần 1)');
+			//$('#dslopngaybatdauhk').text(' ' + $("#txtKhoaDSLop").val() + ' (tuần 1)');
 	}, "html");
  }
  

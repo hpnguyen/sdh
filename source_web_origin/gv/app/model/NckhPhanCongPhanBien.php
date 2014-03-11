@@ -53,4 +53,19 @@ class NckhPhanCongPhanBienModel extends BaseTable {
 		
 		return $check->itemsCount > 0;
 	}
+	
+	public function checkEnableSaveUpdate($madetai, $macb) {
+		$check = $this->getSelect("*")
+		->where("ma_thuyet_minh_dt =  '".$madetai."' and fk_ma_can_bo = '".$macb."'")
+		->execute(false, array());
+		
+		$ret = false;
+		if($check->itemsCount > 0){
+			$row = $check->result[0];
+			if ($row["kq_phan_hoi"] == '1'){
+				$ret = true;
+			}
+		}
+		return $ret;
+	}
 }

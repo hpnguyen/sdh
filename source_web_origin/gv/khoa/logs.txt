@@ -1,6 +1,0 @@
-SELECT ho || ' ' || ten ho_ten, B.MA_KHOA
-			FROM HOC_VIEN H, NGANH N, BO_MON B
-			WHERE ma_hoc_vien = '11240497' 
-			AND H.MA_NGANH = N.MA_NGANH
-			AND N.MA_BO_MON = B.MA_BO_MON
-			AND B.MA_KHOA = '48'

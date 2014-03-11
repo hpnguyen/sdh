@@ -1,4 +1,0 @@
-Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Đã TN
-51017021	ĐẶNG XUÂN	TRƯỜNG	Nam 	22/10/1978	Thanh Hóa	Xây dựng công trình biển	
-51008022	TRẦN THỊ KIM	HUÊ	Nữ	29/10/1975	Tây Ninh	Xây dựng đường ôtô và đường thành phố	
-51008008	NGUYỄN ANH	TUẤN	Nam 	03/07/1984	Hà Tĩnh	Địa kỹ thuật xây dựng	

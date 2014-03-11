@@ -18,7 +18,9 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 	
 	private function checkEnableUpdate($macb , $madetai){
 		$model = new NckhThuyetMinhDeTaiModel();
-		return $model->checkEnableSaveEdit($madetai, $macb);
+		$modelNckhPhanCongPhanBien = new NckhPhanCongPhanBienModel();
+		
+		return $model->checkEnableSaveEdit($madetai, $macb) && $modelNckhPhanCongPhanBien->checkEnableSaveUpdate($madetai, $macb);
 	}
 	
 	public	function indexAction(){
@@ -70,7 +72,7 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		$macb = $_SESSION['macb'];
 		$madetai = $this->getGet('madetai');
 		
-		if ( $this->checkEnableView($macb, $template->madetai)){
+		if (! $this->checkEnableView($macb, $madetai)){
 			echo "Bạn không được phép xem phản biện đề tài này.";
 			die;
 		}
@@ -97,8 +99,8 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 			$macb = $this->getPost('fk_ma_can_bo', null);
 			$maDeTai = $this->getPost('ma_thuyet_minh_dt', null);
 			
-			if (! $this->checkEnableUpdate($macb, $madetai)){
-				$this->renderJSON(array('status' => 0, 'message' => 'Bạn đã hết hạn được cập nhật phản biện đề tài.'));
+			if (! $this->checkEnableUpdate($macb, $maDeTai)){
+				$this->renderJSON(array('status' => 0, 'message' => 'Bạn không thể cập nhật do hết hạn hoặc bạn chưa đồng ý phản biện đề tài này.'));
 				die;
 			}
 			

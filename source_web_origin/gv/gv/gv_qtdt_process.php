@@ -147,10 +147,10 @@ if (isset($_SESSION["uidloginPortal"]) && isset($_SESSION["macb"]))
 			echo "<td style='font-weight:bold'>$txtTenBacDT</td>";
 			echo "<td >$txtTenHDT</td>";
 			echo "<td >$ten_nganh</td>";
-			echo "<td align=left >$txtNoiDT</td>";
+			echo "<td align=left>$txtNoiDT</td>";
 			echo "<td align=left>$txtQuocGiaDT</td>";
 			echo "<td align=left>$txtTenLALV</td>";
-			echo "<td align=center >$txtNamBD</td>";
+			echo "<td align=center>$txtNamBD</td>";
 			echo "<td align=center>$txtNamTN</td>";
 			echo "<td class='ahref' onclick=\"getQTDT(".($i+1).", '$txtBacDT','$txtNganh','$txtMaQuocGiaDT','$txtNamBD','$txtNamTN', '$txtHeDT');\">Sửa</td>";
 			echo "<td ><input type=\"checkbox\" id=\"qtdtchk".$i."\" name=\"qtdtchk".$i. "\" value=\"1\" /></td>";

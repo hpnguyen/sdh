@@ -17,6 +17,8 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 	
 	public function getList($macb, $year = '')
 	{
+		$rightJoin = "(+)";
+		// $rightJoin = "";
 		$sqlstr="SELECT a.*, 
 		check_het_han_phan_bien(a.ma_thuyet_minh_dt , a.fk_ma_can_bo) as het_han_phan_bien,
 		b.kq_phan_hoi, c.ten_tinh_trang ,
@@ -35,12 +37,12 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 				nckh_dm_tinh_trang c ,
 				nckh_pb_noi_dung d
 		WHERE a.ma_thuyet_minh_dt = b.ma_thuyet_minh_dt
-		AND a.fk_tinh_trang = c.ma_tinh_trang (+)
-		AND b.ma_thuyet_minh_dt =  d.ma_thuyet_minh_dt (+)
-		AND b.fk_ma_can_bo = d.fk_ma_can_bo (+)
+		AND a.fk_tinh_trang = c.ma_tinh_trang ".$rightJoin."
+		AND b.ma_thuyet_minh_dt =  d.ma_thuyet_minh_dt ".$rightJoin."
+		AND b.fk_ma_can_bo = d.fk_ma_can_bo ".$rightJoin."
 		AND b.fk_ma_can_bo = :macb  
 		AND TO_CHAR(b.ngay_phan_cong ,'YYYY') = '".$year."'
-		ORDER BY het_han_phan_bien asc, a.ma_thuyet_minh_dt asc";
+		ORDER BY het_han_phan_bien asc, b.kq_phan_hoi ,a.ma_thuyet_minh_dt asc";
 		
 		$check = $this->getQuery($sqlstr)->bindExecute(false, array(':macb' => $macb));
 		
@@ -54,6 +56,8 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 
 	public function getListByMaDeTai($macb, $madetai, $year = '')
 	{
+		$rightJoin = "(+)";
+		// $rightJoin = "";
 		$sqlstr="SELECT a.*,
 		check_het_han_phan_bien(a.ma_thuyet_minh_dt , a.fk_ma_can_bo) as het_han_phan_bien ,
 		b.kq_phan_hoi, c.ten_tinh_trang ,
@@ -72,13 +76,13 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 				nckh_dm_tinh_trang c ,
 				nckh_pb_noi_dung d
 		WHERE a.ma_thuyet_minh_dt = b.ma_thuyet_minh_dt
-		AND a.fk_tinh_trang = c.ma_tinh_trang (+)
-		AND b.ma_thuyet_minh_dt =  d.ma_thuyet_minh_dt (+)
+		AND a.fk_tinh_trang = c.ma_tinh_trang ".$rightJoin."
+		AND b.ma_thuyet_minh_dt =  d.ma_thuyet_minh_dt ".$rightJoin."
 		AND a.ma_thuyet_minh_dt = '".$madetai."'
-		AND b.fk_ma_can_bo = d.fk_ma_can_bo (+)
+		AND b.fk_ma_can_bo = d.fk_ma_can_bo ".$rightJoin."
 		AND b.fk_ma_can_bo = :macb  
 		AND TO_CHAR(b.ngay_phan_cong ,'YYYY') = '".$year."'
-		ORDER BY het_han_phan_bien asc, a.ma_thuyet_minh_dt asc";
+		ORDER BY het_han_phan_bien asc, b.kq_phan_hoi, a.ma_thuyet_minh_dt asc";
 		
 		$check = $this->getQuery($sqlstr)->bindExecute(false, array(':macb' => $macb));
 		

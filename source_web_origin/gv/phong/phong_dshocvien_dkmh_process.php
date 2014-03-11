@@ -10,7 +10,7 @@ if (!isset($_SESSION['uidloginPortal'])){
 include "../libs/connect.php";
 include "../libs/pgslibs.php";
 
-if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '018', $db_conn))
+if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '019', $db_conn))
 {
 	die('Truy cập bất hợp pháp'); 
 }

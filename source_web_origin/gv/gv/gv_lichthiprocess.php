@@ -14,10 +14,10 @@ $dothoc = $_REQUEST['gv_lichthi_txtKhoaThi'];
 $hk = $_REQUEST['h'];
 
 $sqlstr="	SELECT DISTINCT m.ten, t.ma_mh, t.lop, get_nganh_tkb(t.ma_can_bo, t.dot_hoc, t.ma_mh,t.lop) chuyen_nganh,
-			d.gio_thi, TO_CHAR(d.ngay_thi,'DD/MM/YY') NGAY_THI, d.phong_thi
+			d.gio_thi, TO_CHAR(d.ngay_thi,'DD/MM/YY') NGAY_THI, d.phong_thi,  TO_CHAR(t.dot_hoc,'DD/MM/YYYY') dot_hoc_f
 			FROM THOI_KHOA_BIEU t, MON_HOC m, LICH_THI d
 			WHERE T.MA_MH = m.MA_MH
-			AND (t.dot_hoc = to_date('".$dothoc."','dd-mm-yyyy'))
+			AND (t.dot_hoc = '$dothoc')
 			AND t.ma_can_bo='".$macb."'
 			AND d.dot_hoc(+) = t.dot_hoc
 			and d.ma_mh(+) = t.ma_mh
@@ -27,11 +27,11 @@ $stmt = oci_parse($db_conn, $sqlstr);
 oci_execute($stmt);
 $n = oci_fetch_all($stmt, $resDM);
 oci_free_statement($stmt);
-
+$dot_hoc_f = $resDM["DOT_HOC_F"][0];
 echo "
 	<div align='center'><h2>Lịch Thi Cao Học<br/>Học kỳ $hk</h2></div>
 	<div style='margin-bottom:20px;'>
-		<div style='margin:0 0 10px 5px; ' align=left><strong>Ngày bắt đầu HK: <span id='thingaybatdauhk'></span></strong></div>
+		<div style='margin:0 0 10px 5px; ' align=left><strong>Ngày bắt đầu HK: <span id='thingaybatdauhk'>$dot_hoc_f (tuần 1)</span></strong></div>
 		<table id='tableLichThi' name='tableLichThi' width='100%' border='0'  cellspacing='0' class='ui-widget ui-widget-content ui-corner-top tableData' >
         <thead>
           <tr class='ui-widget-header heading' style='height:20pt;font-weight:bold'>

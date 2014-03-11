@@ -1,3 +1,0 @@
-Mã HV	Họ	Tên	Phái	Ngày Sinh	Nơi Sinh	Ngành	Trạng thái
-51213017	Nguyễn Ngọc	Chánh	Nam 	20/10/1984	Gia Lai	Kỹ thuật ôtô, máy kéo	Đang học
-51213021	Phạm Quang	Khải	Nam 	13/11/1982	Tp. Hồ Chí Minh	Kỹ thuật ôtô, máy kéo	Đang học
