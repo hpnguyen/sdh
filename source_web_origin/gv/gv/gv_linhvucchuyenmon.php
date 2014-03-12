@@ -34,7 +34,7 @@ $macb = $_SESSION['macb'];
                         <td >
                             <select style="height:25px;font-size:15px;width:290px" class="text ui-widget-content ui-corner-all tableData" name="txtLinhVucChuyenMon1_LVCM" id="txtLinhVucChuyenMon1_LVCM" onChange="lvcm_updateLVCM(this.value, '', '#txtLinhVucChuyenMon2_LVCM');">
 									<option value="">Chọn chuyên môn</option>
-									<?  $sqlstr="select ma_lvnc, ten_lvnc, ma_lvnc_cha, viet0dau_name(ten_lvnc) ten_lvnc_orderby from NCKH_LVNC_KHCN where ma_lvnc_cha is null order by ten_lvnc_orderby";
+									<?php  $sqlstr="select ma_lvnc, ten_lvnc, ma_lvnc_cha, viet0dau_name(ten_lvnc) ten_lvnc_orderby from NCKH_LVNC_KHCN where ma_lvnc_cha is null order by ten_lvnc_orderby";
 										$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 										for ($i = 0; $i < $n; $i++)
 										{

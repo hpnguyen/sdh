@@ -1,4 +1,4 @@
-<?
+<?php
 if (isset($_REQUEST["hisid"])){
 	session_id($_REQUEST["hisid"]);
 	session_start();
