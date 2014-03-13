@@ -2241,7 +2241,7 @@ $(document).ready(function() {
 		]
 	});
 	
-	$('#khcn_ds_thuyetminhdtkhcn tbody tr').live('click', function() {
+	/* $('#khcn_ds_thuyetminhdtkhcn tbody tr').live('click', function() {
 		var nTr = $(this)[0];
 		var aData = oTableThuyetMinhDTKHCN.fnGetData( nTr );
 		//alert(nTr.cells[0].innerHTML);
@@ -2268,7 +2268,7 @@ $(document).ready(function() {
 			}
         }
 		
-	});
+	}); */
 	
 	$('#khcn_frm_reg_nhanlucnghiencuu_loai').change(function() {
 		//alert($(this).val());
@@ -2552,6 +2552,34 @@ function khcn_initialTableThuyetMinhDTKHCN(urldata){
 		"fnDrawCallback": function( oSettings ) {
 			//$(document).tooltip({ track: true });
 			$(".khcn_tooltips").tooltip({ track: true });
+			
+			$('#khcn_ds_thuyetminhdtkhcn').find('tbody').find('tr').each(function(){
+				$(this).click(function(){
+					var nTr = $(this)[0];
+					var aData = oTableThuyetMinhDTKHCN.fnGetData( nTr );
+					
+					/* // Bo chon
+					if ( $(this).hasClass('row_selected') ) {
+						$(this).removeClass('row_selected');
+						
+						$('#khcn_edit_ttchung_button').button("disable");
+						$('#khcn_edit_mota_button').button("disable");
+					}
+					else { */
+						oTableThuyetMinhDTKHCN.$('tr.row_selected').removeClass('row_selected');
+						$(this).addClass('row_selected');
+						//alert(parseFloat(aData[khcn_tmdt_col_idx['hethan_dkdt']]));
+						if ((aData[khcn_tmdt_col_idx['matrangthai']]=='021' || (parseFloat(aData[khcn_tmdt_col_idx['batdau_dkdt']]) > 0 && parseFloat(aData[khcn_tmdt_col_idx['hethan_dkdt']]) < 0) ) && aData[khcn_tmdt_col_idx['editallow']]=='1'){
+							$('#khcn_edit_ttchung_button').button("enable");
+							$('#khcn_edit_mota_button').button("enable");
+						}
+						else{
+							$('#khcn_edit_ttchung_button').button("disable");
+							$('#khcn_edit_mota_button').button("disable");
+						}
+					//}
+				});
+			});
 		}, 
 		"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
 			$('td:eq('+khcn_tmdt_col_idx['trangthai']+')', nRow).css({'font-weight': 'bold'});

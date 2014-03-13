@@ -6,6 +6,9 @@
 	.<?php echo $formKey ?>phan_bien_top_title {
 		padding: 10px 0 15px 0;
 	}
+	.<?php echo $formKey ?>list_limit_times {
+		display: none;
+	}
 </style>
 <div id="<?php echo $formKey ?>_main_content_div" >
 	<div align="center" class="<?php echo $formKey ?>phan_bien_top_title">

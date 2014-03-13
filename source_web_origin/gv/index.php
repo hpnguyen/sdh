@@ -100,7 +100,7 @@ parse_str($a);
 <script src="../js/jQuery.download.js"></script>
 <script src="../js/pgs.js"></script>
 
-<!-- jquery alerts Core files -->
+<!-- jquery alerts Core files http://labs.abeautifulsite.net/archived/jquery-alerts/demo/ -->
 <script src="../js/jquery.alerts.js" type="text/javascript"></script>
 <link href="../css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
 

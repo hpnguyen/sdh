@@ -2411,14 +2411,19 @@ $(document).ready(function() {
 		]
 	});
 	
+	
+	/*
 	$('#khcn_ql_ds_thuyetminhdtkhcn tbody tr').live('click', function() {
-		
+		console.log(11111111111111);
 		//$(this).toggleClass('row_selected');
 		
 		if ( $(this).hasClass('row_selected') ) {
-            $(this).removeClass('row_selected');
+			//console.log(2222222222222);
+            //$(this).removeClass('row_selected');
         }
         else {
+			//console.log(oTableQlThuyetMinhDTKHCN);
+			
             oTableQlThuyetMinhDTKHCN.$('tr.row_selected').removeClass('row_selected');
             $(this).addClass('row_selected');
 			
@@ -2426,6 +2431,7 @@ $(document).ready(function() {
         }
 		
 	});
+	*/
 	
 	$('#khcn_ql_frm_reg_nhanlucnghiencuu_loai').change(function() {
 		//alert($(this).val());
@@ -2779,6 +2785,15 @@ function khcn_ql_initialTableThuyetMinhDTKHCN(urldata){
 		"fnDrawCallback": function( oSettings ) {
 			//$(document).tooltip({ track: true });
 			$(".khcn_tooltips").tooltip({ track: true });
+			
+			$('#khcn_ql_ds_thuyetminhdtkhcn').find('tbody').find('tr').each(function(){
+				$(this).click(function(){
+					oTableQlThuyetMinhDTKHCN.$('tr.row_selected').removeClass('row_selected');
+					$(this).addClass('row_selected');
+					
+					khcn_ql_nTr_selected = $(this)[0];
+				});
+			});
 		}, 
 		"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
 			aaData[1] = reverse_escapeJsonString(aaData[1]);

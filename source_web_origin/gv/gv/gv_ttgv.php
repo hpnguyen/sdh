@@ -68,6 +68,9 @@ $replace = array('\\\\',"&quot;");
 					<div align=center>
 						<a id="btn_upload_hinh_ttgv" style='font-size:80%;'>&nbsp;Tải lên</a>
 					</div>
+					<div align=center>
+						<a id="btn_upload_hinh_chu_ky_ttgv" style='font-size:80%; margin-top:10px'>&nbsp;Chữ ký</a>
+					</div>
 				</td>
 			</tr>
 			<tr align="left">
@@ -495,6 +498,7 @@ var txtNgaySinh 	= $("#txtNgaySinh"),
 	
 	// Upload hinh
 	$( "#btn_upload_hinh_ttgv" ).button({ icons: {primary:'ui-icon ui-icon-disk'} });
+	$( "#btn_upload_hinh_chu_ky_ttgv" ).button({ icons: {primary:'ui-icon ui-icon-disk'} });
 	 
 	$( "#ttgv_processing_div" ).dialog({
 			resizable: false,
@@ -505,8 +509,11 @@ var txtNgaySinh 	= $("#txtNgaySinh"),
 	});
 	
 	$("#btn_upload_hinh_ttgv").click(function(e){
-		//$("#frmuploadhinhttgv").submit();
 		getFileTTGV();
+	});	// end 
+	
+	$("#btn_upload_hinh_chu_ky_ttgv").click(function(e){
+		getFileChuKyTTGV();
 	});	// end 
 	
 	$('#gv_frm_upload_file_chandung').on('submit', function () {

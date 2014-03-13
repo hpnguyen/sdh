@@ -524,6 +524,44 @@ function initialTableYCHV(urldata){
 							$(document).tooltip({ track: true });
 							//$("#ychv_tong_thu_phi").html(ychv_tongtien.formatMoney(0, '.', ',') + ' VNĐ');
 							//ychv_tongtien = 0;
+							$('#tnychv_dsychv').find('tbody').find('td').find('img,a').each(function(){
+								$(this).click(function(){
+									var nTr = $(this).parents('tr')[0];
+									nTrClicked = nTr;
+									
+									// Click vào icon detailsicon
+									if (this.className == 'detailsicon'){
+										if ( oTableYCHV.fnIsOpen(nTr) ){
+											/* This row is already open - close it */
+											this.src = "icons/details_open.png";
+											oTableYCHV.fnClose( nTr );
+										}
+										else{
+											/* Open this row */
+											this.src = "icons/details_close.png";
+											oTableYCHV.fnOpen( nTr, fnFormatDetails(nTr), 'details' );
+											
+											$(".qttooltips").tooltip();
+										}
+									}
+									// Click vào icon chuyen nguoi giai quyet
+									else if (this.className == 'chuyennguoigiaiquyet tooltips'){
+										openChuyenXuLy(nTr);
+									}
+									else if (this.className == 'trahvicon'){
+										updateTraHV(nTr, 'CapnhatTraHV');
+									}
+									else if (this.className == 'phuchoitrahvicon tooltips'){
+										//updateTraHV(nTr, 'PhucHoiCapnhatTraHV');
+										s = getYCHVselected(nTr, true);
+										$("#phong_tnychv_label_ma_phuchoi").html(s.replace(/,/g, ', '));
+										$('#phong_tnychv_phuchoitrahv').dialog('open');
+									}
+									else if (this.className == 'giaiquyethv tooltips'){
+										openXuLy(nTr);
+									}
+								});
+							});
 						}, 
 						"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
 							aaData[ychv_col_idx['noi_dung']] = reverse_escapeJsonString(aaData[ychv_col_idx['noi_dung']]);
@@ -1349,45 +1387,45 @@ $("#tnychv_noidungyc, #tnychv_ghi_chu").change(function(e){
 
  $('#tnychv_don_gia').autoNumeric('init', {'wEmpty': 'zero'});
 	
- $('#tnychv_dsychv tbody td img, #tnychv_dsychv tbody td a').live( 'click', function () {
-        var nTr = $(this).parents('tr')[0];
-		nTrClicked = nTr;
+ // $('#tnychv_dsychv tbody td img, #tnychv_dsychv tbody td a').live( 'click', function () {
+        // var nTr = $(this).parents('tr')[0];
+		// nTrClicked = nTr;
 		
-		// Click vào icon detailsicon
-		if (this.className == 'detailsicon'){
-			if ( oTableYCHV.fnIsOpen(nTr) )
-			{
-				/* This row is already open - close it */
-				this.src = "icons/details_open.png";
-				oTableYCHV.fnClose( nTr );
-			}
-			else
-			{
-				/* Open this row */
-				this.src = "icons/details_close.png";
-				oTableYCHV.fnOpen( nTr, fnFormatDetails(nTr), 'details' );
+		//Click vào icon detailsicon
+		// if (this.className == 'detailsicon'){
+			// if ( oTableYCHV.fnIsOpen(nTr) )
+			// {
+				// This row is already open - close it
+				// this.src = "icons/details_open.png";
+				// oTableYCHV.fnClose( nTr );
+			// }
+			// else
+			// {
+				// Open this row
+				// this.src = "icons/details_close.png";
+				// oTableYCHV.fnOpen( nTr, fnFormatDetails(nTr), 'details' );
 				
-				$(".qttooltips").tooltip();
-			}
-		}
-		// Click vào icon chuyen nguoi giai quyet
-		else if (this.className == 'chuyennguoigiaiquyet tooltips'){
-			openChuyenXuLy(nTr);
-		}
-		else if (this.className == 'trahvicon'){
-			updateTraHV(nTr, 'CapnhatTraHV');
-		}
-		else if (this.className == 'phuchoitrahvicon tooltips'){
+				// $(".qttooltips").tooltip();
+			// }
+		// }
+		//Click vào icon chuyen nguoi giai quyet
+		// else if (this.className == 'chuyennguoigiaiquyet tooltips'){
+			// openChuyenXuLy(nTr);
+		// }
+		// else if (this.className == 'trahvicon'){
+			// updateTraHV(nTr, 'CapnhatTraHV');
+		// }
+		// else if (this.className == 'phuchoitrahvicon tooltips'){
 			//updateTraHV(nTr, 'PhucHoiCapnhatTraHV');
-			s = getYCHVselected(nTr, true);
-			$("#phong_tnychv_label_ma_phuchoi").html(s.replace(/,/g, ', '));
-			$('#phong_tnychv_phuchoitrahv').dialog('open');
-		}
-		else if (this.className == 'giaiquyethv tooltips'){
-			openXuLy(nTr);
-		}
+			// s = getYCHVselected(nTr, true);
+			// $("#phong_tnychv_label_ma_phuchoi").html(s.replace(/,/g, ', '));
+			// $('#phong_tnychv_phuchoitrahv').dialog('open');
+		// }
+		// else if (this.className == 'giaiquyethv tooltips'){
+			// openXuLy(nTr);
+		// }
 		
-    });
+    // });
  
  $('#tnychv_dsychv tbody td input[type=checkbox]').live('click', function() {
 	var nTr = $(this).parents('td')[ychv_col_idx['chk']];

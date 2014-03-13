@@ -57,6 +57,24 @@ if ($type=='uploadfilegv')
 		echo "error";
 	}
 
+}else if ($type=='uploadfilechukygv'){
+	$filename = str_replace(".", "_", $macb)."_chu_ky.jpg"; //basename($_FILES['userfile_ttgv']['name']);
+	$foldername = "anh46";
+	$uploaddir = "./$foldername/";
+	$uploadfile = $uploaddir . $filename; //basename($_FILES['userfile_ttgv']['name']);
+	if (!mkdir($uploaddir, 0, true)){
+		//echo "error";
+	}
+	if (move_uploaded_file($_FILES['userfile_ttgv']['tmp_name'], $uploadfile)){
+		//echo "File is valid, and was successfully uploaded.\n";
+		$result = "./gv/$foldername/$filename";
+		$strsql="UPDATE CAN_BO_GIANG_DAY SET HINH_ANH_CHU_KY='$result' WHERE MA_CAN_BO = '$macb'";
+		$oci_pa = oci_parse($db_conn,$strsql);oci_execute($oci_pa);oci_free_statement($oci_pa);
+		echo $result;
+	} 
+	else{
+		echo "error";
+	}
 }
 
 if (isset ($db_conn))
