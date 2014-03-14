@@ -55,14 +55,17 @@ foreach($listItems as $y => $row)
 	// $listArrayDataString .= "'',";
 	$url = $help->getModuleActionRouteUrl('khcn/phanbien/ajaxdialog?hisid='.$_GET['hisid'])."&d=".$dothoc."&madetai=".$row["ma_thuyet_minh_dt"];
 	//Check het_han_phan_bien is '1' will not render button	
-	if ((int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == '1'){
+	$checkEnable = (int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == '1'; 
+	if ($checkEnable){
 		$textView = "Phản Biện";
+		$valueView = 1;
 	}else{
 		$textView = "Xem Phản Biện";
+		$valueView = 0;
 	}
 	
 	
-	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel_kq_phan_hoi=\"".$row["kq_phan_hoi"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>";
+	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel_kq_phan_hoi=\"".$valueView."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>";
 	$listArrayDataString .= " <a href=\"javascript: void(0);\" id=\"".$formKey."linkClickViewPrintPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPrintPhanBienTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;In</a>'";
 	$listArrayData[] = $listArrayDataString;
 }
@@ -126,83 +129,114 @@ function <?php echo $formKey ?>InitReady(){
 	
 	$(".<?php echo $formKey ?>linkClickViewPhanBienTab").click(function(){
 		var myURL = $(this).attr('href');
-		var initialCheckPhanHoi = $(this).attr('rel_kq_phan_hoi'); 
+		var initialCheckPhanHoi = $(this).attr('rel_kq_phan_hoi');
+		//console.log(1111111,initialCheckPhanHoi,initialCheckPhanHoi == '1');
 		//console.log(myURL);
 		var dialogTitle = "Phản biện đề tài : " + $(this).parent().parent().find('td').eq(1).text() ;
 		
 		if (initialCheckPhanHoi == '1'){
 			dialogTitle = dialogTitle + "<br> <i><span style='color: #FF0000'>Lưu ý: Nội dung cập nhật chỉ được lưu sau khi nhấn nút Lưu</span></i>";
-		}
-		$.ajax({
-			url: myURL,
-			success: function(data) {
-				//setting dialog box
-				$("#<?php echo $formKey ?>mainDialogData").html(data);
-				$("#<?php echo $formKey ?>DialogTabsViewPhanBien").dialog({
-					autoOpen: false,
-					modal: true,
-					resizable: true,
-					width: 1024,
-					height: 550,
-					title: dialogTitle,
-					<?php 
-					//Only show button to save data when enable to update data
-		 			if ((int) $row["het_han_phan_bien"] == 0){ 
-		 			?>
-					buttons: { "Lưu": function() {
-						$('.<?php echo $formKey ?>tabDialogTextAreaPhanBien').each(function(){
-							var parentItem = $(this).parent();
-							var currentName = $(this).attr('name');
-							var currentHtmlValue = $(this).html();
-							if (currentHtmlValue == '<br>'){
-								currentHtmlValue = '';
-							}
-							parentItem.find('textarea[name="' + currentName + '"]').val(currentHtmlValue);
-						});
-						$.ajax({
-							type: "POST",
-							url: $("#<?php echo $formKey ?>DialogTabsViewPhanBienMainForm").attr("action"),
-							data: $("#<?php echo $formKey ?>DialogTabsViewPhanBienMainForm").serialize(),
-							beforeSend: function(xhr){
-								$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").show();
-								//Disable save button
-								$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", true);
-							},
-							success:function(result){
-								gv_open_msg_box(result.message, 'alert', 345, 185, true);
-							},
-							error: function (xhr,status,error){
-							},
-							complete: function(xhr,status){
-								$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
-								//Enable save button
-								$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", false);
-							}
-						});
-						
-					}},
-					<?php } ?>
-					close: function() {
-						$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
+			$.ajax({
+				url: myURL,
+				success: function(data) {
+					//setting dialog box
+					$("#<?php echo $formKey ?>mainDialogData").html(data);
+					$("#<?php echo $formKey ?>DialogTabsViewPhanBien").dialog({
+						autoOpen: false,
+						modal: true,
+						resizable: true,
+						width: 1024,
+						height: 550,
+						title: dialogTitle,
+						buttons: { "Lưu": function() {
+							$('.<?php echo $formKey ?>tabDialogTextAreaPhanBien').each(function(){
+								var parentItem = $(this).parent();
+								var currentName = $(this).attr('name');
+								var currentHtmlValue = $(this).html();
+								if (currentHtmlValue == '<br>'){
+									currentHtmlValue = '';
+								}
+								parentItem.find('textarea[name="' + currentName + '"]').val(currentHtmlValue);
+							});
+							$.ajax({
+								type: "POST",
+								url: $("#<?php echo $formKey ?>DialogTabsViewPhanBienMainForm").attr("action"),
+								data: $("#<?php echo $formKey ?>DialogTabsViewPhanBienMainForm").serialize(),
+								beforeSend: function(xhr){
+									$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").show();
+									//Disable save button
+									$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", true);
+								},
+								success:function(result){
+									gv_open_msg_box(result.message, 'alert', 345, 185, true);
+								},
+								error: function (xhr,status,error){
+								},
+								complete: function(xhr,status){
+									$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
+									//Enable save button
+									$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", false);
+								}
+							});
+							
+						}},
+						close: function() {
+							$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
+						}
+					});
+					
+					$("#<?php echo $formKey ?>DialogTabsViewPhanBien").dialog('open');
+					
+					if (initialCheckPhanHoi == '1'){
+						//Enable save button
+						$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", false);
+						$(".ui-dialog-buttonset").show();
+					}else{
+						//Disable save button
+						$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", true);
+						$(".ui-dialog-buttonset").hide();
 					}
-				});
-				
-				$("#<?php echo $formKey ?>DialogTabsViewPhanBien").dialog('open');
-				
-				if (initialCheckPhanHoi == '1'){
-					//Enable save button
-					$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", false);
-					$(".ui-dialog-buttonset").show();
-				}else{
-					//Disable save button
-					$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", true);
-					$(".ui-dialog-buttonset").hide();
+				},
+				complete: function(xhr,status){
+					$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
 				}
-			},
-			complete: function(xhr,status){
-				$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
-			}
-		});
+			});
+		}else{
+			$.ajax({
+				url: myURL,
+				success: function(data) {
+					//setting dialog box
+					$("#<?php echo $formKey ?>mainDialogData").html(data);
+					$("#<?php echo $formKey ?>DialogTabsViewPhanBien").dialog({
+						autoOpen: false,
+						modal: true,
+						resizable: true,
+						width: 1024,
+						height: 550,
+						title: dialogTitle,
+						close: function() {
+							$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
+						}
+					});
+					
+					$("#<?php echo $formKey ?>DialogTabsViewPhanBien").dialog('open');
+					
+					if (initialCheckPhanHoi == '1'){
+						//Enable save button
+						$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", false);
+						$(".ui-dialog-buttonset").show();
+					}else{
+						//Disable save button
+						$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", true);
+						$(".ui-dialog-buttonset").hide();
+					}
+				},
+				complete: function(xhr,status){
+					$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
+				}
+			});
+		}
+			
 		
 		return false;
 	});
