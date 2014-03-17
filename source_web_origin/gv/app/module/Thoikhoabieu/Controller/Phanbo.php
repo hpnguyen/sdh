@@ -67,6 +67,7 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 						if (in_array( $this->getParam('loai'), array('0','1','2','3'))){
 							$cbgd  = $this->getPost('cbgd', null) == '' ? null : $this->getPost('cbgd', null);
 							$ghichu  = $this->getPost('ghichu', null) == '' ? null : $this->getPost('ghichu', null);
+							$ghichu = str_replace("'", "''", $ghichu);
 							$duyet  = $this->getPost('duyet', '0') == '0' ? 0 : (int) $this->getPost('duyet', '0');
 							
 							$check = $model->phanBoCanBo(	$this->getParam('dothoc'),
@@ -188,7 +189,7 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 						if ($this->getParam('loai') != '2' || $this->getParam('loai') != '1' || $this->getParam('loai') != '0'){
 							$cbgd  = $this->getPost('cbgd', null) == '' ? null : $this->getPost('cbgd', null);
 							$ghichu  = $this->getPost('ghichu', null) == '' ? null : $this->getPost('ghichu', null);
-							
+							$ghichu = str_replace("'", "''", $ghichu);
 							$check = $model->phanBoCanBo(	$this->getParam('dothoc'),
 															$this->getParam('lop'),
 															$this->getParam('mamh'),
@@ -319,10 +320,52 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		//echo $url; 
 		//die;
 		//$this->redirect(200,$url);
-		$test = new ConfigModel();
-		$t = $test->checkPhanBoCbgdHetHan();
-		var_dump($t);
-		unset($test);
+		// $test = new ConfigModel();
+		// $t = $test->checkPhanBoCbgdHetHan();
+		// var_dump($t);
+		// unset($test);
+		//var_dump(888888888);
+		
+		if (isset($_GET["hisid"])){
+			session_id($_GET["hisid"]);
+			session_start();
+		}
+		
+		if (!isset($_SESSION['uidloginPortal'])){
+			die('Đã hết phiên làm việc');
+		}
+		
+		$macb = $_GET['m'];
+		$a = $_GET['a'];
+		$key = $_GET["k"];
+		$madetai = $_GET["mdt"];
+		
+		if ($macb == '') {
+			$macb = $_SESSION['macb'];
+		}
+		$template = new BaseTemplate("khcn/print/khcn_print_danh_gia_tmdt_m06_pdf","default/index");
+		$template->macb = $macb;
+		$template->a = $a;
+		$template->key = $key;
+		
+		$modelCbgd = new CanBoGiangDayModel();
+		$template->detailCbgd = $modelCbgd->getDetailForThuyetMinhDeTai($macb);
+		
+		$modelTmdt = new NckhThuyetMinhDeTaiModel();
+		$macb = $_SESSION['macb'];
+		$template->detailTmdt = $modelTmdt->getDetailForPrintPdf($madetai,$macb);
+		// $rowNckhNoiDungKinhPhi =$template->detailTmdt['join_tables']['nckh_pb_noi_dung_kinh_phi'];
+		// var_dump($template->detailTmdt);
+		$templateContent = $template->contentTemplate();
+		
+		$mpdf=new mPDF('utf-8','A4'); 
+		$mpdf->SetAutoFont();
+		$mpdf->forcePortraitHeaders = true;
+		$mpdf->WriteHTML($templateContent);
+		$mpdf->Output();
+		exit;
+		die;
+		$template->renderLayout(array('title' => '','content' => $templateContent));
 	}
 	
 	private function register(){
@@ -415,11 +458,11 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		
 	}
 	
-	public	function test2Action(){
-		$model = new NckhChuyenGiaTmdtModel();
-		$k = $model->getList();
-		var_dump($k);
-	}
+	// public	function test2Action(){
+		// $model = new NckhChuyenGiaTmdtModel();
+		// $k = $model->getList();
+		// var_dump($k);
+	// }
 	// public	function test2Action(){
 		// // $model = new LoginAttemptsModel();
 		// //$model = new UserMembersModel();
@@ -448,8 +491,8 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		// $helper->add('exampleFunctionTest2',array('test 1111','test 2222'));
 		// var_dump(11111111);
 // 		
-		// $helper->executeTaskByID(1);
-		// $helper->executeTaskByID(2);
+		// //$helper->executeTaskByID(1);
+		// //$helper->executeTaskByID(2);
 		// die;
 		// // $t = new ConfigModel();
 		// // var_dump($t->checkTableColumnExist('value1111'));
@@ -511,5 +554,188 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		// $attach = null;
 		// Helper::getHelper('functions/mail')->sendMail($subject, $contentHTML, $recipients, null, null, $attach, null, 0);
 		// */
+	// }
+	public	function test2Action(){
+		echo 44444444444444444444;
+		// $url ='http://sdh.localhost.com/gvbeta/khcn/khcn_print_tmdt_r01_test.php?a=print_tmdt_fromtab&hisid=semdt72aibhj64o37qn3das300&m=20140006&k=xemPhanBienDeTaiListprint_tmdt_20140006';
+		//$url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
+		//$url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01_pdf.php?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
+		//$url = 'http://sdh.localhost.com/gvbeta/front.php/tkb/phanbo/test/?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
+		$url = 'http://sdh.localhost.com/gvbeta/front.php/tkb/phanbo/test';
+		$ch = curl_init();
+		$timeout = 400;
+		curl_setopt($ch, CURLOPT_URL,$url);
+		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)");
+		//curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
+		curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+		//curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		//curl_setopt($ch, CURLOPT_STDERR, fopen('php://output', 'w+'));
+		//curl_setopt($ch, CURLOPT_VERBOSE, true);
+		curl_setopt($ch, CURLOPT_VERBOSE, 1);
+		
+		
+		
+		// curl_setopt($ch, CURLOPT_POST, 1);
+		// curl_setopt($ch, CURLOPT_POSTFIELDS,$text);
+		
+		// in real life you should use something like:
+		// curl_setopt($ch, CURLOPT_POSTFIELDS,
+			// http_build_query(
+				// array('a' => 'getmotanghiencuu',
+					// 'hisid' => $_GET['hisid'],
+					// 'm' => 20140006
+				// )
+		// ));
+		
+		
+		
+		
+		// receive server response ...
+		
+		$server_output = curl_exec($ch);
+		
+		curl_close ($ch);
+		echo $server_output;
+	}
+	// public	function test2Action(){
+		// echo "test2 action of ModuleThoikhoabieuControllerPhanbo";
+		// //$contentHTML = file_get_contents(ROOT_DIR.'app/libs/PHPMailer/examples/contents.html');
+		// $template = new BaseTemplate("test/mpdf_1","default/index");
+		// $contentHTML1 = $template->contentTemplate();
+		// $mpdf=new mPDF('utf-8','A4'); 
+		// $mpdf->SetAutoFont();
+		// $mpdf->forcePortraitHeaders = true;
+		// $mpdf->WriteHTML($contentHTML1);
+// 		
+		// $template = new BaseTemplate("test/mpdf_2","default/index");
+		// $contentHTML2 = $template->contentTemplate();
+		// $mpdf->WriteHTML($contentHTML2);
+// 		
+		// //$mpdf->WriteHTML('<pagebreak orientaion="landscape" />');
+		// $mpdf->WriteHTML('<pagebreak sheet-size="A4-L" />');
+		// // $mpdf->WriteHTML('<pagebreak sheet-size="A4" />');
+		// //$mpdf->WriteHTML('<tocpagebreak sheet-size="A4-L" toc-sheet-size="A4" toc-preHTML="This ToC should print on an A5 sheet" />');
+		// $template = new BaseTemplate("test/mpdf_3","default/index");
+		// $contentHTML3 = $template->contentTemplate();
+		// $mpdf->WriteHTML($contentHTML3);
+		// //$mpdf->WriteHTML('<tocentry content="A4 landscape" />');
+// 		
+		// $mpdf->WriteHTML('<pagebreak sheet-size="A4" />');
+		// //$mpdf->WriteHTML('<tocpagebreak sheet-size="A4" toc-sheet-size="A4" toc-preHTML="This ToC should print on an A5 sheet" />');
+		// $template = new BaseTemplate("test/mpdf_4","default/index");
+		// $contentHTML4 = $template->contentTemplate();
+		// $mpdf->WriteHTML($contentHTML4);
+		// //$mpdf->WriteHTML('<tocentry content="A4 portrait" />');
+// 		
+		// $mpdf->Output();
+		// exit;
+		// die;
+		// echo "hahahah";
+		// //var_dump($contentHTML);
+		// // $text = "a=getmotanghiencuu&hisid=".$_GET['hisid']."&m=20140006";
+		// $url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid='.$_GET['hisid'].'&mdt=20140006&mcb=0.1838&k=';
+		// $url = 'http://172.28.40.188/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid=6meigtq68p79i14vc11snupih2&mdt=20140006&mcb=0.1838&k=';
+		// $url = 'http://sdh.localhost.com/gvbeta/front.php/tkb/phanbo/test';
+		// $url = 'http://172.28.40.188/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01_pdf.php?a=print_tmdt_pdf&hisid=6meigtq68p79i14vc11snupih2&mdt=20140006&mcb=0.1838&k=';
+		// $url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_tmdt_r01.php?a=print_tmdt_fromtab&hisid=semdt72aibhj64o37qn3das300&m=20140006&k=xemPhanBienDeTaiListprint_tmdt_20140006';
+		// //$homepage = file_get_contents($url);
+// 		
+		// $ch = curl_init();
+		// // curl_setopt($ch, CURLOPT_URL,"http://sdh.localhost.com/gvbeta/khcn/khcn_thuyetminhdtkhcn_process.php");
+		// $timeout = 400;
+		// curl_setopt($ch, CURLOPT_URL,$url);
+		// curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)");
+		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  		// curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,false);
+  		// curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
+  		// curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+  		// curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  		// curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+//   		
+		// // curl_setopt($ch, CURLOPT_POST, 1);
+		// // curl_setopt($ch, CURLOPT_POSTFIELDS,$text);
+// 		
+		// // in real life you should use something like:
+		// // curl_setopt($ch, CURLOPT_POSTFIELDS,
+			// // http_build_query(
+				// // array('a' => 'getmotanghiencuu',
+					// // 'hisid' => $_GET['hisid'],
+					// // 'm' => 20140006
+				// // )
+		// // ));
+// 		
+// 		
+// 		
+// 		
+		// // receive server response ...
+// 		
+		// $server_output = curl_exec($ch);
+// 		
+		// curl_close ($ch);
+// 		
+		// // further processing ....
+		// // var_dump($server_output );
+		// $mpdf=new mPDF('utf-8','A4'); 
+// 		
+		// $mpdf->WriteHTML($server_output);
+		// $mpdf->Output();
+		// exit;
+		// die;
+		// $hhtml = '
+		// <htmlpageheader name="myHTMLHeaderOdd" style="display:none">
+		// <div style="background-color:#BBEEFF" align="center"><b>&nbsp;{PAGENO}&nbsp;</b></div>
+		// </htmlpageheader>
+		// <htmlpagefooter name="myHTMLFooterOdd" style="display:none">
+		// <div style="background-color:#CFFFFC" align="center"><b>&nbsp;{PAGENO}&nbsp;</b></div>
+		// </htmlpagefooter>
+		// <sethtmlpageheader name="myHTMLHeaderOdd" page="O" value="on" show-this-page="1" />
+		// <sethtmlpagefooter name="myHTMLFooterOdd" page="O" value="on" show-this-page="1" />
+		// ';
+// 		
+		// //==============================================================
+		// $html = '
+		// <h1>mPDF Page Sizes</h1>
+		// <h3>Changing page (sheet) sizes within the document</h3>
+		// ';
+		// //==============================================================
+		// //==============================================================
+// 		
+// 		
+		// $mpdf=new mPDF('c','A4'); 
+// 		
+		// $mpdf->WriteHTML($hhtml);
+// 		
+		// $mpdf->WriteHTML($html);
+		// $mpdf->WriteHTML('<p>This should print on an A4 (portrait) sheet</p>');
+// 		
+		// $mpdf->WriteHTML('<tocpagebreak sheet-size="A4-L" toc-sheet-size="A5" toc-preHTML="This ToC should print on an A5 sheet" />');
+		// $mpdf->WriteHTML($html);
+		// $mpdf->WriteHTML('<tocentry content="A4 landscape" /><p>This page appears just after the ToC and should print on an A4 (landscape) sheet</p>');
+// 		
+		// $mpdf->WriteHTML('<pagebreak sheet-size="A5-L" />');
+		// $mpdf->WriteHTML($html);
+		// $mpdf->WriteHTML('<tocentry content="A5 landscape" /><p>This should print on an A5 (landscape) sheet</p>');
+// 		
+		// $mpdf->WriteHTML('<pagebreak sheet-size="Letter" />');
+		// $mpdf->WriteHTML($html);
+		// $mpdf->WriteHTML('<tocentry content="Letter portrait" /><p>This should print on an Letter sheet</p>');
+// 		
+		// $mpdf->WriteHTML('<pagebreak sheet-size="150mm 150mm" />');
+		// $mpdf->WriteHTML($html);
+		// $mpdf->WriteHTML('<tocentry content="150mm square" /><p>This should print on a sheet 150mm x 150mm</p>');
+// 		
+		// $mpdf->WriteHTML('<pagebreak sheet-size="11.69in 8.27in" />');
+		// $mpdf->WriteHTML($html);
+		// $mpdf->WriteHTML('<tocentry content="A4 landscape (ins)" /><p>This should print on a sheet 11.69in x 8.27in = A4 landscape</p>');
+// 		
+// 		
+		// $mpdf->Output();
+		// exit;
+// 
 	// }
 }

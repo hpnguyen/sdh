@@ -126,7 +126,12 @@ $config = array(
 																'yes' => array(
 																),
 																'no' => array(
+																),
+																'printpdfbm01' => array(
+																),
+																'printpdfbm06' => array(
 																)
+																
 								)
 				)
 ),

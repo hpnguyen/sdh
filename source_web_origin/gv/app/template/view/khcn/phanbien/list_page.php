@@ -33,6 +33,14 @@ $gvURL = $help->getGvRootURL();
 	table.dataTable tr.row_selected td.sorting_6 { background-color:  #075385; }
 	table.dataTable tr.row_selected td.sorting_7 { background-color:  #075385; }
 	table.dataTable tr.row_selected td.sorting_8 { background-color:  #075385; }
+	div.fancyLoadingStatus {
+		font-size: 13px;
+		display: none
+	}
+	div.warningMessage {
+		color: #FF0000;
+		font-weight: bold;
+	}
 </style>
 <?php
 $listArrayData = array();
@@ -103,8 +111,34 @@ foreach($listItems as $y => $row)
 		</div>
 	</div>
 </div>
+<div class="fancyLoadingStatus" align="center">
+	<div align="center">
+		<img src="<?php echo $gvURL ?>/images/ajax-loader.gif" />
+	</div>
+	Đang xử lý ....vui lòng chờ
+	<br>
+	<br>
+	<div class="warningMessage">
+	Nếu sau một thời gian dài mà thông báo này không tự đóng, bạn có thể thực hiện lại việc nhập bằng cách REFRESH lại trình duyệt.
+	</div>
+</div>
 <script>
 function <?php echo $formKey ?>InitReady(){
+	$('.fancyLoadingStatus').fancybox({
+		maxWidth    : 300,
+		maxHeight   : 120,
+		height: 120,
+		fitToView   : false,
+		autoSize    : false,
+		autoDimensions  : false,
+		scrolling   : 'no',
+		closeClick : false,
+		closeBtn: false,
+		helpers : { 
+			overlay : {closeClick: false} // prevents closing when clicking OUTSIDE fancybox
+		}
+	});
+	
 	$( ".<?php echo $formKey ?>linkClickViewPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-button ui-icon-newwin'} });
 	$( ".<?php echo $formKey ?>linkClickViewReportTab" ).button({ icons: {primary:'ui-icon ui-icon-button ui-icon-newwin'} });
 	$( ".<?php echo $formKey ?>linkClickViewPrintPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
@@ -130,8 +164,6 @@ function <?php echo $formKey ?>InitReady(){
 	$(".<?php echo $formKey ?>linkClickViewPhanBienTab").click(function(){
 		var myURL = $(this).attr('href');
 		var initialCheckPhanHoi = $(this).attr('rel_kq_phan_hoi');
-		//console.log(1111111,initialCheckPhanHoi,initialCheckPhanHoi == '1');
-		//console.log(myURL);
 		var dialogTitle = "Phản biện đề tài : " + $(this).parent().parent().find('td').eq(1).text() ;
 		
 		if (initialCheckPhanHoi == '1'){
@@ -149,6 +181,8 @@ function <?php echo $formKey ?>InitReady(){
 						height: 550,
 						title: dialogTitle,
 						buttons: { "Lưu": function() {
+							$('.fancyLoadingStatus').trigger('click');
+							
 							$('.<?php echo $formKey ?>tabDialogTextAreaPhanBien').each(function(){
 								var parentItem = $(this).parent();
 								var currentName = $(this).attr('name');
@@ -166,13 +200,16 @@ function <?php echo $formKey ?>InitReady(){
 									$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").show();
 									//Disable save button
 									$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", true);
+									
 								},
 								success:function(result){
+									$.fancybox.close();
 									gv_open_msg_box(result.message, 'alert', 345, 185, true);
 								},
 								error: function (xhr,status,error){
 								},
 								complete: function(xhr,status){
+									$.fancybox.close();
 									$(".<?php echo $formKey ?>ajax-loading-bert").find("#squaresWaveG").hide();
 									//Enable save button
 									$(".ui-dialog-buttonset").find(":button:contains('Lưu')").prop("disabled", false);

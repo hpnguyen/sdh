@@ -33,7 +33,7 @@ if ($w=="getKLGD")
 	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 
 	echo "
-		<div align='center'><h2>Khối Lượng Giảng Dạy Cao Học<br/>Học kỳ $hk</h2></div>
+		<div align='center'><h2>Khối Lượng Giảng Dạy Sau Đại Học<br/>Học kỳ $hk</h2></div>
 		
 		<div style='margin-bottom:10px; margin-left:0px; font-size:80%' align=left> 
 			Đối với thực hành: 20% [Tiết qui đổi] dành cho [THB] và 80% [Tiết qui đổi] dành cho [TH]<br/>
@@ -233,7 +233,7 @@ else if ($w=="updateYKien")
 	{
 		echo "Cập nhật ý kiến phản hồi thành công";
 		if ($ykien!=''){
-			sendemail("lhttung@hcmut.edu.vn", "Le Huu Thanh Tung" , "Y kiến KLGD của $macb đợt $dothoc", "Y kiến KLGD của $macb đợt $dothoc:<p>$ykien</p>");
+			//sendemail("lhttung@hcmut.edu.vn", "Le Huu Thanh Tung" , "Y kiến KLGD của $macb đợt $dothoc", "Y kiến KLGD của $macb đợt $dothoc:<p>$ykien</p>");
 			//sendemail("taint@hcmut.edu.vn", "Ngo Trung Tai" , "Y kiến KLGD của $macb đợt $dothoc", "Y kiến KLGD của $macb đợt $dothoc:<p>$ykien</p>");
 		}
 	}

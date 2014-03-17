@@ -257,4 +257,13 @@ class NhanSuModel extends BaseTable {
 			return 'Không tồn tại người dùng này.';
 		}
 	}
+	
+	public function getByFkMaCanBo($fk_ma_can_bo){
+		$check = $this->getSelect("*")->where("fk_ma_can_bo = '".$fk_ma_can_bo."'")->execute(false,array());
+		if($check->itemsCount > 0){
+			return $check->result[0];
+		}else{
+			return null;
+		}
+	}
 }

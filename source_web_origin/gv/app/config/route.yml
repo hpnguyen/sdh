@@ -73,6 +73,8 @@ khcn:
       ajaxdialog:
       yes:
       no:
+      printpdfbm01:
+      printpdfbm06:
 login:
   Login:
     Index:

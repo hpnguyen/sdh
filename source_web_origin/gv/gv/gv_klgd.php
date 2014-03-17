@@ -63,7 +63,7 @@ $ngayhethanykienphanhoi = $resDM["NGAY_HET_HAN"][0];
 		<tr>
 			<td valign=top style="width:50%">
 				<select name="txtXacNhanKLGD" id="txtXacNhanKLGD" style="width:100%;height:25px;font-size:15px" class="text ui-widget-content ui-corner-all tableData" onChange="klgd_updateXacNhanKLGD(this.value)">
-					<option value='' style='color:#0000ff;'>Ý kiên của bạn về thông tin KLGD trên?</option>
+					<option value='' style='color:#0000ff;'>Ý kiên của quý Thầy/Cô về thông tin KLGD trên?</option>
 					<option value='1' style='color:#008000;'>Tôi ĐỒNG Ý với thông tin KLGD trên</option>
 					<option value='0' style='color:#cf1919;'>Tôi KHÔNG ĐỒNG Ý với thông tin KLGD trên</option>
 				</select>

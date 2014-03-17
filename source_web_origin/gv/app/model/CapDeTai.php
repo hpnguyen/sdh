@@ -37,4 +37,15 @@ class CapDeTaiModel extends BaseTable {
 		
 		return $ret;
 	}
+	
+	public function getByMaCap($macap)
+	{
+		$check = $this->getSelect("*")->where("ma_cap = ".$macap)->execute(false, array());
+		
+		if($check->itemsCount > 0){
+			return $check->result[0];
+		}else{
+			return null;
+		}
+	}
 }

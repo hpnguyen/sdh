@@ -110,16 +110,14 @@ if ($a != 'print_tmdt_pdf')
 			</div>
         </td>
 		<td valign='top'> 
-			<div align="right"  style="margin-top:10px"> Mẫu M01
-				
-			</div>
+			<div align="right"  style="margin-top:10px"> Mẫu M01</div>
         </td>
       </tr>
 	  <tr>
-        <td colspan=2 valign='top'> 
-			<div align="center"  style="margin-top:40px; margin-bottom:20px">
+        <td colspan=2 valign='top' align='center'> 
+			
 				<font style="font-size:20px;"><b>PHIẾU NHẬN XÉT-ĐÁNH GIÁ XÉT DUYỆT</b><br>ĐỀ TÀI NCKH CẤP ĐHQG-HCM LOẠI C</font>
-			</div>
+			
         </td>
       </tr>
       <tr>
@@ -129,6 +127,8 @@ if ($a != 'print_tmdt_pdf')
 					<td >
 						<div align=left style="font-weight:bold">Tên đề tài (tiếng Việt):</div>
 						<div align=left style=""><?php echo $tmdt["TEN_DE_TAI_VN"][0]; ?></div>
+						<div align=left ><b>Chủ nhiệm đề tài:</b> <?php echo $tmdt["CNDT_HH_HV_HO_TEN"][0]; ?></div>
+						<div align=left style=""></div>
 						<div align=left style=""><b>Loại hình</b> <?php echo $tmdt["TEN_LOAI_HINH_NC"][0]; ?></div>
 					</td>
 				</tr>

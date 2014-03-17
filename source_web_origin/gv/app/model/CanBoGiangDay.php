@@ -47,5 +47,38 @@ class CanBoGiangDayModel extends BaseTable {
 		}
 		
 		return $ret;
+	}
+	
+	public function getDetailForThuyetMinhDeTai($macb)
+	{
+		$sqlstr="SELECT cb.*, to_char(cb.NGAY_SINH,'dd-mm-yyyy') ngay_sinh, 
+			decode(phai, 'M', 'Nam', 'F', 'Nữ') phai_desc, 
+			k.ten_khoa, bm.ten_bo_mon,	v.ten_chuc_vu, bmql.ten_bo_mon ten_bo_mon_ql, 
+			qghv.ten_quoc_gia ten_nuoc_hv, hv.ten ten_hv, cb.chuyen_mon_bc_bo_gddt,
+			decode(ma_hoc_ham, 'GS','Giáo sư', 'PGS','Phó giáo sư', '') ten_hoc_ham, 
+			get_thanh_vien(cb.ma_can_bo) hotencb,
+			get_nam_dat_hv_cao_nhat(cb.ma_can_bo, cb.ma_hoc_vi) nam_dat_hv_cao_nhat
+		FROM can_bo_giang_day cb, 
+			bo_mon bm, khoa k, 
+			dm_chuc_vu v, 
+			bo_mon bmql, 
+			quoc_gia qghv, 
+			dm_hoc_vi hv
+		WHERE cb.ma_bo_mon = bm.ma_bo_mon (+) 
+			and bm.ma_khoa = k.ma_khoa (+)
+			and cb.fk_chuc_vu = v.ma_chuc_vu (+)
+			and cb.ma_bo_mon_ql = bmql.ma_bo_mon (+)
+			and cb.qg_dat_hoc_vi = qghv.ma_quoc_gia (+)
+			and cb.ma_hoc_vi = hv.ma_hoc_vi (+)
+			and cb.ma_can_bo='".$macb."'";
+		
+		$check = $this->getQuery($sqlstr)->execute(false, array());
+		$ret = array();
+		
+		if($check->itemsCount > 0){
+			$ret = $check->result[0];
+		}
+		
+		return $ret;
 	}	
 }

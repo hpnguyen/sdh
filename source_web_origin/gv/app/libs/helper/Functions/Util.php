@@ -110,4 +110,12 @@ class HelperFunctionsUtil {
 		$template->canvasStyle = $canvasStyle;
 		return $template;
 	}
+	
+	function escapeSpecialCharToHtmlCode($string){
+		$temp = addslashes($string);
+		$temp = str_replace("\\'", "&#39;", $temp);
+		$temp = str_replace('\"', '&quot;', $temp);
+		$temp = str_replace('\\\\', '&#92;', $temp);
+		return $temp;
+	}
 }

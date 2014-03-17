@@ -114,6 +114,12 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 				
 				//Save data for Tab A1, A2, A3, C
 				$dataGroup1 = $this->getPost('data_group_1', null);
+				
+				foreach ($dataGroup1 as $key => $value) {
+					//Replace special character
+					$dataGroup1[$key] = Helper::getHelper('functions/util')->escapeSpecialCharToHtmlCode($dataGroup1[$key]);
+				}
+				
 				$data = array_merge($data, $dataGroup1);
 				$model = new NckhPbNoiDungModel();
 				
@@ -207,5 +213,87 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		} catch (Exception $e) {
 			$this->renderJSON(array('status' => 0, 'message' => 'lỗi xử lý : '.$e->getMessage()));
 		}
+	}
+	
+	public	function printpdfbm01Action(){
+		if (isset($_GET["hisid"])){
+			session_id($_GET["hisid"]);
+			session_start();
+		}
+		
+		if (!isset($_SESSION['uidloginPortal'])){
+			die('Đã hết phiên làm việc');
+		}
+		
+		$macb = $_GET['m'];
+		$a = $_GET['a'];
+		$key = $_GET["k"];
+		$madetai = $_GET["mdt"];
+		
+		if ($macb == '') {
+			$macb = $_SESSION['macb'];
+		}
+		$template = new BaseTemplate("khcn/print/khcn_print_danh_gia_tmdt_m01_pdf","default/index");
+		$template->macb = $macb;
+		$template->a = $a;
+		$template->key = $key;
+		
+		$modelCbgd = new CanBoGiangDayModel();
+		$template->detailCbgd = $modelCbgd->getDetailForThuyetMinhDeTai($macb);
+		
+		$modelTmdt = new NckhThuyetMinhDeTaiModel();
+		$macb = $_SESSION['macb'];
+		$template->detailTmdt = $modelTmdt->getDetailForPrintPdf($madetai,$macb);
+		$templateContent = $template->contentTemplate();
+		
+		$mpdf=new mPDF('utf-8','A4'); 
+		$mpdf->SetAutoFont();
+		$mpdf->forcePortraitHeaders = true;
+		$mpdf->WriteHTML($templateContent);
+		$mpdf->Output();
+		exit;
+		die;
+		$template->renderLayout(array('title' => '','content' => $templateContent));
+	}
+	
+	public	function printpdfbm06Action(){
+		if (isset($_GET["hisid"])){
+			session_id($_GET["hisid"]);
+			session_start();
+		}
+		
+		if (!isset($_SESSION['uidloginPortal'])){
+			die('Đã hết phiên làm việc');
+		}
+		
+		$macb = $_GET['m'];
+		$a = $_GET['a'];
+		$key = $_GET["k"];
+		$madetai = $_GET["mdt"];
+		
+		if ($macb == '') {
+			$macb = $_SESSION['macb'];
+		}
+		$template = new BaseTemplate("khcn/print/khcn_print_danh_gia_tmdt_m06_pdf","default/index");
+		$template->macb = $macb;
+		$template->a = $a;
+		$template->key = $key;
+		
+		$modelCbgd = new CanBoGiangDayModel();
+		$template->detailCbgd = $modelCbgd->getDetailForThuyetMinhDeTai($macb);
+		
+		$modelTmdt = new NckhThuyetMinhDeTaiModel();
+		$macb = $_SESSION['macb'];
+		$template->detailTmdt = $modelTmdt->getDetailForPrintPdf($madetai,$macb);
+		$templateContent = $template->contentTemplate();
+		
+		$mpdf=new mPDF('utf-8','A4'); 
+		$mpdf->SetAutoFont();
+		$mpdf->forcePortraitHeaders = true;
+		$mpdf->WriteHTML($templateContent);
+		$mpdf->Output();
+		exit;
+		die;
+		$template->renderLayout(array('title' => '','content' => $templateContent));
 	}
 }
