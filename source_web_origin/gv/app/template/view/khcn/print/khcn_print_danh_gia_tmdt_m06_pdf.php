@@ -43,6 +43,7 @@ $y = 1;
 		color: #000000;
 		font-weight: normal;
 		line-height: 1.5;
+		text-align: justify;
 	}
 	.bordertable {
 		border-color: #000000; 

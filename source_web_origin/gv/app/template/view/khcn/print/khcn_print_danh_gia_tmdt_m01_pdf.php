@@ -43,6 +43,7 @@ $y = 1;
 		color: #000000;
 		font-weight: normal;
 		line-height: 1.5;
+		text-align: justify;
 	}
 	.bordertable {
 		border-color: #000000; 
@@ -247,7 +248,7 @@ $y = 1;
 			}
 			//var_dump($numrowspan);
 			$diem = $itemNckhNoiDungDanhGia["diem_text"];
-			if ($numrowspan > 1 ) {
+			if ($numrowspan > 1 && ! in_array($itemNckhNoiDungDanhGia['id'], $logCheck)) {
 				$td_stt = "<td class=\"table-content2-bottom-right\" align=\"left\" rowspan=\"".$numrowspan."\">".$itemNckhNoiDungDanhGia["stt"]."</td>";
 				$td_diem = "<td class=\"table-content2-bottom-right\" align=center rowspan=\"".$numrowspan."\" style=\"background: #ebebeb;\">".$diem."</td>";
 			}else if (in_array($itemNckhNoiDungDanhGia['id'], $logCheck)) {
