@@ -26,7 +26,8 @@ if ($_REQUEST["a"]=='dshocvien')
 			SELECT DISTINCT k.ten_khoa, h.MA_HOC_VIEN, h.HO, h.TEN , 
 				DECODE(h.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(h.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
 				DECODE(h.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH,
-				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt
+				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt,
+				tinh_dtb_sdhbk(h.MA_HOC_VIEN) dtb_tich_luy, tong_tin_chi_tich_luy(h.MA_HOC_VIEN) tong_tc_tich_luy
 			FROM hoc_vien h, dang_ky_mon_hoc d, nganh n, bo_mon b, khoa k, dm_tinh_tp t
 			WHERE h.ma_hoc_vien = d.ma_hoc_vien
 			AND d.dot_hoc = '$dot'
@@ -52,7 +53,7 @@ if ($_REQUEST["a"]=='dshocvien')
 		<table id='khoa_tableDSHocVien' name='khoa_tableDSHocVien' width='100%' border='0'  cellspacing='0' class='ui-widget ui-widget-content ui-corner-top tableData' >
         <thead>
           <tr class='ui-widget-header' style='height:20pt;font-weight:bold;'>
-            <td align='center' class='ui-corner-tl'>STT</td>
+            <td align='center'>STT</td>
             <td>Mã HV</td>
 			<td>Họ</td>
             <td align='left'>Tên</td>
@@ -60,7 +61,9 @@ if ($_REQUEST["a"]=='dshocvien')
 			<td align='center'>Ngày Sinh</td>
 			<td align='left'>Nơi Sinh</td>
             <td align='left'>Ngành</td>
-			<td align=left class='ui-corner-tr'>Loại CTĐT</td>
+			<td align=left >Loại CTĐT</td>
+			<td align='right'>ĐTB tích luỹ</td>
+			<td align='center'>Số TC tích luỹ</td>
           </tr>
           </thead>
           <tbody>
@@ -80,6 +83,9 @@ if ($_REQUEST["a"]=='dshocvien')
 		echo "<td align='left' style=''>{$resDM["NOI_SINH"][$i]}</td>";
 		echo "<td align='left' style=''>{$resDM["TEN_NGANH"][$i]}</td>";
 		echo "<td align='left' style=''>{$resDM["HUONGDT"][$i]}</td>";
+		echo "<td align='right' style=''>".number_format($resDM["DTB_TICH_LUY"][$i], 2, ',', '.')."</td>";
+		echo "<td align='center' style=''>{$resDM["TONG_TC_TICH_LUY"][$i]}</td>";
+		
 		echo "</tr>";
 	} 
 	
@@ -93,7 +99,8 @@ else if ($_REQUEST["a"]=='dshocvienfile')
 	$sqlstr="SELECT DISTINCT k.TEN_KHOA, h.MA_HOC_VIEN, h.HO, h.TEN , 
 				DECODE(h.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(h.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
 				DECODE(h.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH,
-				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt
+				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt,
+				tinh_dtb_sdhbk(h.MA_HOC_VIEN) dtb_tich_luy, tong_tin_chi_tich_luy(h.MA_HOC_VIEN) tong_tc_tich_luy
 			FROM hoc_vien h, dang_ky_mon_hoc d, nganh n, bo_mon b, khoa k, dm_tinh_tp t
 			WHERE h.ma_hoc_vien = d.ma_hoc_vien
 			AND d.dot_hoc = '$dot' AND k.ma_khoa = '$makhoa' AND h.ma_bac = 'TH' AND h.fk_hinh_thuc_dao_tao = 'CQ'
@@ -134,8 +141,10 @@ else if ($_REQUEST["a"]=='dshocvienfile')
 								  ->setCellValue('F2', 'Ngày sinh')
 								  ->setCellValue('G2', 'Nơi sinh')
 								  ->setCellValue('H2', 'Ngành')
-								  ->setCellValue('I2', 'Loại CTĐT');
-	$objPHPExcel->getActiveSheet()->getStyle('A2:I2')->getFont()->setBold(true);
+								  ->setCellValue('I2', 'Loại CTĐT')
+								  ->setCellValue('J2', 'ĐTB tích luỹ')
+								  ->setCellValue('K2', 'Số TC tích luỹ');
+	$objPHPExcel->getActiveSheet()->getStyle('A2:K2')->getFont()->setBold(true);
 	$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
 	
 	for ($i = 0; $i < $n; $i++)
@@ -149,7 +158,9 @@ else if ($_REQUEST["a"]=='dshocvienfile')
 								  ->setCellValue("F$j", $resDM["NGAY_SINH"][$i])
 								  ->setCellValue("G$j", $resDM["NOI_SINH"][$i])
 								  ->setCellValue("H$j", $resDM["TEN_NGANH"][$i])
-								  ->setCellValue("I$j", $resDM["HUONGDT"][$i]);
+								  ->setCellValue("I$j", $resDM["HUONGDT"][$i])
+								  ->setCellValue("J$j", $resDM["DTB_TICH_LUY"][$i])
+								  ->setCellValue("K$j", $resDM["TONG_TC_TICH_LUY"][$i]);
 	}
 	$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(6);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
@@ -160,6 +171,8 @@ else if ($_REQUEST["a"]=='dshocvienfile')
 	$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
 	
 	$objPHPExcel->getActiveSheet()->setTitle('Danh học viên ĐKMH');
 	$objPHPExcel->setActiveSheetIndex(0);

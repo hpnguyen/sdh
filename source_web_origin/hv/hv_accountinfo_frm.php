@@ -9,17 +9,24 @@ if (!isset($_SESSION['uidloginhv'])){
 include "libs/connect.php";
 
 $usr = base64_decode($_SESSION['uidloginhv']);
-$sqlstr="	SELECT h.ma_hoc_vien, (ho || ' ' || ten) ho_ten, email, n.ten_nganh, h.dien_thoai, h.so_cmnd, h.so_tai_khoan,
-				h.dia_chi, to_char(h.ngay_sinh, 'dd/mm/yyyy') ngay_sinh, decode(h.phai, 'M', 'Nam', 'F', 'Nữ') phai, 
-				t.ten_tinh_tp noi_sinh, don_vi_cong_tac, thanh_toan_tu_dong, k.ten_kinh_phi_dt, to_char(h.ngay_cap, 'dd/mm/yyyy') ngay_cap, h.noi_cap,
+$sqlstr="	SELECT h.*, (ho || ' ' || ten) ho_ten, email, n.ten_nganh,
+				to_char(h.ngay_sinh, 'dd/mm/yyyy') ngay_sinh, decode(h.phai, 'M', 'checked=\"checked\"') phai_nam,
+				to_char(h.ngay_vao_doan, 'dd/mm/yyyy') ngay_vao_doan, to_char(h.ngay_vao_dang, 'dd/mm/yyyy') ngay_vao_dang,
+				to_char(h.THUC_TAP_KHKT_TU_NGAY, 'dd/mm/yyyy') THUC_TAP_KHKT_TU_NGAY, to_char(h.THUC_TAP_KHKT_DEN_NGAY, 'dd/mm/yyyy') THUC_TAP_KHKT_DEN_NGAY,
+				to_char(h.NGAY_BAO_VE_LVTHS, 'dd/mm/yyyy') NGAY_BAO_VE_LVTHS,
+				decode(h.phai, 'F', 'checked=\"checked\"') phai_nu,
+				thanh_toan_tu_dong, k.ten_kinh_phi_dt, to_char(h.ngay_cap, 'dd/mm/yyyy') ngay_cap,
 				decode(ctdt_loai(h.ma_hoc_vien), 1, 'Giảng dạy môn học + khóa luận', 2, 'Giảng dạy môn học + LVThs', 'Nghiên cứu') || ' ' || decode(ctdt_hv_nam(h.ma_hoc_vien), 0, null,'thuộc chương trình: ' || ctdt_hv_nam(h.ma_hoc_vien) || ' năm') ctdt,
-				dot_cap_bang('$usr') dot_cap_bang
-			FROM hoc_vien h, nganh n, dm_tinh_tp t, dm_kinh_phi_dao_tao k
+				dot_cap_bang('$usr') dot_cap_bang,
+				t.BAI_BAO, t.DE_TAI_NCKH, t.THAM_GIA_HOI_NGHI, t.GIAI_THUONG_KHCN
+			FROM hoc_vien h, nganh n, dm_kinh_phi_dao_tao k, qt_hoat_dong_khkt t
 			WHERE upper(h.ma_hoc_vien) = upper('$usr')
 			AND h.ma_nganh = n.ma_nganh
-			AND h.noi_sinh = t.ma_tinh_tp
-			AND h.fk_kinh_phi_dao_tao = k.ma_kinh_phi_dt
+			AND h.fk_kinh_phi_dao_tao = k.ma_kinh_phi_dt AND h.ma_hoc_vien=t.fk_ma_hoc_vien(+)
 ";
+
+//file_put_contents("logs.txt", "$sqlstr");
+
 $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $accinfo);oci_free_statement($stmt);
 
 $dotcapbang = $accinfo["DOT_CAP_BANG"][0];

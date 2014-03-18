@@ -119,7 +119,7 @@ $(function(){
  $("#phong_dshocvienDKMH_btn_downloadpreview").button({ icons: {primary:'ui-icon ui-icon-disk'} });
  
  $("#phong_dshocvienDKMH_btn_printpreview").click(function(){
-	writeConsole("<div style='font-size:13px; font-weight:bold;' align=left>ĐẠI HỌC BÁCH KHOA - TP.HCM<br/>PHÒNG ĐÀO TẠO SAU ĐẠI HỌC<br/> &nbsp;</div>" + $("#phong_dshocvienDKMH_detail").html() + "<div style='clear:both;'>&nbsp;<br/><a href='JavaScript:window.print();'>In trang này</a></div>", 800,600);
+	writeConsole("<style type=\"text/css\">.bordertable {border-color: #000000; border-width: 1px; border-style: solid; border-collapse:collapse;}</style><div style='font-size:13px; font-weight:bold;' align=left>ĐẠI HỌC BÁCH KHOA - TP.HCM<br/>PHÒNG ĐÀO TẠO SAU ĐẠI HỌC<br/> &nbsp;</div>" + $("#phong_dshocvienDKMH_detail").html() + "<div style='clear:both;'>&nbsp;<br/><a href='JavaScript:window.print();'>In trang này</a></div>", 800,600);
  });
  
  $("#phong_dshocvienDKMH_btn_downloadpreview").click(function(){

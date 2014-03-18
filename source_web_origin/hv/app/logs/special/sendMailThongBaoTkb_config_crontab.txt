@@ -1,0 +1,4 @@
+#*****************************************************************
+#Cronjob request to send mail 'Thong bao TKB'
+#*****************************************************************
+*/5 * * * * php /home/admin/Working/cronjobs/sendMailThongBaoTkb.php >> /home/admin/Working/cronjobs/logs/crontab_sendMailThongBaoTkb.log 2>&1

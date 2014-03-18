@@ -70,7 +70,7 @@ else
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Phòng Đào Tạo Sau Đại Học</title>
+<title>Phong Dao Tao Sau Dai Hoc</title>
 
 </head>
 
@@ -590,21 +590,44 @@ function hv_open_msg_box(pmsg, ptype, pwidth, pheight){
 	$("#hv_index_dialog_msgbox").dialog("open");
 }
 
-function reverse_escapeJsonString (str, pBr) {	
-	var nstr = str.replace(/\\\\/g, "\\");
-	nstr = nstr.replace(/\\\//g, '/');
-	nstr = nstr.replace(/\\"/g, '"');
-	nstr = nstr.replace(/\\'/g, "'");
-	nstr = nstr.replace(/\\\\n/g, '\n');
-	nstr = nstr.replace(/\\\\r/g, '\r');
-	nstr = nstr.replace(/\\\\t/g, '\t');
-	nstr = nstr.replace(/\\\\f/g, '\x08');
-	nstr = nstr.replace(/\\\\b/g, '\x0c');
-	if (pBr){
-		nstr = nstr.replace(/\n/g, '<br>');
+function reverse_escapeJsonString (str, pBr) {
+	var nstr = null;
+	if (str!=null){
+		nstr = str.replace(/\\\\/g, "\\");
+		nstr = nstr.replace(/\\\//g, '/');
+		nstr = nstr.replace(/\\"/g, '"');
+		nstr = nstr.replace(/\\'/g, "'");
+		nstr = nstr.replace(/\\\\n/g, '\n');
+		nstr = nstr.replace(/\\\\r/g, '\r');
+		nstr = nstr.replace(/\\\\t/g, '\t');
+		nstr = nstr.replace(/\\\\f/g, '\x08');
+		nstr = nstr.replace(/\\\\b/g, '\x0c');
+		if (pBr){
+			nstr = nstr.replace(/\n/g, '<br>');
+		}
 	}
 	return nstr;
 }
+
+function print_hv_writeConsole(pContent, pAutoOpenPrinter, pTitle, pStyle, pWidth, pHeight) {
+	var pWidth_ = pWidth || 800;
+	var pHeight_ = pHeight || 450;
+	var pStyle_ = pStyle || 'style="font-family:Arial,Helvetica,sans-serif;"';
+	var abc=window.open('','','width='+pWidth_+',height='+pHeight_+',menubar=1'+',toolbar=0'+',status=0'+',scrollbars=1'+',resizable=1');
+	var strprint='';
+	if (pAutoOpenPrinter==1){
+		strprint = 'window.print();';
+	}
+	abc.document.writeln(
+	'<html><head><title>'+pTitle+'</title></head>'
+	+'<body bgcolor=white onLoad="self.focus(); ' + strprint + '" '+ pStyle_ + '>'
+	+pContent
+	+'</body></html>'
+	);
+	
+//	abc.document.close();
+}
+
 // Kiem tra thoi gian cua session
 //event to check session time variable declaration
 var checkSessionTimeEvent;
@@ -639,7 +662,7 @@ function checkSessionTime(){
 }
 
 //event to check session time left (times 1000 to convert seconds to milliseconds)
-checkSessionTimeEvent = setInterval("checkSessionTime()",10*1000);
+//checkSessionTimeEvent = setInterval("checkSessionTime()",10*1000);
 
 // End Kiem tra thoi gian cua session
 

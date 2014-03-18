@@ -246,7 +246,8 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		$template->detailTmdt = $modelTmdt->getDetailForPrintPdf($madetai,$macb);
 		$templateContent = $template->contentTemplate();
 		
-		$mpdf=new mPDF('utf-8','A4'); 
+		$mpdf=new mPDF('utf-8','A4');
+		$mpdf->SetTitle('Biểu Mẫu 01');
 		$mpdf->SetAutoFont();
 		$mpdf->forcePortraitHeaders = true;
 		$mpdf->WriteHTML($templateContent);
@@ -287,7 +288,8 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		$template->detailTmdt = $modelTmdt->getDetailForPrintPdf($madetai,$macb);
 		$templateContent = $template->contentTemplate();
 		
-		$mpdf=new mPDF('utf-8','A4'); 
+		$mpdf=new mPDF('utf-8','A4');
+		$mpdf->SetTitle('Biểu Mẫu 06');
 		$mpdf->SetAutoFont();
 		$mpdf->forcePortraitHeaders = true;
 		$mpdf->WriteHTML($templateContent);

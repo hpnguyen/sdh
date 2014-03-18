@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+   ServerName 172.28.40.248
+   DocumentRoot /var/www/html/web_sdh/sdh_github/source_web_origin
+
+   <Directory /var/www/html/web_sdh/sdh_github/source_web_origin>
+   	Options Indexes FollowSymLinks
+	AllowOverride All
+	Order allow,deny
+	Allow from all
+   </Directory>
+
+   Alias /icons/ /var/www/html/web_sdh/sdh_github/source_web_origin/icons/
+
+   ErrorLog  /var/www/html/web_sdh/log/error.log
+   CustomLog /var/www/html/web_sdh/log/access.log combined
+</VirtualHost>

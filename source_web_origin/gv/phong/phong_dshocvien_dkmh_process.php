@@ -31,7 +31,8 @@ if ($a=='dshocvien')
 			SELECT DISTINCT k.ten_khoa, h.MA_HOC_VIEN, h.HO, h.TEN , 
 				DECODE(h.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(h.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
 				DECODE(h.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH,
-				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt
+				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt,
+				tinh_dtb_sdhbk(h.MA_HOC_VIEN) dtb_tich_luy, tong_tin_chi_tich_luy(h.MA_HOC_VIEN) tong_tc_tich_luy
 			FROM hoc_vien h, dang_ky_mon_hoc d, nganh n, bo_mon b, khoa k, dm_tinh_tp t
 			WHERE h.ma_hoc_vien = d.ma_hoc_vien
 			AND d.dot_hoc = '$dot'
@@ -59,18 +60,20 @@ if ($a=='dshocvien')
 	echo "
 		<div align='center'><h2>Danh Sách Học Viên ĐKMH HK $hk $tieudekhoa</h2></div>
 		<div style='margin-bottom:20px;'>
-			<table id='phong_tableDSHocVienKhoa' name='phong_tableDSHocVienKhoa' width='100%' border='0'  cellspacing='0' class='ui-widget ui-widget-content ui-corner-top tableData' >
+			<table id='phong_tableDSHocVienKhoa' name='phong_tableDSHocVienKhoa' width='100%' border='0'  cellspacing='0' class='ui-widget ui-widget-content ui-corner-top tableData bordertable' >
 			<thead>
-			  <tr class='ui-widget-header' style='height:20pt;font-weight:bold;'>
-				<td align='center' class='ui-corner-tl'>STT</td>
-				<td>Mã HV</td>
-				<td>Họ</td>
-				<td  align='left'>Tên</td>
-				<td  align='left' style=''>Phái</td>
-				<td  align='center'>Ngày Sinh</td>
-				<td  align='left'>Nơi Sinh</td>
-				<td align='left'>Ngành</td>
-				<td align='left' class='ui-corner-tr'>Loại CTĐT</td>
+			  <tr class='bordertable ui-widget-header' style='height:20pt;font-weight:bold;'>
+				<td align='center' class='bordertable'>STT</td>
+				<td class='bordertable'>Mã HV</td>
+				<td class='bordertable'>Họ</td>
+				<td class='bordertable' align='left'>Tên</td>
+				<td class='bordertable' align='left' style=''>Phái</td>
+				<td class='bordertable' align='center'>Ngày Sinh</td>
+				<td class='bordertable' align='left'>Nơi Sinh</td>
+				<td class='bordertable' align='left'>Ngành</td>
+				<td class='bordertable' align=left >Loại CTĐT</td>
+				<td class='bordertable' align='right'>ĐTB tích luỹ</td>
+				<td class='bordertable' align='center'>Số TC tích luỹ</td>
 			  </tr>
 			  </thead>
 			  <tbody>
@@ -78,16 +81,18 @@ if ($a=='dshocvien')
 	for ($i = 0; $i < $n; $i++)
 	{
 		($i % 2) ? $classAlt="alt" : $classAlt="alt_";
-		echo "<tr align='left' valign='middle' class=' ".$classAlt."' style='height:20px'>";				
-		echo "<td align='center'>" .($i+1)."</td>";
-		echo "<td align='left'>".$resDM["MA_HOC_VIEN"][$i]."</td>";
-		echo "<td align='left'>".$resDM["HO"][$i]."</td>";
-		echo "<td align='left'>".$resDM["TEN"][$i]."</td>";
-		echo "<td align='left'>".$resDM["PHAI"][$i]."</td>";
-		echo "<td align='center'>".$resDM["NGAY_SINH"][$i]."</td>";
-		echo "<td align='left' style=''>{$resDM["NOI_SINH"][$i]}</td>";
-		echo "<td align='left' style=''>{$resDM["TEN_NGANH"][$i]}</td>";
-		echo "<td align='left' style=''>{$resDM["HUONGDT"][$i]}</td>";
+		echo "<tr align='left' valign='middle' class='bordertable ".$classAlt." ' style='height:20px'>";				
+		echo "<td class='bordertable' align='center'>" .($i+1)."</td>";
+		echo "<td class='bordertable' align='left'>".$resDM["MA_HOC_VIEN"][$i]."</td>";
+		echo "<td class='bordertable' align='left'>".$resDM["HO"][$i]."</td>";
+		echo "<td class='bordertable' align='left'>".$resDM["TEN"][$i]."</td>";
+		echo "<td class='bordertable' align='left'>".$resDM["PHAI"][$i]."</td>";
+		echo "<td class='bordertable' align='center'>".$resDM["NGAY_SINH"][$i]."</td>";
+		echo "<td class='bordertable' align='left' style=''>{$resDM["NOI_SINH"][$i]}</td>";
+		echo "<td class='bordertable' align='left' style=''>{$resDM["TEN_NGANH"][$i]}</td>";
+		echo "<td class='bordertable' align='left' style=''>{$resDM["HUONGDT"][$i]}</td>";
+		echo "<td class='bordertable' align='right' style=''>".number_format($resDM["DTB_TICH_LUY"][$i], 2, ',', '.')."</td>";
+		echo "<td class='bordertable' align='center' style=''>{$resDM["TONG_TC_TICH_LUY"][$i]}</td>";
 		echo "</tr>";
 	} 
 	echo "
@@ -103,7 +108,8 @@ else if ($a=='dshocvienfile')
 			SELECT DISTINCT k.ten_khoa, h.MA_HOC_VIEN, h.HO, h.TEN , 
 				DECODE(h.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(h.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
 				DECODE(h.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH,
-				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt
+				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt,
+				tinh_dtb_sdhbk(h.MA_HOC_VIEN) dtb_tich_luy, tong_tin_chi_tich_luy(h.MA_HOC_VIEN) tong_tc_tich_luy
 			FROM hoc_vien h, dang_ky_mon_hoc d, nganh n, bo_mon b, khoa k, dm_tinh_tp t
 			WHERE h.ma_hoc_vien = d.ma_hoc_vien
 			AND d.dot_hoc = '$dot'
@@ -155,8 +161,10 @@ else if ($a=='dshocvienfile')
 								  ->setCellValue('F2', 'Ngày sinh')
 								  ->setCellValue('G2', 'Nơi sinh')
 								  ->setCellValue('H2', 'Ngành')
-								  ->setCellValue('I2', 'Loại CTĐT');
-	$objPHPExcel->getActiveSheet()->getStyle('A2:I2')->getFont()->setBold(true);
+								  ->setCellValue('I2', 'Loại CTĐT')
+								  ->setCellValue('J2', 'ĐTB tích luỹ')
+								  ->setCellValue('K2', 'Số TC tích luỹ');
+	$objPHPExcel->getActiveSheet()->getStyle('A2:K2')->getFont()->setBold(true);
 	$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
 	
 	for ($i = 0; $i < $n; $i++)
@@ -174,7 +182,9 @@ else if ($a=='dshocvienfile')
 								  ->setCellValue("F$j", $resDM["NGAY_SINH"][$i])
 								  ->setCellValue("G$j", $resDM["NOI_SINH"][$i])
 								  ->setCellValue("H$j", $resDM["TEN_NGANH"][$i])
-								  ->setCellValue("I$j", $resDM["HUONGDT"][$i]);
+								  ->setCellValue("I$j", $resDM["HUONGDT"][$i])
+								  ->setCellValue("J$j", number_format($resDM["DTB_TICH_LUY"][$i], 2, ',', '.'))
+								  ->setCellValue("K$j", $resDM["TONG_TC_TICH_LUY"][$i]);
 	}
 	//fclose($fp);
 	
@@ -191,6 +201,8 @@ else if ($a=='dshocvienfile')
 	$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
 	
 	$objPHPExcel->getActiveSheet()->setTitle('Danh học viên ĐKMH');
 	$objPHPExcel->setActiveSheetIndex(0);

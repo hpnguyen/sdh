@@ -194,7 +194,8 @@ parse_str($a);
 				// store cookie for a day, without, it would be a session cookie
 				expires: 30
 			},
-			cache: true
+			cache: true,
+			heightStyle: "content"
 		});
 		
 		loadTabKHCN();
@@ -1623,7 +1624,6 @@ var editor;
 function replaceDiv( div ) {
 	//if ( editor )
 	//	editor.destroy();
-
 	editor = CKEDITOR.replace( div , {
 		enterMode : CKEDITOR.ENTER_BR,
 		shiftEnterMode : CKEDITOR.ENTER_P,
