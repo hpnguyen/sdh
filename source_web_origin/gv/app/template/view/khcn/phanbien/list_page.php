@@ -62,6 +62,13 @@ foreach($listItems as $y => $row)
 	$listArrayDataString .= "'<div id= \"".$formKey."linkClickViewReportTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewReportTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;Xem</div>',";
 	// $listArrayDataString .= "'',";
 	$url = $help->getModuleActionRouteUrl('khcn/phanbien/ajaxdialog?hisid='.$_GET['hisid'])."&d=".$dothoc."&madetai=".$row["ma_thuyet_minh_dt"];
+	$urlPrintPDF = null;
+	if ($row['fk_cap_de_tai'] >= 21 && $row['fk_cap_de_tai'] <= 23){
+		$urlPrintPDF = $help->getModuleActionRouteUrl('khcn/phanbien/printpdfbm01?a=print_tmdt_pdf&hisid='.$_GET['hisid'])."&mdt=".$row["ma_thuyet_minh_dt"]."&mcb=".$macb."&k=";
+	}else if ($row['fk_cap_de_tai'] >= 31 && $row['fk_cap_de_tai'] <= 32){
+		$urlPrintPDF = $help->getModuleActionRouteUrl('khcn/phanbien/printpdfbm06?a=print_tmdt_pdf&hisid='.$_GET['hisid'])."&mdt=".$row["ma_thuyet_minh_dt"]."&mcb=".$macb."&k=";
+	}
+	
 	//Check het_han_phan_bien is '1' will not render button	
 	$checkEnable = (int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == '1'; 
 	if ($checkEnable){
@@ -74,7 +81,13 @@ foreach($listItems as $y => $row)
 	
 	
 	$listArrayDataString .= "'<a href=\"".$url."\" id=\"".$formKey."linkClickViewPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPhanBienTab phanbien-button-font-size\" rel_kq_phan_hoi=\"".$valueView."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;".$textView."</a>";
-	$listArrayDataString .= " <a href=\"javascript: void(0);\" id=\"".$formKey."linkClickViewPrintPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPrintPhanBienTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;In</a>'";
+	$listArrayDataString .= " <a href=\"javascript: void(0);\" id=\"".$formKey."linkClickViewPrintPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPrintPhanBienTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;In</a>";
+	if($urlPrintPDF != null){
+		$listArrayDataString .= " <a target=\"_blank\" href=\"".$urlPrintPDF."\" id=\"".$formKey."linkClickViewPrintPdfPhanBienTab_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."linkClickViewPrintPdfPhanBienTab phanbien-button-font-size\" rel_cap_de_tai=\"".$row["fk_cap_de_tai"]."\" rel=\"".$row["ma_thuyet_minh_dt"]."\">&nbsp;PDF</a>'";
+	}else{
+		$listArrayDataString .= "'";
+	}
+	
 	$listArrayData[] = $listArrayDataString;
 }
 ?>
@@ -88,7 +101,7 @@ foreach($listItems as $y => $row)
 		<td width="200px" align="left">Kết Quả Trả Lời</td>
 		<td width="100px" align="center">Nội dung TMĐT</td>
 		<!-- <td width="100px" align="center">Link LLKH Người Tham Gia</td> -->
-		<td width="170px" align="center"></td>
+		<td width="200px" align="center"></td>
 	  </tr>
 	  </thead>
 	  <tbody>
@@ -141,7 +154,7 @@ function <?php echo $formKey ?>InitReady(){
 	
 	$( ".<?php echo $formKey ?>linkClickViewPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-button ui-icon-newwin'} });
 	$( ".<?php echo $formKey ?>linkClickViewReportTab" ).button({ icons: {primary:'ui-icon ui-icon-button ui-icon-newwin'} });
-	$( ".<?php echo $formKey ?>linkClickViewPrintPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
+	$( ".<?php echo $formKey ?>linkClickViewPrintPhanBienTab, .<?php echo $formKey ?>linkClickViewPrintPdfPhanBienTab" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
 	
 	$("#<?php echo $formKey ?>dataGridTable tbody tr").on("click",function(event) {
 		$("#<?php echo $formKey ?>dataGridTable tbody tr").each(function (){
