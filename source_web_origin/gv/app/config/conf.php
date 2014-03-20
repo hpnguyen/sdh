@@ -15,5 +15,14 @@ $config = array(
 'mail_tkb_title' => 'Thông báo đã có thời khóa biểu giảng dạy',
 'mail_tkb_cc' => 'nttvi@hcmut.edu.vn',
 'mail_valid_ip_array' => '172.28.40.248,172.28.40.250',
-'prefix_value_tab_a4_nckh_pb_noi_dung' => '2014_A4_'
+'prefix_value_tab_a4_nckh_pb_noi_dung' => '2014_A4_',
+'php_cas_server_name' => 'sso.hcmut.edu.vn',
+'php_cas_server_port' => 443,
+'php_cas_server_type' => 'cas',
+'cookie_name' => 'sitePGSauth',
+'cookie_days' => 30,
+'cookie_hours_per_day' => 24,
+'cookie_seconds_per_hour' => 3600,
+'server_encrypt_keycode' => 'qEiuwODpaKdjf',
+'server_encrypt_keycode2' => 'kWpcNOxeiPZlt'
 );

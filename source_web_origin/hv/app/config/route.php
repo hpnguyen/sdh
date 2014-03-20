@@ -9,5 +9,15 @@ $config = array(
 																)
 								)
 				)
+),
+'login' => array(
+								'Login' => array(
+												'Cas' => array(
+																'index' => array(
+																),
+																'destroy' => array(
+																)
+												)
+				)
 )
 );

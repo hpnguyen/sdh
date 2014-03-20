@@ -1,0 +1,1 @@
+Logou from ssotest server success

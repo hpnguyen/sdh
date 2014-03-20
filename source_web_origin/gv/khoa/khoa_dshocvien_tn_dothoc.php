@@ -19,6 +19,15 @@ $makhoa = base64_decode($_SESSION['makhoa']);
 <div align="left" >
 	<table  border="0" cellspacing="0" cellpadding="5" align=left>
 		<tr>
+			<td ></td> 
+			<td align=left colspan=3>
+				<select id="khoa_loaidshocvien" name="khoa_loaidshocvien" style="font-size:15px" onChange="khoa_loaiDSHV_change(this.value)">
+					<option value='dshocvientn' selected="selected">Danh sách học viên đã tốt nghiệp</option>
+					<option value='dshocviendudktn'>Danh sách học viên đủ điều kiện tốt nghiệp</option>
+				</select>
+			</td>
+		</tr>
+		<tr class="khoa_hv_tn_tr_dot_cap_bang">
 			<td align=right style="width:80px;font-weight:bold"><label for='khoa_txtDotDSHocVienTN'>Đợt cấp bằng</label></td>	
 			<td align=left style="width:200px;"><select name="khoa_txtDotDSHocVienTN" id="khoa_txtDotDSHocVienTN" style="font-size:15px;">
 												   <?php $sqlstr="SELECT distinct dot_cap_bang
@@ -78,7 +87,7 @@ function khoa_dshocvientn_dot_writeConsole(content) {
 	$("#khoa_dshocvientn_dot").html("<tr><td colspan='10' align='center'><img border='0' src='images/ajax-loader.gif'/></td></tr>");
 	$("#khoa_dshocvientn_dot_btn_printpreview,#khoa_dshocvien_tn_btn_downloadpreview" ).button("disable");
 	
-	dataString = 'a=dshocvien' + '&d='+ pdot + "&hisid=<?php echo $_REQUEST["hisid"];?>";
+	dataString = 'a=dshocvien&loaids='+$("#khoa_loaidshocvien").val() + '&d='+ pdot + "&hisid=<?php echo $_REQUEST["hisid"];?>";
 	$.post("khoa/khoa_dshocvien_tn_dothocprocess.php", dataString ,
 		function(data){
 			$("#khoa_dshocvientn_dot").html(data);
@@ -99,6 +108,16 @@ function khoa_dshocvientn_dot_writeConsole(content) {
 	}, "json");
  }
  
+ function khoa_loaiDSHV_change(pLoai){
+	if (pLoai=="dshocvientn"){
+		//$("#khoa_txtDotDSHocVienTN").removeAttr('disabled');
+		$('.khoa_hv_tn_tr_dot_cap_bang').show();
+	}else if (pLoai=="dshocviendudktn"){
+		$('.khoa_hv_tn_tr_dot_cap_bang').hide();
+		//$("#khoa_txtDotDSHocVienTN").attr('disabled', 'disabled');
+	}
+ }
+ 
 $(function(){
  
  $( "#khoa_dshocvientn_dot_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
@@ -106,7 +125,7 @@ $(function(){
  
  loadDSHocVienTNdot($("#khoa_txtDotDSHocVienTN").val());
  
- $("#khoa_txtDotDSHocVienTN").change(function(e) {
+ $("#khoa_txtDotDSHocVienTN, #khoa_loaidshocvien").change(function(e) {
 	loadDSHocVienTNdot($("#khoa_txtDotDSHocVienTN").val());
  });
  

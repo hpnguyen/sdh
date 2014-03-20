@@ -118,4 +118,58 @@ class HelperFunctionsUtil {
 		$temp = str_replace('\\\\', '&#92;', $temp);
 		return $temp;
 	}
+	
+	function getCASConfig(){
+		if (function_exists ('yaml_parse_file')) {
+			$filename = ROOT_DIR.'app/config/conf.yml';
+			$config = yaml_parse_file ($filename);
+		}else{
+			require ROOT_DIR.'app/config/conf.php';
+		}
+		$ret = array();
+		foreach ($config as $key => $value) {
+			if (preg_match('/^php_cas_server_/', $key)){
+				$ret[$key] = $value;
+			}
+		}
+		return $ret;
+	}
+	
+	function getCookieConfig(){
+		if (function_exists ('yaml_parse_file')) {
+			$filename = ROOT_DIR.'app/config/conf.yml';
+			$config = yaml_parse_file ($filename);
+		}else{
+			require ROOT_DIR.'app/config/conf.php';
+		}
+		$ret = array();
+		foreach ($config as $key => $value) {
+			if (preg_match('/^cookie_/', $key)){
+				$ret[$key] = $value;
+			}
+		}
+		return $ret;
+	}
+	
+	function getEncryptKeycodeConfig(){
+		if (function_exists ('yaml_parse_file')) {
+			$filename = ROOT_DIR.'app/config/conf.yml';
+			$config = yaml_parse_file ($filename);
+		}else{
+			require ROOT_DIR.'app/config/conf.php';
+		}
+		
+		return $config['server_encrypt_keycode'];
+	}
+	
+	function getEncryptKeycode2Config(){
+		if (function_exists ('yaml_parse_file')) {
+			$filename = ROOT_DIR.'app/config/conf.yml';
+			$config = yaml_parse_file ($filename);
+		}else{
+			require ROOT_DIR.'app/config/conf.php';
+		}
+		
+		return $config['server_encrypt_keycode2'];
+	}
 }

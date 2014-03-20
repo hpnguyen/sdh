@@ -17,6 +17,11 @@ else
 	$link = $_REQUEST["l"];
 	
 	$str="SELECT username, first_login FROM nguoi_dung WHERE username='".($usr)."' AND pass='".($pass)."'";
+	
+	if(isset($_SESSION['phpCAS'])){
+		$str="SELECT username, first_login FROM nguoi_dung WHERE username='".($usr)."'";
+	}
+	
 	$oci_pa = oci_parse($db_conn,$str);oci_execute($oci_pa);$result=oci_fetch_all($oci_pa, $kt);oci_free_statement($oci_pa);
 	if ($result==0) {
 		die('Truy cập bất hợp pháp');

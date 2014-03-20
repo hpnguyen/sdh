@@ -12,6 +12,8 @@ require_once("./app/libs/PHPMailer/class.smtp.php");
 require_once("./app/libs/PhpStringParser/PhpStringParser.php");
 //Cronjob task base class
 require_once ('./app/cronjobs/queueTaskBase.php');
+// import phpCAS lib
+require_once ('./app/libs/sso/CAS_customize.php');
 //Add auto loader
 require_once ('./app/libs/res/auto_loader.php');
 //Add log class

@@ -20,11 +20,11 @@ $sqlstr="	SELECT h.*, (ho || ' ' || ten) ho_ten, email, n.ten_nganh, tp.TEN_TINH
 				dot_cap_bang('$usr') dot_cap_bang, dt.TEN_DAN_TOC, tg.TON_GIAO, ut.LY_DO_UU_TIEN,
 				t.BAI_BAO, t.DE_TAI_NCKH, t.THAM_GIA_HOI_NGHI, t.GIAI_THUONG_KHCN,
 				decode(h.HE_DAO_TAO_DH, 'CQ', 'Chính quy', 'Không chính quy') LOAI_HINH_DAO_TAO,
-				ltn.TEN_LOAI_TN_DH
+				ltn.TEN_LOAI_TN_DH, LINK_HINH_KY_YEU
 			FROM hoc_vien h, nganh n, dm_kinh_phi_dao_tao k, qt_hoat_dong_khkt t, dm_tinh_tp tp, DM_DAN_TOC dt, 
 			DM_TON_GIAO tg, DM_DOI_TUONG_UU_TIEN ut, DM_LOAI_TOT_NGHIEP_DAI_HOC ltn
 			WHERE upper(h.ma_hoc_vien) = upper('$usr') and h.FK_DOI_TUONG_UU_TIEN=ut.MA_UU_TIEN(+)
-			AND h.ma_nganh = n.ma_nganh and h.fk_dan_toc = dt.ma_dan_toc (+) and h.fk_ton_giao = tg.ma_ton_giao 
+			AND h.ma_nganh = n.ma_nganh and h.fk_dan_toc = dt.ma_dan_toc (+) and h.fk_ton_giao = tg.ma_ton_giao(+)
 			AND h.fk_kinh_phi_dao_tao = k.ma_kinh_phi_dt AND h.ma_hoc_vien=t.fk_ma_hoc_vien(+) and h.NOI_SINH=tp.MA_TINH_TP(+)
 			and h.FK_LOAI_TOT_NGHIEP_DAI_HOC = ltn.MA_LOAI_TN_DH(+)
 ";
@@ -32,6 +32,11 @@ $sqlstr="	SELECT h.*, (ho || ' ' || ten) ho_ten, email, n.ten_nganh, tp.TEN_TINH
 //file_put_contents("logs.txt", "$sqlstr");
 
 $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $accinfo);oci_free_statement($stmt);
+
+$linkhinhkyyeu = $accinfo["LINK_HINH_KY_YEU"][0];
+if ($linkhinhkyyeu==""){
+	die('<div style="width:100%;margin-top: 100px" align="center"><font color="red"><h2>Học viên vui lòng upload hình kỷ yếu trước khi in mẫu LLKH này!</h2></font></div>');
+}
 
 $dotcapbang = $accinfo["DOT_CAP_BANG"][0];
 if ($dotcapbang == '')
@@ -42,17 +47,18 @@ if ($dotcapbang == '')
 }
 // Hinh ky yeu
 $hinhkyyeufolder = "hinhkyyeu";
-$strsql="SELECT ma_hoc_vien FROM hoc_vien WHERE dot_cap_bang('$usr') is null and diem_luan_van('$usr')>=5 and diem_av('$usr')>=5 and ma_hoc_vien = '$usr'";
-$oci_pa = oci_parse($db_conn,$strsql);oci_execute($oci_pa);$result=oci_fetch_all($oci_pa, $kt);oci_free_statement($oci_pa);
-$mahvkyyeu = $kt["MA_HOC_VIEN"][0];
 
-$filehinh = "./$hinhkyyeufolder/$dotcapbang/$usr.jpg";
+if ($linkhinhkyyeu==""){
+	$filehinh = "./$hinhkyyeufolder/$dotcapbang/$usr.jpg";
+}else{
+	$filehinh = "./$linkhinhkyyeu";
+}
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $ngay =date("d");
 $thang =date("m");
 $nam =date("Y");
-
+$tablewith = "700px";
 ?>
 <style type="text/css">
 .fontcontent {
@@ -78,7 +84,7 @@ P.breakhere {page-break-before: always}
 </style>
 
 <div align="center">
-   <table width="700px" border="0" cellspacing="0" cellpadding="5" class="fontcontent" >
+   <table width="<?php echo $tablewith;?>" border="0" cellspacing="0" cellpadding="5" class="fontcontent" >
 		<tr>
 		  <td colspan=2 align=center>
 			<div style="float: left">ĐẠI HỌC QUỐC GIA TP.HCM<BR><B>TRƯ<u>ỜNG ĐẠI HỌC BÁCH K</u>HOA</B></div>
@@ -87,7 +93,17 @@ P.breakhere {page-break-before: always}
 		</tr>
 		<tr>
 		  <td colspan=2 align=center>
-			<div style="float: left; margin-left:20px;"><img id=framehinhkyyeu src='images/khunganh3x4.png' border=1 class='ui-widget-content ui-corner-all' /></div>
+			<div style="float: left; margin-left:20px;">
+				<img id=framehinhkyyeu src="<?php
+												// Khoi tao hinh khi load form
+												// if ($filehinh!="") {
+													// echo $filehinh;	
+												// }else{
+													// echo "images/khunganh3x4.png";
+												// }
+												echo "images/khunganh3x4.png";
+											?>" border=1 class='ui-widget-content ui-corner-all' width="113px" />
+			</div>
 			<div style="font-size: 16pt; margin-right:150px;"><br><b>TÓM TẮT LÝ LỊCH KHOA HỌC</b></div>
 		  </td>
 		</tr>
@@ -192,7 +208,7 @@ P.breakhere {page-break-before: always}
 	</table>
 	
 	<p class="breakhere">
-	<table width="700px" border="0" cellspacing="0" cellpadding="5" class="fontcontent" >
+	<table width="<?php echo $tablewith;?>" border="0" cellspacing="0" cellpadding="5" class="fontcontent" >
 		<tr>
 		  <td colspan=2 align=left><b>3. Quá trình học tập và làm việc của bản thân (từ khi học đại học đến nay):</b></td>
 		</tr>
@@ -290,6 +306,11 @@ P.breakhere {page-break-before: always}
 		</tr>
    </table>
 </div>
+
+<script>
+	
+</script>
+
 <?php 
 if (isset ($db_conn))
 	oci_close($db_conn);

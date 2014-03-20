@@ -146,7 +146,13 @@ $config = array(
 																),
 																'login' => array(
 																)
-								)
+												),
+												'Cas' => array(
+																'index' => array(
+																),
+																'destroy' => array(
+																)
+												)
 				)
 )
 );

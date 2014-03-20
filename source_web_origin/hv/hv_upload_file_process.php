@@ -45,9 +45,10 @@ if ($type=='uploadhinhkyyeu' && isset($_FILES["hv_file_ky_yeu"])){
 		
         //move the uploaded file to uploads folder;
         if (move_uploaded_file($_FILES["hv_file_ky_yeu"]["tmp_name"],'./'.$uploaddir.$filename)){
+			$strsql="update hoc_vien set LINK_HINH_KY_YEU='$link' where MA_HOC_VIEN = '$mahv'";
+			$oci_pa = oci_parse($db_conn,$strsql);oci_execute($oci_pa);oci_free_statement($oci_pa);
+			
 			echo "$link";
-			//$strsql="update NCKH_THUYET_MINH_DE_TAI set PHU_LUC_GIAI_TRINH_LINK='$link' where MA_THUYET_MINH_DT = '$ma_tmdt'";
-			//$oci_pa = oci_parse($db_conn,$strsql);oci_execute($oci_pa);oci_free_statement($oci_pa);
 		}else{
 			echo "Lỗi: không thể ghi file lên server, vui lòng liên hệ phòng ĐT SĐH.";
 		}

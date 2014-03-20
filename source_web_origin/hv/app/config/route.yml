@@ -3,3 +3,8 @@ test:
     Test:
       index:
       pdf:
+login:
+  Login:
+    Cas:
+      index:
+      destroy:

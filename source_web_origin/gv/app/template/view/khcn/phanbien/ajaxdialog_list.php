@@ -53,7 +53,7 @@ $row = $listItems[0];
 		</div>
 		<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienA2">
 			<p>NHẬN XÉT - Chất lượng nghiên cứu:
-				(a) Mục tiêu, nội dung, phương phá nghiên cứu phù hợp và mới để đạt được mục tiêu; 
+				(a) Mục tiêu, nội dung, phương pháp nghiên cứu phù hợp và mới để đạt được mục tiêu; 
 				(b) Đóng góp vào tri thức khoa học, có ảnh hưởng đối với xã hội;
 				(c) Sản phẩm nghiên cứu phù hợp tiêu chí các loại đề tài đăng ký.
 			</p>

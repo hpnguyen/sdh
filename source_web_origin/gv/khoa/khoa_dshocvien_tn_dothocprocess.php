@@ -14,18 +14,45 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '104', $db_con
 	die('Truy cập bất hợp pháp'); 
 }
 
-
 $usr = base64_decode($_SESSION['uidloginPortal']);
 $makhoa = str_replace("'", "''",base64_decode($_SESSION['makhoa']));
 $dot = str_replace("'", "''",$_POST['d']);
+$loaids = str_replace("'", "''",$_POST['loaids']);
+$title = "";
 
-if ($_REQUEST["a"]=='dshocvien') 
-{
-	$sqlstr="SELECT  k.ten_khoa, dot_cap_bang(h.ma_hoc_vien), h.MA_HOC_VIEN, h.HO, h.TEN , dot_cap_bang(h.ma_hoc_vien),
-				DECODE(h.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(h.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
-				DECODE(h.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH,
-				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt
-				FROM hoc_vien h, nganh n, bo_mon b, khoa k, dm_tinh_tp t
+if ($loaids=='dshocviendudktn'){
+	$sqlstr="select value from config where name='DOT_CAP_BANG'";
+	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+	$dotcapbang = $resDM["VALUE"][0];
+	
+	$title = "Danh Sách Học Viên Đủ Điều Kiện Tốt Nghiệp đợt $dotcapbang";
+	$sqlstr="	
+			SELECT  k.ten_khoa, dot_cap_bang(h.ma_hoc_vien), h.MA_HOC_VIEN, h.HO, h.TEN , dot_cap_bang(h.ma_hoc_vien),
+					DECODE(h.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(h.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
+					DECODE(h.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH,
+					DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt, x.dat
+			FROM hoc_vien h, nganh n, bo_mon b, khoa k, dm_tinh_tp t, xet_luan_van x
+			WHERE h.ma_nganh = n.ma_nganh
+			AND h.noi_sinh = t.ma_tinh_tp (+) 
+			AND n.ma_bo_mon = b.ma_bo_mon
+			AND b.ma_khoa = k.ma_khoa
+			and h.ma_hoc_vien = x.ma_hoc_vien
+			AND k.ma_khoa = '$makhoa'
+			AND dot_cap_bang(h.ma_hoc_vien) is null and (x.dat > 1 or du_dk_cap_bang_bs(h.MA_HOC_VIEN)=1) 
+			AND h.KHOA >= 2010
+			AND ma_bac = 'TH' AND fk_hinh_thuc_dao_tao = 'CQ'
+			ORDER BY ten_nganh, h.ho, h.ten";
+	
+	//echo $sqlstr;
+			
+}else if ($loaids=='dshocvientn'){
+	$title = "Danh Sách Học Viên Đã Tốt Nghiệp Đợt $dot";
+	$sqlstr="
+			SELECT  k.ten_khoa, dot_cap_bang(h.ma_hoc_vien), h.MA_HOC_VIEN, h.HO, h.TEN , dot_cap_bang(h.ma_hoc_vien),
+					DECODE(h.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(h.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
+					DECODE(h.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH,
+					DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt
+			FROM hoc_vien h, nganh n, bo_mon b, khoa k, dm_tinh_tp t
 			WHERE h.ma_nganh = n.ma_nganh
 			AND h.noi_sinh = t.ma_tinh_tp (+) 
 			AND n.ma_bo_mon = b.ma_bo_mon
@@ -34,16 +61,17 @@ if ($_REQUEST["a"]=='dshocvien')
 			AND dot_cap_bang(h.ma_hoc_vien) = '$dot'
 			AND ma_bac = 'TH'
 			AND fk_hinh_thuc_dao_tao = 'CQ'
-			ORDER BY ten_nganh, h.ho, h.ten"; 
-	$stmt = oci_parse($db_conn, $sqlstr);
-	oci_execute($stmt);
-	$n = oci_fetch_all($stmt, $resDM);
-	oci_free_statement($stmt);
+			ORDER BY ten_nganh, h.ho, h.ten";
+}
+
+if ($_REQUEST["a"]=='dshocvien') 
+{
+	$stmt = oci_parse($db_conn, $sqlstr); oci_execute($stmt); $n = oci_fetch_all($stmt, $resDM); oci_free_statement($stmt);
 	
 	//echo $sqlstr;
-	//
+	
 	echo "
-	<div align='center'><h2>Danh Sách Học Viên Cao Học Tốt Nghiệp Đợt $dot<br/>Khoa {$resDM["TEN_KHOA"][0]}</h2></div>
+	<div align='center'><h2>$title <br/>Khoa {$resDM["TEN_KHOA"][0]}</h2></div>
 	<div style='margin-bottom:20px;'>
 		<table id='khoa_tableDSHocVien' name='khoa_tableDSHocVien' width='100%' border='0'  cellspacing='0' class='ui-widget ui-widget-content ui-corner-top tableData' >
         <thead>
@@ -56,6 +84,7 @@ if ($_REQUEST["a"]=='dshocvien')
 			<td  align='center'>Ngày Sinh</td>
 			<td  align='left'>Nơi Sinh</td>
             <td align='left'>Ngành</td>
+			<td align='center'>Số hiệu bằng</td>
 			<td align=left class='ui-corner-tr'>Loại CTĐT</td>
           </tr>
           </thead>
@@ -75,6 +104,7 @@ if ($_REQUEST["a"]=='dshocvien')
 		echo "<td align='center'>".$resDM["NGAY_SINH"][$i]."</td>";
 		echo "<td align='left' style=''>{$resDM["NOI_SINH"][$i]}</td>";
 		echo "<td align='left' style=''>{$resDM["TEN_NGANH"][$i]}</td>";
+		echo "<td align='center' style=''>{$resDM["SO_HIEU_BANG"][$i]}</td>";
 		echo "<td align='left' style=''>{$resDM["HUONGDT"][$i]}</td>";
 		echo "</tr>";
 	} 
@@ -86,21 +116,6 @@ if ($_REQUEST["a"]=='dshocvien')
 }
 else if ($_REQUEST["a"]=='dshocvienfile') 
 {
-	$sqlstr="	SELECT  k.ten_khoa, dot_cap_bang(h.ma_hoc_vien), h.MA_HOC_VIEN, h.HO, h.TEN , dot_cap_bang(h.ma_hoc_vien),
-				DECODE(h.NGAY_SINH, null, NGAY_SINH_KHONG_CHUAN, TO_CHAR(h.NGAY_SINH, 'dd/mm/yyyy')) Ngay_Sinh, 
-				DECODE(h.PHAI, 'M', 'Nam ', 'Nữ') PHAI, TEN_TINH_TP NOI_SINH, N.TEN_NGANH,
-				DECODE(ctdt_loai(h.MA_HOC_VIEN), 1, 'GDMH-KLTN', 3 , 'Nghiên cứu' , 'GDMH-LVThs' )  huongdt
-				FROM hoc_vien h, nganh n, bo_mon b, khoa k, dm_tinh_tp t
-			WHERE h.ma_nganh = n.ma_nganh
-			AND h.noi_sinh = t.ma_tinh_tp (+) 
-			AND n.ma_bo_mon = b.ma_bo_mon
-			AND b.ma_khoa = k.ma_khoa
-			AND k.ma_khoa = '$makhoa'
-			AND dot_cap_bang(h.ma_hoc_vien) = '$dot'
-			AND ma_bac = 'TH'
-			AND fk_hinh_thuc_dao_tao = 'CQ'
-			ORDER BY ten_nganh, h.ho, h.ten";
-				
 	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
 	
 	date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -117,15 +132,15 @@ else if ($_REQUEST["a"]=='dshocvienfile')
 	// Set document properties
 	$objPHPExcel->getProperties()->setCreator("$usr")
 								 ->setLastModifiedBy("$usr")
-								 ->setTitle("DANH SÁCH HỌC VIÊN TN KHOA {$resDM["TEN_KHOA"][0]} - Đợt $dot")
-								 ->setSubject("DANH SÁCH HỌC VIÊN TN KHOA {$resDM["TEN_KHOA"][0]} - Đợt $dot")
+								 ->setTitle("$title KHOA {$resDM["TEN_KHOA"][0]} - Đợt $dot")
+								 ->setSubject("$title KHOA {$resDM["TEN_KHOA"][0]} - Đợt $dot")
 								 ->setDescription("")
 								 ->setKeywords("")
 								 ->setCategory("Danh sách học viên tốt nghiệp");
 	// Set default font
 	$objPHPExcel->getDefaultStyle()->getFont()->setName('Arial')
 											  ->setSize(10);
-	$objPHPExcel->getActiveSheet()->setCellValue('A1', "Danh sách học viên tốt nghiệp Khoa {$resDM["TEN_KHOA"][0]} - Đợt $dot");
+	$objPHPExcel->getActiveSheet()->setCellValue('A1', "$title Khoa {$resDM["TEN_KHOA"][0]} - Đợt $dot");
 	$objPHPExcel->getActiveSheet()->setCellValue('A2', 'STT')
 								  ->setCellValue('B2', 'Mã HV')
 								  ->setCellValue('C2', 'Họ')
@@ -134,8 +149,9 @@ else if ($_REQUEST["a"]=='dshocvienfile')
 								  ->setCellValue('F2', 'Ngày sinh')
 								  ->setCellValue('G2', 'Nơi sinh')
 								  ->setCellValue('H2', 'Ngành')
-								  ->setCellValue('I2', 'Loại CTĐT');
-	$objPHPExcel->getActiveSheet()->getStyle('A2:I2')->getFont()->setBold(true);
+								  ->setCellValue('I2', 'Số hiệu bằng')
+								  ->setCellValue('J2', 'Loại CTĐT');
+	$objPHPExcel->getActiveSheet()->getStyle('A2:J2')->getFont()->setBold(true);
 	$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
 	
 	for ($i = 0; $i < $n; $i++)
@@ -149,7 +165,8 @@ else if ($_REQUEST["a"]=='dshocvienfile')
 								  ->setCellValue("F$j", $resDM["NGAY_SINH"][$i])
 								  ->setCellValue("G$j", $resDM["NOI_SINH"][$i])
 								  ->setCellValue("H$j", $resDM["TEN_NGANH"][$i])
-								  ->setCellValue("I$j", $resDM["HUONGDT"][$i]);
+								  ->setCellValue("I$j", $resDM["SO_HIEU_BANG"][$i])
+								  ->setCellValue("J$j", $resDM["HUONGDT"][$i]);
 	}
 	$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(6);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
@@ -160,8 +177,9 @@ else if ($_REQUEST["a"]=='dshocvienfile')
 	$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
 	$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('j')->setAutoSize(true);
 	
-	$objPHPExcel->getActiveSheet()->setTitle('Danh học viên Tốt nghiệp');
+	$objPHPExcel->getActiveSheet()->setTitle($title);
 	$objPHPExcel->setActiveSheetIndex(0);
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 	$objWriter->save($pathfile);

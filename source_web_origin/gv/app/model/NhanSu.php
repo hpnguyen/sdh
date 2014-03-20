@@ -266,4 +266,28 @@ class NhanSuModel extends BaseTable {
 			return null;
 		}
 	}
+	
+	public function getDataOnLogin($id)
+	{
+		$sqlstr="SELECT n.fk_ma_khoa ma_khoa, n.username, n.fk_ma_can_bo ma_can_bo, k.ten_khoa
+		FROM nhan_su n, khoa k, can_bo_giang_day c 
+		WHERE c.ma_can_bo = n.fk_ma_can_bo(+)
+		and n.fk_ma_khoa = k.ma_khoa(+)
+		and c.shcc = '".$id."'";
+		//echo $sqlstr;
+		$check = $this->getQuery($sqlstr)
+		->execute(false, array());
+		if($check->itemsCount > 0){
+			return $check->result[0];
+		}else{
+			return null;
+		}
+	}
+	
+	public function updateLoginTime($username)
+	{
+		$this->getUpdate(array('last_login' => 'SYSDATE'))
+		->where("UPPER(username)=UPPER('".$username."')")
+		->execute(true, array());
+	}
 }

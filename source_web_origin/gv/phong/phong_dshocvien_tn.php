@@ -21,6 +21,15 @@ $makhoa = base64_decode($_SESSION['makhoa']);
 <div id="phong_dshocvienkhoa" >
 	<table  border="0" cellspacing="0" cellpadding="5" align=left>
 		<tr>
+			<td ></td> 
+			<td align=left colspan=3>
+				<select id="phong_loaidshocvien" name="phong_loaidshocvien" style="font-size:15px" onChange="phong_loaiDSHV_change(this.value)">
+					<option value='dshocvientn' selected="selected">Danh sách học viên đã tốt nghiệp</option>
+					<option value='dshocviendudktn'>Danh sách học viên đủ điều kiện tốt nghiệp</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<td align=right style="width:80px;font-weight:bold"><label for='phong_txtDotDSHocVienTN'>Chọn đợt</label></td>	
 			<td align=left style="width:50px;">
 				<select name="phong_txtDotDSHocVienTN" id="phong_txtDotDSHocVienTN" style="font-size:15px">
@@ -93,7 +102,7 @@ $makhoa = base64_decode($_SESSION['makhoa']);
 	$("#phong_dshocvienTN_detail").html("<img border='0' src='images/ajax-loader.gif'/>");
 	$("#phong_dshocvienTN_btn_printpreview,#phong_dshocvienTN_btn_downloadpreview" ).button("disable");
 	
-	dataString = 'a=dshocvien' 
+	dataString = 'a=dshocvien&loaids='+$("#phong_loaidshocvien").val()
 	+ '&d='+ pDot 
 	+ '&khoa=' + pMaKhoa 
 	+ "&hisid=<?php echo $_REQUEST["hisid"];?>";
@@ -106,7 +115,7 @@ $makhoa = base64_decode($_SESSION['makhoa']);
  
  function phong_loadDSHocVienTNFile()
  {
-	dataString = 'a=dshocvienfile' 
+	dataString = 'a=dshocvienfile&loaids='+$("#phong_loaidshocvien").val()
 	+ '&d='+ $('#phong_txtDotDSHocVienTN').val() 
 	+ '&khoa=' + $("#phong_txtMaKhoaDSHocVienTN").val() 
 	+ "&hisid=<?php echo $_REQUEST["hisid"];?>";
@@ -117,6 +126,14 @@ $makhoa = base64_decode($_SESSION['makhoa']);
 				gv_open_msg_box("<p><table><tr><td style='width:200px; font-weight:bold'>Danh sách học viên Tốt nghiệp đợt: " + $('#phong_txtDotDSHocVienTN').val() + "<br/>Khoa " + $("#phong_txtMaKhoaDSHocVienTN option:selected").html() + "</td><td style='width:80px'><a style='color:blue;font-weight:bold;' target='_blank' href='"+data.url+"'><u><span class='ui-icon ui-icon-disk' style='float:left; margin:0 5px 0 0;'></span> tải về</u></a></td></tr></table></p>", '', 300, 170);
 			}
 	}, "json");
+ }
+ 
+ function phong_loaiDSHV_change(pLoai){
+	if (pLoai=="dshocvientn"){
+		$("#phong_txtDotDSHocVienTN").removeAttr('disabled');
+	}else if (pLoai=="dshocviendudktn"){
+		$("#phong_txtDotDSHocVienTN").attr('disabled', 'disabled');
+	}
  }
  
 $(function(){
@@ -133,7 +150,7 @@ $(function(){
  
  phong_loadDSHocVienTN($("#phong_txtDotDSHocVienTN").val(), $("#phong_txtMaKhoaDSHocVienTN").val());
  
- $("#phong_txtDotDSHocVienTN, #phong_txtMaKhoaDSHocVienTN").change(function(e) {
+ $("#phong_txtDotDSHocVienTN, #phong_txtMaKhoaDSHocVienTN, #phong_loaidshocvien").change(function(e) {
 	phong_loadDSHocVienTN($("#phong_txtDotDSHocVienTN").val(), $("#phong_txtMaKhoaDSHocVienTN").val());
  });
 

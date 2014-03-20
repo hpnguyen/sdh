@@ -56,9 +56,11 @@ $cookie_time = (3600 * 24 * 30); // 30 days
 			// remove 'site PGS auth' cookie
 			//setcookie ($cookie_name, '', time() - $cookie_time);
 		
-		session_unset();
-		session_destroy();
-		header("Location: http://www.pgs.hcmut.edu.vn/");
+		//session_unset();
+		//session_destroy();
+		//header("Location: http://www.pgs.hcmut.edu.vn/");
+		$url = "front.php/login/cas/index?logout=1";
+		header("Location: ".$url);
 		die();
 	}	
 	
@@ -213,10 +215,16 @@ if(!isset($do_login))
 		?>	
 	  </td>
     </tr>
+    
     <tr>
       <td height="24">&nbsp;</td>
       <td height="24" colspan="2">
 		  <table width="100%" border="0" cellspacing="0" cellpadding="8">
+		  	<tr>
+			  <td style='font-size:13px;' align="left">
+			  	<a href="front.php/login/cas/index">Đăng nhập qua hệ thống xác thực trường ĐHBK</a>
+			  </td>
+			</tr>
 			<tr>
 			  <td style='font-size:15px;' align="left"><a href="forgot.php">Quên mật khẩu?</a></td>
 			</tr>

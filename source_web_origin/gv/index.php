@@ -26,6 +26,13 @@ else
 	FROM nhan_su 
 	WHERE upper(username)=upper('".str_replace("'","''",$usr)."') 
 	AND password='".str_replace("'","''",$pass)."'";
+	
+	if(isset($_SESSION['phpCAS'])){
+		$sqlstr="SELECT username, first_login, email
+		FROM nhan_su 
+		WHERE upper(username)=upper('".str_replace("'","''",$usr)."')";
+	}
+	
 	//echo '<script>alert("'.$sqlstr.'");</script>';
 	$oci_pa = oci_parse($db_conn,$sqlstr); //gan cau query
 	oci_execute($oci_pa);
@@ -240,7 +247,7 @@ parse_str($a);
 		$("#tracuuKinhPhiTHTNKhoa").click(function() {
 			tabNameClick = 'tracuuKinhPhiTHTNKhoa';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/kinhphithtnkhoa.png' /> Kinh phí TH-TN Khoa", "khoa/khoa_kinhphithtn.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -279,7 +286,7 @@ parse_str($a);
 			
 			tabNameClick = 'XemDeCuong_All';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/tracuudiem.png' /> Xem đề cương", "front.php/index/index/decuong?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -316,7 +323,7 @@ parse_str($a);
 		$("#TienTrinhHoSo_All").click(function() {
 			tabNameClick = 'TienTrinhHoSo_All';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Service-icon.png' />Theo dõi xử lý hồ sơ", "front.php/phongbankhoa/hoso/tientrinh?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -328,7 +335,7 @@ parse_str($a);
 		$("#TienTrinhHoSoKhoa_All").click(function() {
 			tabNameClick = 'TienTrinhHoSoKhoa_All';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvu_khoa.png' />Theo dõi xử lý hồ sơ - Khoa", "front.php/phongbankhoa/hoso/tientrinh?hisid=<?php echo $sid;?>&khoa=1");
-			tab_current = 0;
+			tab_current = 4;
 		});
 		<?php
 		}
@@ -354,7 +361,7 @@ parse_str($a);
 			
 			tabNameClick = 'XemDeCuongNganh_All';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Xem đề cương ngành", "front.php/index/index/decuong?hisid=<?php echo $sid;?>&nganh=1");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -553,7 +560,7 @@ parse_str($a);
 		$("#changePass").click(function() {
 			tabNameClick = 'changepass';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/user-password-icon.png' /> Thay đổi mật khẩu", "changepassfrm.php?hisid=<?php echo $sid;?>");
-			tab_current = 3;
+			tab_current = 4;
 		});
 		<?php
 		}
@@ -564,7 +571,7 @@ parse_str($a);
 		$("#tracuuDSHocVien").click(function() {
 			tabNameClick = 'tracuuDSHocVien';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvien.png' /> Danh sách HV Khóa", "khoa/khoa_dshocvien.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -575,7 +582,7 @@ parse_str($a);
 		$("#DSHocVienDKMH").click(function() {
 			tabNameClick = 'DSHocVienDKMH';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvien.png' /> Danh sách HV ĐKMH", "khoa/khoa_dshocvien_dkmh.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -586,7 +593,7 @@ parse_str($a);
 		$("#DSHocVienTNdothoc").click(function() {
 			tabNameClick = 'DSHocVienTNdothoc';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvien.png' /> Danh sách HV Tốt Nghiệp", "khoa/khoa_dshocvien_tn_dothoc.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -597,7 +604,7 @@ parse_str($a);
 		$("#LichThiHocKy").click(function() {
 			tabNameClick = 'LichThiHocKy';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/lichthi.png' /> Lịch Thi Học Kỳ", "khoa/khoa_lichthihocky.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -608,7 +615,7 @@ parse_str($a);
 		$("#tracuuDSNCS").click(function() {
 			tabNameClick = 'tracuuDSNCS';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dsncs.png' /> Danh sách NCS", "khoa/khoa_dsncs.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -619,7 +626,7 @@ parse_str($a);
 		$("#accountInfo").click(function() {
 			tabNameClick = 'accountInfo';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/personal-information-icon.png' /> Thông tin tài khoản", "accountinfofrm.php?hisid=<?php echo $sid;?>");
-			tab_current = 3;
+			tab_current = 4;
 		});
 		<?php
 		}
@@ -631,7 +638,7 @@ parse_str($a);
 		$("#confInfo").click(function() {
 			tabNameClick = 'confInfo';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/work.png' /> Cấu hình hệ thống", "phong/phong_cauhinhhethong.php?hisid=<?php echo $sid;?>");
-			tab_current = 3;
+			tab_current = 4;
 		});
 		<?php
 		}
@@ -644,7 +651,7 @@ parse_str($a);
 		$("#tracuuDSHocVienKhoa").click(function() {
 			tabNameClick = 'tracuuDSHocVienKhoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvientheokhoa.png' /> Danh sách HV", "phong/phong_dshocvienkhoa.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -655,7 +662,7 @@ parse_str($a);
 		$("#phongDSHocVienTN_Khoa").click(function() {
 			tabNameClick = 'phongDSHocVienTN_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvientheokhoa.png' /> Danh sách HV TN", "phong/phong_dshocvien_tn.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -666,7 +673,7 @@ parse_str($a);
 		$("#phongDSHocVienDKMH_Khoa").click(function() {
 			tabNameClick = 'phongDSHocVienDKMH_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvientheokhoa.png' /> Danh sách HV ĐKMH - Các Khoa", "phong/phong_dshocvien_dkmh.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -677,7 +684,7 @@ parse_str($a);
 		$("#phongDSNCS_Khoa").click(function() {
 			tabNameClick = 'phongDSNCS_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvientheokhoa.png' /> Danh sách NCS", "phong/phong_dsncs_khoa.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -688,7 +695,7 @@ parse_str($a);
 		$("#phongNhanYCHVu").click(function() {
 			tabNameClick = 'phongNhanYCHVu';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/ychvu-icon.png' /> Quản lý yêu cầu học vụ", "phong/phong_ychv_tiepnhan.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -798,7 +805,7 @@ parse_str($a);
 		$("#printTTGV_LLKH_DS").click(function() {
 			tabNameClick = 'printTTGV_LLKH_DS';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/profile-search-icon-16.png' /> Quản lý LLKH", "gv/gv_in_bm_gv.php?hisid=<?php echo $sid;?>");
-			tab_current = 1;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -921,7 +928,7 @@ parse_str($a);
 		$("#PhanBoCBGD_Khoa").click(function() {
 			tabNameClick = 'PhanBoCBGD_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/schedule-icon-daybu.png' /> Phân công CBGD - cấp Khoa", "front.php/tkb/phanbo/preview?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -931,7 +938,7 @@ parse_str($a);
 		$("#GiayChungNhan_Khoa").click(function() {
 			tabNameClick = 'GiayChungNhan_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Giấy chứng nhận", "khoa/khoa_giaychungnhan.php?a=form&hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -941,7 +948,7 @@ parse_str($a);
 		$("#GiayGioiThieu_Khoa").click(function() {
 			tabNameClick = 'GiayGioiThieu_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Giấy giới thiệu", "khoa/khoa_giaygioithieu.php?a=form&hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -951,7 +958,7 @@ parse_str($a);
 		$("#GiayTrieuTap_Khoa").click(function() {
 			tabNameClick = 'GiayTrieuTap_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Giấy triệu tập", "khoa/khoa_giaytrieutap.php?a=form&hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -961,7 +968,7 @@ parse_str($a);
 		$("#GiayThoiKhoaBieu_Khoa").click(function() {
 			tabNameClick = 'GiayThoiKhoaBieu_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Giấy TKB", "khoa/khoa_giaythoikhoabieu.php?a=form&hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -981,7 +988,7 @@ parse_str($a);
 		$("#QuanLyPhi_Khoa").click(function() {
 			tabNameClick = 'QuanLyPhi_Khoa';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/kinhphithtn.png' /> Quản lý phí", "khoa/khoa_quanlyphi.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -991,7 +998,7 @@ parse_str($a);
 		$("#QuanLyPhi_Phong").click(function() {
 			tabNameClick = 'QuanLyPhi_Phong';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/kinhphithtn.png' /> Quản lý phí các Khoa", "phong/phong_quanlyphi.php?hisid=<?php echo $sid;?>");
-			tab_current = 0;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -1015,7 +1022,17 @@ parse_str($a);
 		$("#khcn_quanly_tmdt").click(function() {
 			tabNameClick = 'khcn_quanly_tmdt';
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/profile-search-icon.png' /> Quản lý TMĐT", "khcn/khcn_ql_tmdt.php?hisid=<?php echo $sid;?>");
-			tab_current = 1;
+			tab_current = 3;
+		});
+		<?php
+		}
+		if (isset($F056))
+		{
+		?>
+		$("#khcn_quanly_phanbien_tmdt").click(function() {
+			tabNameClick = 'khcn_quanly_phanbien_tmdt';
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/profile-search-icon.png' /> Quản lý Phản biện TMĐT", "khcn/khcn_ql_phanbien_tmdt.php?hisid=<?php echo $sid;?>");
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -1041,7 +1058,7 @@ parse_str($a);
 		$("#khcn_thongke_khcn").click(function() {
 			tabNameClick = 'khcn_thongke_khcn';					
 			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Thống kê KHCN", "khcn/khcn_thongke.php?hisid=<?php echo $sid;?>");
-			tab_current = 1;
+			tab_current = 3;
 		});
 		<?php
 		}
@@ -1081,6 +1098,7 @@ parse_str($a);
                 <li><a href="#tabs-1"><strong>Sau đại học</strong></a></li>
                 <li><a href="#tabs-2"><strong>Khoa học công nghệ</strong></a></li>
 				<li><a href="#tabs-3"><strong>Thông tin cá nhân</strong></a></li>
+				<li><a href="#tabs-5"><strong>Quản lý</strong></a></li>
                 <li><a href="#tabs-4"><strong>Bảo Mật</strong></a></li>
             </ul>
             <div id="tabs-1">
@@ -1102,87 +1120,6 @@ parse_str($a);
 								}
 								if (isset($F012)){
 									echo "<li ><a id='tracuuKinhPhiTHTN' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtn.png' /><br/>Kinh phí<br/>Thực hành - Thí Nghiệm</a></li>";
-								}
-								if (isset($F016)){
-									echo "<li ><a id='tracuuKinhPhiTHTNKhoa' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtnkhoa.png' /><br/>Kinh phí<br/>Thực hành - Thí Nghiệm Khoa</a></li>";
-								}
-								if (isset($F105)){
-									echo "<li ><a id='LichThiHocKy' href='#'><img border='0' width='48' height='48' src='icons/lichthi.png' /><br/>Lịch thi<br/>Học kỳ</a></li>";
-								}
-								if (isset($F101)){
-									echo "<li ><a id='tracuuDSHocVien' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>theo Khóa</a></li>";
-								}
-								if (isset($F104)){
-									echo "<li ><a id='DSHocVienTNdothoc' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>Tốt nghiệp</a></li>";
-								}
-								if (isset($F103)){
-									echo "<li ><a id='DSHocVienDKMH' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>ĐKMH</a></li>";
-								}
-								if (isset($F102)){
-									echo "<li ><a id='tracuuDSNCS' href='#'><img border='0' width='48' height='48' src='icons/dsncs.png' /><br/>Danh Sách<br/>Nghiên Cứu Sinh</a></li>";
-								}
-								if (isset($F015)){
-									echo "<li ><a id='tracuuDSHocVienKhoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Học Viên</a></li>";
-								}
-								if (isset($F018)){
-									echo "<li ><a id='phongDSHocVienTN_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Học Viên<br/>Tốt nghiệp</a></li>";
-								}
-								if (isset($F019)){
-									echo "<li ><a id='phongDSHocVienDKMH_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Học Viên ĐKMH<br>các Khoa</a></li>";
-								}
-								if (isset($F020)){
-									echo "<li ><a id='phongDSNCS_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Nghiên Cứu Sinh</a></li>";
-								}
-								if (isset($F021)){
-									echo "<li ><a id='phongNhanYCHVu' href='#'><img border='0' width='48' height='48' src='icons/ychvu-icon.png' /><br/>Quản lý<br/>Yêu cầu học vụ</a></li>";
-								}
-								if (isset($F112)){
-									echo "<li ><a id='PhanBoCBGD_Khoa' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công CBGD - cấp Khoa</a></li>";
-								}
-								if (isset($F113)){
-									echo "<li ><a id='PhanBoCBGD_Bomon' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công CBGD - cấp Bộ môn</a></li>";
-								}
-								if (isset($F114)){
-									echo "<li ><a id='PhanBoCBGD_All' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công<br>CBGD các Khoa</a></li>";
-								}
-								if (isset($F115)){
-									echo "<li ><a id='XemDeCuong_All' href='#'><img border='0' width='48' height='48' src='icons/tracuudiem.png' /><br/>Danh Sách Nhận<br>Đề Cương LV</a></li>";
-								}
-								if (isset($F116)){
-									echo "<li ><a id='ResetPassword_All' href='#'><img border='0' width='48' height='48' src='icons/user-password-icon.png' /><br/>Reset password</a></li>";
-								}
-								if (isset($F120)){
-									echo "<li ><a id='ListEmailTemplate_All' href='#'><img border='0' width='48' height='48' src='icons/email.png' /><br/>Danh sách email</a></li>";
-								}
-								if (isset($F117)){
-									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi<br>xử lý hồ sơ</a></li>";
-								}
-								if (isset($F121)){
-									echo "<li ><a id='TienTrinhHoSoKhoa_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi xử lý<br>hồ sơ các Khoa</a></li>";
-								}
-								if (isset($F118)){
-									echo "<li ><a id='KhoaXemTKB_All' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon.png' /><br/>TKB các Khoa</a></li>";
-								}
-								if (isset($F119)){
-									echo "<li ><a id='XemDeCuongNganh_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Danh Sách Nhận Đề Cương LV Ngành</a></li>";
-								}
-								if (isset($F107)){
-									echo "<li ><a id='GiayChungNhan_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy chứng nhận</a></li>";
-								}
-								if (isset($F108)){
-									echo "<li ><a id='GiayGioiThieu_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy giới thiệu</a></li>";
-								}
-								if (isset($F109)){
-									echo "<li ><a id='GiayTrieuTap_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy triệu tập</a></li>";
-								}
-								if (isset($F110)){
-									echo "<li ><a id='GiayThoiKhoaBieu_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy TKB</a></li>";
-								}
-								if (isset($F111)){
-									echo "<li ><a id='QuanLyPhi_Khoa' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtn.png' /><br/>Quản lý phí</a></li>";
-								}
-								if (isset($F123)){
-									echo "<li ><a id='QuanLyPhi_Phong' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtn.png' /><br/>Quản lý phí các Khoa</a></li>";
 								}
 							?>
 						</ul>
@@ -1211,15 +1148,8 @@ parse_str($a);
 								if (isset($F054)){
 									echo "<li ><a id='XemPhanBienDeTai_All' href='#'><img border='0' width='48' height='48' src='icons/Hire-me-icon.png' /><br>Phản biện đề tài</a></li>";
 								}
-								if (isset($F050))
-								{
-									echo "<li ><a id='khcn_quanly_tmdt' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý<br>Thuyết minh đề tài</a></li>";
-								}
+																
 								
-								if (isset($F052))
-								{
-									echo "<li ><a id='khcn_thongke_khcn' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Thống kê</a></li>";
-								}
 								if (isset($F001)){
 									echo "<li ><a id='lvcm' href='#'><img border='0' width='48' height='48' src='icons/research1.png' /><br/>Lĩnh vực<br/>chuyên môn</a></li>";
 								}
@@ -1273,14 +1203,7 @@ parse_str($a);
 								}
 								if (isset($F001)){
 									echo "<li ><a id='chuyengiakhac' href='#'><img border='0' width='48' height='48' src='icons/chuyen-gia-khac-icon.png' /><br/>Giới thiệu<br/>Chuyên gia khác</a></li>";
-								}
-								
-								if (isset($F024)){
-									echo "<li ><a id='printTTGV_LLKH_DS' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý<br/>Lý Lịch Khoa Học</a></li>";
-								}
-								
-								
-								
+								}	
 							?>
 						</ul>
 
@@ -1289,8 +1212,6 @@ parse_str($a);
 						<table cellpadding="3">
 							<tr style='cursor:pointer;' id='khcn_printHuongDanInTMDT' ><td><img src='icons/idea-icon-24x24.png' border=0 width=24 height=24 /></td><td ><a class='tooltips' data-toggle='tooltip' title='<b><u>Chú ý:</u> Đọc hướng dẫn này trước khi in thuyết minh đề tài</b>' style='font-weight:bold;color:#0195df'>Hướng dẫn In thuyết minh đề tài</a></td></tr>
 						<?php
-							
-							
 							if (isset($F002)){
 								echo "<tr style='cursor:pointer;' id='printHuongDanInLLKH' ><td><img src='icons/idea-icon-24x24.png' border=0 width=24 height=24 /></td><td ><a class='tooltips' data-toggle='tooltip' title='<b><u>Chú ý:</u> Đọc hướng dẫn này trước khi in biểu mẫu (cập nhật mới)</b>' style='font-weight:bold;color:#0195df'>Hướng dẫn In Lý lịch khoa học</a></td></tr>";
 							}
@@ -1317,6 +1238,8 @@ parse_str($a);
 							if (isset($F002)){
 								echo "<tr style='cursor:pointer;' id='printTTGV_LLKH_MAU_KHCN_BO' rel='popover' data-original-title='Lý lịch khoa học - Mẫu Tham gia đề tài'><td><img src='icons/print-preview-icon24x24.png' border=0 width=24 height=24/></td><td style='font-weight:bold;color:#0195df'><a class='tooltips' data-toggle='tooltip' title='<b>Đề hoàn thành mẫu này<br/> bạn cần điền các form sau:</b><br/>Thông tin giảng viên, Trình độ ngoại ngữ <br/>Thời gian công tác, Quá trình đào tạo <br/> Lĩnh vực chuyên môn, Bài báo tạp chí<br/>Bằng phát minh, Ứng dụng thực tiễn<br/>Đề tài-dự án-NCKH, Giải thưởng KH&CN<br/>Kinh nghiệm quản lý đánh giá KH&CN, Giới thiệu chuyên gia khác ' style='font-weight:bold;color:#0195df'>LLKH - Mẫu Chuyên gia KH&CN (Bộ)</a></td></tr>";
 							}
+							
+							
 						?>
 						</table>
 					</div>
@@ -1375,6 +1298,127 @@ parse_str($a);
                 </div>
 				<div class=clearfloat></div>
             </div> <!-- End tabs-4 -->
+			
+			<div id="tabs-5">
+				<div style="width:1024px; margin:auto;">
+					<div style="width:650px; margin:0 15px 0 20px; float:left;  border-right: 3px solid #aaa;"> 
+						<ul id="sortableTTCN">
+							<?php
+								if (isset($F016)){
+									echo "<li ><a id='tracuuKinhPhiTHTNKhoa' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtnkhoa.png' /><br/>Kinh phí<br/>Thực hành - Thí Nghiệm Khoa</a></li>";
+								}
+								if (isset($F105)){
+									echo "<li ><a id='LichThiHocKy' href='#'><img border='0' width='48' height='48' src='icons/lichthi.png' /><br/>Lịch thi<br/>Học kỳ</a></li>";
+								}
+								if (isset($F101)){
+									echo "<li ><a id='tracuuDSHocVien' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>theo Khóa</a></li>";
+								}
+								if (isset($F104)){
+									echo "<li ><a id='DSHocVienTNdothoc' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>Tốt nghiệp</a></li>";
+								}
+								if (isset($F103)){
+									echo "<li ><a id='DSHocVienDKMH' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>ĐKMH</a></li>";
+								}
+								if (isset($F102)){
+									echo "<li ><a id='tracuuDSNCS' href='#'><img border='0' width='48' height='48' src='icons/dsncs.png' /><br/>Danh Sách<br/>Nghiên Cứu Sinh</a></li>";
+								}
+								if (isset($F015)){
+									echo "<li ><a id='tracuuDSHocVienKhoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Học Viên</a></li>";
+								}
+								if (isset($F018)){
+									echo "<li ><a id='phongDSHocVienTN_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br>Học Viên<br>TN/Đủ ĐK TN</a></li>";
+								}
+								if (isset($F019)){
+									echo "<li ><a id='phongDSHocVienDKMH_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Học Viên ĐKMH<br>các Khoa</a></li>";
+								}
+								if (isset($F020)){
+									echo "<li ><a id='phongDSNCS_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Nghiên Cứu Sinh</a></li>";
+								}
+								if (isset($F021)){
+									echo "<li ><a id='phongNhanYCHVu' href='#'><img border='0' width='48' height='48' src='icons/ychvu-icon.png' /><br/>Quản lý<br/>Yêu cầu học vụ</a></li>";
+								}
+								if (isset($F112)){
+									echo "<li ><a id='PhanBoCBGD_Khoa' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công CBGD - cấp Khoa</a></li>";
+								}
+								if (isset($F113)){
+									echo "<li ><a id='PhanBoCBGD_Bomon' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công CBGD - cấp Bộ môn</a></li>";
+								}
+								if (isset($F114)){
+									echo "<li ><a id='PhanBoCBGD_All' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công<br>CBGD các Khoa</a></li>";
+								}
+								if (isset($F115)){
+									echo "<li ><a id='XemDeCuong_All' href='#'><img border='0' width='48' height='48' src='icons/tracuudiem.png' /><br/>Danh Sách Nhận<br>Đề Cương LV</a></li>";
+								}
+								if (isset($F116)){
+									echo "<li ><a id='ResetPassword_All' href='#'><img border='0' width='48' height='48' src='icons/user-password-icon.png' /><br/>Reset password</a></li>";
+								}
+								if (isset($F120)){
+									echo "<li ><a id='ListEmailTemplate_All' href='#'><img border='0' width='48' height='48' src='icons/email.png' /><br/>Danh sách email</a></li>";
+								}
+								if (isset($F117)){
+									echo "<li ><a id='TienTrinhHoSo_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi<br>xử lý hồ sơ</a></li>";
+								}
+								if (isset($F121)){
+									echo "<li ><a id='TienTrinhHoSoKhoa_All' href='#'><img border='0' width='48' height='48' src='icons/Service-icon.png' /><br/>Theo dõi xử lý<br>hồ sơ các Khoa</a></li>";
+								}
+								if (isset($F118)){
+									echo "<li ><a id='KhoaXemTKB_All' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon.png' /><br/>TKB các Khoa</a></li>";
+								}
+								if (isset($F119)){
+									echo "<li ><a id='XemDeCuongNganh_All' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Danh Sách Nhận Đề Cương LV Ngành</a></li>";
+								}
+								if (isset($F107)){
+									echo "<li ><a id='GiayChungNhan_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy chứng nhận</a></li>";
+								}
+								if (isset($F108)){
+									echo "<li ><a id='GiayGioiThieu_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy giới thiệu</a></li>";
+								}
+								if (isset($F109)){
+									echo "<li ><a id='GiayTrieuTap_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy triệu tập</a></li>";
+								}
+								if (isset($F110)){
+									echo "<li ><a id='GiayThoiKhoaBieu_Khoa' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Giấy TKB</a></li>";
+								}
+								if (isset($F111)){
+									echo "<li ><a id='QuanLyPhi_Khoa' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtn.png' /><br/>Quản lý phí</a></li>";
+								}
+								if (isset($F123)){
+									echo "<li ><a id='QuanLyPhi_Phong' href='#'><img border='0' width='48' height='48' src='icons/kinhphithtn.png' /><br/>Quản lý phí các Khoa</a></li>";
+								}
+								
+								if (isset($F050))
+								{
+									echo "<li ><a id='khcn_quanly_tmdt' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý TMĐT</a></li>";
+								}
+								
+								if (isset($F056))
+								{
+									echo "<li ><a id='khcn_quanly_phanbien_tmdt' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý<br> Phản biện TMĐT</a></li>";
+								}
+								
+								if (isset($F024)){
+									echo "<li ><a id='printTTGV_LLKH_DS' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý<br/>Lý Lịch Khoa Học</a></li>";
+								}
+								
+								if (isset($F052))
+								{
+									echo "<li ><a id='khcn_thongke_khcn' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Thống kê về KHCN</a></li>";
+								}
+							?>
+						</ul>
+
+					</div>
+					<div style="">
+						<table cellpadding="3">
+						<?php
+							
+						?>
+						</table>
+					</div>
+					<div class=clearfloat></div>
+				</div>
+            </div>
+			
         </div>
         
 	</div><!-- End demo -->

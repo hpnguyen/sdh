@@ -195,7 +195,7 @@ if ($a != 'print_tmdt_pdf')
 								</thead>
 								<tbody>
 									<?php 	
-									$sqlstr="SELECT ID, STT, ND.NOI_DUNG, decode(NHAN_XET,'1','X','') NHAN_XET_CAO, decode(NHAN_XET,'0','X','') NHAN_XET_THAP, KINH_PHI_DE_NGHI, ID_ORDER_BY 
+									$sqlstr="SELECT ID, STT, ND.NOI_DUNG, decode(NHAN_XET,'0','X','') NHAN_XET_CAO, decode(NHAN_XET,'1','X','') NHAN_XET_THAP, KINH_PHI_DE_NGHI, ID_ORDER_BY 
 									FROM NCKH_PB_NOI_DUNG_KINH_PHI kp, nckh_pb_dm_noi_dung nd 
 									WHERE kp.ma_nd = nd.ma_nd and kp.ma_thuyet_minh_dt = '$madt' and kp.fk_ma_can_bo = '$macb'
 									order by id_order_by";

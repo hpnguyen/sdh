@@ -4,6 +4,15 @@ $gvURL = $help->getGvRootURL();
 $rootURL = $help->baseURL();
 $listArrayData = array();
 $row = $listItems[0];
+//******************************************************************************************
+//Trim unexpected character
+//******************************************************************************************
+$row['a1_tam_quan_trong'] = $help->trimSlashSpecialChar($row['a1_tam_quan_trong']);
+$row['a2_chat_luong_nc'] = $help->trimSlashSpecialChar($row['a2_chat_luong_nc']);
+$row['a3_nlnc_csvc'] = $help->trimSlashSpecialChar($row['a3_nlnc_csvc']);
+$row['a4_kinh_phi_nx'] = $help->trimSlashSpecialChar($row['a4_kinh_phi_nx']);
+$row['c_ket_luan'] = $help->trimSlashSpecialChar($row['c_ket_luan']);
+//******************************************************************************************
 $diemMucDanhGia = array(
 array( 'name' => 'I',
 	'title' => 'Từ 86 điểm trở lên',
@@ -103,14 +112,14 @@ if ((int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == '1'){
 	</div>
 	<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienA2">
 		<p><b>A2. Chất lượng nghiên cứu:
-			(a) Mục tiêu, nội dung, phương phá nghiên cứu phù hợp và mới để đạt được mục tiêu; 
+			(a) Mục tiêu, nội dung, phương pháp nghiên cứu phù hợp và mới để đạt được mục tiêu; 
 			(b) Đóng góp vào tri thức khoa học, có ảnh hưởng đối với xã hội;
 			(c) Sản phẩm nghiên cứu phù hợp tiêu chí các loại đề tài đăng ký.
 		</b></p>
 		<div<?php echo $textEditorConfigText ?> class="<?php echo $formKey ?>tabDialogTextAreaPhanBien" name="data_group_1[a2_chat_luong_nc]">
 			<?php echo $row["a2_chat_luong_nc"] == '' || $row["a2_chat_luong_nc"] == null ? '' : $row["a2_chat_luong_nc"] ?>
 		</div>
-		<textarea class="viewDataFormHide" name="data_group_1[a2_chat_luong_nc]"><?php echo $$row["a2_chat_luong_nc"] ?></textarea>
+		<textarea class="viewDataFormHide" name="data_group_1[a2_chat_luong_nc]"><?php echo $row["a2_chat_luong_nc"] ?></textarea>
 	</div>
 	<div id="<?php echo $formKey ?>tabDialogTabsViewPhanBienA3">
 		<p><b>A3. Năng lực nghiên cứu của chủ nhiệm và nhóm nghiên cứu; điều kiện cơ sở vật chất - kỹ thuật phục vụ nghiên cứu.</b></p>
@@ -246,8 +255,19 @@ if ((int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == '1'){
 									if((int) $dm['allow_edit'] == 1) {
 										echo $dm['stt'] != '' ? '<b>'.$dm['diem_toi_da'].'</b>' : $dm['diem_toi_da'] ;
 									}else{
-										echo "<b>".$dm['thang_diem_truong']."</b>" ;
+										if ((int) $row["fk_cap_de_tai"] >= 31 && (int) $row["fk_cap_de_tai"] <= 32){
+											echo "<b>".$dm['thang_diem_truong']."</b>";
+										}else{
+											if((int) $row["fk_loai_hinh_nc"] == 1) {
+												echo $dm['thang_diem_c_nccb'];
+											}else if((int) $row["fk_loai_hinh_nc"] == 2){
+												echo $dm['thang_diem_c_ncud'];
+											}else if((int) $row["fk_loai_hinh_nc"] == 3){
+												echo $dm['thang_diem_c_nctk'];
+											}
+										}
 									}
+									
 									?>
 								</td>
 								<td align="center">

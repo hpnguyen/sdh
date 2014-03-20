@@ -171,6 +171,18 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 		
 		if($check->itemsCount > 0){
 			$ret = $check->result[0];
+			//******************************************************************************************
+			//Trim unexpected character
+			//******************************************************************************************
+			$help = Helper::getHelper('functions/util');
+			$ret['a1_tam_quan_trong'] = $help->trimSlashSpecialChar($ret['a1_tam_quan_trong']);
+			$ret['a2_chat_luong_nc'] = $help->trimSlashSpecialChar($ret['a2_chat_luong_nc']);
+			$ret['a3_nlnc_csvc'] = $help->trimSlashSpecialChar($ret['a3_nlnc_csvc']);
+			$ret['a4_kinh_phi_nx'] = $help->trimSlashSpecialChar($ret['a4_kinh_phi_nx']);
+			$ret['c_ket_luan'] = $help->trimSlashSpecialChar($ret['c_ket_luan']);
+			//End trim
+			//******************************************************************************************
+
 			$ret['ten_cap'] = '';
 			$ret['username'] = '';
 			$macap = $ret['fk_cap_de_tai'];
