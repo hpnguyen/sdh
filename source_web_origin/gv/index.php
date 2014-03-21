@@ -1021,7 +1021,7 @@ parse_str($a);
 		?>
 		$("#khcn_quanly_tmdt").click(function() {
 			tabNameClick = 'khcn_quanly_tmdt';
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/profile-search-icon.png' /> Quản lý TMĐT", "khcn/khcn_ql_tmdt.php?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Folders-Documents-icon.png' /> Quản lý TMĐT", "khcn/khcn_ql_tmdt.php?hisid=<?php echo $sid;?>");
 			tab_current = 3;
 		});
 		<?php
@@ -1031,7 +1031,7 @@ parse_str($a);
 		?>
 		$("#khcn_quanly_phanbien_tmdt").click(function() {
 			tabNameClick = 'khcn_quanly_phanbien_tmdt';
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/profile-search-icon.png' /> Quản lý Phản biện TMĐT", "khcn/khcn_ql_phanbien_tmdt.php?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Folders-Documents-icon1.png' /> Quản lý Phản biện TMĐT", "khcn/khcn_ql_phanbien_tmdt.php?hisid=<?php echo $sid;?>");
 			tab_current = 3;
 		});
 		<?php
@@ -1057,7 +1057,7 @@ parse_str($a);
 		?>
 		$("#khcn_thongke_khcn").click(function() {
 			tabNameClick = 'khcn_thongke_khcn';					
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Document-icon.png' /> Thống kê KHCN", "khcn/khcn_thongke.php?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/SEO-icon.png.png' /> Thống kê KHCN", "khcn/khcn_thongke.php?hisid=<?php echo $sid;?>");
 			tab_current = 3;
 		});
 		<?php
@@ -1388,12 +1388,12 @@ parse_str($a);
 								
 								if (isset($F050))
 								{
-									echo "<li ><a id='khcn_quanly_tmdt' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý TMĐT</a></li>";
+									echo "<li ><a id='khcn_quanly_tmdt' href='#'><img border='0' width='48' height='48' src='icons/Folders-Documents-icon.png' /><br>Quản lý<br>TMĐT</a></li>";
 								}
 								
 								if (isset($F056))
 								{
-									echo "<li ><a id='khcn_quanly_phanbien_tmdt' href='#'><img border='0' width='48' height='48' src='icons/profile-search-icon.png' /><br/>Quản lý<br> Phản biện TMĐT</a></li>";
+									echo "<li ><a id='khcn_quanly_phanbien_tmdt' href='#'><img border='0' width='48' height='48' src='icons/Folders-Documents-icon1.png' /><br/>Quản lý<br> Phản biện TMĐT</a></li>";
 								}
 								
 								if (isset($F024)){
@@ -1402,7 +1402,7 @@ parse_str($a);
 								
 								if (isset($F052))
 								{
-									echo "<li ><a id='khcn_thongke_khcn' href='#'><img border='0' width='48' height='48' src='icons/Document-icon.png' /><br/>Thống kê về KHCN</a></li>";
+									echo "<li ><a id='khcn_thongke_khcn' href='#'><img border='0' width='48' height='48' src='icons/SEO-icon.png' /><br/>Thống kê<br>Khoa học công nghệ</a></li>";
 								}
 							?>
 						</ul>

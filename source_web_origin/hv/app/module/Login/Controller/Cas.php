@@ -21,6 +21,7 @@ class ModuleLoginControllerCas extends FrontController {
 	
 	public	function indexAction(){
 		if (isset($_GET['logout'])){
+			$this->killLoginSession();
 			$service = Helper::getHelper('functions/util')->getModuleActionRouteUrl('login/cas/destroy');
 			phpCAS::logoutWithRedirectService($service);
 		}
@@ -35,7 +36,7 @@ class ModuleLoginControllerCas extends FrontController {
 	}
 	
 	public	function destroyAction(){
-		$this->killLoginSession();
+		// $this->killLoginSession();
 		$url = Helper::getHelper('functions/util')->baseURL();
 		$this->redirect(200,$url);
 	}
