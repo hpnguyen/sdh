@@ -592,7 +592,7 @@ parse_str($a);
 		?>
 		$("#DSHocVienTNdothoc").click(function() {
 			tabNameClick = 'DSHocVienTNdothoc';					
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvien.png' /> Danh sách HV Tốt Nghiệp", "khoa/khoa_dshocvien_tn_dothoc.php?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvien.png' /> Danh sách HV TN/Đủ ĐK TN", "khoa/khoa_dshocvien_tn_dothoc.php?hisid=<?php echo $sid;?>");
 			tab_current = 3;
 		});
 		<?php
@@ -661,7 +661,7 @@ parse_str($a);
 		?>
 		$("#phongDSHocVienTN_Khoa").click(function() {
 			tabNameClick = 'phongDSHocVienTN_Khoa';
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvientheokhoa.png' /> Danh sách HV TN", "phong/phong_dshocvien_tn.php?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/dshocvientheokhoa.png' /> Danh sách HV TN/Đủ ĐK TN", "phong/phong_dshocvien_tn.php?hisid=<?php echo $sid;?>");
 			tab_current = 3;
 		});
 		<?php
@@ -694,7 +694,7 @@ parse_str($a);
 		?>
 		$("#phongNhanYCHVu").click(function() {
 			tabNameClick = 'phongNhanYCHVu';
-			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/ychvu-icon.png' /> Quản lý yêu cầu học vụ", "phong/phong_ychv_tiepnhan.php?hisid=<?php echo $sid;?>");
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Documents-icon.png' /> Quản lý yêu cầu học vụ", "phong/phong_ychv_tiepnhan.php?hisid=<?php echo $sid;?>");
 			tab_current = 3;
 		});
 		<?php
@@ -1314,7 +1314,7 @@ parse_str($a);
 									echo "<li ><a id='tracuuDSHocVien' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>theo Khóa</a></li>";
 								}
 								if (isset($F104)){
-									echo "<li ><a id='DSHocVienTNdothoc' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>Tốt nghiệp</a></li>";
+									echo "<li ><a id='DSHocVienTNdothoc' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br>Học Viên<br>TN/Đủ ĐK TN</a></li>";
 								}
 								if (isset($F103)){
 									echo "<li ><a id='DSHocVienDKMH' href='#'><img border='0' width='48' height='48' src='icons/dshocvien.png' /><br/>Danh Sách<br/>Học Viên<br/>ĐKMH</a></li>";
@@ -1335,7 +1335,7 @@ parse_str($a);
 									echo "<li ><a id='phongDSNCS_Khoa' href='#'><img border='0' width='48' height='48' src='icons/dshocvientheokhoa.png' /><br/>Danh Sách<br/>Nghiên Cứu Sinh</a></li>";
 								}
 								if (isset($F021)){
-									echo "<li ><a id='phongNhanYCHVu' href='#'><img border='0' width='48' height='48' src='icons/ychvu-icon.png' /><br/>Quản lý<br/>Yêu cầu học vụ</a></li>";
+									echo "<li ><a id='phongNhanYCHVu' href='#'><img border='0' width='48' height='48' src='icons/Documents-icon.png' /><br/>Quản lý<br/>Yêu cầu học vụ</a></li>";
 								}
 								if (isset($F112)){
 									echo "<li ><a id='PhanBoCBGD_Khoa' href='#'><img border='0' width='48' height='48' src='icons/schedule-icon-daybu.png' /><br/>Phân công CBGD - cấp Khoa</a></li>";
