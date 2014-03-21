@@ -59,7 +59,6 @@ class ModuleLoginControllerCas extends FrontController {
 			$cookie_name = $cookieConfig['cookie_name'];
 			$cookie_time = (int) $cookieConfig['cookie_seconds_per_hour'] * (int) $cookieConfig['cookie_hours_per_day'] * (int) $cookieConfig['cookie_days'];//30 Days
 			
-			//error_reporting(1);
 			$sid = $_REQUEST["hisid"];
 			$link = $_REQUEST["l"];
 			
@@ -74,20 +73,24 @@ class ModuleLoginControllerCas extends FrontController {
 			$time = date("H:i:s");
 			$modelNguoiDung->updateLoginTime($loginData['username']);
 			
-			if($_REQUEST["chkRemberMe"]==1) {
-				setcookie ($cookie_name, 'usrcookie='.base64_encode($usr).$keycode.'&hashcookie='.base64_encode($pass).$keycode2.'&RemberMecookie=1', time()+$cookie_time);
-			}else{
-				setcookie ($cookie_name, 'RemberMecookie=0', time()+$cookie_time);
-			}
+			//Set cookie
+			setcookie ($cookie_name, 'RemberMecookie=0', time()+$cookie_time);
 			
 			$url = Helper::getHelper('functions/util')->getGvRootURL()."/index.php?hisid=".session_id()."&l=".$link;
 			//var_dump($_SESSION,$url);
 			$this->redirect(200,$url);
 		}else {
-			echo "Bạn không được sử dụng chức năng này";
-			die;
+			$service = Helper::getHelper('functions/util')->getModuleActionRouteUrl('login/cas/error');
+			phpCAS::logoutWithRedirectService($service);
 		}
 	}	
+	
+	public	function errorAction(){
+		$template = new BaseTemplate("login/error","default/index");
+		$template->url = Helper::getHelper('functions/util')->getGvRootURL();
+		$templateContent = $template->contentTemplate();
+		$template->renderLayout(array('title' => '','content' => $templateContent));
+	}
 	
 	private function killLoginSession(){
 		session_unset();

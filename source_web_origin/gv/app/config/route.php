@@ -151,6 +151,8 @@ $config = array(
 																'index' => array(
 																),
 																'destroy' => array(
+																),
+																'error' => array(
 																)
 												)
 				)

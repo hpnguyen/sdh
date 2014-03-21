@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
 $sid = $_REQUEST["hisid"];
 
 if ($sid!=""){

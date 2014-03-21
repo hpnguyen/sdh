@@ -1,0 +1,1 @@
+Bạn không được sử dụng chức năng này. Login lại click vào đây <a href="<?php echo $url ?>">link</a> 

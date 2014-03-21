@@ -1,4 +1,4 @@
-﻿<?
+﻿<?php
    // cat = detai, ttgv, ctkh, sach, hdlvts, hdlats
    // act = add, edit, del
 error_reporting(0);
@@ -371,7 +371,7 @@ if (isset($_SESSION["uidloginPortal"]) && isset($_SESSION["macb"]))
 
 
 
-<? 
+<?php 
 if (isset($_SESSION["uidloginPortal"]) && isset($_SESSION["macb"])) 
 {
 // Xuat danh sach de tai

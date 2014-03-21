@@ -557,6 +557,73 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 	// }
 	public	function test2Action(){
 		echo 44444444444444444444;
+		
+		$emailTemplateModel = new EmailTemplateModel();
+		$ret = $emailTemplateModel->getMailTemplate('gui_thong_bao_tkb');
+		//Get email template
+		$contentHTML = $ret['content'];
+		
+		//cr$ret eate file pdf email
+		
+		// $mpdf=new mPDF('utf-8','A4'); 
+		// $mpdf->SetAutoFont();
+		// $mpdf->forcePortraitHeaders = true;
+		// $mpdf->WriteHTML($contentHTML);
+		// $mpdf->Output(ROOT_DIR.'app/logs/files/thong_bao.pdf','F');
+		// die;
+		//******************************************************************
+		//Get config data from file
+		$config = Helper::getHelper('functions/util')->getDbFileConfig();
+		//Mail subject
+		$subject = $ret['title'];
+		//CC email
+		$ccList = array(array($config['mail_tkb_cc']));
+		
+		$attach = $emailTemplateModel->emailTemplateFilePathOfThongBao;	
+		
+		
+		echo "[id,email] = [".$rowID.",".$email."]\n";
+		$recipients = array(array('hpnguyen@hcmut.edu.vn'));
+		//Send mail
+		$ret = Helper::getHelper('functions/mail')->sendMail($subject, $contentHTML, $recipients, null, null, $attach, null, 0, false);
+		
+		//Echo the result
+		echo $ret['message'];
+		if ($ret['status']) {
+			echo "Send mail success";
+			//Set table gui_email status to success
+			
+		}else{
+			echo "Send mail unsuccess";
+		}
+		
+		die;
+		
+		$model = new NckhPbNoiDungModel();
+		$check = $model->getListToFixInvalidCharacter();
+		$help = Helper::getHelper('functions/util');
+		while ($check != null) {
+			$row = $check[0];
+			$row['a1_tam_quan_trong'] = $help->escapeSpecialCharToHtmlCode($row['a1_tam_quan_trong']);
+			$row['a1_tam_quan_trong'] = $help->trimSlashSpecialChar($row['a1_tam_quan_trong']);
+			
+			$row['a2_chat_luong_nc'] =  $help->escapeSpecialCharToHtmlCode($row['a2_chat_luong_nc']);
+			$row['a2_chat_luong_nc'] =  $help->trimSlashSpecialChar($row['a2_chat_luong_nc']);
+			
+			$row['a3_nlnc_csvc'] =  $help->escapeSpecialCharToHtmlCode($row['a3_nlnc_csvc']);
+			$row['a3_nlnc_csvc'] =  $help->trimSlashSpecialChar($row['a3_nlnc_csvc']);
+			
+			$row['a4_kinh_phi_nx'] =  $help->escapeSpecialCharToHtmlCode($row['a4_kinh_phi_nx']);
+			$row['a4_kinh_phi_nx'] =  $help->trimSlashSpecialChar($row['a4_kinh_phi_nx']);
+			
+			$row['c_ket_luan'] =  $help->escapeSpecialCharToHtmlCode($row['c_ket_luan']);
+			$row['c_ket_luan'] =  $help->trimSlashSpecialChar($row['c_ket_luan']);
+			
+			$model->doCreateUpdate($row);
+			$check = $model->getListToFixInvalidCharacter();
+		}
+		var_dump($check);
+		die;
 		// $url ='http://sdh.localhost.com/gvbeta/khcn/khcn_print_tmdt_r01_test.php?a=print_tmdt_fromtab&hisid=semdt72aibhj64o37qn3das300&m=20140006&k=xemPhanBienDeTaiListprint_tmdt_20140006';
 		//$url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
 		//$url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01_pdf.php?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';

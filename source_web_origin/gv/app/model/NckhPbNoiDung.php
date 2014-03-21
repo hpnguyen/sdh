@@ -45,4 +45,24 @@ class NckhPbNoiDungModel extends BaseTable {
 			return null;
 		}
 	}
+	
+	public function getListToFixInvalidCharacter(){
+		$whereCondition = "(a1_tam_quan_trong like '%\%' OR a1_tam_quan_trong like '%''%' OR a1_tam_quan_trong like '%\"%' OR a1_tam_quan_trong like '%&#92;&quot;%' OR a1_tam_quan_trong like '%&#92;&#92;%' OR a1_tam_quan_trong like '&#92;&#39;%') 
+		or (a2_chat_luong_nc like '%\%' OR a2_chat_luong_nc like '%''%' OR a2_chat_luong_nc like '%\"%' OR a2_chat_luong_nc like '%&#92;&quot;%' OR a2_chat_luong_nc like '%&#92;&#92;%' OR a2_chat_luong_nc like '%&#92;&#39;%') 
+		or (a3_nlnc_csvc like '%\%' OR a3_nlnc_csvc like '%''%'  OR a3_nlnc_csvc like '%\"%'  OR a3_nlnc_csvc like '%&#92;&quot;%'  OR a3_nlnc_csvc like '%&#92;&#92;%' OR a3_nlnc_csvc like '%&#92;&#39;%')
+		or (a4_kinh_phi_nx like '%\%' OR a4_kinh_phi_nx like '%''%' OR a4_kinh_phi_nx like '%\"%' OR a4_kinh_phi_nx like '%&#92;&quot;%' OR a4_kinh_phi_nx like '%&#92;&#92;%' OR a4_kinh_phi_nx like '%&#92;&#39;%')
+		or (c_ket_luan like '%\%' OR c_ket_luan like '%''%' OR c_ket_luan like '%\"%' OR c_ket_luan like '%&#92;&quot;%' OR c_ket_luan like '%&#92;&#92;%' OR c_ket_luan like '%&#92;&#39;%')";
+		
+		$check = $this->getSelect("*")
+		->where($whereCondition)
+		->execute(false, array());
+		
+		if ($check->itemsCount > 0) {
+			return $check->result;
+		}else{
+			return null;
+		}
+		
+	}
+	
 }

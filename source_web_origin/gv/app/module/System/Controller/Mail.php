@@ -102,11 +102,28 @@ class ModuleSystemControllerMail extends FrontController {
 			foreach ($temp as $k => $v) {
 				$recipients[] = array($v);
 			}
-			//Ready attachment
-			$attach = null;
 			
 			//Get email template
 			$contentHTML = $ret['content'];
+			
+			//Ready attachment
+			//Check PDF file attachment
+			$replace = '-'.$ret['pdf_updated_at'].'.pdf';
+			$filePDF = str_replace('.pdf', $replace, $emailTemplateModel->emailTemplateFilePathOfThongBao);
+			echo $filePDF;
+			if (file_exists($filePDF)){
+				$attach = $filePDF;
+			}else{
+				//Create PDF file attachment
+				$mpdf=new mPDF('utf-8','A4'); 
+				$mpdf->SetAutoFont();
+				$mpdf->forcePortraitHeaders = true;
+				$mpdf->WriteHTML($contentHTML);
+				$mpdf->Output($filePDF,'F');
+			}
+			
+			$attach = $filePDF;
+			
 			echo "[id,email] = [".$rowID.",".$email."]\n";
 			$log->write("[id,email] = [".$rowID.",".$email."]");
 			//Send mail

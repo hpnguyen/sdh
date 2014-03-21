@@ -9,8 +9,10 @@
 * @param  updated_at timestamp default current_timestamp
 */
 class EmailTemplateModel extends BaseTable {
+	public $emailTemplateFilePathOfThongBao = '';
 	
 	function __construct() {
+		$this->emailTemplateFilePathOfThongBao = ROOT_DIR.'app/logs/files/thong-bao.pdf';
 		parent::init("email_template");
 	}
 	
@@ -53,6 +55,18 @@ class EmailTemplateModel extends BaseTable {
 				}
 				$this->getUpdate($data)->where("id = '".$data['id']."'")->execute(true, array());
 			}
+			$check = $this->getSelect($this->tableName.".*, to_char(updated_at,'dd-mm-yyyy') as t_updated_at")
+			->where("id = '".$data['id']."'")
+			->execute(false, array());
+			//Create PDF file attachment
+			$row = $check->result[0];
+			$mpdf=new mPDF('utf-8','A4'); 
+			$mpdf->SetAutoFont();
+			$mpdf->forcePortraitHeaders = true;
+			$mpdf->WriteHTML($data['content']);
+			$replace = '-'.$row['t_updated_at'].'.pdf';
+			$filePDF = str_replace('.pdf', $replace, $this->emailTemplateFilePathOfThongBao);
+			$mpdf->Output($filePDF,'F');
 			
 			return true;
 		}else{
@@ -67,7 +81,7 @@ class EmailTemplateModel extends BaseTable {
 	
 	public function getMailTemplate($id)
 	{
-		$check = $this->getSelect("TO_CHAR(created_at ,'DD-MM-YYYY HH24:MI:SS') t_created_at,TO_CHAR(updated_at ,'DD-MM-YYYY HH24:MI:SS') t_updated_at, email_template.*")
+		$check = $this->getSelect("TO_CHAR(created_at ,'DD-MM-YYYY HH24:MI:SS') t_created_at,TO_CHAR(updated_at ,'DD-MM-YYYY HH24:MI:SS') t_updated_at, to_char(updated_at,'dd-mm-yyyy') as pdf_updated_at , email_template.*")
 		->where("id = '".$id."'")
 		->execute(false, array());
 		
