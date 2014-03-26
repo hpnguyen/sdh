@@ -5,6 +5,7 @@
 class NckhThuyetMinhDeTaiModel extends BaseTable {
 	
 	private $kqPhanHoi = array('Không đồng ý','Đồng ý phản biện','Chưa trả lời');
+	private $loaiHinhNghienCuu = array(null,'NCCB','NCUD','NCTK');
 	
 	
 	function __construct() {
@@ -31,7 +32,16 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 		d.a2_chat_luong_nc, 
 		d.a3_nlnc_csvc, 
 		d.a4_kinh_phi_nx, 
-		d.c_ket_luan
+		d.c_ket_luan,
+		(CASE 
+			WHEN a.fk_loai_hinh_nc = 1 
+			THEN '".$this->loaiHinhNghienCuu[1]."' 
+			WHEN a.fk_loai_hinh_nc = 2 
+			THEN '".$this->loaiHinhNghienCuu[2]."'
+			WHEN a.fk_loai_hinh_nc = 3 
+			THEN '".$this->loaiHinhNghienCuu[3]."'
+			ELSE '' 
+		END ) AS text_loai_hinh_nc
 		FROM 	nckh_thuyet_minh_de_tai a, 
 				nckh_phan_cong_phan_bien b, 
 				nckh_dm_tinh_trang c ,
@@ -43,13 +53,34 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 		AND b.fk_ma_can_bo = :macb  
 		AND TO_CHAR(b.ngay_phan_cong ,'YYYY') = '".$year."'
 		ORDER BY het_han_phan_bien asc, b.kq_phan_hoi ,a.ma_thuyet_minh_dt asc";
-		
+		/*
+		 * (CASE 
+			WHEN a.fk_cap_de_tai >= 31 and a.fk_cap_de_tai <= 32 and a.fk_loai_hinh_nc = 1 
+			THEN '".$this->loaiHinhNghienCuu[1]."' 
+			WHEN a.fk_cap_de_tai >= 31 and a.fk_cap_de_tai <= 32 and a.fk_loai_hinh_nc = 2 
+			THEN '".$this->loaiHinhNghienCuu[2]."'
+			WHEN a.fk_cap_de_tai >= 31 and a.fk_cap_de_tai <= 32 and a.fk_loai_hinh_nc = 3 
+			THEN '".$this->loaiHinhNghienCuu[3]."'
+			ELSE '' 
+		END )
+		 */
 		$check = $this->getQuery($sqlstr)->bindExecute(false, array(':macb' => $macb));
 		
 		$ret = array();
 		
 		if($check->itemsCount > 0){
 			$ret = $check->result;
+			$modelCapDeTai = new CapDeTaiModel();
+			foreach ($ret as $k => $item) {
+				$maCapDeTai = $item['fk_cap_de_tai'];
+				$detail =$modelCapDeTai->getByMaCap($maCapDeTai);
+				$item['ten_cap_de_tai'] = null;
+				if ($detail != null){
+					$item['ten_cap_de_tai'] = $detail['ten_cap'];
+				}
+				$ret[$k] = $item;
+			}
+			 
 		}
 		return $ret;
 	}

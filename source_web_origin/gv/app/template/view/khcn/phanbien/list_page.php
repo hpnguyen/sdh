@@ -49,6 +49,8 @@ foreach($listItems as $y => $row)
 	$listArrayDataString = "";
 	$listArrayDataString .= "'".$row["ma_thuyet_minh_dt"]."',";
 	$listArrayDataString .= "'".$row["ten_de_tai_vn"]."',";
+	$listArrayDataString .= "'".$row["ten_cap_de_tai"]."',";
+	$listArrayDataString .= "'".$row["text_loai_hinh_nc"]."',";
 	// $listArrayDataString .= "'".$row["ten_tinh_trang"]."',";
 	if ((int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == null){
 		$listArrayDataString .= "'<select id=\"".$formKey."selectClickPhanBienPhanHoi_".$row["ma_thuyet_minh_dt"]."\" class=\"".$formKey."selectClickPhanBienPhanHoi\"  rel=\"".$row["ma_thuyet_minh_dt"]."\">";
@@ -97,6 +99,8 @@ foreach($listItems as $y => $row)
 	  <tr class='ui-widget-header heading' style='font-weight:bold; height:20pt;'>
 		<td width="50px" align='left'>Mã ĐT</td>
 		<td align="left">Tên Đề Tài</td>
+		<td width="100px" align="left">Cấp Đề Tài</td>
+		<td width="80px" align="left">Loại Hình NC</td>
 		<!-- <td width="110px" align="left">Trạng Thái</td> -->
 		<td width="200px" align="left">Kết Quả Trả Lời</td>
 		<td width="100px" align="center">Nội dung TMĐT</td>
@@ -408,6 +412,8 @@ $(document).ready(function() {
 		<?php } ?>
 		"aoColumns": [
 			{"sClass": "center"},
+			null,
+			null,
 			null,
 			// null,
 			null,

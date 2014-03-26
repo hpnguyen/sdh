@@ -548,7 +548,7 @@ $hoten = $resDM["HO_TEN"][0];
 						</tr>
 						<tr>
 							<td colspan=2 style='width:50%'>
-								<select id=khcn_ql_frm_edit_dtkhcn_loaihinhnc name=khcn_ql_frm_edit_dtkhcn_loaihinhnc style='font-size:13px; width:95%' title='Loại hình nghiên cứu' class='khcn_tooltips'>
+								<select id=khcn_ql_frm_edit_dtkhcn_loaihinhnc name=khcn_ql_frm_edit_dtkhcn_loaihinhnc style='font-size:13px; width:95%' title='Loại hình nghiên cứu' class='khcn_tooltips' >
 									<option value="">-Chọn loại hình nghiên cứu-</option>
 									<?php 
 										$sqlstr="select MA_LOAI_HINH_NC, TEN_LOAI_HINH_NC from NCKH_LOAI_HINH_NC"; 
@@ -1192,7 +1192,7 @@ $hoten = $resDM["HO_TEN"][0];
 <script type="text/javascript">
 var oTableQlThuyetMinhDTKHCN;
 var khcn_ql_linkdata = "khcn/khcn_ql_tmdt_process.php?hisid=<?php echo $_REQUEST["hisid"]; ?>";
-var khcn_ql_matm_selected = null, bValid=true, khcn_ql_nTr_selected = null;
+var khcn_ql_matm_selected = null, bValid=true, khcn_ql_nTr_selected = null, khcn_ql_info_selected=null;
 var khcn_ql_numnganh = <?php echo "$numNganh";?>;
 var khcn_ql_class = 'alt_';
 var khcn_ql_formA1A4_changed = false, khcn_ql_formA5_changed = false, khcn_ql_formA6_changed = false, khcn_ql_formA7A8_changed = false, khcn_ql_formB1_changed = false;
@@ -2411,27 +2411,11 @@ $(document).ready(function() {
 		]
 	});
 	
-	
-	/*
-	$('#khcn_ql_ds_thuyetminhdtkhcn tbody tr').live('click', function() {
-		console.log(11111111111111);
-		//$(this).toggleClass('row_selected');
-		
-		if ( $(this).hasClass('row_selected') ) {
-			//console.log(2222222222222);
-            //$(this).removeClass('row_selected');
-        }
-        else {
-			//console.log(oTableQlThuyetMinhDTKHCN);
-			
-            oTableQlThuyetMinhDTKHCN.$('tr.row_selected').removeClass('row_selected');
-            $(this).addClass('row_selected');
-			
-			khcn_ql_nTr_selected = $(this)[0];
-        }
-		
+	$('#khcn_ql_frm_edit_dtkhcn_loaihinhnc').change(function() {
+		if (khcn_ql_info_selected.tinhtrang != "01" && khcn_ql_info_selected.tinhtrang != "02" && khcn_ql_info_selected.tinhtrang != "03"){
+			jAlert('<font color=red>Thay đổi thông tin <b>Loại hình nghiên cứu</b> sau khi <b>đã mời phản biện đề tài</b> sẽ ảnh hưởng đến bảng điểm đánh giá TMĐT (<b>mục B mẫu phản biện đề tài sẽ bị xoá dữ liệu</b>)</font>', 'Alert Dialog');
+		}
 	});
-	*/
 	
 	$('#khcn_ql_frm_reg_nhanlucnghiencuu_loai').change(function() {
 		//alert($(this).val());
@@ -2900,6 +2884,8 @@ function khcn_ql_GetThuyetMinh_ThongTinChung(pMaThuyetMinh){
 			$("#khcn_ql_frm_edit_dtkhcn_thoigianthuchien").val(reverse_escapeJsonString(data.info.thoigianthuchien));
 			$("#khcn_ql_frm_edit_dtkhcn_keywords").val(reverse_escapeJsonString(data.info.keywords));
 			$("#khcn_ql_frm_edit_dtkhcn_huongdt").val(reverse_escapeJsonString(data.info.huongdt));
+			khcn_ql_info_selected = data.info;
+			
 			$("#khcn_ql_frm_edit_table_nganh input[type=checkbox]").each(function() {
 				var $input = $( this );
 				// bo check
@@ -3718,7 +3704,7 @@ function khcn_ql_update_mota_B5_1(){
 	
 	if (bValid && khcn_ql_formB5_1_changed){
 		gv_processing_diglog("open","Khoa học & Công nghệ", "Đang lưu dữ liệu...");
-		dataString = 'muc_tieu_nc_vn='+encodeURIComponent($("#khcn_ql_frm_edit_dtkhcn_muc_tieu_nc_vn").val()) +'&muc_tieu_nc_en='+encodeURIComponent($("#khcn_ql_frm_edit_dtkhcn_muc_tieu_nc_en").val()) + '&a=updateB5_1&m='+khcn_ql_matm_selected;		
+		dataString = 'muc_tieu_nc_vn='+encodeURIComponent($("#khcn_ql_frm_edit_dtkhcn_muc_tieu_nc_vn").val()) +'&muc_tieu_nc_en='+encodeURIComponent($("#khcn_ql_frm_edit_dtkhcn_muc_tieu_nc_en").val()) + '&a=updateB5_1&m='+khcn_ql_matm_selected;
 		xreq = $.ajax({
 		  type: 'POST', dataType: "json", data: dataString,
 		  url: khcn_ql_linkdata,

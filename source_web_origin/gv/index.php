@@ -1064,9 +1064,19 @@ parse_str($a);
 		}
 		?>
 		// END KHCN
-		
-		
-		
+		<?php
+		//Khoi luong giang day theo bo mon khoa
+		if (isset($F118) || isset($F122))
+		{
+		?>
+		$("#bo_mon_khoa_klgd").click(function() {
+			tabNameClick = 'bo_mon_khoa_klgd';					
+			addTab(tabNameClick,"<img border='0' width='12' height='12' src='icons/Money-Calculator-icon.png' /> KLGD Khoa/Bộ Môn", "front.php/phongbankhoa/klgd/index?hisid=<?php echo $sid;?>");
+			tab_current = 3;
+		});
+		<?php
+		}
+		?>
 		
 		$( "input:submit, button").button();
 		
@@ -1403,6 +1413,12 @@ parse_str($a);
 								if (isset($F052))
 								{
 									echo "<li ><a id='khcn_thongke_khcn' href='#'><img border='0' width='48' height='48' src='icons/SEO-icon.png' /><br/>Thống kê<br>Khoa học công nghệ</a></li>";
+								}
+								
+								if (isset($F118) || isset($F122))
+								{
+									
+									echo "<li ><a id='bo_mon_khoa_klgd' href='#'><img border='0' width='48' height='48' src='icons/Money-Calculator-icon.png' /><br/>Khối lượng<br>giảng dạy<br>Khoa/Bộ môn</a></li>";
 								}
 							?>
 						</ul>

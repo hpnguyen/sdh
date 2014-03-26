@@ -125,7 +125,7 @@ $replace = array('\\\\',"&quot;");
 			<tr align="left">
 				<td colspan="2" class="heading" align="right"><label title="Số tài khoản" for="txtSTK" class=heading>Số tài khoản</label></td>
 				<td class="fontcontent">
-					<input id="txtSTK" name="txtSTK" placeholder='số tài khoản' title='Số tài khoản' style='width:200px;height:24px' maxlength="15" value="<?php echo htmlentities($cbgd["SO_TAI_KHOAN"][0], ENT_QUOTES, "UTF-8"); ?>" class="text ui-widget-content ui-corner-all tableData"/>					
+					<input id="txtSTK" name="txtSTK" placeholder='số tài khoản' title='Số tài khoản' style='width:200px;height:24px' maxlength="30" value="<?php echo htmlentities($cbgd["SO_TAI_KHOAN"][0], ENT_QUOTES, "UTF-8"); ?>" class="text ui-widget-content ui-corner-all tableData"/>					
 				</td>
 			</tr>
 			<tr align="left">
@@ -348,6 +348,8 @@ $(function(){
  });
  $("#txtNgaySinh, #txtNgayCap").mask("99/99/9999");
  
+ //$("#txtSTK").mask("999999999999999999999999");
+ 
  if ($('#txtMaHocHam').val() != 'GS' && $('#txtMaHocHam').val() != 'PGS')
  {
 	document.getElementById('txtNamPhongHocHam').disabled=true;
@@ -375,9 +377,10 @@ var txtNgaySinh 	= $("#txtNgaySinh"),
 	txtDTLanhDaoCQ = $("#txtDTLanhDaoCQ"),
 	txtChucDanhNghienCuu = $("#txtChucDanhNghienCuu"),
 	txtFax = $("#txtFax"), 
-	txtWebsite = $("#txtWebsite"), 
+	txtWebsite = $("#txtWebsite"),
+	txtSTK = $("#txtSTK"),
 	formchange 		= false,
-	allFieldsTTGV = $( [] ).add( txtNgaySinh ).add( txtPhai ).add( txtWebsite ).add( txtFax ).add( txtTenLanhDaoCQ ).add( txtDTLanhDaoCQ ).add( txtChucDanhNghienCuu ).add( txtDiaChi ).add( txtDienThoai ).add( txtDienThoai2 ).add( txtEmail ).add( txtEmail2 ).add(  ).add( txtChuyenNganh ).add( txtNamPhongHocHam ),
+	allFieldsTTGV = $( [] ).add( txtNgaySinh ).add( txtPhai ).add( txtWebsite ).add( txtFax ).add( txtTenLanhDaoCQ ).add( txtDTLanhDaoCQ ).add( txtChucDanhNghienCuu ).add( txtDiaChi ).add( txtDienThoai ).add( txtDienThoai2 ).add( txtEmail ).add( txtEmail2 ).add(  ).add( txtChuyenNganh ).add( txtNamPhongHocHam ).add(txtSTK),
 	ttgv_tips = $( "#tipTTGV" );
 		
 	// 
@@ -439,6 +442,7 @@ var txtNgaySinh 	= $("#txtNgaySinh"),
 		var bValid = true;
 		
 		allFieldsTTGV.removeClass( "ui-state-error" );
+		
 		//alert(2);
 		bValid = bValid && ttgv_checkLength( txtNgaySinh, "\"Ngày sinh\"", 0, 10);
 		bValid = bValid && ttgv_checkLength( txtPhai, "\"Phái\"", 0, 1);
@@ -452,6 +456,8 @@ var txtNgaySinh 	= $("#txtNgaySinh"),
 		
 		//bValid = bValid && ttgv_checkLength( txtNamPhongHocHam, "\"Năm được phong học hàm\"", 4, 4);
 		bValid = bValid && ttgv_checkRegexp( txtNamPhongHocHam,/^[0-9]{4,4}$/i, "Năm phong học hàm phải đủ 4 Số");
+		
+		bValid = bValid && ttgv_checkRegexp( txtSTK,/^[0-9]{5,20}$/i, "Số Tài khoản tối đa 30 Số");
 		
 		//bValid = bValid && ttgv_checkLength( txtNganh, "\"Ngành\"", 0, 8);
 		
@@ -499,7 +505,8 @@ var txtNgaySinh 	= $("#txtNgaySinh"),
 	// Upload hinh
 	$( "#btn_upload_hinh_ttgv" ).button({ icons: {primary:'ui-icon ui-icon-disk'} });
 	$( "#btn_upload_hinh_chu_ky_ttgv" ).button({ icons: {primary:'ui-icon ui-icon-disk'} });
-	 
+	$( "#btn_upload_hinh_chu_ky_ttgv" ).hide();
+	
 	$( "#ttgv_processing_div" ).dialog({
 			resizable: false,
 			autoOpen: false,

@@ -31,7 +31,11 @@ $config = array(
 											'Hoso' => array(
 															'tientrinh' => array(
 																)
-											) 
+											),
+											'Klgd' => array(
+															'index' => array(
+																)
+											)
 						)
 ),
 'tkb' => array(
