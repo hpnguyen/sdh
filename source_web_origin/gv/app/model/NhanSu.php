@@ -334,4 +334,23 @@ class NhanSuModel extends BaseTable {
 		->where("UPPER(username)=UPPER('".$username."')")
 		->execute(true, array());
 	}
+	
+	public function getByUsername($username = null)
+	{
+		$ret = null;
+		if (! empty($username)){
+			$sqlstr="SELECT n.*, k.ten_khoa 
+			FROM nhan_su n, khoa k  
+			WHERE UPPER(n.username)=UPPER('".$username."') 
+			and n.fk_ma_khoa = k.ma_khoa(+)";
+			
+			$check = $this->getQuery($sqlstr)->execute(false, array());
+			
+			if($check->itemsCount > 0){
+				$ret = $check->result[0];
+			}
+		}
+		
+		return $ret;
+	}
 }

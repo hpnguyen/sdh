@@ -216,27 +216,45 @@ for ($i=0 ; $i < $n; $i++)
 
 <div id=khcn_diag_nhanlucnghiencuu style='width:100%;' title="Thêm nhân lực nghiên cứu">
 	<form id=khcn_frm_reg_nhanlucnghiencuu name=khcn_frm_reg_nhanlucnghiencuu>
+		<input type=hidden id='khcn_frm_reg_nhanlucnghiencuu_manl' name='khcn_frm_reg_nhanlucnghiencuu_manl'>
+		<input type=hidden id='khcn_frm_reg_nhanlucnghiencuu_index' name='khcn_frm_reg_nhanlucnghiencuu_index'>
+		<div id="khcn_div_frm_reg_nhanlucnghiencuu_huongdan" name="khcn_div_frm_reg_nhanlucnghiencuu_huongdan" style='margin:0 0 5px 0;width:100%; color: #115599; font-size: 12px' align="justify">
+			Hổ trợ <b>tìm kiếm</b> thành viên chủ chốt <b>chính xác</b> bằng cách <b>nhập</b> họ và tên <b>vào ô</b> "<b>Học hàm, học vị, Họ và tên</b>", sau đó <b>click chọn thành viên được list ra bên dưới</b>.
+		</div>
 		<div style='margin:0 0 5px 0;width:100%;'>
-			<select id='khcn_frm_reg_nhanlucnghiencuu_loai' name='khcn_frm_reg_nhanlucnghiencuu_loai' style='width:96%;font-size:12px' title='Loại nhân lực tham gia nghiên cứu'>
-				<option value=''>-chọn loại nhân lực nghiên cứu-</option>
+			<div style='margin:0 0 5px 0;'><b>Nhân lực nghiên cứu</b></div>
+			<select id='khcn_frm_reg_nhanlucnghiencuu_loai' name='khcn_frm_reg_nhanlucnghiencuu_loai' style='width:96%;font-size:14px' title='Loại nhân lực tham gia nghiên cứu'>
+				<option value=''>-chọn nhân lực nghiên cứu-</option>
 				<option value=1>Thành viên chủ chốt</option>
 				<option value=2>Nghiên cứu sinh, học viên cao học, sinh viên</option>
 			</select> <font color=red>*</font>
 		</div>
+		
+		<div id="khcn_frm_reg_nhanlucnghiencuu_div_masv" style='margin:0 0 5px 0;width:95%;display: none'>
+			<div style='margin:0 0 5px 0;'><b>Mã số SV</b></div>
+			<input type=text id='khcn_frm_reg_nhanlucnghiencuu_masv' name='khcn_frm_reg_nhanlucnghiencuu_masv' maxlength=10 style='width:150px;' placeholder='Mã số'  title='Mã NCS, Học viên cao học, Sinh viên' class='khcn_tooltips'> <font color=red>*</font>
+		</div>
+		<div style='margin:0 0 5px 0;width:100%;' id="khcn_div_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten" name="khcn_div_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten">
+			<div style='margin:0 0 5px 0;'><b>Họ và tên</b></div>
+			<input type=text id='khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' name='khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' maxlength=100 style='width:95%;' placeholder='Học hàm, học vị, Họ và tên'  title='Học hàm, học vị, Họ và tên' class='khcn_tooltips'> <font color=red>*</font>
+		</div>
 		<div id=khcn_frm_reg_nhanlucnghiencuu_div_shcc style='margin:0 0 5px 0;width:100%;display: none'>
+			<div style='margin:0 0 5px 0;'><b>SHCC</b></div>
 			<input type=text id='khcn_frm_reg_nhanlucnghiencuu_shcc' name='khcn_frm_reg_nhanlucnghiencuu_shcc' maxlength=10 style='width:80px;' placeholder='SHCC'  title='Số hiệu công chức' class='khcn_tooltips'>
 			<input type=hidden id='khcn_frm_reg_nhanlucnghiencuu_fk_ma_can_bo' name='khcn_frm_reg_nhanlucnghiencuu_fk_ma_can_bo'>
 		</div>
-		<div id=khcn_frm_reg_nhanlucnghiencuu_div_masv style='margin:0 0 5px 0;width:95%;display: none'>
-			<input type=text id='khcn_frm_reg_nhanlucnghiencuu_masv' name='khcn_frm_reg_nhanlucnghiencuu_masv' maxlength=10 style='width:150px;' placeholder='Mã số'  title='Mã NCS, Học viên cao học, Sinh viên' class='khcn_tooltips'> <font color=red>*</font>
+		
+		<div style='margin:0 0 5px 0;width:100%;' id="khcn_div_frm_reg_nhanlucnghiencuu_ho_ten_sv" name="khcn_div_frm_reg_nhanlucnghiencuu_ho_ten_sv">
+			<div style='margin:0 0 5px 0;'><b>Họ và tên</b></div>
+			<input type=text id='khcn_frm_reg_nhanlucnghiencuu_ho_ten_sv' name='khcn_frm_reg_nhanlucnghiencuu_ho_ten_sv' maxlength=100 style='width:95%;' placeholder='Họ và tên NCS, Học viên, Sinh viên'  title='Họ và tên NCS, Học viên, Sinh viên' class='khcn_tooltips'> <font color=red>*</font>
 		</div>
+		
 		<div style='margin:0 0 5px 0;width:100%;'>
-			<input type=text id='khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' name='khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' maxlength=100 style='width:95%;' placeholder='Học hàm, học vị, Họ và tên'  title='Học hàm, học vị, Họ và tên' class='khcn_tooltips'> <font color=red>*</font>
-		</div>
-		<div style='margin:0 0 5px 0;width:100%;'>
+			<div style='margin:0 0 5px 0;'><b>Đơn vị công tác</b></div>
 			<input type=text id='khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac' name='khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac' maxlength=200 style='width:95%;' placeholder='Đơn vị công tác'  title='Đơn vị công tác' class='khcn_tooltips'> <font color=red>*</font>
 		</div>
 		<div style='margin:0 0 5px 0;width:100%;'>
+			<div style='margin:0 0 5px 0;'><b>Số tháng quy đổi</b></div>
 			<input type=text id='khcn_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi' name='khcn_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi' data-v-min=0 data-v-max=999  maxlength=5 style='width:95%;' placeholder='Số tháng làm việc quy đổi'  title='Số tháng làm việc quy đổi' class='khcn_tooltips khcn_autonumbers'> <font color=red>*</font>
 		</div>
 	</form>
@@ -645,8 +663,10 @@ for ($i=0 ; $i < $n; $i++)
 				<table style='width:100%'>
 					<tr>
 						<td colspan=2 style='width:75%'>
-							<input type=text id=khcn_frm_edit_dtkhcn_dcndt_shcc name=khcn_frm_edit_dtkhcn_dcndt_shcc maxLength=6 placeholder='SHCC' title='Tìm thông tin Cán bộ giảng dạy bằng Số Hiệu Công Chức' style='width:60px;height:18px' class='khcn_tooltips'/>
-							<input type=text id=khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten name=khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten maxLength=50 placeholder='Học hàm, học vị, họ và tên' title='Học hàm, học vị, họ và tên' style='width:293px;height:18px' class='khcn_tooltips'/> <font color=red>*</font>
+							<input type=text id=khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten name=khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten maxLength=50 placeholder='Học hàm, học vị, họ và tên' title='Tìm thông tin Cán bộ giảng dạy bằng cách nhập họ tên vào ô này' style='width:285px;height:18px' class='khcn_tooltips'/> <font color=red>*</font> 
+							
+							<input type=text id=khcn_frm_edit_dtkhcn_dcndt_shcc name=khcn_frm_edit_dtkhcn_dcndt_shcc maxLength=6 placeholder='SHCC'  style='width:60px;height:18px' class='khcn_tooltips'/>
+							
 							<input type=hidden id="khcn_frm_edit_dtkhcn_fk_dong_chu_nhiem_dt" name="khcn_frm_edit_dtkhcn_fk_dong_chu_nhiem_dt">
 						</td>
 						<td style='width:25%' >
@@ -759,22 +779,22 @@ for ($i=0 ; $i < $n; $i++)
 				nội dung chính thuộc cơ quan chủ trì và cơ quan phối hợp tham gia thực hiện - mỗi người có tên trong danh sách này phải khai báo lý lịch khoa học theo
 				biểu quy định)</em></div>
 				<div style='margin: 5px 0 5px 0;' align=right><button id=khcn_frm_edit_dtkhcn_btn_open_dlg_add_nhanluc>Thêm nhân lực nghiên cứu</button></div>
-				<table id=khcn_frm_edit_dtkhcn_A9_table_nhanluc class='ui-widget ui-widget-content ui-corner-top tableData' style='width:100%'>
+				<table id=khcn_frm_edit_dtkhcn_A9_table_nhanluc class='ui-widget ui-widget-content ui-corner-top tableData' style='width:100%; border-color: #000000; border-width: 1px; border-style: solid; border-collapse:collapse;'>
 					<thead>
-						<tr class='ui-widget-header heading' style='height:20px;'>
-							<td align=left>TT</td><td align=left>Học hàm, học vị, Họ và tên</td><td align=left>Đơn vị công tác</td><td align=center title="Số tháng làm việc quy đổi">Tháng QĐ</td><td align=right></td>
+						<tr class='ui-widget-header heading' style='height:20px;border-color: #000000; border-width: 1px; border-style: solid; border-collapse:collapse;'>
+							<td align=left>TT</td><td align=left>Học hàm, học vị, Họ và tên</td><td align=left>SHCC/Mã SV</td><td align=left>Đơn vị công tác</td><td align=center title="Số tháng làm việc quy đổi">Tháng QĐ</td><td align=right></td>
 						</tr>
 					</thead>
 					<thead>
 						<tr style='background:#cccccc;height:20px;'>
-							<td align=left colspan=5><b>Thành viên chủ chốt</b></td>
+							<td align=left colspan=6><b>Thành viên chủ chốt</b></td>
 						</tr>
 					</thead>
 					<tbody>
 					</tbody>
 					<thead>
 						<tr style='background:#cccccc;height:20px;'>
-							<td align=left colspan=5><b>Nghiên cứu sinh, học viên cao học, sinh viên</b></td>
+							<td align=left colspan=6><b>Nghiên cứu sinh, học viên cao học, sinh viên</b></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -1232,11 +1252,10 @@ $(document).ready(function() {
 		// reset form
 		$("#khcn_frm_reg_nhanlucnghiencuu").find('input[type=text], input[type=hidden], textarea, select').val('');
 		
-		$( "#khcn_frm_reg_nhanlucnghiencuu_div_shcc" ).css( "display", "none" );
-		$( "#khcn_frm_reg_nhanlucnghiencuu_div_masv" ).css( "display", "none" );
-			
+		khcn_init_dialog_nhanluc();
+		
 		$('#khcn_diag_nhanlucnghiencuu').dialog('open');
-		//alert($('#khcn_frm_edit_dtkhcn_A9_table_nhanluc thead:eq(1)').html());
+
 		return false;
 	});
 	
@@ -1523,7 +1542,7 @@ $(document).ready(function() {
 	$("#khcn_diag_nhanlucnghiencuu").dialog({
 		resizable: false,
 		autoOpen: false,
-		width:400, height:300,
+		width:500, height:480,
 		modal: true,
 		buttons: [
 			{
@@ -1536,54 +1555,96 @@ $(document).ready(function() {
 						khcn_a9_loainc 			= $("#khcn_frm_reg_nhanlucnghiencuu_loai"),
 						khcn_a9_masv			= $("#khcn_frm_reg_nhanlucnghiencuu_masv"),
 						khcn_a9_hoten			= $("#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten"),
+						khcn_a9_hoten_sv		= $("#khcn_frm_reg_nhanlucnghiencuu_ho_ten_sv"),
 						khcn_a9_donvicongtac	= $("#khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac"),
 						khcn_a9_thangquydoi		= $("#khcn_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi"),
 
-						khcn_a9_allFields = $([]).add(khcn_a9_shcc).add(khcn_a9_loainc).add(khcn_a9_masv).add(khcn_a9_hoten).add(khcn_a9_donvicongtac).add(khcn_a9_thangquydoi),
+						khcn_a9_allFields = $([]).add(khcn_a9_shcc).add(khcn_a9_loainc).add(khcn_a9_masv).add(khcn_a9_hoten).add(khcn_a9_donvicongtac).add(khcn_a9_thangquydoi).add(khcn_a9_hoten_sv),
 						khcn_a9_jtips	= $("#khcn_a9_tips");
 						
 					khcn_a9_allFields.removeClass( "ui-state-error" );
 					
-					bValid = bValid && checkLength( khcn_a9_loainc, "\"Loại thành viên\"", 0, 5, 0, khcn_a9_jtips);
-					if (khcn_a9_loainc.val() == '2'){
-						bValid = bValid && checkLength( khcn_a9_masv, "\"Mã số học viên\"", 0, 10, 0, khcn_a9_jtips);
+					bValid = bValid && checkLength( khcn_a9_loainc, "\"Nhân lực nghiên cứu\"", 0, 5, 0, khcn_a9_jtips);
+					if (khcn_a9_loainc.val() == '1'){
+						bValid = bValid && checkLength( khcn_a9_hoten, "\"Họ tên thành viên\"", 0, 100, 0, khcn_a9_jtips);
+					}else if (khcn_a9_loainc.val() == '2'){
+						bValid = bValid && checkLength( khcn_a9_masv, "\"Mã số NCS, học viên, sinh viên\"", 0, 10, 0, khcn_a9_jtips);
+						bValid = bValid && checkLength( khcn_a9_hoten_sv, "\"Họ tên NCS, học viên, sinh viên\"", 0, 100, 0, khcn_a9_jtips);
 					}
 					
-					bValid = bValid && checkLength( khcn_a9_hoten, "\"Họ tên thành viên\"", 0, 100, 0, khcn_a9_jtips);
 					bValid = bValid && checkLength( khcn_a9_donvicongtac, "\"Đơn vị công tác\"", 0, 200, 0, khcn_a9_jtips);
 					bValid = bValid && checkLength( khcn_a9_thangquydoi, "\"Đơn vị công tác\"", 0, 200, 0, khcn_a9_jtips);
 					
-					if (bValid){
-						gv_processing_diglog("open","Khoa học & Công nghệ", "Đang lưu dữ liệu ...");
-						dataString = $("#khcn_frm_reg_nhanlucnghiencuu").serialize() + '&a=addnhanlucnc&m='+khcn_matm_selected;
-						xreq = $.ajax({
-							type: 'POST', dataType: "json", data: dataString,
-							url: khcn_linkdata,
-							success: function(data) {
-								gv_processing_diglog("close");
-								if (data.success == 1){
-									if (data.loainhanluc==2)
-										ma_sv = " (" + data.ma_sv + ")" ;
-									else
-										ma_sv = "";
+					if (bValid ){
+						if ($("#khcn_frm_reg_nhanlucnghiencuu_manl").val()==""){
+							gv_processing_diglog("open","Khoa học & Công nghệ", "Đang lưu dữ liệu ...");
+							dataString = $("#khcn_frm_reg_nhanlucnghiencuu").serialize() + '&a=addnhanlucnc&m='+khcn_matm_selected;
+							xreq = $.ajax({
+								type: 'POST', dataType: "json", data: dataString,
+								url: khcn_linkdata,
+								success: function(data) {
+									gv_processing_diglog("close");
+									if (data.success == 1){
+										if (data.loainhanluc==2){
+											ho_ten = data.ho_ten_sv;
+											shcc_masv=data.ma_sv;
+										}else {
+											ho_ten = data.ho_ten;
+											shcc_masv=data.shcc;
+										}
+											
+										$( "#khcn_frm_edit_dtkhcn_A9_table_nhanluc tbody:eq("+(data.loainhanluc-1)+")" ).append( "<tr style='font-size:12px;' >" +
+											"<td align=left>" + data.ma_nhan_luc + "</td>" +
+											"<td align=left>" + ho_ten + "</td>" +
+											"<td align=left>" + shcc_masv + "</td>" +
+											"<td align=left>" + data.don_vi_cong_tac + "</td>" +
+											"<td align=center>" + data.so_thang + "</td>" +
+											"<td><button title='Xoá' class='khcn_nhanluc_remove' style='height:25px;width:30px;' onclick='khcn_remove_nhanluc( khcn_getRowIndex(this), "+data.loainhanluc+" ); return false;'></button> <button title='Sửa' class='khcn_nhanluc_edit' style='height:25px;width:30px;' onclick='khcn_edit_nhanluc( khcn_getRowIndex(this), "+data.loainhanluc+" ); return false;'></button></td>" +
+											"</tr>" );
+											
+										$("button.khcn_nhanluc_remove" ).button({ icons: {primary:'ui-icon ui-icon-trash'} });
+										$("button.khcn_nhanluc_edit" ).button({ icons: {primary:'ui-icon ui-icon-pencil'} });
 										
-									$( "#khcn_frm_edit_dtkhcn_A9_table_nhanluc tbody:eq("+(data.loainhanluc-1)+")" ).append( "<tr style='font-size:12px;' >" +
-										"<td align=left>" + data.ma_nhan_luc + "</td>" +
-										"<td align=left>" + data.ho_ten + ma_sv + "</td>" +
-										"<td align=left>" + data.don_vi_cong_tac + "</td>" +
-										"<td align=center>" + data.so_thang + "</td>" +
-										"<td><button class='khcn_nhanluc_remove' style='height:25px;width:30px;' onclick='khcn_remove_nhanluc( khcn_getRowIndex(this), "+data.loainhanluc+" ); return false;'></button></td>" +
-										"</tr>" );
-										
-									$("button.khcn_nhanluc_remove" ).button({ icons: {primary:'ui-icon ui-icon-trash'} });
-									
-									$( "#khcn_diag_nhanlucnghiencuu" ).dialog( "close" );
-								}else{
-									gv_open_msg_box("Có lỗi trong quá trình cập nhật dữ liệu.<p>Chi tiết lỗi: <br/><div style='margin: 5px 0 0 5px'>" + data.msgerr+'</div></p>', 'alert', 250, 180, true);
+										$( "#khcn_diag_nhanlucnghiencuu" ).dialog( "close" );
+									}else{
+										gv_open_msg_box("Có lỗi trong quá trình cập nhật dữ liệu.<p>Chi tiết lỗi: <br/><div style='margin: 5px 0 0 5px'>" + data.msgerr+'</div></p>', 'alert', 250, 180, true);
+									}
 								}
-							}
-						});
-						//$( this ).dialog( "close" );
+							});
+							//$( this ).dialog( "close" );
+						}else{
+							gv_processing_diglog("open","Khoa học & Công nghệ", "Đang lưu dữ liệu ...");
+							dataString = $("#khcn_frm_reg_nhanlucnghiencuu").serialize() + '&a=editnhanlucnc&m='+khcn_matm_selected+'&nlnc='+$("#khcn_frm_reg_nhanlucnghiencuu_loai").val()+'&shcc='+$("#khcn_frm_reg_nhanlucnghiencuu_shcc").val()+'&hoten='+$("#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").val();
+							xreq = $.ajax({
+								type: 'POST', dataType: "json", data: dataString,
+								url: khcn_linkdata,
+								success: function(data) {
+									gv_processing_diglog("close");
+									if (data.success == 1){
+										if (data.loainhanluc==2){
+											ho_ten = data.ho_ten_sv;
+											shcc_masv=data.ma_sv;
+										}else {
+											ho_ten = data.ho_ten;
+											shcc_masv=data.shcc;
+										}
+										
+										i = $("#khcn_frm_reg_nhanlucnghiencuu_index").val();
+										tbl = document.getElementById('khcn_frm_edit_dtkhcn_A9_table_nhanluc');
+	
+										tbl.rows[i].cells[0].innerHTML = data.ma_nhan_luc;
+										tbl.rows[i].cells[1].innerHTML = ho_ten;
+										tbl.rows[i].cells[2].innerHTML = shcc_masv;
+										tbl.rows[i].cells[3].innerHTML = data.don_vi_cong_tac;
+										tbl.rows[i].cells[4].innerHTML = data.so_thang;
+										
+										$( "#khcn_diag_nhanlucnghiencuu" ).dialog( "close" );
+									}else{
+										gv_open_msg_box("Có lỗi trong quá trình cập nhật dữ liệu.<p>Chi tiết lỗi: <br/><div style='margin: 5px 0 0 5px'>" + data.msgerr+'</div></p>', 'alert', 250, 180, true);
+									}
+								}
+							});
+						}
 					}
 				}
 			},
@@ -2271,25 +2332,10 @@ $(document).ready(function() {
 	}); */
 	
 	$('#khcn_frm_reg_nhanlucnghiencuu_loai').change(function() {
-		//alert($(this).val());
-		if ($(this).val()=='1'){
-			$( "#khcn_frm_reg_nhanlucnghiencuu_div_shcc" ).css( "display", "block" );
-			$( "#khcn_frm_reg_nhanlucnghiencuu_div_masv" ).css( "display", "none" );
-			$("#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").attr("title", "Học hàm, học vị, Họ và tên");
-			$("#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").attr("placeholder", "Học hàm, học vị, Họ và tên").placeholder();
-			
-		}else if ($(this).val()=='2'){
-			$( "#khcn_frm_reg_nhanlucnghiencuu_div_shcc" ).css( "display", "none" );
-			$( "#khcn_frm_reg_nhanlucnghiencuu_div_masv" ).css( "display", "block" );
-			$("#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").attr("title", "Họ và tên");
-			$("#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").attr("placeholder", "Họ và tên").placeholder();
-		}else{
-			$( "#khcn_frm_reg_nhanlucnghiencuu_div_shcc" ).css( "display", "none" );
-			$( "#khcn_frm_reg_nhanlucnghiencuu_div_masv" ).css( "display", "none" );
-		}
+		khcn_init_dialog_nhanluc($(this).val());
 	});
 	
-	$('#khcn_frm_reg_nhanlucnghiencuu_shcc').change(function() {
+	/* $('#khcn_frm_reg_nhanlucnghiencuu_shcc').change(function() {
 		khcn_GetLLKH($(this).val()).done(function(data){
 				if (data.success == 1){
 					$('#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten').val(data.llkh.ho_ten);
@@ -2301,7 +2347,7 @@ $(document).ready(function() {
 					gv_open_msg_box('<font color=red>SHCC không chính xác</font>', 'alert', 250, 180);
 				}
 		});
-	});
+	}); */
 	
 	$('#khcn_frm_reg_chuyengia_shcc').change(function() {
 		khcn_GetLLKH($(this).val()).done(function(data){
@@ -2383,7 +2429,7 @@ $(document).ready(function() {
 		khcn_formB5_3_changed = true;
 	});
 
-	$('#khcn_frm_edit_dtkhcn_dcndt_shcc').change(function() {
+	/* $('#khcn_frm_edit_dtkhcn_dcndt_shcc').change(function() {
 		if ($(this).val()){
 			gv_processing_diglog("open","Khoa học & Công nghệ" ,"Đang tìm thông tin của cán bộ giảng dạy ... vui lòng chờ");
 			dataString = 'a=getllkh&hisid=<?php echo $_REQUEST["hisid"];?>&'+$('#khcn_frm_edit_dtkhcn_dcndt_shcc').serialize();
@@ -2421,7 +2467,7 @@ $(document).ready(function() {
 			  error: function(xhr, ajaxOptions, thrownError) {}
 			});
 		}
-	});
+	}); */
 	
 	$('#khcn_frm_edit_dtkhcn_fk_cq_phoi_hop_1').change(function() {
 		//alert('change');
@@ -2535,6 +2581,38 @@ $(document).ready(function() {
 	};
     $("#khcn_frm_upload_file_vonkhac").ajaxForm(options1);
 	// End file upload
+	
+	// Khoi tao danh sach can bo giang day
+	dataString = 'a=ds_cb_thamgia&hisid=<?php echo $_REQUEST["hisid"] ?>';
+	xreq = $.ajax({
+		type: 'POST', url: 'khcn/khcn_thuyetminhdtkhcn_process.php', data: dataString,dataType: "json", 
+		success: function(data) {
+			khcn_init_ds_nhanlucnc(data.dscanbo);
+			khcn_init_ds_dongchunhiem(data.dscanbo);
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert (thrownError);
+		}
+	});
+	// end
+	
+	$("#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").focusout(function () {
+		//console.log("value " + this.value);
+		if(this.value==""){
+			console.log("xoa");
+			$( '#khcn_frm_reg_nhanlucnghiencuu_fk_ma_can_bo' ).val("");
+			$( '#khcn_frm_reg_nhanlucnghiencuu_shcc' ).val("");
+			$( '#khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac').val("");
+			
+		}
+	});
+	
+	$("#khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten").focusout(function () {
+		//console.log("value " + this.value);
+		if(this.value==""){
+			$( '#khcn_frm_edit_dtkhcn_fk_dong_chu_nhiem_dt, #khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten, #khcn_frm_edit_dtkhcn_dcndt_shcc, #khcn_frm_edit_dtkhcn_dcndt_ngay_sinh, #khcn_frm_edit_dtkhcn_dcndt_so_cmnd, #khcn_frm_edit_dtkhcn_dcndt_ngay_cap, #khcn_frm_edit_dtkhcn_dcndt_noi_cap, #khcn_frm_edit_dtkhcn_dcndt_ms_thue, #khcn_frm_edit_dtkhcn_dcndt_so_tai_khoan, #khcn_frm_edit_dtkhcn_dcndt_ngan_hang, #khcn_frm_edit_dtkhcn_dcndt_dia_chi_cq, #khcn_frm_edit_dtkhcn_dcndt_dien_thoai, #khcn_frm_edit_dtkhcn_dcndt_email' ).val("");
+		}
+	});
 });
 
 function khcn_initialTableThuyetMinhDTKHCN(urldata){
@@ -2769,24 +2847,27 @@ function khcn_GetThuyetMinh_ThongTinChung(pMaThuyetMinh){
 			
 			// A9
 			for (var i=0; i<data.nhanluc_cbgd.length; i++){
-				$( "#khcn_frm_edit_dtkhcn_A9_table_nhanluc tbody:eq(0)" ).append( "<tr style='font-size:12px;' >" +
+				$( "#khcn_frm_edit_dtkhcn_A9_table_nhanluc tbody:eq(0)" ).append( "<tr style='font-size:12px; border-color: #000000; border-width: 1px; border-style: solid; border-collapse:collapse;'>" +
 				"<td align=left>" + data.nhanluc_cbgd[i].ma_nhan_luc + "</td>" +
 				"<td align=left>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].ho_ten) + "</td>" +
+				"<td align=left>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].shcc) + "</td>" +
 				"<td align=left>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].don_vi_cong_tac) + "</td>" +
 				"<td align=center>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].so_thang_lv_quy_doi) + "</td>" +
-				"<td><button class='khcn_nhanluc_remove' style='height:25px;width:30px;' onclick='khcn_remove_nhanluc( khcn_getRowIndex(this), 1); return false;'></button></td>" +
+				"<td><button title='Xoá' class='khcn_nhanluc_remove' style='height:25px;width:30px;' onclick='khcn_remove_nhanluc( khcn_getRowIndex(this), 1); return false;'></button>&nbsp;<button title='Sửa' class='khcn_nhanluc_edit' style='height:25px;width:30px;' onclick='khcn_edit_nhanluc( khcn_getRowIndex(this), 1); return false;'></button></td>" +
 				"</tr>" );
 			}
 			for (var i=0; i<data.nhanluc_sv.length; i++){
-				$( "#khcn_frm_edit_dtkhcn_A9_table_nhanluc tbody:eq(1)" ).append( "<tr style='font-size:12px;' >" +
+				$( "#khcn_frm_edit_dtkhcn_A9_table_nhanluc tbody:eq(1)" ).append( "<tr style='font-size:12px; border-color: #000000; border-width: 1px; border-style: solid; border-collapse:collapse;' >" +
 				"<td align=left>" + data.nhanluc_sv[i].ma_nhan_luc + "</td>" +
-				"<td align=left>" + reverse_escapeJsonString(data.nhanluc_sv[i].ho_ten)+" ("+reverse_escapeJsonString(data.nhanluc_sv[i].ma_sv)+")"+ "</td>" +
+				"<td align=left>" + reverse_escapeJsonString(data.nhanluc_sv[i].ho_ten)+ "</td>" +
+				"<td align=left>" + reverse_escapeJsonString(data.nhanluc_sv[i].ma_sv) + "</td>" +
 				"<td align=left>" + reverse_escapeJsonString(data.nhanluc_sv[i].don_vi_cong_tac) + "</td>" +
 				"<td align=center>" + reverse_escapeJsonString(data.nhanluc_sv[i].so_thang_lv_quy_doi) + "</td>" +
-				"<td><button class='khcn_nhanluc_remove' style='height:25px;width:30px;' onclick='khcn_remove_nhanluc( khcn_getRowIndex(this), 2); return false;'></button></td>" +
+				"<td><button class='khcn_nhanluc_remove' style='height:25px;width:30px;' onclick='khcn_remove_nhanluc( khcn_getRowIndex(this), 2);  return false;'></button>&nbsp;<button class='khcn_nhanluc_edit' style='height:25px;width:30px;' onclick='khcn_edit_nhanluc( khcn_getRowIndex(this), 2); return false;'></button></td>" +
 				"</tr>" );
 			}
 			$("button.khcn_nhanluc_remove" ).button({ icons: {primary:'ui-icon ui-icon-trash'} });
+			$("button.khcn_nhanluc_edit" ).button({ icons: {primary:'ui-icon ui-icon-pencil'} });
 			
 			
 			// Open cua so edit
@@ -3601,6 +3682,69 @@ function khcn_fnGetSelected( oTableLocal ){
     return oTableLocal.$('tr.row_selected');
 }
 
+function khcn_init_dialog_nhanluc(ploai, pManl, pShccMaSV, pHoten, pDvct, pThangQD){
+	$("#khcn_frm_reg_nhanlucnghiencuu_manl").val(pManl);
+	$("#khcn_frm_reg_nhanlucnghiencuu_loai").val(ploai);
+	
+	if (ploai==1){ // Thanh vien chu chot
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten" ).show();
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_ho_ten_sv" ).hide();
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_huongdan" ).show();
+		$( "#khcn_frm_reg_nhanlucnghiencuu_div_shcc" ).css( "display", "block" );
+		$( "#khcn_frm_reg_nhanlucnghiencuu_div_masv" ).css( "display", "none" );
+		
+		$("#khcn_frm_reg_nhanlucnghiencuu_shcc").val(pShccMaSV);
+		$("#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").val(pHoten);
+		$("#khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac").val(pDvct);
+		$("#khcn_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi").val(pThangQD);
+		
+	}else if (ploai==2){ // Sinh vien
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_ho_ten_sv" ).show();
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten" ).hide();
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_huongdan" ).hide();
+		$( "#khcn_frm_reg_nhanlucnghiencuu_div_shcc" ).css( "display", "none" );
+		$( "#khcn_frm_reg_nhanlucnghiencuu_div_masv" ).css( "display", "block" );
+		
+		$("#khcn_frm_reg_nhanlucnghiencuu_masv").val(pShccMaSV);
+		$("#khcn_frm_reg_nhanlucnghiencuu_ho_ten_sv").val(pHoten);
+		$("#khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac").val(pDvct);
+		$("#khcn_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi").val(pThangQD);
+		
+	}else{
+		$( "#khcn_frm_reg_nhanlucnghiencuu_div_shcc" ).css( "display", "none" );
+		$( "#khcn_frm_reg_nhanlucnghiencuu_div_masv" ).css( "display", "none" );
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_ho_ten_sv" ).hide();
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten" ).hide();
+		$( "#khcn_div_frm_reg_nhanlucnghiencuu_huongdan" ).hide();
+	}
+	
+	if (pManl){ // edit
+		$("#khcn_frm_reg_nhanlucnghiencuu_loai, #khcn_frm_reg_nhanlucnghiencuu_shcc, #khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").attr("disabled", "disabled");
+	}else { // Insert
+		$("#khcn_frm_reg_nhanlucnghiencuu_loai, #khcn_frm_reg_nhanlucnghiencuu_shcc, #khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").removeAttr("disabled");
+	}
+}
+
+function khcn_edit_nhanluc(pindex, ploai){
+	//gv_processing_diglog("open","Khoa học & Công nghệ", "Đang xóa dữ liệu ...");
+	$("#khcn_frm_reg_nhanlucnghiencuu").find('input[type=text], input[type=hidden], textarea, select').val('');
+	
+	i = pindex + 1;
+	t = document.getElementById('khcn_frm_edit_dtkhcn_A9_table_nhanluc');
+	
+	$("#khcn_frm_reg_nhanlucnghiencuu_index").val(i);
+	
+	manhanluc = t.rows[i].cells[0].innerHTML;
+	hoten = t.rows[i].cells[1].innerHTML;
+	shcc_masv = t.rows[i].cells[2].innerHTML;
+	dvct = t.rows[i].cells[3].innerHTML;
+	thangQD = t.rows[i].cells[4].innerHTML;
+
+	khcn_init_dialog_nhanluc(ploai, manhanluc, shcc_masv, hoten, dvct, thangQD);
+	
+	$('#khcn_diag_nhanlucnghiencuu').dialog('open');
+}
+
 function khcn_remove_nhanluc(pindex, ploai){
 	gv_processing_diglog("open","Khoa học & Công nghệ", "Đang xóa dữ liệu ...");
 	
@@ -3890,6 +4034,77 @@ function khcn_delete_tmdt(pindex){
 	$('#khcn_diag_confirm_delete_tmdt').dialog('open');
 }
 
+function khcn_init_ds_nhanlucnc(pProjects){
+	$( "#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten").autocomplete({
+			minLength: 0,
+			source: pProjects,
+			focus: function( event, ui ) {
+				return false;
+			},
+			select: function( event, ui ) {
+				$( '#khcn_frm_reg_nhanlucnghiencuu_fk_ma_can_bo' ).val(reverse_escapeJsonString(ui.item.value));
+				$( '#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' ).val(reverse_escapeJsonString(ui.item.label));
+				$( '#khcn_frm_reg_nhanlucnghiencuu_shcc').val( ui.item.shcc );
+				$( '#khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac').val( reverse_escapeJsonString(ui.item.cq ));
+				
+				//console.log('click ' + $( '#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' ).val());
+				return false;
+			},
+			change:function( event, ui ) {
+				var data=$.data(this);
+				if(data.autocomplete.selectedItem==undefined){
+					$( '#khcn_frm_reg_nhanlucnghiencuu_fk_ma_can_bo' ).val("");
+					$( '#khcn_frm_reg_nhanlucnghiencuu_shcc' ).val("");
+					$( '#khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac').val("");
+				}
+				
+				//console.log('change ' + $( '#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' ).val());
+			}
+	})
+	.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li>" ).append( "<a><b>" + item.label + "</b><br>" + reverse_escapeJsonString(item.desc) + "</a><hr>" ).appendTo( ul );
+	};
+}
+
+function khcn_init_ds_dongchunhiem(pProjects){
+	$( "#khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten").autocomplete({
+			minLength: 0,
+			source: pProjects,
+			focus: function( event, ui ) {
+				return false;
+			},
+			select: function( event, ui ) {
+				$( '#khcn_frm_edit_dtkhcn_fk_dong_chu_nhiem_dt' ).val(reverse_escapeJsonString(ui.item.value));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten' ).val(reverse_escapeJsonString(ui.item.label));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_shcc').val( ui.item.shcc );
+				$( '#khcn_frm_edit_dtkhcn_dcndt_ngay_sinh').val( reverse_escapeJsonString(ui.item.ngaysinh ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_so_cmnd').val( reverse_escapeJsonString(ui.item.cmnd ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_ngay_cap').val( reverse_escapeJsonString(ui.item.ngaycap ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_noi_cap').val( reverse_escapeJsonString(ui.item.noicap ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_ms_thue').val( reverse_escapeJsonString(ui.item.msthue ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_so_tai_khoan').val( reverse_escapeJsonString(ui.item.stk ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_ngan_hang').val( reverse_escapeJsonString(ui.item.nganhang ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_dia_chi_cq').val( reverse_escapeJsonString(ui.item.diachicq ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_dien_thoai').val( reverse_escapeJsonString(ui.item.dienthoai ));
+				$( '#khcn_frm_edit_dtkhcn_dcndt_email').val( reverse_escapeJsonString(ui.item.email ));
+				$('input:radio[name=khcn_frm_edit_dtkhcn_dcndt_phai][value='+ui.item.phai+']').attr('checked', true);
+				
+				//console.log('click ' + $( '#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' ).val());
+				return false;
+			},
+			change:function( event, ui ) {
+				var data=$.data(this);
+				if(data.autocomplete.selectedItem==undefined){
+					$( '#khcn_frm_edit_dtkhcn_fk_dong_chu_nhiem_dt, #khcn_frm_edit_dtkhcn_dcndt_hh_hv_ho_ten, #khcn_frm_edit_dtkhcn_dcndt_shcc, #khcn_frm_edit_dtkhcn_dcndt_ngay_sinh, #khcn_frm_edit_dtkhcn_dcndt_so_cmnd, #khcn_frm_edit_dtkhcn_dcndt_ngay_cap, #khcn_frm_edit_dtkhcn_dcndt_noi_cap, #khcn_frm_edit_dtkhcn_dcndt_ms_thue, #khcn_frm_edit_dtkhcn_dcndt_so_tai_khoan, #khcn_frm_edit_dtkhcn_dcndt_ngan_hang, #khcn_frm_edit_dtkhcn_dcndt_dia_chi_cq, #khcn_frm_edit_dtkhcn_dcndt_dien_thoai, #khcn_frm_edit_dtkhcn_dcndt_email' ).val("");
+				}
+				
+				//console.log(data);
+			}
+	})
+	.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+		return $( "<li>" ).append( "<a><b>" + item.label + "</b><br>" + reverse_escapeJsonString(item.desc) + "</a><hr>" ).appendTo( ul );
+	};
+}
 </script>
 
 

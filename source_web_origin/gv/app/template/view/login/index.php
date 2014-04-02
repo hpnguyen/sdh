@@ -14,10 +14,11 @@ if (isset($_GET['error'])) {
 }
 ?> 
 <form action="<?php echo Helper::getHelper('functions/util')->getModuleActionRouteUrl("login/index/login",true); ?>" method="post" name="login_form">                      
-	Email: <input type="text" name="email" />
+	Username: <input type="text" name="username" />
 	Password: <input type="password" name="password" id="password"/>
 	<input type="button" value="Login" onclick="formhash(this.form, this.form.password);" /> 
 </form>
 <p>If you don't have a login, please <a href="<?php echo Helper::getHelper('functions/util')->getModuleActionRouteUrl("login/index/register",true); ?>">register</a></p>
 <p>If you are done, please <a href="<?php echo Helper::getHelper('functions/util')->getModuleActionRouteUrl("login/index/logout",true); ?>">log out</a>.</p>
 <p>You are currently logged <?php echo $logged ?>.</p>
+<iframe src="http://www.w3schools.com"></iframe> 

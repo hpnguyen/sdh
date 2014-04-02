@@ -7,14 +7,18 @@ if (isset($_REQUEST["hisid"]))
 	session_start();
 }
 
+$setDefaultTabKhcn = false;
+if (isset($_REQUEST["k"]) && $_REQUEST["k"] == 'khcn')
+{
+	$setDefaultTabKhcn = true;$_REQUEST["k"];
+}
+
 //echo ini_get('session.gc_maxlifetime');
 
 if (!isset($_SESSION['uidloginPortal'])){
 	header("Location: login.php");
 	die('Truy cập bất hợp pháp'); 
-}
-else
-{
+} else {
 	include "libs/connect.php";
 	$usr = base64_decode($_SESSION["uidloginPortal"]);
 	$pass = base64_decode($_SESSION["pidloginPortal"]);
@@ -27,7 +31,7 @@ else
 	WHERE upper(username)=upper('".str_replace("'","''",$usr)."') 
 	AND password='".str_replace("'","''",$pass)."'";
 	
-	if(isset($_SESSION['phpCAS'])){
+	if(isset($_SESSION['phpCAS']) || isset ($_SESSION['useIframeLogin'])){
 		$sqlstr="SELECT username, first_login, email
 		FROM nhan_su 
 		WHERE upper(username)=upper('".str_replace("'","''",$usr)."')";
@@ -1099,7 +1103,18 @@ parse_str($a);
 			{
 				echo "gv_open_msg_box('Quý Thầy/Cô vui lòng cập nhật thông tin <b>Email</b> vào <b>Thông tin tài khoản</b> ở mục Bảo mật vì Email này được dùng để khôi phục mật khẩu khi quý Thầy/Cô quên mật khẩu','info');";
 			}
+		
+		//**********************************************************************************
+		// Set defaut tab after login success
+		//**********************************************************************************
+		if ($setDefaultTabKhcn){ 
 		?>
+		$('#ui-id-4').trigger('click');
+		<?php 
+		}
+		//********************************************************************************** 
+		?>
+		
 	}); 
 </script>	
     <div class="demo" style="width:100%;">
@@ -1455,7 +1470,7 @@ Quý Thầy Cô phát hiện lỗi xin vui lòng gửi email<br/> thông báo ch
 </div> <!-- End footer -->
 </div>
 
-<div id="gv_index_dialog_msgbox" title="Phòng Đào Tạo SDH - ĐHBK TP.HCM">
+<div id="gv_index_dialog_msgbox" title="Cổng thông tin cán bộ - ĐHBK TP.HCM">
 <span id=gv_index_dialog_msgbox_icon style="float:left; margin:0 7px 60px 0;"></span><span id="gv_index_dialog_msgbox_msg" style="line-height:16px"></span>
 </div>
 

@@ -457,7 +457,7 @@ var txtNgaySinh 	= $("#txtNgaySinh"),
 		//bValid = bValid && ttgv_checkLength( txtNamPhongHocHam, "\"Năm được phong học hàm\"", 4, 4);
 		bValid = bValid && ttgv_checkRegexp( txtNamPhongHocHam,/^[0-9]{4,4}$/i, "Năm phong học hàm phải đủ 4 Số");
 		
-		bValid = bValid && ttgv_checkRegexp( txtSTK,/^[0-9]{5,20}$/i, "Số Tài khoản tối đa 30 Số");
+		bValid = bValid && ttgv_checkRegexp( txtSTK,/^[0-9A-Za-z]{5,30}$/i, "Số Tài khoản tối đa 30 Số");
 		
 		//bValid = bValid && ttgv_checkLength( txtNganh, "\"Ngành\"", 0, 8);
 		

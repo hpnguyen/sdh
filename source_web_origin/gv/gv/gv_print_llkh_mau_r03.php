@@ -14,19 +14,41 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '002', $db_con
 	die('Truy cập bất hợp pháp'); 
 }
 
-$macb = $_POST['m'];
-$a = $_REQUEST['a']; // get_llkh
-$b = $_REQUEST['b']; // export_file
-$c = $_REQUEST['c']; // id ma thuyet minh de tai
-$d = $_REQUEST['d']; // ten file
-$e = $_REQUEST['e']; // ma can bo
+$macb = "'".str_replace("'", "''", $_POST['m'])."'";
+$a = str_replace("'", "''",$_REQUEST['a']); // get_llkh
+$b = str_replace("'", "''",$_REQUEST['b']); // export_file
+$c = str_replace("'", "''",$_REQUEST['c']); // ma thuyet minh de tai
+$d = str_replace("'", "''",$_REQUEST['d']); // ten file
+$e = str_replace("'", "''",$_REQUEST['e']); // ma can bo
 
-if ($macb == '') 
-	$macb = $_SESSION['macb'];
+if ($macb == "''"){
+	$macb = "'".$_SESSION['macb']."'";
+}
 
-if ($e != '')
-	$macb = $e;
+if ($e != ''){
+	$macb = "'".$e."'";
+}
+
+if ($b == 'export_htm'){
+	$sqlstr="select FK_MA_CAN_BO from nckhda.NCKH_NHAN_LUC_TMDT_CBGD  where FK_MA_THUYET_MINH_DT = '$c'";
+	$stmt = oci_parse($db_conn, $sqlstr);
+	if (!oci_execute($stmt))
+	{
+		$e = oci_error($stmt);
+		$msgerr = $e['message']. " sql: " . $e['sqltext'];
+		die ('{"success":"-1", "msgerr":"'.escapeWEB($msgerr).'"}');
+	}
+	$n = oci_fetch_all($stmt, $dscb);oci_free_statement($stmt);
 	
+	$macb='';
+	for ($i=0; $i<$n; $i++){
+		$macb .= "'".$dscb["FK_MA_CAN_BO"][$i]."',";
+	}
+	if ($n) {$macb=substr($macb,0,-1);}
+	
+	//die($sqlstr.'abc'.$macb);
+}
+
 $sqlstr="select cb.*, to_char(cb.NGAY_SINH,'dd-mm-yyyy') NGAY_SINH, decode(PHAI, 'M', 'Nam', 'F', 'Nữ') phai_desc, k.ten_khoa, bm.ten_bo_mon,
 		v.ten_chuc_vu, bmql.ten_bo_mon ten_bo_mon_ql, qghv.ten_quoc_gia ten_nuoc_hv, hv.TEN ten_hv, cb.CHUYEN_MON_BC_BO_GDDT,
 		decode(MA_HOC_HAM, 'GS','Giáo sư', 'PGS','Phó giáo sư', '') TEN_HOC_HAM, GET_THANH_VIEN(cb.ma_can_bo) HOTENCB,
@@ -37,12 +59,10 @@ $sqlstr="select cb.*, to_char(cb.NGAY_SINH,'dd-mm-yyyy') NGAY_SINH, decode(PHAI,
 		and cb.ma_bo_mon_ql = bmql.ma_bo_mon (+)
 		and cb.qg_dat_hoc_vi = qghv.ma_quoc_gia (+)
 		and cb.ma_hoc_vi = hv.ma_hoc_vi (+)
-		and cb.ma_can_bo='$macb'";
+		and cb.ma_can_bo in ($macb)";
 
-$stmt = oci_parse($db_conn, $sqlstr);
-oci_execute($stmt);
-$n = oci_fetch_all($stmt, $cbgd);
-oci_free_statement($stmt);
+$stmt = oci_parse($db_conn, $sqlstr); oci_execute($stmt); $n1 = oci_fetch_all($stmt, $cbgd); oci_free_statement($stmt);
+
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $ngay =date("d");
 $thang =date("m");
@@ -51,14 +71,20 @@ $gio =date("H");
 $phut =date("i");
 $z = 1;
 
+//die($sqlstr);
+
+for ($k=0; $k<$n1; $k++)
+{
+$macb = $cbgd["MA_CAN_BO"][$k];
+
 // update sv tu bk
 // Lay ds thac si, tien si tu db bk
 $sqlstr="begin NCKH_UPDATE_NCS_HVCH('$macb'); end;"; 
 $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt);
 
 //file_put_contents("logs.txt", date("H:i:s d.m.Y")." $sqlstr\n", FILE_APPEND);
-if ($cbgd["HINH_ANH"][0]!=""){
-	$filehinh  = str_replace("./", "http://www.grad.hcmut.edu.vn/gv/", $cbgd["HINH_ANH"][0]); //./gv/anh46/0_1838.jpg
+if ($cbgd["HINH_ANH"][$k]!=""){
+	$filehinh  = str_replace("./", "http://www.grad.hcmut.edu.vn/gv/", $cbgd["HINH_ANH"][$k]); //./gv/anh46/0_1838.jpg
 }else{
 	$filehinh  = "http://www.grad.hcmut.edu.vn/gv/images/llkh/khunganh4x6.png";
 }
@@ -133,39 +159,39 @@ if ($a != 'get_llkh')
 					<td align=left style="width:15px">I.</td><td >THÔNG TIN CHUNG</td>
 				</tr>
 				<tr align="left">        
-					<td align=left ><b><?php echo $z++ . "."; ?></b></td><td  style=""><b>Họ và tên:</b> <?php echo $cbgd["HO"][0]. " " .$cbgd["TEN"][0]; ?></td>
+					<td align=left ><b><?php echo $z++ . "."; ?></b></td><td  style=""><b>Họ và tên:</b> <?php echo $cbgd["HO"][$k]. " " .$cbgd["TEN"][$k]; ?></td>
 				</tr>
 				<tr align="left">
-					<td align=left><b><?php echo $z++ . "."; ?></b></td><td><b>Ngày sinh:</b> <?php echo $cbgd["NGAY_SINH"][0]; ?></td>
+					<td align=left><b><?php echo $z++ . "."; ?></b></td><td><b>Ngày sinh:</b> <?php echo $cbgd["NGAY_SINH"][$k]; ?></td>
 				</tr>
 				<tr align="left">
-					<td align=left><b><?php echo $z++ . "."; ?></b></td><td><b>Nam/Nữ:</b> <?php echo $cbgd["PHAI_DESC"][0]; ?></td>
+					<td align=left><b><?php echo $z++ . "."; ?></b></td><td><b>Nam/Nữ:</b> <?php echo $cbgd["PHAI_DESC"][$k]; ?></td>
 				</tr>
 				<tr align="left" style="font-weight:bold">
 					<td align=left><?php echo $z++ . "."; ?></td><td>Nơi đang công tác:</td>
 				</tr>
 				<tr align="left">
-					<td align=left></td><td ><u>Trường/Viện:</u> <?php echo $cbgd["CO_QUAN_CONG_TAC"][0]; ?></td>
+					<td align=left></td><td ><u>Trường/Viện:</u> <?php echo $cbgd["CO_QUAN_CONG_TAC"][$k]; ?></td>
 				</tr>
 				<tr align="left">
-					<td align=left></td><td ><u>Phòng/Khoa:</u> <?php echo $cbgd["TEN_KHOA"][0]; ?></td>
+					<td align=left></td><td ><u>Phòng/Khoa:</u> <?php echo $cbgd["TEN_KHOA"][$k]; ?></td>
 				</tr>
 				<tr align="left">
-					<td align=left></td><td ><u>Bộ môn:</u> <?php echo $cbgd["TEN_BO_MON"][0]; ?></td>
-				</tr>
-				
-				<tr align="left">
-					<td align=left></td><td><u>Chức vụ:</u> <?php if ($cbgd["TEN_CHUC_VU"][0]!='') echo $cbgd["TEN_CHUC_VU"][0]. " " .$cbgd["TEN_BO_MON_QL"][0];  ?></td>
+					<td align=left></td><td ><u>Bộ môn:</u> <?php echo $cbgd["TEN_BO_MON"][$k]; ?></td>
 				</tr>
 				
 				<tr align="left">
-					<td align=left><b><?php echo $z++ . "."; ?></b></td><td ><b>Học vị:</b> <?php echo $cbgd["TEN_HV"][0];?>, <b>năm đạt:</b> <?php echo $cbgd["NAM_DAT_HV_CAO_NHAT"][0];?>
+					<td align=left></td><td><u>Chức vụ:</u> <?php if ($cbgd["TEN_CHUC_VU"][$k]!='') echo $cbgd["TEN_CHUC_VU"][$k]. " " .$cbgd["TEN_BO_MON_QL"][$k];  ?></td>
+				</tr>
+				
+				<tr align="left">
+					<td align=left><b><?php echo $z++ . "."; ?></b></td><td ><b>Học vị:</b> <?php echo $cbgd["TEN_HV"][$k];?>, <b>năm đạt:</b> <?php echo $cbgd["NAM_DAT_HV_CAO_NHAT"][$k];?>
 					</td>
 				</tr>
 				<tr align="left">
-					<td align=left><b><?php echo $z++ . "."; ?></b></td><td ><b>Học hàm:</b> <?php 	echo $cbgd["TEN_HOC_HAM"][0]; 
-																									if ($cbgd["MA_HOC_HAM"][0]=='GS' || $cbgd["MA_HOC_HAM"][0]=='PGS' ) 
-																										echo ", <b>năm phong:</b> {$cbgd["NAM_PHONG_HOC_HAM"][0]}";
+					<td align=left><b><?php echo $z++ . "."; ?></b></td><td ><b>Học hàm:</b> <?php 	echo $cbgd["TEN_HOC_HAM"][$k]; 
+																									if ($cbgd["MA_HOC_HAM"][$k]=='GS' || $cbgd["MA_HOC_HAM"][$k]=='PGS' ) 
+																										echo ", <b>năm phong:</b> {$cbgd["NAM_PHONG_HOC_HAM"][$k]}";
 																							?>
 					</td>
 				</tr>
@@ -186,13 +212,13 @@ if ($a != 'get_llkh')
 							</thead>
 							<tbody>
 							  <tr>
-								<td>1</td><td><b>Địa chỉ</b></td><td><?php echo $cbgd["DIA_CHI"][0];?></td><td><?php echo $cbgd["DIA_CHI_RIENG"][0];?></td>
+								<td>1</td><td><b>Địa chỉ</b></td><td><?php echo $cbgd["DIA_CHI"][$k];?></td><td><?php echo $cbgd["DIA_CHI_RIENG"][$k];?></td>
 							  </tr>
 							  <tr>
-								<td>2</td><td><b>Điện thoại/fax</b></td><td><?php echo $cbgd["DIEN_THOAI"][0];?></td><td><?php echo $cbgd["DIEN_THOAI_CN"][0];?></td>
+								<td>2</td><td><b>Điện thoại/fax</b></td><td><?php echo $cbgd["DIEN_THOAI"][$k];?></td><td><?php echo $cbgd["DIEN_THOAI_CN"][$k];?></td>
 							  </tr>
 							  <tr>
-								<td>3</td><td><b>Email</b></td><td><?php echo $cbgd["EMAIL"][0];?></td><td><?php echo $cbgd["EMAIL_2"][0];?></td>
+								<td>3</td><td><b>Email</b></td><td><?php echo $cbgd["EMAIL"][$k];?></td><td><?php echo $cbgd["EMAIL_2"][$k];?></td>
 							  </tr>
 							</tbody>
 						</table>
@@ -359,11 +385,11 @@ if ($a != 'get_llkh')
 							</tr>
 							<tr  >
 								<td align=left style="font-weight:bold;">- Chuyên ngành:</td>
-								<td align=left><?php echo $cbgd["CHUYEN_NGANH"][0]; ?></td>
+								<td align=left><?php echo $cbgd["CHUYEN_NGANH"][$k]; ?></td>
 							</tr>
 							<tr >
 								<td align=left style="font-weight:bold;">- Chuyên môn:</td>
-								<td align=left><?php echo $cbgd["CHUYEN_MON"][0];  ?></td>
+								<td align=left><?php echo $cbgd["CHUYEN_MON"][$k];  ?></td>
 							</tr>	
 						</table>
 					</td>
@@ -1198,7 +1224,7 @@ if ($a != 'get_llkh')
 										<b>Người khai</b><br/>
 										<i>(Họ tên và chữ ký)</i>
 										<br/><br/><br/><br/><br/><br/>
-										<b><?php echo $cbgd["HOTENCB"][0]; ?></b>
+										<b><?php echo $cbgd["HOTENCB"][$k]; ?></b>
 									</div>
 								</td>
 							</tr>
@@ -1246,12 +1272,14 @@ if ($b == 'export_htm')
 	if (!mkdir('../khcn/'.$uploaddir, 0, true)) {	
 		//echo '../khcn/'.$uploaddir;
 	}
-	$filename = "../khcn/$uploaddir/$c"."_".$d.".htm";
+	$filename = "../khcn/$uploaddir/$c"."_".$cbgd["MA_CAN_BO"][$k].".htm";
 
 	//save buffer in a file
 	$buffer = ob_get_flush();
 	file_put_contents($filename, $buffer);
 }
+
+} // End for (lap lai theo 1 danh sach ma can bo phan bien)
 ?>
 <?php
 if (isset ($db_conn))

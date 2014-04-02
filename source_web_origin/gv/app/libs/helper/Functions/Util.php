@@ -183,4 +183,19 @@ class HelperFunctionsUtil {
 		
 		return $config['server_encrypt_keycode2'];
 	}
+	
+	function reverse_escape($str)
+	{
+		$search=array("\\\\","\\0","\\n","\\r","\Z","\'",'\"');
+		$replace=array("\\","\0","\n","\r","\x1a","'",'"');
+		return str_replace($search,$replace,$str);
+	}
+	
+	// \" \\ \/ \b \f \n \r \t \u
+	function escapeJsonString($value) { # list from www.json.org: (\b backspace, \f formfeed)
+		$escapers = array("\\", "/", '"', "\n", "\r", "\t", "\x08", "\x0c");
+		$replacements = array("\\\\", "\\/", '\"', "\\n", "\\r", "\\t", "\\f", "\\b");
+		$result = str_replace($escapers, $replacements, $value);
+		return $result;
+	}
 }

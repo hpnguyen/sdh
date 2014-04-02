@@ -1,5 +1,23 @@
 <script type="text/javascript" src="<?php echo Helper::getHelper('functions/util')->getGvRootURL() ?>/js/jshash/sha512.js"></script>
 <script type="text/javascript" src="<?php echo Helper::getHelper('functions/util')->getGvRootURL() ?>/js/jshash/forms.js"></script>
+<script type="text/javascript">
+	function formhashadd(form, password) {
+		// Create a new element input, this will be our hashed password field.
+		var p = document.createElement("input");
+	
+		// Add the new element to our form.
+		form.appendChild(p);
+		p.name = "p";
+		p.type = "hidden";
+		p.value = password.value;
+	
+		// Make sure the plaintext password doesn't get sent.
+		password.value = "";
+	
+		// Finally submit the form.
+		form.submit();
+	}
+</script>
 <!-- Registration form to be output if the POST variables are not
 set or if the registration script caused an error. -->
 <h1>Register with us</h1>

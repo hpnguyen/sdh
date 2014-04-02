@@ -134,6 +134,8 @@ $config = array(
 																'printpdfbm01' => array(
 																),
 																'printpdfbm06' => array(
+																),
+																'printtmdt' => array(
 																)
 																
 								)
@@ -149,6 +151,14 @@ $config = array(
 																'logout' => array(
 																),
 																'login' => array(
+																),
+																'add' => array(
+																),
+																'gethashpass' => array(
+																),
+																'inithash' => array(
+																),
+																'gethashpassonlydata' => array(
 																)
 												),
 												'Cas' => array(

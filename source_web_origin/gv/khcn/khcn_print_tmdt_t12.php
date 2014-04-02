@@ -15,6 +15,7 @@ if (!allowPermisstion(base64_decode($_SESSION['uidloginPortal']), '051', $db_con
 $macb = $_REQUEST['m'];
 $a = $_REQUEST['a'];
 $key = $_REQUEST["k"];
+$usr = base64_decode($_SESSION["uidloginPortal"]);
 
 if ($macb == '') 
 	$macb = $_SESSION['macb'];
@@ -45,7 +46,8 @@ $y = 1;
 if ($a != 'print_tmdt_pdf')
 {
 ?>
-  <button id="print_tmdt_r01_btn_printpreview<?php echo $key; ?>">&nbsp;In ...</button> <button id="print_tmdt_r01_btn_printpdf<?php echo $key; ?>">&nbsp;In PDF...</button>
+  <button id="print_tmdt_r01_btn_printpreview<?php echo $key; ?>">&nbsp;In ...</button> 
+  <a target="_blank" href="front.php/khcn/phanbien/printtmdt?hisid=<?php echo $_GET['hisid'] ?>&pdf=1&mdt=<?php echo $_GET['m'] ?>" id="print_tmdt_r01_btn_printpdf<?php echo $key; ?>">&nbsp;In PDF...</a>
   <div align="center" style="margin-top:10px; font-family:Arial,Helvetica,sans-serif;" id="chitietttgv_tmdt_mau_r01<?php echo $key; ?>">
 <?php
 }else {
@@ -560,24 +562,11 @@ $(function(){
  });
  
  $( "#print_tmdt_r01_btn_printpdf<?php echo $key; ?>" ).click(function(){
-	var a = encodeURIComponent('http://www.grad.hcmut.edu.vn/gvbeta/khcn/khcn_print_tmdt_r01.php?a=print_tmdt_pdf&hisid=eremqim7im97c46dvp2aijrec1&m=20130001&k=print_tmdt_1_22');
-	var content = encodeURIComponent($("#chitietttgv_tmdt_mau_r01<?php echo $key; ?>").html());
-	$.download('khcn/khcn_publishpdf.php', 'url_print='+content);
-	
-	
-	// http://www.grad.hcmut.edu.vn/gvbeta/khcn/khcn_print_tmdt_r01.php?a=print_tmdt_pdf&hisid=eremqim7im97c46dvp2aijrec1&m=20130001&k=print_tmdt_1_22 //?a=print_tmdt_pdf&hisid=<?php echo $_REQUEST["hisid"];?>&m="+matmdt+"&k="+key
-	/*
-	xreq = $.ajax({
-	  type: 'POST', dataType: "html", data: '',
-	  url: 'khcn/khcn_publishpdf.php?url_print='+a,
-	  success: function(data) {
-		alert(data);
-	  }
-	});*/
-	
+	var url = 'front.php/khcn/phanbien/printtmdt?hisid=<?php echo $_GET['hisid'] ?>&pdf=1&mdt=<?php echo $_GET['m'] ?>';
+	window.open(url);
 	return false;
  });
- $("#print_tmdt_r01_btn_printpdf<?php echo $key; ?>").button("disable");
+ // $("#print_tmdt_r01_btn_printpdf<?php echo $key; ?>").button("disable");
  
  gv_processing_diglog("open","Khoa học & Công nghệ" ,"Đang xử lý ... vui lòng chờ");
  urlgetdata = "khcn/khcn_thuyetminhdtkhcn_process.php";
@@ -688,7 +677,7 @@ $(function(){
 				for (var i=0; i<data.nhanluc_cbgd.length; i++){
 					$( "#khcn_print_r01_A9_table_nhanluc<?php echo $key; ?> tbody:eq(0)" ).append( "<tr>" +
 					"<td align=center>" + (i+1) + "</td>" +
-					"<td align=left>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].ho_ten) + "</td>" +
+					"<td align=left><a href='./khcn/users/<?php echo "$usr/tmdt_llkh/".$_REQUEST['m']."_"; ?>"+data.nhanluc_cbgd[i].ma_cb+".htm' target='_blank'>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].ho_ten) + "</a></td>" +
 					"<td align=left>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].shcc) +  "</td>" +
 					"<td align=left>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].don_vi_cong_tac) + "</td>" +
 					"<td align=center>" + reverse_escapeJsonString(data.nhanluc_cbgd[i].so_thang_lv_quy_doi) + "</td>" +

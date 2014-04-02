@@ -343,7 +343,8 @@ function <?php echo $formKey ?>InitReady(){
 		
 		if (cap_dt == 23 || (cap_dt > 30 && cap_dt < 35)){
 			var links = "<?php echo $gvURL ?>/khcn/"+fileprint+"?a=print_tmdt_pdf&hisid=<?php echo $_REQUEST["hisid"]; ?>&mdt="+matmdt+"&mcb=<?php echo $macb ?>&k=";
-			window.open(links,tabname,'width=650,height=800,menubar=1'+',toolbar=0'+',status=0'+',scrollbars=1'+',resizable=1');
+			//window.open(links,tabname,'width=650,height=800,menubar=1'+',toolbar=0'+',status=0'+',scrollbars=1'+',resizable=1');
+			window.open(links);
 		}else{
 			alert("Không có mẫu để xem");
 		}

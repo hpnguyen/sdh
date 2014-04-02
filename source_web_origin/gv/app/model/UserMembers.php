@@ -69,11 +69,31 @@ class UserMembersModel extends BaseTable {
 		}
 	}
 	
-	public function addNew($username, $email, $password)
+	public function checkUserExist($username)
+	{
+		$ret = null;
+		if (! empty($username)){
+			$check = $this->getSelect("*")->where("UPPER(username) = UPPER('".$username."')")->execute(false, array());
+			if($check->itemsCount > 0){
+				$row = $check->result[0];
+				$ret = $row['id'];
+			}
+		}
+		
+		return $ret;
+	}
+	
+	public function addNew($username, $email, $password,$random_salt = null)
 	{
 		//Insert new record
-		$random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
- 
+		if ($random_salt == null){
+			$randomText = '';
+			if (function_exists ('openssl_random_pseudo_bytes')){
+				$randomText = openssl_random_pseudo_bytes(16);
+			}
+			$random_salt = hash('sha512', uniqid($randomText, TRUE));
+		}
+		 
 		// Create salted password
 		$password = hash('sha512', $password . $random_salt);
 		
@@ -84,6 +104,12 @@ class UserMembersModel extends BaseTable {
 			'password' => $password,
 			'salt' => $random_salt
 		);
+		//check user
+		$id = $this->checkUserExist($username);
+		
+		if($id != null){
+			$data['id'] = $id;
+		}
 		
 		return $this -> doCreateUpdate($data);
 	}
@@ -103,6 +129,23 @@ class UserMembersModel extends BaseTable {
 	public function readByEmail($email) {
 		$check = $this->getSelect("TO_CHAR(created_at ,'DD-MM-YYYY HH24:MI:SS') t_created_at,TO_CHAR(updated_at ,'DD-MM-YYYY HH24:MI:SS') t_updated_at, user_members.*")
 		->where("email = '".$email."'")
+		->execute(false, array());
+		
+		if($check->itemsCount > 0){
+			return $check->result[0];
+		}else{
+			return null;
+		}
+	}
+	
+	public function readByUsername($username, $upperAll = true) {
+		if ($upperAll == true){
+			$whereCondition  = "UPPER(username) = UPPER('".$username."')";
+		}else{
+			$whereCondition  = "username = '".$username."'";
+		}
+		$check = $this->getSelect("TO_CHAR(created_at ,'DD-MM-YYYY HH24:MI:SS') t_created_at,TO_CHAR(updated_at ,'DD-MM-YYYY HH24:MI:SS') t_updated_at, user_members.*")
+		->where($whereCondition)
 		->execute(false, array());
 		
 		if($check->itemsCount > 0){

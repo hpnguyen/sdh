@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', '1');
+//ini_set('display_errors', '1');
 
 //  bien nay dung de set folder upload hinh cho ckfinder upload hinh trong ckeditor, chi dung cho tool quan ly tmdt
 $_SESSION["khcn_username"]="";
@@ -197,11 +197,44 @@ if ($a=='regthuyetminh'){
 	}
 }
 
+if ($a=='editnhanlucnc'){
+	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
+	$loai = str_replace("'", "''", $_POST["nlnc"]);
+	$masv = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_masv"]);
+	$hoten = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten"]);
+	$hotensv = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_ho_ten_sv"]);
+	$dvcongtac = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac"]);
+	$sothang = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi"]);
+	$fk_ma_can_bo = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_fk_ma_can_bo"]);
+	$shcc = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_shcc"]);
+	$manl = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_manl"]);
+
+	if ($loai=='1'){
+		$hoten = str_replace("'", "''", $_POST["hoten"]);
+		$shcc = str_replace("'", "''", $_POST["shcc"]);
+		
+		$sqlstr="update NCKH_NHAN_LUC_TMDT_CBGD set DON_VI_CONG_TAC='$dvcongtac',SO_THANG_LV_QUY_DOI='$sothang'
+		where MA_NHAN_LUC_TMDT_CBGD = '$manl' and FK_MA_THUYET_MINH_DT = '$ma_thuyet_minh_dt'"; 
+	}
+	else if ($loai=='2'){
+		$sqlstr="update NCKH_NHAN_LUC_TMDT_SV set FK_MA_HOC_VIEN='$masv',SV_HO_TEN='$hotensv',DON_VI_CONG_TAC='$dvcongtac',SO_THANG_LV_QUY_DOI='$sothang' where MA_NHAN_LUC_TMDT_SV='$manl' and FK_MA_THUYET_MINH_DT='$ma_thuyet_minh_dt'"; 
+	}
+	$stmt = oci_parse($db_conn_khcn, $sqlstr);
+	if (!oci_execute($stmt)){
+		$e = oci_error($stmt);
+		$msgerr = $e['message']. " sql: " . $e['sqltext'];
+		die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
+	}
+	
+	echo '{"success":"1", "ho_ten":"'.escapeJsonString($hoten).'", "ho_ten_sv":"'.escapeJsonString($hotensv).'", "don_vi_cong_tac":"'.escapeJsonString($dvcongtac).'", "so_thang":"'.escapeJsonString($sothang).'", "fk_ma_can_bo":"'.escapeJsonString($fk_ma_can_bo).'", "shcc":"'.escapeJsonString($shcc).'", "ma_sv":"'.escapeJsonString($masv).'", "ma_nhan_luc":"'.escapeJsonString($manl).'", "loainhanluc":"'.escapeJsonString($loai).'"}';
+}
+
 if ($a=='addnhanlucnc'){
 	$ma_thuyet_minh_dt = str_replace("'", "''", $_POST["m"]);
 	$loai = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_loai"]);
 	$masv = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_masv"]);
 	$hoten = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten"]);
+	$hotensv = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_ho_ten_sv"]);
 	$dvcongtac = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac"]);
 	$sothang = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_so_thang_lv_quy_doi"]);
 	$fk_ma_can_bo = str_replace("'", "''", $_POST["khcn_frm_reg_nhanlucnghiencuu_fk_ma_can_bo"]);
@@ -220,7 +253,7 @@ if ($a=='addnhanlucnc'){
 		}else{
 			$e = oci_error($stmt);
 			$msgerr = $e['message']. " sql: " . $e['sqltext'];
-			die ('{"success":"-1", "msgerr":"'.escapeWEB($msgerr).'"}');
+			die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
 		}
 	}
 	else if ($loai=='2'){
@@ -231,23 +264,21 @@ if ($a=='addnhanlucnc'){
 			$manl = $resDM["MANHANLUC"][0];
 			
 			$sqlstr="insert into NCKH_NHAN_LUC_TMDT_SV(MA_NHAN_LUC_TMDT_SV,FK_MA_HOC_VIEN,FK_MA_THUYET_MINH_DT,SV_HO_TEN,DON_VI_CONG_TAC,SO_THANG_LV_QUY_DOI) 
-			values ('$manl','$masv','$ma_thuyet_minh_dt','$hoten','$dvcongtac','$sothang')"; 
+			values ('$manl','$masv','$ma_thuyet_minh_dt','$hotensv','$dvcongtac','$sothang')"; 
 		}else{
 			$e = oci_error($stmt);
 			$msgerr = $e['message']. " sql: " . $e['sqltext'];
-			die ('{"success":"-1", "msgerr":"'.escapeWEB($msgerr).'"}');
+			die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
 		}
 	}
 	$stmt = oci_parse($db_conn_khcn, $sqlstr);
 	if (!oci_execute($stmt)){
 		$e = oci_error($stmt);
 		$msgerr = $e['message']. " sql: " . $e['sqltext'];
-		die ('{"success":"-1", "msgerr":"'.escapeWEB($msgerr).'"}');
+		die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
 	}
-	
-	echo '{"success":"1", "ho_ten":"'.escapeWEB($hoten).'", "don_vi_cong_tac":"'.escapeWEB($dvcongtac).'", 
-			"so_thang":"'.escapeWEB($sothang).'", "fk_ma_can_bo":"'.escapeWEB($fk_ma_can_bo).'", 
-			"ma_sv":"'.escapeWEB($masv).'", "ma_nhan_luc":"'.escapeWEB($manl).'", "loainhanluc":"'.escapeWEB($loai).'"}';
+
+	echo '{"success":"1", "ho_ten":"'.escapeJsonString($hoten).'", "ho_ten_sv":"'.escapeJsonString($hotensv).'", "don_vi_cong_tac":"'.escapeJsonString($dvcongtac).'", "so_thang":"'.escapeJsonString($sothang).'", "fk_ma_can_bo":"'.escapeJsonString($fk_ma_can_bo).'", "shcc":"'.escapeJsonString($shcc).'", "ma_sv":"'.escapeJsonString($masv).'", "ma_nhan_luc":"'.escapeJsonString($manl).'", "loainhanluc":"'.escapeJsonString($loai).'"}';
 }
 
 if ($a=='addchuyengianc'){
@@ -787,6 +818,7 @@ if ($a=='getthuyetminhinfo'){
 		';
 		for ($i=0; $i<$n; $i++){
 			$data.= '{"ma_nhan_luc":"'.escapeJsonString($resDM["MA_NHAN_LUC_TMDT_CBGD"][$i]).'",
+						"ma_cb":"'.escapeJsonString($resDM["FK_MA_CAN_BO"][$i]).'",
 						"ho_ten":"'.escapeJsonString($resDM["HH_HV_HO_TEN"][$i]).'",
 						"don_vi_cong_tac":"'.escapeJsonString($resDM["DON_VI_CONG_TAC"][$i]).'",
 						"so_thang_lv_quy_doi":"'.escapeJsonString($resDM["SO_THANG_LV_QUY_DOI"][$i]).'",
@@ -1084,11 +1116,16 @@ if ($a=='refreshdata'){
 	for ($i = 0; $i < $n; $i++){
 		if ($resDM["EDIT_ALLOW"][$i]==1){
 			$SendTMDT = '"<img src=\'icons/Send-Document-icon.png\' class=khcn_tooltips title=\'Hoàn tất đăng ký TMĐT\' border=0 onClick=\'khcn_hoantat_tmdt( khcn_getRowIndex(this),\"'.$resDM["FK_CAP_DE_TAI"][$i].'\"); \' style=\'cursor: pointer\'>"';
-			$DeleteTMDT = '"<img src=\'icons/delete-icon.png\' class=khcn_tooltips title=\'Xoá TMĐT\' border=0 onClick=\'khcn_delete_tmdt( khcn_getRowIndex(this) ); \' style=\'cursor: pointer\'>"';
 		}else{
 			$SendTMDT = '"<img src=\'icons/circle-green.png\' class=khcn_tooltips title=\'Đã hoàn tất đăng ký TMĐT\' border=0 >"';
+		}
+		
+		if ($resDM["FK_TINH_TRANG"][$i]=='01'){
+			$DeleteTMDT = '"<img src=\'icons/delete-icon.png\' class=khcn_tooltips title=\'Xoá TMĐT\' border=0 onClick=\'khcn_delete_tmdt( khcn_getRowIndex(this) ); \' style=\'cursor: pointer\'>"';
+		}else{
 			$DeleteTMDT = '""';
 		}
+		
 		$data.= '["'.$resDM["MA_THUYET_MINH_DT"][$i].'",
 				  "'.escapeJsonString($resDM["TEN_DE_TAI_VN"][$i]).'", 
 				  "'.escapeJsonString($resDM["NGANH_NHOMNGANH"][$i]).'", 
@@ -1596,6 +1633,59 @@ if ($a=='updateS'){
 	oci_free_statement($stmt);
 }
 
+if ($a=='ds_cb_thamgia'){
+	# thong tin lam luan van, hoc vien
+	$sqlstr = "SELECT ma_can_bo, shcc, ten_bo_mon, ten_khoa, csdl.get_thanh_vien(c.ma_can_bo) cbgd, to_char(c.NGAY_SINH, 'dd/mm/yyyy') NGAY_SINH, c.PHAI, c.EMAIL, c.SO_CMND, to_char(c.NGAY_CAP,'dd/mm/yyyy') NGAY_CAP, c.NOI_CAP, c.DIA_CHI, c.DIEN_THOAI_CN, c.SO_TAI_KHOAN, c.NGAN_HANG_MO_TK, c.MA_SO_THUE, c.CO_QUAN_CONG_TAC
+	FROM csdl.can_bo_giang_day c, csdl.bo_mon b, csdl.khoa k	
+	WHERE 	c.ma_bo_mon = b.ma_bo_mon
+			and b.ma_khoa = k.ma_khoa
+			and c.trang_thai=1
+	ORDER BY ten_khoa, ten_bo_mon, ten_eng, ho_eng";
+	$stmt = oci_parse($db_conn_khcn, $sqlstr);
+	
+	if (!oci_execute($stmt)){
+		$e = oci_error($stmt);
+		$msgerr = $e['message']. " sql: " . $e['sqltext'];
+		die ('{"success":"-1", "msgerr":"'.escapeJsonString($msgerr).'"}');
+	}
+	
+	$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+			
+	$data='{
+			"dscanbo": [';
+	
+	for ($i = 0; $i < $n; $i++)
+	{
+		$data .= '{
+					"value" : "'.escapeJsonString($resDM["MA_CAN_BO"][$i]).'",
+					"label" : "'.escapeJsonString($resDM["CBGD"][$i]).'",
+					"desc"  : " SHCC: <b>'.escapeJsonString($resDM["SHCC"][$i]).'</b><br> Bộ môn: <b>'.escapeJsonString($resDM["TEN_BO_MON"][$i]).'</b><br> Khoa: <b>'.escapeJsonString($resDM["TEN_KHOA"][$i]).'</b>",
+					"shcc" : "'.escapeJsonString($resDM["SHCC"][$i]).'",
+					"cq" : "'.escapeJsonString($resDM["CO_QUAN_CONG_TAC"][$i]).'",
+					"ngaysinh" : "'.escapeJsonString($resDM["NGAY_SINH"][$i]).'",
+					"cmnd" : "'.escapeJsonString($resDM["SO_CMND"][$i]).'",
+					"ngaycap" : "'.escapeJsonString($resDM["NGAY_CAP"][$i]).'",
+					"noicap" : "'.escapeJsonString($resDM["NOI_CAP"][$i]).'",
+					"msthue" : "'.escapeJsonString($resDM["MA_SO_THUE"][$i]).'",
+					"stk" : "'.escapeJsonString($resDM["SO_TAI_KHOAN"][$i]).'",
+					"nganhang" : "'.escapeJsonString($resDM["NGAN_HANG_MO_TK"][$i]).'",
+					"diachicq" : "'.escapeJsonString($resDM["DIA_CHI"][$i]).'",
+					"dienthoai" : "'.escapeJsonString($resDM["DIEN_THOAI_CN"][$i]).'",
+					"email" : "'.escapeJsonString($resDM["EMAIL"][$i]).'",
+					"phai" : "'.escapeJsonString($resDM["PHAI"][$i]).'"
+					
+				  },';
+				  
+	}
+	
+	if ($n>0) 
+		$data=substr($data,0,-1);
+		
+	$data.=']
+			}';
+			
+	echo $data;
+}
 
 if (isset ($db_conn))
 	oci_close($db_conn);

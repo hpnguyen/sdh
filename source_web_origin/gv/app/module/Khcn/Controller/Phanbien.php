@@ -298,4 +298,54 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		die;
 		$template->renderLayout(array('title' => '','content' => $templateContent));
 	}
+	
+	public	function printtmdtAction(){
+		if (isset($_GET["hisid"])){
+			session_id($_GET["hisid"]);
+			session_start();
+		}
+		
+		if (!isset($_SESSION['uidloginPortal'])){
+			die('Đã hết phiên làm việc');
+		}
+		
+		$madetai = $_GET['mdt'];
+		$macb = $_GET['m'];
+		$printPdf = isset($_GET['pdf']) ? true : false;
+		
+		if ($macb == ''){
+			$macb = $_SESSION['macb'];
+		} 
+		
+		$modelTmdt = new NckhThuyetMinhDeTaiModel();
+		$dataPrint = $modelTmdt->getDetailTmdtForPrintPdf($madetai);
+		
+		$fileTemplate = 'r01';
+		$fileTitle = 'Mẫu R01';
+		 
+		if (count($dataPrint) > 0 && (int) $dataPrint['fk_cap_de_tai'] >= 31 && (int) $dataPrint['fk_cap_de_tai'] <= 34){
+			$fileTemplate = 't12';
+			$fileTitle = 'Mẫu trường ĐHBK T12';
+		}
+		
+		$template = new BaseTemplate("khcn/print/khcn_print_tmdt_".$fileTemplate,"default/blank");
+		$template->detailTmdt = $dataPrint;
+		
+		$modelCbgd = new CanBoGiangDayModel();
+		$template->cbgd = $modelCbgd->getDetailForThuyetMinhDeTai($macb);
+		
+		$templateContent = $template->contentTemplate();
+		
+		if ($printPdf) {
+			$mpdf=new mPDF('utf-8','A4');
+			$mpdf->SetTitle($fileTitle);
+			$mpdf->SetAutoFont();
+			$mpdf->forcePortraitHeaders = true;
+			$mpdf->WriteHTML($templateContent);
+			$mpdf->Output();
+			exit;
+		}else{
+			$template->renderLayout(array('title' => $fileTitle,'content' => $templateContent));
+		}
+	}
 }
