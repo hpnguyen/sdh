@@ -28,6 +28,4 @@ include './app/template/index.php';
 include './app/model/base/basetable.php';
 //Add helper static class
 include './app/libs/helper/helper.php';
-// Include Mailer PHP.
-require_once("./app/libs/mpdf57/mpdf.php");
 $route = new Route();

@@ -251,10 +251,10 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		$mpdf->SetAutoFont();
 		$mpdf->forcePortraitHeaders = true;
 		$mpdf->WriteHTML($templateContent);
-		$mpdf->Output();
+		$mpdf->Output($madetai.'_bm01.pdf','I');
 		exit;
 		die;
-		$template->renderLayout(array('title' => '','content' => $templateContent));
+		// $template->renderLayout(array('title' => '','content' => $templateContent));
 	}
 	
 	public	function printpdfbm06Action(){
@@ -293,10 +293,10 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		$mpdf->SetAutoFont();
 		$mpdf->forcePortraitHeaders = true;
 		$mpdf->WriteHTML($templateContent);
-		$mpdf->Output();
+		$mpdf->Output($madetai.'_bm06.pdf','I');
 		exit;
 		die;
-		$template->renderLayout(array('title' => '','content' => $templateContent));
+		// $template->renderLayout(array('title' => '','content' => $templateContent));
 	}
 	
 	public	function printtmdtAction(){
@@ -340,9 +340,16 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 			$mpdf=new mPDF('utf-8','A4');
 			$mpdf->SetTitle($fileTitle);
 			$mpdf->SetAutoFont();
-			$mpdf->forcePortraitHeaders = true;
+			// Define the Header/Footer before writing anything so they appear on the first page
+			$mpdf->SetHTMLFooter('
+			<table width="100%" style="vertical-align: bottom; font-family: serif; font-size: 8pt; color: #000000; font-style: italic; border-top: #000000 solid 0.5px"><tr>
+			<td width="33%"><span style="font-style: italic;">{DATE d-m-Y H:i}</span></td>
+			<td width="33%" align="center"></td>
+			<td width="33%" style="text-align: right; font-style: italic;">Trang {PAGENO}/{nbpg}</td>
+			</tr></table>
+			');
 			$mpdf->WriteHTML($templateContent);
-			$mpdf->Output();
+			$mpdf->Output($madetai.'_tmdt_'.$fileTemplate.'.pdf','I');
 			exit;
 		}else{
 			$template->renderLayout(array('title' => $fileTitle,'content' => $templateContent));

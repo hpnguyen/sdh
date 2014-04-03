@@ -11,7 +11,7 @@ $y = 1;
 ?>
 <style>
 	.fontcontent {
-		font-size: 15px;
+		font-size: 13px;
 		font-family: Arial, Helvetica, sans-serif;
 		color: #000000;
 		font-weight: normal;
@@ -30,11 +30,12 @@ $y = 1;
 		border-collapse:collapse;
 	}
 	table {
-		font-size: 15px;
+		font-size: 13px;
 		font-family: Arial, Helvetica, sans-serif;
 		color: #000000;
 		font-weight: normal;
 		line-height: 1.5;
+		border-collapse:collapse;
 	}
 	.div-left-bold {
 		width: 100%;
@@ -43,12 +44,12 @@ $y = 1;
 	}
 	.div-right-content {
 		width: 100%;
-		padding: 0 0 0 35px;
+		padding: 0 0 0 40px;
 		margin-top: -25px;
 	} 
 	.div-right-content-no-margin-top {
 		width: 100%;
-		padding: 0 0 0 35px;
+		padding: 0 0 0 40px;
 	}
 </style>
 <div>
@@ -197,7 +198,7 @@ $y = 1;
 	<div class="div-left-bold"><b>A9.</b></div>
 	<div class="div-right-content">
 		<b>Nhân lực nghiên cứu</b><br>
-		<table  width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
+		<table autosize="1"  width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
 			<thead>
 				<tr style='height:20px;font-weight:bold'>
 					<th align="center">TT</th>
@@ -278,7 +279,7 @@ $y = 1;
 	if (count($rowChuyenGianC) > 0){ ?>
 	<div class="div-right-content-no-margin-top">
 		<b>Giới thiệu chuyên gia/nhà khoa học am hiểu đề tài này</b><br>
-		<table  width="100%" cellspacing="0" cellpadding="5" class="fontcontent bordertable" border="1">
+		<table autosize="1"  width="100%" cellspacing="0" cellpadding="5" class="fontcontent bordertable" border="1">
 			<thead>
 				<tr style="height:20px;font-weight:bold">
 					<th align="center">TT</th>
@@ -312,8 +313,8 @@ $y = 1;
 		<?php echo $detailTmdt['muc_tieu_nc_vn'] ?>
 	</div>
 	<div class="div-left-bold"><b>B5.2</b></div>
-	<div class="div-right-content">
-		<b>Nội dung</b><br>
+	<div class="div-right-content"><b>Nội dung</b></div>
+	<div class="div-right-content-no-margin-top">
 		<?php echo $detailTmdt['noi_dung_nc'] ?>
 	</div>
 	<?php if ($detailTmdt['pa_phoi_hop']){ ?>
@@ -330,7 +331,7 @@ $y = 1;
 	<div class="div-left-bold"><b>B6.1</b></div>
 	<div class="div-right-content">
 		<b>Ấn phẩm khoa học</b><br>
-		<table cellspacing="0" width="100%" cellpadding="5" border="1" class="fontcontent bordertable">
+		<table autosize="1" cellspacing="0" width="100%" cellpadding="5" border="1" class="fontcontent bordertable">
 				<thead>
 					<tr style="height:20px;font-weight:bold">
 						<th align="center">TT</th>
@@ -363,7 +364,7 @@ $y = 1;
 	<div class="div-left-bold"><b>B6.2</b></div>
 	<div class="div-right-content">
 		<b>Đăng ký sở hữu trí tuệ</b><br>
-		<table width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
+		<table autosize="1" width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
 			<thead>
 				<tr style='height:20px;font-weight:bold'>
 					<th align="center">TT</th>
@@ -393,7 +394,7 @@ $y = 1;
 	<div class="div-right-content-no-margin-top">
 		<b>Mô tả sản phẩm/kết quả nghiên cứu</b><br>
 		<b>Dạng I: Các sản phẩm mềm</b><br>
-		<table width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
+		<table autosize="1" width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
 			<thead>
 				<tr style='height:20px;font-weight:bold'>
 					<th align="center">TT</th>
@@ -418,7 +419,7 @@ $y = 1;
 			</tbody>
 		</table>
 		<br><b>Dạng II: Các sản phẩm cứng</b><br>
-		<table  width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
+		<table autosize="1" width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
 				<thead>
 					<tr style="height:20px; font-weight:bold;">
 						<th align="center" rowspan="3">TT</th>
@@ -463,7 +464,7 @@ $y = 1;
 	<div class="div-left-bold"><b>B6.3</b></div>
 	<div class="div-right-content">
 		<b>Kết quả đào tạo</b><br>
-		<table width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
+		<table autosize="1" width="100%" cellspacing="0" cellpadding="5" border="1" class="fontcontent bordertable">
 			<thead>
 				<tr style='height:20px;font-weight:bold'>
 					<td align="center">TT</td><td align="left">Cấp đào tạo</td><td align="center">Số lượng</td><td align="left">Nhiệm vụ được giao trong đề tài</font></td><td align="center" >Dự kiến kinh phí <span style='font-weight:normal'>(Triệu đồng)</span></td>
@@ -512,7 +513,7 @@ $y = 1;
 	</div>
 	<div class="div-right-content-no-margin-top">
 		<div align="right"><em>Đơn vị tính: triệu đồng</em></div>
-		<table width="100%" cellspacing="0" cellpadding="5" class="fontcontent bordertable" border="1">
+		<table autosize="1" width="100%" cellspacing="0" cellpadding="5" class="fontcontent bordertable" border="1">
 			<thead>
 				<tr style='height:20px; font-weight: bold'>
 					<th align="center" rowspan="2">TT</th>
@@ -543,10 +544,20 @@ $y = 1;
 					<td align="left"><?php echo $v['ten_khoan_chi_phi'] ?></td>
 					<td align="right"><?php echo number_format(floatval($v['kinh_phi']), 0, ',', '.') ?></td>
 					<td align="right"><?php echo number_format(floatval($v['khoan_chi']), 2, ',', '.') ?></td>
-					<td align="right"><?php echo number_format((floatval($v['kinh_phi'])/$tongkhoanchi)*100, 2, ',', '.') ?>%</td>
+					<td align="right">
+					<?php 
+						$calVal = 0;
+						if($tongkhoanchi != 0) {
+							$calVal = (floatval($v['kinh_phi'])/$tongkhoanchi)*100;
+						}
+						echo number_format($calVal, 2, ',', '.').'%';
+					?>
+					</td>
 				</tr>
 				<?php
-					$tongphantram += (floatval($v['kinh_phi'])/$tongkhoanchi)*100;
+					if ($tongkhoanchi != 0) {
+						$tongphantram += (floatval($v['kinh_phi'])/$tongkhoanchi)*100;
+					}
 				}
 				?>
 				<tr>
@@ -558,13 +569,20 @@ $y = 1;
 				</tr>
 			</tbody>
 		</table>
-		<div align="left" style="font-style:italic">
-		(*) Theo quy định tại Thông tư số 93/2006/TTLT/BTC-BKHCN của liên Bộ Tài chính - Bộ Khoa học và Công nghệ 
+	</div>
+	<div class="div-right-content-no-margin-top">
+		<table autosize="1" width="100%" class="fontcontent">
+			<tr>
+				<td valign="top" align="left" style="font-style:italic">
+					(*) Theo quy định tại Thông tư số 93/2006/TTLT/BTC-BKHCN của liên Bộ Tài chính - Bộ Khoa học và Công nghệ 
 		ban hành ngày 04/10/2006 và Thông tư số 44/2007/TTLT/BTC-BKHCN của liên Bộ Tài chính - 
 		Bộ Khoa học và Công nghệ ban hành ngày 07/5/2007.
-		</div>
+				</td>
+			</tr>
+		</table>
 	</div>
-	<table width="100%" class=fontcontent>
+	<pagebreak />
+	<table autosize="1" width="100%" class="fontcontent">
 		<tr>
 			<td align="left" valign=top width="50%" >
 				<div style="width:300px; margin-top:20px" align="center">
@@ -576,7 +594,7 @@ $y = 1;
 			<td align="right" width="50%">
 				<div style="width:400px; margin-top:20px" align="center">
 					<span><em>Ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span>
-					<table width="100%" class=fontcontent>
+					<table autosize="1" width="100%" class="fontcontent">
 						<tr>
 							<td align="center">
 								<b>Chủ nhiệm</b>

@@ -197,108 +197,119 @@ $y = 1;
 <div style="margin-top:10px" class="fontcontent">
 	<?php echo $detailTmdt["a4_kinh_phi_nx"]; ?>
 </div>
-<pagebreak sheet-size="A4-L" />
-<div class="fontcontent">
-	<b>B. ĐÁNH GIÁ</b>
-</div>
-<table class="table-content2 fontcontent" cellspacing="0" cellpadding="5">
-	<thead>
-		<tr>
-			<th align="center" class="table-content2-bottom-right">TT</th>
-			<th align="center" class="table-content2-bottom-right">Nội dung đánh giá</th>
-			<th align="center" class="table-content2-bottom-right">Thang điểm đánh giá</th>
-			<th style="width: 110px;" class="table-content2-bottom-right">Điểm đánh giá</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php 
-		$rowNckhNoiDungDanhGia =$detailTmdt["join_tables"]['nckh_pb_noi_dung_danh_gia'];
-		$tmp='';
-		$tongdiem = 0;
-		$flag = $numrowspan = 0;
-		$n = count($rowNckhNoiDungDanhGia);
-		$logCheck = array();
-		foreach ($rowNckhNoiDungDanhGia as $i => $itemNckhNoiDungDanhGia) {
-			
-			$td_diem = "";
-			$td_stt = "";
-			$stt = $itemNckhNoiDungDanhGia["stt"];
-			
-			//check
-			$idCha = $itemNckhNoiDungDanhGia["id_cha"];
-			
-			$numrowspan = 1;
-			if($i <= $n && $idCha != null){
-				for($j = $i + 1; $j < $n; $j++){
-					$item = $rowNckhNoiDungDanhGia[$j];
-					$checkID = $item["id"];
-					if($idCha == $item["id_cha"]){
-						$numrowspan ++;
-						$logCheck[] = $item['id'];
+<pagebreak sheet-size="A4"/>
+<table cellspacing="0" cellpadding="0" width="100%" rotate="-90">
+	<tr>
+		<td align="left" valign="top">
+			<b>B. ĐÁNH GIÁ</b>
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top">
+			<table width="100%" class="table-content2 fontcontent" cellspacing="0" cellpadding="5">
+				<thead>
+					<tr>
+						<th align="center" class="table-content2-bottom-right">TT</th>
+						<th align="center" class="table-content2-bottom-right">Nội dung đánh giá</th>
+						<th align="center" class="table-content2-bottom-right">Thang điểm đánh giá</th>
+						<th style="width: 110px;" class="table-content2-bottom-right">Điểm đánh giá</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$rowNckhNoiDungDanhGia =$detailTmdt["join_tables"]['nckh_pb_noi_dung_danh_gia'];
+					$tmp='';
+					$tongdiem = 0;
+					$flag = $numrowspan = 0;
+					$n = count($rowNckhNoiDungDanhGia);
+					$logCheck = array();
+					foreach ($rowNckhNoiDungDanhGia as $i => $itemNckhNoiDungDanhGia) {
+						
+						$td_diem = "";
+						$td_stt = "";
+						$stt = $itemNckhNoiDungDanhGia["stt"];
+						
+						//check
+						$idCha = $itemNckhNoiDungDanhGia["id_cha"];
+						
+						$numrowspan = 1;
+						if($i <= $n && $idCha != null){
+							for($j = $i + 1; $j < $n; $j++){
+								$item = $rowNckhNoiDungDanhGia[$j];
+								$checkID = $item["id"];
+								if($idCha == $item["id_cha"]){
+									$numrowspan ++;
+									$logCheck[] = $item['id'];
+								}
+							}
+						}
+						//var_dump($numrowspan);
+						$diem = $itemNckhNoiDungDanhGia["diem_text"];
+						if ($numrowspan > 1 ) {
+							$td_stt = "<td class=\"table-content2-bottom-right\" align=\"left\" rowspan=\"".$numrowspan."\">".$itemNckhNoiDungDanhGia["stt"]."</td>";
+							$td_diem = "<td class=\"table-content2-bottom-right\" align=center rowspan=\"".$numrowspan."\" style=\"background: #ebebeb;\">".$diem."</td>";
+						}else if (in_array($itemNckhNoiDungDanhGia['id'], $logCheck)) {
+							$td_diem = "";
+							$td_stt = "";
+						} else{
+							$td_stt = "<td class=\"table-content2-bottom-right\" align=\"left\">".$itemNckhNoiDungDanhGia["stt"]."</td>";
+							$td_diem = "<td class=\"table-content2-bottom-right\" align=\"center\">".$diem."</td>";
+						}
+						
+						$tmp.="
+						<tr>
+							".$td_stt."
+							<td class=\"table-content2-bottom-right\" align=\"left\">".$itemNckhNoiDungDanhGia["noi_dung"]."</td>
+							<td class=\"table-content2-bottom-right\" align=\"center\">".$itemNckhNoiDungDanhGia["thang_diem_truong"]."</td>".
+							$td_diem."
+						</tr>";
+						if ($numrowspan>0){
+							$numrowspan--;
+						}
+						
+						$tongdiem += $itemNckhNoiDungDanhGia["diem"];
 					}
-				}
-			}
-			//var_dump($numrowspan);
-			$diem = $itemNckhNoiDungDanhGia["diem_text"];
-			if ($numrowspan > 1 ) {
-				$td_stt = "<td class=\"table-content2-bottom-right\" align=\"left\" rowspan=\"".$numrowspan."\">".$itemNckhNoiDungDanhGia["stt"]."</td>";
-				$td_diem = "<td class=\"table-content2-bottom-right\" align=center rowspan=\"".$numrowspan."\" style=\"background: #ebebeb;\">".$diem."</td>";
-			}else if (in_array($itemNckhNoiDungDanhGia['id'], $logCheck)) {
-				$td_diem = "";
-				$td_stt = "";
-			} else{
-				$td_stt = "<td class=\"table-content2-bottom-right\" align=\"left\">".$itemNckhNoiDungDanhGia["stt"]."</td>";
-				$td_diem = "<td class=\"table-content2-bottom-right\" align=\"center\">".$diem."</td>";
-			}
-			
-			$tmp.="
-			<tr>
-				".$td_stt."
-				<td class=\"table-content2-bottom-right\" align=\"left\">".$itemNckhNoiDungDanhGia["noi_dung"]."</td>
-				<td class=\"table-content2-bottom-right\" align=\"center\">".$itemNckhNoiDungDanhGia["thang_diem_truong"]."</td>".
-				$td_diem."
-			</tr>";
-			if ($numrowspan>0){
-				$numrowspan--;
-			}
-			
-			$tongdiem += $itemNckhNoiDungDanhGia["diem"];
-		}
-			echo $tmp;
-		?>
-			<tr class="bordertable">
-				<td align="center" colspan="2" class="table-content2-right"><b>Tổng cộng</b></td>
-				<td align="center" class="table-content2-right"><b>100</b></td>
-				<td align="center" class="table-content2-right"><b><?php echo $tongdiem?>/100</b></td>
-			</tr>
-	</tbody>
+						echo $tmp;
+					?>
+						<tr class="bordertable">
+							<td align="center" colspan="2" class="table-content2-right"><b>Tổng cộng</b></td>
+							<td align="center" class="table-content2-right"><b>100</b></td>
+							<td align="center" class="table-content2-right"><b><?php echo $tongdiem?>/100</b></td>
+						</tr>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top">
+			<br>
+			<br>
+			<table width="100%" class="borderDOT fontcontent" cellpadding="5" cellspacing="0">
+				<thead>
+					<tr class="borderDOT">
+						<th align="center" class="border-right-dotted">Xếp loại</th>
+						<th align="center">Tổng số điểm đánh giá</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="borderDOT">
+						<td align="center" class="border-right-dotted">I</td>
+						<td align="center">Từ 86 điểm trở lên</td>
+					</tr>
+					<tr class="borderDOT">
+						<td align="center" class="border-right-dotted">II</td>
+						<td align="center">Từ 70 đến 85 điểm</td>
+					</tr>
+					<tr class="borderDOT">
+						<td align="center" class="border-right-dotted">II (Không đạt)</td>
+						<td align="center">Dưới 70 điểm</td>
+					</tr>
+				</tbody>
+			</table>
+		</td>
+	</tr>
 </table>
-<br>
-<br>
-<table class="borderDOT fontcontent" cellpadding="5" cellspacing="0">
-	<thead>
-		<tr class="borderDOT">
-			<th align="center" class="border-right-dotted">Xếp loại</th>
-			<th align="center">Tổng số điểm đánh giá</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="borderDOT">
-			<td align="center" class="border-right-dotted">I</td>
-			<td align="center">Từ 86 điểm trở lên</td>
-		</tr>
-		<tr class="borderDOT">
-			<td align="center" class="border-right-dotted">II</td>
-			<td align="center">Từ 70 đến 85 điểm</td>
-		</tr>
-		<tr class="borderDOT">
-			<td align="center" class="border-right-dotted">II (Không đạt)</td>
-			<td align="center">Dưới 70 điểm</td>
-		</tr>
-	</tbody>
-</table>
-	
-	<pagebreak sheet-size="A4" />
+<pagebreak sheet-size="A4" />
 	<div>
 		<b>C. KẾT LUẬN</b>
 	</div>
