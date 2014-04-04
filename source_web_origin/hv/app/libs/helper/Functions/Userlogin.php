@@ -8,32 +8,34 @@ class HelperFunctionsUserlogin {
 
 	}
 
-	public function login($email, $password) {
+	public function login($checkid, $password) {
 		// Using prepared statements means that SQL injection is not possible.
 		$modelUserMembers =  new UserMembersModel();
-		$user = $modelUserMembers->readByEmail($email);
-			
-		if ($user != null) {
+		$user = $modelUserMembers->readByUsername($checkid);
+		
+		if($user != null){
 			// hash the password with the unique salt.
 			$user_id = $user['id'];
 			$username = $user['username'];
 			$db_password = $user['password'];
 			$salt = $user['salt'];
-				
+			// var_dump(3333,$user,$password);	
 			$password = hash('sha512', $password . $salt);
-		
+			
 			// If the user exists we check if the account is locked
 			// from too many login attempts
-			$modelLoginAttempts = new LoginAttemptsModel();
-			$checkCheckbrute = $modelLoginAttempts->checkbrute($user_id);
-			
-			if ($checkCheckbrute == true) {
-				// Account is locked
-				// Send an email to user saying their account is locked
-				unset($modelLoginAttempts);
-				echo "This account has been locked\n";
-				return false;
-			} else {
+			// $modelLoginAttempts = new LoginAttemptsModel();
+			// $checkCheckbrute = $modelLoginAttempts->checkbrute($user_id);
+// 			
+			// if ($checkCheckbrute == true) {
+				// // Account is locked
+				// // Send an email to user saying their account is locked
+				// unset($modelLoginAttempts);
+				// echo "This account has been locked\n";
+				// return false;
+			// } else {
+				// var_dump('Ket qua',$db_password == $password);
+				// die;
 				// Check if the password in the database matches
 				// the password the user submitted.
 				if ($db_password == $password) {
@@ -57,11 +59,11 @@ class HelperFunctionsUserlogin {
 				} else {
 					// Password is not correct
 					// We record this attempt in the database
-					$modelLoginAttempts->addNew($user_id);
-					unset($modelLoginAttempts);
+					// $modelLoginAttempts->addNew($user_id);
+					// unset($modelLoginAttempts);
 					return false;
 				}
-			}
+			// }
 		} else {
 			// No user exists.
 			return false;

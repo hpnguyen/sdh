@@ -11,7 +11,8 @@ include "libs/connect.php";
 $usr = base64_decode($_SESSION['uidloginhv']);
 
 $sqlstr="	SELECT h.*, (ho || ' ' || ten) ho_ten, email, n.ten_nganh, tp.TEN_TINH_TP,
-				to_char(h.ngay_sinh, 'dd/mm/yyyy') ngay_sinh, decode(h.phai, 'M', 'Nam', 'F', 'Nữ') phai_ten,
+				decode(h.ngay_sinh, null, h.ngay_sinh_khong_chuan, to_char(h.ngay_sinh, 'dd/mm/yyyy')) ngay_sinh, 
+				decode(h.phai, 'M', 'Nam', 'F', 'Nữ') phai_ten,
 				to_char(h.ngay_vao_doan, 'dd/mm/yyyy') ngay_vao_doan, to_char(h.ngay_vao_dang, 'dd/mm/yyyy') ngay_vao_dang,
 				to_char(h.THUC_TAP_KHKT_TU_NGAY, 'dd/mm/yyyy') THUC_TAP_KHKT_TU_NGAY, to_char(h.THUC_TAP_KHKT_DEN_NGAY, 'dd/mm/yyyy') THUC_TAP_KHKT_DEN_NGAY,
 				to_char(h.NGAY_BAO_VE_LVTHS, 'dd/mm/yyyy') NGAY_BAO_VE_LVTHS,

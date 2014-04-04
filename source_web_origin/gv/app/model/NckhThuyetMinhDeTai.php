@@ -294,24 +294,12 @@ class NckhThuyetMinhDeTaiModel extends BaseTable {
 			and tm.thung_rac is null";
 		//var_dump($madetai);
 		//echo $sqlstr;
-		$check = $this->getQuery($sqlstr)->execute(false, array());
+		$check = $this->getQuery($sqlstr)->execute(false, array(),true, true);
 		
 		$ret = array();
 		
 		if($check->itemsCount > 0){
 			$ret = $check->result[0];
-			//Check CLOB or BLOB data need to load
-			foreach ($ret as $key => $item) {
-				if (is_object($ret[$key])){
-					$t = $ret[$key];
-					$text = $t->load();
-					if (! empty($text)){
-						$ret[$key] = Helper::getHelper('functions/util')->reverse_escape($text);
-					}else{
-						$ret[$key] = null;
-					}
-				}
-			}
 			
 			$sqlstr_nhomnganh ="SELECT a.fk_ma_nhom_nganh, a.ten_nhom_nganh_khac, b.ten_nhom_nganh 
 			FROM nckh_nhom_nganh_tmdt a, nckh_nhom_nganh b

@@ -150,15 +150,12 @@ if ($a=="savehvinfo"){
 	// {
 		$strsql="update hoc_vien set email ='$email',
 		dia_chi='$diachi', dien_thoai='$dienthoai',	don_vi_cong_tac='$donvi', so_cmnd = '$cmnd', 
-		ngay_cap=to_date('$ngaycap', 'dd/mm/yyyy'), noi_cap='$noicap', so_tai_khoan = '$sotk',
-		
-		ngay_sinh=to_date('$ngaysinh', 'dd/mm/yyyy'), noi_sinh='$noisinh', fk_dan_toc = '$dan_toc',
+		ngay_cap=to_date('$ngaycap', 'dd/mm/yyyy'), noi_cap='$noicap', so_tai_khoan = '$sotk', 
 		fk_ton_giao='$ton_giao', dia_chi_thuong_tru='$dia_chi_thuong_tru', nghe_nghiep='$nghenghiep',
 		ngay_vao_doan=to_date('$ngayvaodoan', 'dd/mm/yyyy'), ngay_vao_dang=to_date('$ngayvaodang', 'dd/mm/yyyy'),
 		fk_doi_tuong_uu_tien='$doituonguutien', truong_dai_hoc='$truongdaihoc', fk_nganh_dai_hoc='$nganhdaihoc',
 		he_dao_tao_dh='$hedaotao', thoi_diem_nhap_hoc_dai_hoc='$nhaphocdaihoc', thoi_diem_tot_nghiep_dai_hoc='$totnghiepdaihoc',
-		fk_loai_tot_nghiep_dai_hoc = '$loaitndaihoc',
-		
+		fk_loai_tot_nghiep_dai_hoc = '$loaitndaihoc', fk_dan_toc = '$dan_toc',
 		thuc_tap_khkt_tu_ngay = to_date('$khkt_tu', 'dd/mm/yyyy'),thuc_tap_khkt_den_ngay = to_date('$khkt_den', 'dd/mm/yyyy'),
 		thuc_tap_khkt_truong='$khkt_truong', thuc_tap_khkt_noi_dung='$khkt_nd', 
 		thoi_diem_nhap_hoc_cao_hoc='$caohoc_tu', thoi_diem_tot_nghiep_cao_hoc='$caohoc_den',

@@ -46,7 +46,6 @@ class ModuleLoginControllerCas extends FrontController {
 		
 		if ($data['type'] == self::LOGIN_AS_HVCH){
 			$modelNguoiDung = new NguoiDungModel();
-			$realID  = substr("abcdef", 0, -1);
 			$loginData = $modelNguoiDung->getDataOnLogin($data['id']);
 			
 			if($loginData == null){
@@ -54,29 +53,19 @@ class ModuleLoginControllerCas extends FrontController {
 				die;
 			}
 			
-			$cookieConfig  = Helper::getHelper('functions/util')->getCookieConfig();
+			$url = Helper::getHelper('functions/sessionlogin')->createHvSession($modelNguoiDung,$loginData);
+			//var_dump($_SESSION,$url);
+			$this->redirect(200,$url);
+		} else if ($data['type'] == self::LOGIN_AS_CBGV) {
+			$modelNhanSu = new NhanSuModel();
+			$loginData = $modelNhanSu->getDataOnLogin($data['id']);
 			
-			$cookie_name = $cookieConfig['cookie_name'];
-			$cookie_time = (int) $cookieConfig['cookie_seconds_per_hour'] * (int) $cookieConfig['cookie_hours_per_day'] * (int) $cookieConfig['cookie_days'];//30 Days
-			
-			$sid = $_REQUEST["hisid"];
-			$link = $_REQUEST["l"];
-			
-			if ($sid!=""){
-				session_id($sid);
+			if($loginData == null){
+				echo "Bạn login không hợp lệ";
+				die;
 			}
-			session_start();
-			$_SESSION["uidloginhv"]=base64_encode($loginData['username']);
-				
-			date_default_timezone_set('Asia/Ho_Chi_Minh');
-			$today =date("d/m/Y");
-			$time = date("H:i:s");
-			$modelNguoiDung->updateLoginTime($loginData['username']);
 			
-			//Set cookie
-			setcookie ($cookie_name, 'RemberMecookie=0', time()+$cookie_time);
-			
-			$url = Helper::getHelper('functions/util')->getGvRootURL()."/index.php?hisid=".session_id()."&l=".$link;
+			$url = Helper::getHelper('functions/sessionlogin')->createGvSession($modelNhanSu,$loginData);
 			//var_dump($_SESSION,$url);
 			$this->redirect(200,$url);
 		}else {

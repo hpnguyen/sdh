@@ -30,4 +30,17 @@ class NguoiDungModel extends BaseTable {
 		->where("UPPER(username)=UPPER('".$username."')")
 		->execute(true, array());
 	}
+	
+	public function getByUsername($username = null)
+	{
+		$ret = null;
+		if (! empty($username)){
+			$check = $this->getSelect("*")->where("UPPER(username)=UPPER('".$username."')")->execute(false, array());
+			if($check->itemsCount > 0){
+				$ret = $check->result[0];
+			}
+		}
+		
+		return $ret;
+	}
 }

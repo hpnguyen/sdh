@@ -111,7 +111,19 @@ class DbFactory {
 		$arrayKeys = array_keys($fields);
 		$arrayValues = array();
 		foreach ($fields as $key => $value) {
-			if(is_string($value)){
+			if (strtoupper($value) == 'SYSDATE') {
+				$arrayValues[] = "SYSDATE";
+			}elseif (strtoupper($value) == 'SYSTIMESTAMP'){
+				$arrayValues[] = "SYSTIMESTAMP";
+			}elseif (strtoupper($value) == 'CURRENT_TIMESTAMP'){
+				$arrayValues[] = "CURRENT_TIMESTAMP";
+			}elseif (strtoupper($value) == 'EMPTY_LOB()'){
+				$arrayValues[] = "EMPTY_LOB()";
+			}elseif (strtoupper($value) == 'EMPTY_CLOB()'){
+				$arrayValues[] = "EMPTY_CLOB()";
+			}elseif (strtoupper($value) == 'EMPTY_BLOB()'){
+				$arrayValues[] = "EMPTY_BLOB()";
+			}elseif(is_string($value)){
 				$arrayValues[] = "'".$value."'";
 			}elseif(is_int($value) || is_integer($value)){
 				$arrayValues[] = $value;
@@ -121,6 +133,26 @@ class DbFactory {
 				$arrayValues[] = $value;
 			}
 			
+		}
+		$temp = $arrayKeys;
+		foreach ($arrayKeys as $i => $rowKey) {
+			$temp[$i] = strtolower($rowKey);
+		}
+		
+		$arrayKeys = $temp;
+		
+		require_once (ROOT_DIR.'app/model/UserTabColumns.php');
+		
+		$model = new UserTabColumns();
+		$columnCLOB = $model->getColumnsCLOB($table);
+		unset($model);
+		
+		foreach ($columnCLOB as $k => $row) {
+			$colName = strtolower($row['column_name']);
+			if (! in_array($colName, $arrayKeys)){
+				$arrayKeys[] = $colName;
+				$arrayValues[] = "EMPTY_CLOB()";
+			}
 		}
 		
 		$this->sql =  "INSERT INTO ".$table." (".implode(',', $arrayKeys).") VALUES (".implode(',', $arrayValues).")";
@@ -137,6 +169,12 @@ class DbFactory {
 				$array[] = $key." = SYSTIMESTAMP";
 			}elseif (strtoupper($value) == 'CURRENT_TIMESTAMP'){
 				$array[] = $key." = CURRENT_TIMESTAMP";
+			}elseif (strtoupper($value) == 'EMPTY_LOB()'){
+				$array[] = $key." = EMPTY_LOB()";
+			}elseif (strtoupper($value) == 'EMPTY_CLOB()'){
+				$array[] = $key." = EMPTY_CLOB()";
+			}elseif (strtoupper($value) == 'EMPTY_BLOB()'){
+				$array[] = $key." = EMPTY_BLOB()";
 			}elseif (is_string($value)){
 				$array[] = $key." = '".$value."'";
 			}elseif(is_int($value) || is_integer($value)){
@@ -219,7 +257,7 @@ $tempSql."
 		return $this;
 	}
 	
-	public function execute($executeOnly = false,$params = array(),$fieldNameLower = true) {
+	public function execute($executeOnly = false,$params = array(),$fieldNameLower = true,$reverseEscape = false) {
 		$config = Helper::getHelper('functions/util')->getDbFileConfig($this->dbConfigName);
 		$connectString = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = ".$config['host'].")(PORT = ".$config['port'].")))(CONNECT_DATA=(SID=".$config['sid'].")))";
 		
@@ -235,7 +273,20 @@ $tempSql."
 				
 				foreach($row as $key => $value){
 					$name = $fieldNameLower ? strtolower($key) : $key;
-					$item[$name] =  $value;
+					//Check CLOB or BLOB data need to load
+					if (is_object($value)){
+						$text = $value->load();
+						if (! empty($text)){
+							if($reverseEscape){
+								$text = Helper::getHelper('functions/util')->reverse_escape($text);
+							}
+							$item[$name] = $text;
+						}else{
+							$item[$name] = null;
+						}
+					}else{
+						$item[$name] =  $value;
+					}
 				}
 					
 				$fetArray[] = $item;
@@ -286,6 +337,37 @@ $tempSql."
 			}
 		}
 		
+		oci_free_statement($stmt);
+		if($db_conn) {
+			oci_close($db_conn);
+		}
+		
+		return $this;
+	}
+	
+	public function executeCLOB($nameFiledCLOB, $dataCLOB, $escapeJsonString = false) {
+		$config = Helper::getHelper('functions/util')->getDbFileConfig($this->dbConfigName);
+		$connectString = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = ".$config['host'].")(PORT = ".$config['port'].")))(CONNECT_DATA=(SID=".$config['sid'].")))";
+		
+		$sdlString = "".$this->sql." RETURNING ".$nameFiledCLOB." INTO :descriptor";
+		// echo $sdlString;
+		
+		$db_conn = oci_connect($config['user'],$config['pass'],$connectString,$config['charset']);
+		$stmt = oci_parse($db_conn, $sdlString) or die ("SQL ERROR PARSE: " . oci_error($db_conn));
+		
+		$descriptor = oci_new_descriptor($db_conn, OCI_D_LOB);
+		oci_bind_by_name($stmt, ":descriptor", $descriptor, -1, OCI_B_CLOB);
+		
+		oci_execute($stmt, OCI_DEFAULT) or die ("SQL ERROR EXECUTE: " . oci_error($stmt));
+		
+		if ($escapeJsonString ){
+			$dataCLOB = Helper::getHelper('functions/util')->escapeJsonString($dataCLOB);
+		}
+		
+		$descriptor->save($dataCLOB);
+		
+		oci_commit($db_conn);
+		$descriptor->free();
 		oci_free_statement($stmt);
 		if($db_conn) {
 			oci_close($db_conn);

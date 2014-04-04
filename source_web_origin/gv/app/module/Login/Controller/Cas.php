@@ -54,34 +54,19 @@ class ModuleLoginControllerCas extends FrontController {
 				die;
 			}
 			
-			$cookieConfig  = Helper::getHelper('functions/util')->getCookieConfig();
-			
-			$cookie_name = $cookieConfig['cookie_name'];
-			$cookie_time = (int) $cookieConfig['cookie_seconds_per_hour'] * (int) $cookieConfig['cookie_hours_per_day'] * (int) $cookieConfig['cookie_days'];//30 Days
-			
-			//error_reporting(1);
-			$sid = $_REQUEST["hisid"];
-			$link = $_REQUEST["l"];
-			
-			if ($sid!=""){
-				session_id($sid);
-				session_start();
+			$url = Helper::getHelper('functions/sessionlogin')->createGvSession($modelNhanSu ,$loginData);
+			//var_dump($_SESSION,$url);
+			$this->redirect(200,$url);
+		}else if ($data['type'] == self::LOGIN_AS_HVCH){
+			$modelNguoiDung = new NguoiDungModel();
+			$loginData = $modelNguoiDung->getDataOnLogin($data['id']);
+			var_dump($data['id']);
+			if($loginData == null){
+				echo "Bạn login không hợp lệ";
+				die;
 			}
 			
-			$_SESSION["uidloginPortal"]=base64_encode($loginData['username']);
-			$_SESSION["makhoa"] = base64_encode($loginData['ma_khoa']);
-			$_SESSION["tenkhoa"] = $loginData['ten_khoa'];
-			$_SESSION["macb"] = $loginData['ma_can_bo'];
-				
-			date_default_timezone_set('Asia/Ho_Chi_Minh');
-			$today =date("d/m/Y");
-			$time = date("H:i:s");
-			$modelNhanSu->updateLoginTime($loginData['username']);
-			
-			//Set cookie
-			setcookie ($cookie_name, 'RemberMecookie=0', time()+$cookie_time);
-			
-			$url = Helper::getHelper('functions/util')->getGvRootURL()."/index.php?hisid=".session_id()."&l=".$link;
+			$url = Helper::getHelper('functions/sessionlogin')->createHvSession($modelNguoiDung,$loginData);
 			//var_dump($_SESSION,$url);
 			$this->redirect(200,$url);
 		}else {
@@ -121,6 +106,8 @@ class ModuleLoginControllerCas extends FrontController {
 		
 		if ($numberID != null && strlen($numberID) == 9){
 			$data['type'] = self::LOGIN_AS_HVCH;
+			//truncate the first number that is identify for graduate student from CAS server responding
+			$data['id'] = substr($numberID, 1);
 		}else if($numberID != null && strlen($numberID) == 8){
 			$data['type'] = self::LOGIN_AS_SVDH;
 		}

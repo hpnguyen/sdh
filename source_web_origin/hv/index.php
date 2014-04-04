@@ -74,37 +74,35 @@ else
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Phong Dao Tao Sau Dai Hoc</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Phong Dao Tao Sau Dai Hoc</title>
 
+	<link href="../js/ui-1.9.2/css/start/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css"/>
+
+	<link href="css/pgs.css" rel="stylesheet" type="text/css"/>
+	<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="../datatable/media/css/jquery.dataTables_themeroller.css" rel="stylesheet" type="text/css"/>
+	 
+	<script src="../js/jquery-1.8.3.min.js"></script>
+
+	<script src="../js/ui-1.9.2/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+	<script src="../js/jquery.cookie.js"></script>
+	<script src="../js/jquery.placeholder-1.1.9.js"></script>
+	<script src="../js/bootstrap.min.js"></script>  
+	<script src="../js/pgs.js"></script>
+	<script src="../datatable/media/js/jquery.dataTables.min.js"></script>
+	<script src="../js/jquery.maskedinput-1.3.min.js"></script>
+
+	<script src="../js/jquery.form.js"></script>
+
+	<style>
+		#tabs {}
+		#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+	</style>
 </head>
 
-
-<link href="../js/ui-1.9.2/css/start/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css"/>
-
-<link href="css/pgs.css" rel="stylesheet" type="text/css"/>
-<link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link href="../datatable/media/css/jquery.dataTables_themeroller.css" rel="stylesheet" type="text/css"/>
- 
-<script src="../js/jquery-1.8.3.min.js"></script>
-
-<script src="../js/ui-1.9.2/js/jquery-ui-1.9.2.custom.min.js"></script>
-
-<script src="../js/jquery.cookie.js"></script>
-<script src="../js/jquery.placeholder-1.1.9.js"></script>
-<script src="../js/bootstrap.min.js"></script>  
-<script src="../js/pgs.js"></script>
-<script src="../datatable/media/js/jquery.dataTables.min.js"></script>
-<script src="../js/jquery.maskedinput-1.3.min.js"></script>
-
-<script src="../js/jquery.form.js"></script>
-
-<style>
-	#tabs {}
-	#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
-</style>
-
-<body style="font-family:Arial, Helvetica, sans-serif">
+<body style="font-family:Arial, Helvetica, sans-serif" onload="if(detectIE() && !window.location.hash) { window.location = window.location + '#loaded'; window.location.reload();}">
 <div id="container">
 <?php include('headerhv.php'); ?>
 <div id="gutter"></div>
@@ -117,7 +115,7 @@ else
 
 <div id="col1">
     <script type="text/javascript">	
-	
+	//alert('IE ' + detectIE());
 	$(function() {
 		var $tab_title_input = $( "#tab_title");
 			$tab_content_input = $( "#tab_content" );
@@ -401,7 +399,7 @@ else
         <div id="tabs" style="border:1;">
             <ul>
                 <li><a href="#tabs-1"><strong>Học Vụ</strong></a></li>
-                <li><a href="#tabs-2"><strong>Bảo Mật</strong></a></li>
+                <li><a href="#tabs-2"><strong>Cá Nhân</strong></a></li>
             </ul>
             <div id="tabs-1">
 				<div style="height:280px; float:left; border-right: 3px solid #aaa;">

@@ -10,18 +10,17 @@ include "libs/connect.php";
 
 $usr = base64_decode($_SESSION['uidloginhv']);
 $sqlstr="	SELECT h.*, (ho || ' ' || ten) ho_ten, email, n.ten_nganh,
-				to_char(h.ngay_sinh, 'dd/mm/yyyy') ngay_sinh, decode(h.phai, 'M', 'checked=\"checked\"') phai_nam,
+				decode(h.ngay_sinh, null, h.ngay_sinh_khong_chuan, to_char(h.ngay_sinh, 'dd/mm/yyyy')) ngay_sinh, 
+				decode(h.phai, 'M', 'Nam', 'F', 'Nữ') phai_full,
 				to_char(h.ngay_vao_doan, 'dd/mm/yyyy') ngay_vao_doan, to_char(h.ngay_vao_dang, 'dd/mm/yyyy') ngay_vao_dang,
-				to_char(h.THUC_TAP_KHKT_TU_NGAY, 'dd/mm/yyyy') THUC_TAP_KHKT_TU_NGAY, to_char(h.THUC_TAP_KHKT_DEN_NGAY, 'dd/mm/yyyy') THUC_TAP_KHKT_DEN_NGAY,
-				to_char(h.NGAY_BAO_VE_LVTHS, 'dd/mm/yyyy') NGAY_BAO_VE_LVTHS,
-				decode(h.phai, 'F', 'checked=\"checked\"') phai_nu,
+				to_char(h.THUC_TAP_KHKT_TU_NGAY, 'dd/mm/yyyy') THUC_TAP_KHKT_TU_NGAY, to_char(h.THUC_TAP_KHKT_DEN_NGAY, 'dd/mm/yyyy') THUC_TAP_KHKT_DEN_NGAY, to_char(h.NGAY_BAO_VE_LVTHS, 'dd/mm/yyyy') NGAY_BAO_VE_LVTHS,
 				thanh_toan_tu_dong, k.ten_kinh_phi_dt, to_char(h.ngay_cap, 'dd/mm/yyyy') ngay_cap,
 				decode(ctdt_loai(h.ma_hoc_vien), 1, 'Giảng dạy môn học + khóa luận', 2, 'Giảng dạy môn học + LVThs', 'Nghiên cứu') || ' ' || decode(ctdt_hv_nam(h.ma_hoc_vien), 0, null,'thuộc chương trình: ' || ctdt_hv_nam(h.ma_hoc_vien) || ' năm') ctdt,
-				dot_cap_bang('$usr') dot_cap_bang,
-				t.BAI_BAO, t.DE_TAI_NCKH, t.THAM_GIA_HOI_NGHI, t.GIAI_THUONG_KHCN, LINK_HINH_KY_YEU
-			FROM hoc_vien h, nganh n, dm_kinh_phi_dao_tao k, qt_hoat_dong_khkt t
+				dot_cap_bang('$usr') dot_cap_bang, t.BAI_BAO, t.DE_TAI_NCKH, t.THAM_GIA_HOI_NGHI, t.GIAI_THUONG_KHCN, LINK_HINH_KY_YEU,
+				tp.TEN_TINH_TP ten_noi_sinh
+			FROM hoc_vien h, nganh n, dm_kinh_phi_dao_tao k, qt_hoat_dong_khkt t, dm_tinh_tp tp
 			WHERE upper(h.ma_hoc_vien) = upper('$usr')
-			AND h.ma_nganh = n.ma_nganh
+			AND h.ma_nganh = n.ma_nganh and h.noi_sinh = tp.MA_TINH_TP(+)
 			AND h.fk_kinh_phi_dao_tao = k.ma_kinh_phi_dt AND h.ma_hoc_vien=t.fk_ma_hoc_vien(+)
 ";
 
@@ -125,27 +124,10 @@ P.breakhere {page-break-before: always}
 					</tr>
 					
 					<tr>
-					  <td align=right class="heading">Phái</td>
-					  <td style='' align=left><input type="radio" name='hv_info_phai' value='M' <?php echo $accinfo["PHAI_NAM"][0]; ?> />Nam 
-								<input type="radio" name='hv_info_phai' value='F' <?php echo $accinfo["PHAI_NU"][0]; ?>/>Nữ </td>
-					</tr>
-					
-					<tr>
-						<td align=right class="heading"><label for="hv_info_ngaysinh">Sinh ngày</label></td>
-						<td align=left >
-							<input style="width:100px;" placeholder="dd/mm/yyyy" id="hv_info_ngaysinh"  name="hv_info_ngaysinh" type="text" class="text" value="<?php echo htmlentities($accinfo["NGAY_SINH"][0], ENT_QUOTES, "UTF-8"); ?>" />
-							<font color=red>*</font>&nbsp;&nbsp;
-							<b>tại</b> <select id="hv_info_noisinh" name="hv_info_noisinh" class="text" style="height: 25px; font-size:14px" >
-									<option>-chọn nơi sinh-</option>
-									<?php 
-										$sqlstr="select * from dm_tinh_tp order by ten_tinh_tp"; 
-										$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n=oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
-										for ($i=0 ; $i < $n; $i++){
-											($accinfo["NOI_SINH"][0]==$resDM["MA_TINH_TP"][$i]) ? $selected = "selected" : $selected = "";
-											echo "<option value='{$resDM["MA_TINH_TP"][$i]}' $selected>{$resDM["TEN_TINH_TP"][$i]}</option>";
-										}
-									?>
-								</select><font color=red>*</font>
+						<td align=right><label for="hv_info_ngaysinh">Sinh ngày</label></td>
+						<td align=left> <b><?php echo htmlentities($accinfo["NGAY_SINH"][0], ENT_QUOTES, "UTF-8"); ?></b>
+							&nbsp;&nbsp; tại <b><?php echo $accinfo["TEN_NOI_SINH"][0]; ?></b>
+							&nbsp;&nbsp; Phái <b><?php echo $accinfo["PHAI_FULL"][0]; ?></b>
 						</td>
 					</tr>
 					
@@ -166,14 +148,14 @@ P.breakhere {page-break-before: always}
 					  <td align=right ><label for="hv_info_so_cmnd" class="heading">Số CMND</label></td>
 					  <td style='font-weight:bold;' align=left>
 						<input style="width:120px;" placeholder="số CMND" id="hv_info_so_cmnd"  name="hv_info_so_cmnd" type="text" class="text" value="<?php echo htmlentities($accinfo["SO_CMND"][0], ENT_QUOTES, "UTF-8"); ?>" /><font color=red>*</font>
-						&nbsp; &nbsp; <label for="hv_info_ngaycap_cmnd" class="heading">Ngày cấp</label> <input style="width:110px;" placeholder="dd/mm/yyyy" id="hv_info_ngaycap_cmnd"  name="hv_info_ngaycap_cmnd" type="text" class="text" value="<?php echo htmlentities($accinfo["NGAY_CAP"][0], ENT_QUOTES, "UTF-8"); ?>" /><font color=red>*</font>
+						&nbsp; &nbsp; <label for="hv_info_ngaycap_cmnd" class="heading">Ngày cấp</label> <input style="width:100px;" placeholder="dd/mm/yyyy" id="hv_info_ngaycap_cmnd"  name="hv_info_ngaycap_cmnd" type="text" class="text" value="<?php echo htmlentities($accinfo["NGAY_CAP"][0], ENT_QUOTES, "UTF-8"); ?>" /><font color=red>*</font>
   					  </td>
 					</tr>
 					
 					<tr>
 					  <td align=right><label for="hv_info_noicap_cmnd" class="heading">Nơi cấp</label></td>
-					  <td align=left colspan = 2>
-						<select id="hv_info_noicap_cmnd" class="text" style="height: 28px; font-size:14px; width:190px" name="hv_info_noicap_cmnd">
+					  <td align=left >
+						<select id="hv_info_noicap_cmnd" class="text" style="height: 28px; font-size:14px;" name="hv_info_noicap_cmnd">
 							<option>-chọn nơi cấp CMND-</option>
 							<?php 
 								$sqlstr="select * from dm_tinh_tp order by ten_tinh_tp"; 
@@ -680,8 +662,6 @@ $(function() {
 	ai_jcmnd 		= $("#hv_info_so_cmnd"), ai_jngaycap = $("#hv_info_ngaycap_cmnd"),
 	ai_jnoicap		= $("#hv_info_noicap_cmnd"), ai_jsotk = $("#hv_info_so_tk"),
 	
-	jhv_info_ngaysinh 			= $("#hv_info_ngaysinh"),
-	jhv_info_noisinh			= $("#hv_info_noisinh"),
 	jhv_info_dan_toc			= $("#hv_info_dan_toc"),
 	jhv_info_ton_giao			= $("#hv_info_ton_giao"),
 	jhv_info_dia_chi_thuong_tru	= $("#hv_info_dia_chi_thuong_tru"),
@@ -714,8 +694,7 @@ $(function() {
 	
 	jhv_info_cmon_nvong	= $("#hv_info_cmon_nvong"),
 	
-	ai_allFields = $([]).add(ai_jemail).add(ai_juser).add(ai_jpass).add(ai_jdiachi).add(ai_jdienthoai).add(ai_jdonvicongtac).add(ai_jcmnd).add(ai_jngaycap).add(ai_jnoicap).add(ai_jsotk)
-		.add(jhv_info_ngaysinh).add(jhv_info_noisinh).add(jhv_info_dan_toc).add(jhv_info_ton_giao).add(jhv_info_dia_chi_thuong_tru)
+	ai_allFields = $([]).add(ai_jemail).add(ai_juser).add(ai_jpass).add(ai_jdiachi).add(ai_jdienthoai).add(ai_jdonvicongtac).add(ai_jcmnd).add(ai_jngaycap).add(ai_jnoicap).add(ai_jsotk).add(jhv_info_dan_toc).add(jhv_info_ton_giao).add(jhv_info_dia_chi_thuong_tru)
 		.add(jhv_info_nghenghiep).add(jhv_info_ngayvaodoan).add(jhv_info_ngayvaodang).add(jhv_info_doituonguutien).add(jhv_info_truongdaihoc)
 		.add(jhv_info_nganhdaihoc).add(jhv_info_hedaotao).add(jhv_info_nhaphocdaihoc).add(jhv_info_totnghiepdaihoc).add(jhv_info_loaitndaihoc)
 		.add(jhv_info_khkt_tu).add(jhv_info_khkt_den).add(jhv_info_khkt_truong).add(jhv_info_khkt_nd).add(jhv_info_caohoc_tu)
@@ -786,8 +765,8 @@ $(function() {
 		var bValid = true;
 		ai_allFields.removeClass( "ui-state-error" );
 		
-		bValid = bValid && ai_checkLength( jhv_info_ngaysinh, "\"Ngày sinh\"", 0, 10);
-		bValid = bValid && ai_checkLength( jhv_info_noisinh, "\"Nơi sinh\"", 0, 2);
+		//bValid = bValid && ai_checkLength( jhv_info_ngaysinh, "\"Ngày sinh\"", 0, 10);
+		//bValid = bValid && ai_checkLength( jhv_info_noisinh, "\"Nơi sinh\"", 0, 2);
 		
 		bValid = bValid && ai_checkLength( ai_jcmnd, "\"Số CMND\"", 0, 10);
 		bValid = bValid && ai_checkLength( ai_jngaycap, "\"Ngày cấp CMND\"", 0, 10);

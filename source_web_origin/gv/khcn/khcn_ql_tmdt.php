@@ -605,30 +605,30 @@ $hoten = $resDM["HO_TEN"][0];
 				<table style='line-height:20px; width:100%'>
 					<tr>
 						<td align=left class=heading>Tổng kinh phí</td>
-						<td style='' colspan=4><input type=text id=khcn_ql_frm_edit_dtkhcn_tongkinhphi name=khcn_ql_frm_edit_dtkhcn_tongkinhphi data-v-min=0.00 data-v-max=999999.99 maxLength=11 placeholder='' title="Tổng kinh phí (triệu đồng)" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/> (triệu đồng), <b>gồm:</b> </td>
+						<td style='' colspan=4><input type=text id=khcn_ql_frm_edit_dtkhcn_tongkinhphi name=khcn_ql_frm_edit_dtkhcn_tongkinhphi data-v-min=0.000 data-v-max=999999.999 maxLength=11 placeholder='' title="Tổng kinh phí (triệu đồng)" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/> (triệu đồng), <b>gồm:</b> </td>
 					</tr>
 					<tr>
 						<td></td>
 						<td align=left class=heading>- Kinh phí từ ĐHQG-HCM</td>
-						<td style='' colspan=3><input type=text id=khcn_ql_frm_edit_dtkhcn_kinhphi_dhqg name=khcn_ql_frm_edit_dtkhcn_kinhphi_dhqg data-v-min=0.00 data-v-max=999999.99 maxLength=11 placeholder='' title="Kinh phí từ ĐHQG-HCM (triệu đồng)" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/> triệu đồng</td>
+						<td style='' colspan=3><input type=text id=khcn_ql_frm_edit_dtkhcn_kinhphi_dhqg name=khcn_ql_frm_edit_dtkhcn_kinhphi_dhqg data-v-min=0.000 data-v-max=999999.999 maxLength=11 placeholder='' title="Kinh phí từ ĐHQG-HCM (triệu đồng)" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/> triệu đồng</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td align=left class=heading>- Kinh phí từ nguồn huy động</td>
-						<td style='' colspan=3><input type=text id=khcn_ql_frm_edit_dtkhcn_kinhphi_huydong name=khcn_ql_frm_edit_dtkhcn_kinhphi_huydong data-v-min=0.00 data-v-max=999999.99 maxLength=11 placeholder='' title="Kinh phí từ nguồn huy động (vốn tự có và vốn khác)" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/> triệu đồng, <b>trong đó:</b></td>
+						<td style='' colspan=3><input type=text id=khcn_ql_frm_edit_dtkhcn_kinhphi_huydong name=khcn_ql_frm_edit_dtkhcn_kinhphi_huydong data-v-min=0.000 data-v-max=999999.999 maxLength=11 placeholder='' title="Kinh phí từ nguồn huy động (vốn tự có và vốn khác)" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/> triệu đồng, <b>trong đó:</b></td>
 					</tr>
 					<tr>
 						<td></td>
 						<td align=left></td>
 						<td align=left class=heading>+ Vốn tự có </td>
-						<td style='' ><input type=text id=khcn_ql_frm_edit_dtkhcn_kinhphi_tuco name=khcn_ql_frm_edit_dtkhcn_kinhphi_tuco data-v-min=0.00 data-v-max=999999.99 maxLength=11 placeholder='' title="Vốn tự có" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/></td>
+						<td style='' ><input type=text id=khcn_ql_frm_edit_dtkhcn_kinhphi_tuco name=khcn_ql_frm_edit_dtkhcn_kinhphi_tuco data-v-min=0.000 data-v-max=999999.999 maxLength=11 placeholder='' title="Vốn tự có" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/></td>
 						<td align=left style='width:200px' > triệu đồng </td>
 					</tr>
 					<tr>
 						<td></td>
 						<td align=left></td>
 						<td align=left class=heading>+ Vốn khác </td>
-						<td style='' ><input type=text id=khcn_ql_frm_edit_dtkhcn_kinhphi_khac name=khcn_ql_frm_edit_dtkhcn_kinhphi_khac data-v-min=0.00 data-v-max=999999.99 maxLength=11 placeholder='' title="Vốn khác (triệu đồng)" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/></td>						
+						<td style='' ><input type=text id=khcn_ql_frm_edit_dtkhcn_kinhphi_khac name=khcn_ql_frm_edit_dtkhcn_kinhphi_khac data-v-min=0.000 data-v-max=999999.999 maxLength=11 placeholder='' title="Vốn khác (triệu đồng)" style='width:70px;height:18px;text-align:right' class='khcn_tooltips khcn_autonumbers'/></td>						
 						<td align=left> triệu đồng <font color=red>(<b>*</b><span id=khc_lbl_a5_kinhphi_vonkhac></span>)</font></td>
 					</tr>
 					
@@ -1534,7 +1534,7 @@ $(document).ready(function() {
 	$("#khcn_ql_diag_reg_dtkhcn").dialog({
 		resizable: false,
 		autoOpen: false,
-		width:700, height:730,
+		width:700, height:750,
 		modal: true,
 		buttons: [
 			{
