@@ -26,18 +26,36 @@ class NckhPbNoiDungModel extends BaseTable {
 			$macb = $data['fk_ma_can_bo'];
 			$madetai = $data['ma_thuyet_minh_dt'];
 			
+			$dataCLOB = array(
+				'a1_tam_quan_trong' => $data['a1_tam_quan_trong'],
+				'a2_chat_luong_nc' => $data['a2_chat_luong_nc'],
+				'a3_nlnc_csvc' => $data['a3_nlnc_csvc'],
+				'a4_kinh_phi_nx' => $data['a4_kinh_phi_nx'],
+				'c_ket_luan' => $data['c_ket_luan']
+			);
+			
+			unset($data['a1_tam_quan_trong']);
+			unset($data['a2_chat_luong_nc']);
+			unset($data['a3_nlnc_csvc']);
+			unset($data['a4_kinh_phi_nx']);
+			unset($data['c_ket_luan']);
+				
 			if (! $this->checkRowExist($macb,$madetai)) {
 				//Insert new record
 				$this->getInsert($data)->execute(true, array());
-			}else{
-				//Update
-				unset($data['fk_ma_can_bo']);
-				unset($data['ma_thuyet_minh_dt']);
-				
-				$whereCondition = "fk_ma_can_bo = '".$macb."' and ma_thuyet_minh_dt = '".$madetai.
-				"' and check_het_han_phan_bien(ma_thuyet_minh_dt,fk_ma_can_bo) = 0";
-				
-				$this->getUpdate($data)->where($whereCondition)->execute(true, array());
+			}
+			
+			//Update CLOB data
+			$whereCondition = "fk_ma_can_bo = '".$macb."' and ma_thuyet_minh_dt = '".$madetai.
+			"' and check_het_han_phan_bien(ma_thuyet_minh_dt,fk_ma_can_bo) = 0";
+			// $whereCondition = "fk_ma_can_bo = '".$macb."' and ma_thuyet_minh_dt = '".$madetai."'";
+			
+			foreach ($dataCLOB as $colname => $value) {
+				//if($value != null || $value != ''){
+					$tempData= array();
+					$tempData[$colname] = 'EMPTY_CLOB()';
+					$this->getUpdate($tempData)->where($whereCondition)->executeCLOB($colname, $value);
+				//}
 			}
 			
 			return true;

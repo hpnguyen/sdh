@@ -1,2 +1,2 @@
 <?php echo $content ?>
-<?php var_dump($params) ?>
+<?php //var_dump($params) ?>

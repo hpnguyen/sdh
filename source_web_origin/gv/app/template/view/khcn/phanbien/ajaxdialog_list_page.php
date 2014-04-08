@@ -7,11 +7,16 @@ $row = $listItems[0];
 //******************************************************************************************
 //Trim unexpected character
 //******************************************************************************************
-$row['a1_tam_quan_trong'] = $help->trimSlashSpecialChar($row['a1_tam_quan_trong']);
-$row['a2_chat_luong_nc'] = $help->trimSlashSpecialChar($row['a2_chat_luong_nc']);
-$row['a3_nlnc_csvc'] = $help->trimSlashSpecialChar($row['a3_nlnc_csvc']);
-$row['a4_kinh_phi_nx'] = $help->trimSlashSpecialChar($row['a4_kinh_phi_nx']);
-$row['c_ket_luan'] = $help->trimSlashSpecialChar($row['c_ket_luan']);
+$temp = $row['a1_tam_quan_trong'];
+$row['a1_tam_quan_trong'] = $help->trimSlashSpecialChar($temp->load());
+$temp = $row['a2_chat_luong_nc'];
+$row['a2_chat_luong_nc'] = $help->trimSlashSpecialChar($temp->load());
+$temp = $row['a3_nlnc_csvc'];
+$row['a3_nlnc_csvc'] = $help->trimSlashSpecialChar($temp->load());
+$temp = $row['a4_kinh_phi_nx'];
+$row['a4_kinh_phi_nx'] = $help->trimSlashSpecialChar($temp->load());
+$temp = $row['c_ket_luan'];
+$row['c_ket_luan'] = $help->trimSlashSpecialChar($temp->load());
 //******************************************************************************************
 $diemMucDanhGia = array(
 array( 'name' => 'I',
