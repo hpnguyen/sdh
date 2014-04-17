@@ -80,5 +80,277 @@ class CanBoGiangDayModel extends BaseTable {
 		}
 		
 		return $ret;
-	}	
+	}
+	
+	public function getDetailForLlkh($macb)	{
+		$sqlstr="SELECT cb.*, to_char(cb.ngay_sinh,'dd-mm-yyyy') ngay_sinh, 
+		decode(phai, 'M', 'Nam', 'F', 'Nữ') phai_desc, k.ten_khoa, bm.ten_bo_mon,
+		v.ten_chuc_vu, bmql.ten_bo_mon ten_bo_mon_ql, qghv.ten_quoc_gia ten_nuoc_hv, hv.ten ten_hv, 
+		cb.chuyen_mon_bc_bo_gddt, decode(ma_hoc_ham, 'GS','Giáo sư', 'PGS','Phó giáo sư', '') ten_hoc_ham, 
+		get_thanh_vien(cb.ma_can_bo) hotencb, get_nam_dat_hv_cao_nhat(cb.ma_can_bo, cb.ma_hoc_vi) nam_dat_hv_cao_nhat
+		FROM can_bo_giang_day cb, 
+			bo_mon bm, 
+			khoa k, 
+			dm_chuc_vu v, 
+			bo_mon bmql, 
+			quoc_gia qghv, 
+			dm_hoc_vi hv
+		WHERE cb.ma_bo_mon = bm.ma_bo_mon (+) 
+		and bm.ma_khoa = k.ma_khoa (+)
+		and cb.fk_chuc_vu = v.ma_chuc_vu (+)
+		and cb.ma_bo_mon_ql = bmql.ma_bo_mon (+)
+		and cb.qg_dat_hoc_vi = qghv.ma_quoc_gia (+)
+		and cb.ma_hoc_vi = hv.ma_hoc_vi (+)
+		and cb.ma_can_bo in ('".$macb."')";
+		
+		$check = $this->getQuery($sqlstr)->execute(false, array());
+		$ret = array();
+		
+		if($check->itemsCount > 0){
+			$ret = $check->result[0];
+			
+			//Get qua trinh cong tac
+			$sqlstrQtct="SELECT n.fk_chuc_vu, c.ten_chuc_vu, n.thoi_gian_kt, n.thoi_gian_bd, n.noi_cong_tac,
+			n.chuyen_mon, n.dia_chi_co_quan, n.ma_qt_cong_tac
+			FROM nckh_qua_trinh_cong_tac n, dm_chuc_vu c
+			WHERE n.fk_chuc_vu=c.ma_chuc_vu (+) and fk_ma_can_bo='".$macb."'
+			ORDER BY n.thoi_gian_bd desc"; 
+			$ret['dm_qua_trinh_cong_tac'] = array();
+			
+			$retQtct = $this->getQuery($sqlstrQtct)->execute(false, array());
+			if($retQtct->itemsCount > 0){
+				$ret['dm_qua_trinh_cong_tac'] = $retQtct->result;
+			}
+			//Get bac dao tao
+			$sqlstrBacDt="SELECT q.*, b.TEN_BAC, n.TEN_NGANH, g.TEN_QUOC_GIA, hdt.ten_he_dao_tao
+			FROM NCKH_QUA_TRINH_DAO_TAO q, bac_dao_tao b, nckh_nganh_dt n, quoc_gia g, dm_he_dao_tao hdt
+			WHERE FK_MA_CAN_BO = '".$macb. "' and q.BAC_DAO_TAO = b.MA_BAC (+) and q.FK_NGANH = n.MA_NGANH (+)
+				and q.QG_DAT_HOC_VI = g.MA_QUOC_GIA and q.fk_he_dao_tao = hdt.ma_he_dao_tao (+)
+			ORDER BY THOI_GIAN_TN";
+			$retBacDt = $this->getQuery($sqlstrBacDt)->execute(false, array());
+			$ret['dm_qua_trinh_dao_tao'] = array();
+			if($retBacDt->itemsCount > 0){
+				$ret['dm_qua_trinh_dao_tao'] = $retBacDt->result;
+			}
+			
+			//Get danh muc linh vuc nghien cuu
+			$sqlstrDmLvnc="SELECT q.TEN_LVNC, q.MA_LVNC, l.LVNC_KHAC 
+			FROM NCKH_LVNC_KHCN_CBGD l, NCKH_LVNC_KHCN q 
+			WHERE l.FK_MA_CAN_BO = '".$macb."' and l.FK_MA_LVNC = q.MA_LVNC";
+			$retDmLvnc = $this->getQuery($sqlstrDmLvnc)->execute(false, array());
+			$ret['dm_linh_vuc_nghien_cuu'] = array();
+			if($retDmLvnc->itemsCount > 0){
+				$ret['dm_linh_vuc_nghien_cuu'] = $retDmLvnc->result;
+			}
+			
+			//Get danh muc huong de tai
+			$sqlstrDmHuongDt="SELECT ma_de_tai, ten_de_tai, nam 
+			FROM huong_de_tai 
+			WHERE ma_can_bo ='".$macb."' 
+			ORDER BY nam desc, ten_de_tai";
+			$retDmHuongDt = $this->getQuery($sqlstrDmHuongDt)->execute(false, array());
+			$ret['dm_huong_de_tai'] = array();
+			if($retDmHuongDt->itemsCount > 0){
+				$ret['dm_huong_de_tai'] = $retDmHuongDt->result;
+			}
+			
+			//Get de tai nghien cuu khoa hoc
+			$sqlstrDtNckh="SELECT a.*, 
+			DECODE(a.CHU_NHIEM,1,'Chủ nhiệm','Tham gia') THAM_GIA, 
+			DECODE(a.NGHIEM_THU,1,'x','') TT_NGHIEM_THU, 
+			DECODE(a.KET_QUA,'X','Xuất sắc', 'T', 'Tốt', 'K','Khá','B', 'Trung Bình') TT_KET_QUA, b.ten_cap
+			FROM de_tai_nckh a, cap_de_tai b
+			WHERE a.fk_cap_de_tai = b.ma_cap(+) 
+			and a.ma_can_bo = '".$macb."' 
+			ORDER BY a.nam_bat_dau desc"; 
+			$retDtNckh = $this->getQuery($sqlstrDtNckh)->execute(false, array());
+			$ret['dm_de_tai_nckh'] = array();
+			if($retDtNckh->itemsCount > 0){
+				$ret['dm_de_tai_nckh'] = $retDtNckh->result;
+			}
+			
+			//Get danh sach hoc vien, sinh vien, nghien cuu sinh dang huong dan
+			$sqlstrDsHuongDanHocVien="SELECT MA_HD_LUAN_AN, lower(HO_TEN_SV) ho_ten_sv, BAC_DAO_TAO, TEN_BAC, 
+				MA_HOC_VIEN, NAM_TOT_NGHIEP, SAN_PHAM_MA_DE_TAI, TEN_LUAN_AN
+			FROM NCKH_HD_LUAN_AN h, BAC_DAO_TAO b
+			WHERE FK_MA_CAN_BO = '".$macb."' AND h.BAC_DAO_TAO = b.MA_BAC
+			ORDER BY BAC_DAO_TAO, HO_TEN_SV";
+			$retDsHuongDanHocVien = $this->getQuery($sqlstrDsHuongDanHocVien)->execute(false, array());
+			$ret['ds_huong_dan_luan_an'] = array();
+			if($retDsHuongDanHocVien->itemsCount > 0){
+				$ret['ds_huong_dan_luan_an'] = $retDsHuongDanHocVien->result;
+			}
+			
+			//Get danh sach sach da xuat ban quoc te
+			$sqlstrDmSach ="SELECT MA_SACH, TEN_SACH, NHA_XUAT_BAN, NAM_XUAT_BAN, 
+				DECODE(TAC_GIA,1,'tác giả','đồng tác giả') TAC_GIA_DESC,BUT_DANH, SAN_PHAM_MA_DE_TAI
+			FROM sach 
+			WHERE NUOC_NGOAI=1 and ma_can_bo = '".$macb."' 
+			ORDER BY nam_xuat_ban desc";
+			$retDmSach = $this->getQuery($sqlstrDmSach)->execute(false, array());
+			$ret['dm_sach_xuat_ban_quoc_te'] = array();
+			if($retDmSach->itemsCount > 0){
+				$ret['dm_sach_xuat_ban_quoc_te'] = $retDmSach->result;
+			}
+			
+			//Get danh sach sach da xuat ban trong nuoc
+			$sqlstrDmSachTn ="SELECT MA_SACH, TEN_SACH, NHA_XUAT_BAN, NAM_XUAT_BAN, 
+				DECODE(TAC_GIA,1,'tác giả','đồng tác giả') TAC_GIA_DESC,BUT_DANH, SAN_PHAM_MA_DE_TAI
+			FROM SACH 
+			WHERE (NUOC_NGOAI=0 or NUOC_NGOAI is null) and MA_CAN_BO = '".$macb."' 
+			ORDER BY NAM_XUAT_BAN desc";
+			
+			$retDmSachTn = $this->getQuery($sqlstrDmSachTn)->execute(false, array());
+			$ret['dm_sach_xuat_ban_trong_nuoc'] = array();
+			if($retDmSachTn->itemsCount > 0){
+				$ret['dm_sach_xuat_ban_trong_nuoc'] = $retDmSachTn->result;
+			}
+			
+			//Get tap chi quoc te
+			 $sqlstrTapChiQuocTe="SELECT c.*, q.ten_quoc_gia
+			FROM cong_trinh_khoa_hoc c, quoc_gia q
+			WHERE ma_can_bo = '".$macb."' and c.fk_quoc_gia = q.ma_quoc_gia(+) and c.loai_cong_trinh='BQ'
+			ORDER BY c.loai_cong_trinh, c.nam_xuat_ban_tap_chi desc";
+			$retTapChiQuocTe = $this->getQuery($sqlstrTapChiQuocTe)->execute(false, array());
+			$ret['tap_chi_quoc_te'] = array();
+			if($retTapChiQuocTe->itemsCount > 0){
+				$ret['tap_chi_quoc_te'] = $retTapChiQuocTe->result;
+			}
+			
+			//Get tap chi trong nuoc
+			$sqlstrTapChiTrongNuoc="SELECT c.*, q.ten_quoc_gia
+			FROM cong_trinh_khoa_hoc c, quoc_gia q
+			WHERE ma_can_bo = '".$macb."' and c.fk_quoc_gia = q.ma_quoc_gia(+) and c.loai_cong_trinh='BT'
+			ORDER BY c.loai_cong_trinh, c.nam_xuat_ban_tap_chi desc";
+			$retTapChiTrongNuoc = $this->getQuery($sqlstrTapChiTrongNuoc)->execute(false, array());
+			$ret['tap_chi_trong_nuoc'] = array();
+			if($retTapChiTrongNuoc->itemsCount > 0){
+				$ret['tap_chi_trong_nuoc'] = $retTapChiTrongNuoc->result;
+			}
+			
+			//Get ky yeu hoi nghi quoc te
+			$sqlstrKyYeuHoiNghiQuocTe="SELECT c.*, q.ten_quoc_gia
+			FROM cong_trinh_khoa_hoc c, quoc_gia q
+			WHERE ma_can_bo = '".$macb."' and c.fk_quoc_gia = q.ma_quoc_gia(+) and c.loai_cong_trinh='HQ'
+			ORDER BY c.loai_cong_trinh, c.nam_xuat_ban_tap_chi desc";
+			$retKyYeuHoiNghiQuocTe = $this->getQuery($sqlstrKyYeuHoiNghiQuocTe)->execute(false, array());
+			$ret['ky_yeu_hnqt'] = array();
+			if($retKyYeuHoiNghiQuocTe->itemsCount > 0){
+				$ret['ky_yeu_hnqt'] = $retKyYeuHoiNghiQuocTe->result;
+			}
+			
+			//Get ky yeu trong nuoc
+			$sqlstrKyYeuTrongNuoc="SELECT c.*, q.ten_quoc_gia
+			FROM cong_trinh_khoa_hoc c, quoc_gia q
+			WHERE ma_can_bo = '".$macb."' and c.fk_quoc_gia = q.ma_quoc_gia(+) and c.loai_cong_trinh='HT'
+			ORDER BY c.loai_cong_trinh, c.nam_xuat_ban_tap_chi desc";
+			$retKyYeuTrongNuoc = $this->getQuery($sqlstrKyYeuTrongNuoc)->execute(false, array());
+			$ret['ky_yeu_trong_nuoc'] = array();
+			if($retKyYeuTrongNuoc->itemsCount > 0){
+				$ret['ky_yeu_trong_nuoc'] = $retKyYeuTrongNuoc->result;
+			}
+			
+			//Get giai thuong
+			$sqlstrGiaiThuong ="SELECT n.MA_GIAI_THUONG_KHCN, c.TEN_QUOC_GIA TEN_NUOC_CAP, n.NAM_CAP, n.NOI_CAP, 
+			n.NOI_DUNG_GIAI_THUONG, n.NUOC_CAP, n.TEN_GIAI_THUONG, n.FK_MA_CAN_BO
+			FROM NCKH_GIAI_THUONG_KHCN n, QUOC_GIA c 
+			WHERE n.NUOC_CAP=c.MA_QUOC_GIA (+) AND FK_MA_CAN_BO='".$macb."'
+			ORDER BY n.NAM_CAP desc";
+			$retGiaiThuong = $this->getQuery($sqlstrGiaiThuong)->execute(false, array());
+			$ret['giai_thuong'] = array();
+			if($retGiaiThuong->itemsCount > 0){
+				$ret['giai_thuong'] = $retGiaiThuong->result;
+			}
+			
+			//Get phat minh sang che
+			$sqlstrPhatMinhSangChe="SELECT n.MA_BANG_SANG_CHE, c.TEN_QUOC_GIA TEN_NUOC_CAP, n.NAM_CAP, n.NOI_CAP, 
+			n.NUOC_CAP, n.TEN_BANG, n.FK_MA_CAN_BO, n.SAN_PHAM_MA_DE_TAI, n.SO_HIEU_BANG,
+			decode(n.TAC_GIA, '1','tác giả chính', 'đồng tác giả') Tac_gia_chinh
+			FROM NCKH_BANG_SANG_CHE n, QUOC_GIA c 
+			WHERE n.NUOC_CAP=c.MA_QUOC_GIA (+) AND FK_MA_CAN_BO='".$macb."'
+			ORDER BY n.NAM_CAP desc";
+			$retPhatMinhSangChe = $this->getQuery($sqlstrPhatMinhSangChe)->execute(false, array());
+			$ret['phat_minh_sang_che'] = array();
+			if($retPhatMinhSangChe->itemsCount > 0){
+				$ret['phat_minh_sang_che'] = $retPhatMinhSangChe->result;
+			}
+			
+			//Get bang giai phap
+			$sqlstrBangGiaiPhap ="SELECT n.MA_BANG_GP_HUU_ICH, c.TEN_QUOC_GIA TEN_NUOC_CAP, n.NAM_CAP, n.NOI_CAP, 
+			n.NUOC_CAP, n.TEN_BANG, n.FK_MA_CAN_BO, n.SAN_PHAM_MA_DE_TAI, n.SO_HIEU_BANG,
+			decode(n.TAC_GIA, '1','tác giả chính', 'đồng tác giả') Tac_gia_chinh, n.TAC_GIA 
+			FROM NCKH_BANG_GP_HUU_ICH n, QUOC_GIA c 
+			WHERE n.NUOC_CAP=c.MA_QUOC_GIA (+) AND FK_MA_CAN_BO='".$macb."'
+			ORDER BY n.NAM_CAP desc";
+			$retBangGiaiPhap = $this->getQuery($sqlstrBangGiaiPhap)->execute(false, array());
+			$ret['bang_giai_phap'] = array();
+			if($retBangGiaiPhap->itemsCount > 0){
+				$ret['bang_giai_phap'] = $retBangGiaiPhap->result;
+			}
+			
+			//Get Ung dung
+			$sqlstrUngDung="SELECT MA_UD_THUC_TIEN, TEN_CONG_NGHE_GP_HU , HINH_THUC, 
+			QUY_MO, DIA_CHI_AP_DUNG, FK_MA_CAN_BO, THOI_GIAN_CG, SAN_PHAM_MA_DE_TAI
+			FROM NCKH_UD_THUC_TIEN
+			WHERE FK_MA_CAN_BO='".$macb."'";
+			$retUngDung = $this->getQuery($sqlstrUngDung)->execute(false, array());
+			$ret['ung_dung_thuc_tien'] = array();
+			if($retUngDung->itemsCount > 0){
+				$ret['ung_dung_thuc_tien'] = $retUngDung->result;
+			}
+			
+			//Get nckh tham gia chuong trinh
+			$sqlstrNckhThamGiaChuongTrinh="SELECT FK_MA_CAN_BO,MA_TG_CHUONG_TRINH,TEN_CHUONG_TRINH,
+				CHUC_DANH,THOI_GIAN_BD,THOI_GIAN_KT,NUOC_NGOAI, 
+				decode(NUOC_NGOAI, '1','ngoài nước', '0','trong nước') nuoc_ngoai_desc
+			FROM NCKH_THAM_GIA_CHUONG_TRINH n
+			WHERE FK_MA_CAN_BO='".$macb."'
+			ORDER BY THOI_GIAN_BD desc";
+			$retNckhThamGiaChuongTrinh = $this->getQuery($sqlstrNckhThamGiaChuongTrinh)->execute(false, array());
+			$ret['nckh_tham_gia_ct'] = array();
+			if($retNckhThamGiaChuongTrinh->itemsCount > 0){
+				$ret['nckh_tham_gia_ct'] = $retNckhThamGiaChuongTrinh->result;
+			}
+			
+			//Get tham gia hiep hoi, khoa hoc ky thuat
+			$sqlstrThamGiaHiepHoi="SELECT FK_MA_CAN_BO,MA_TG_HH_TC_HN,TEN_HH_TC_HN,CHUC_DANH,THOI_GIAN_BD,THOI_GIAN_KT, decode(LOAI, 'H','Hiệp hội khoa học', 'T','Tạp chí khoa học', 'HN','Hội nghị khoa học công nghệ') loai_desc, loai
+			FROM NCKH_THAM_GIA_HH_TC_HN n
+			WHERE FK_MA_CAN_BO='".$macb."'
+			ORDER BY THOI_GIAN_BD desc";
+			$retThamGiaHiepHoi = $this->getQuery($sqlstrThamGiaHiepHoi)->execute(false, array());
+			$ret['tham_gia_hiep_hoi'] = array();
+			if($retThamGiaHiepHoi->itemsCount > 0){
+				$ret['tham_gia_hiep_hoi'] = $retThamGiaHiepHoi->result;
+			}
+			
+			//Get ngoai ngu
+			$sqlstrDmNgoaiNgu="SELECT FK_MA_CAN_BO, FK_MA_NGOAI_NGU,a.TEN_NGOAI_NGU,KY_NANG_NGHE,KY_NANG_NOI,
+				KY_NANG_DOC,KY_NANG_VIET,GHI_CHU
+			FROM NCKH_QT_NGOAI_NGU n, 
+				DM_NGOAI_NGU a
+			WHERE FK_MA_CAN_BO='".$macb."' 
+				and n.FK_MA_NGOAI_NGU = a.MA_NGOAI_NGU
+			ORDER BY a.TEN_NGOAI_NGU";
+			
+			$ret['dm_ngoai_ngu'] = array();
+			
+			$retNgoaiNgu = $this->getQuery($sqlstrDmNgoaiNgu)->execute(false, array());
+			if($retNgoaiNgu->itemsCount > 0){
+				$ret['dm_ngoai_ngu'] = $retNgoaiNgu->result;
+			}
+			//Get tham gia nghien cuu khoa hoc truong vien
+			$sqlstrNckhTruongVien="SELECT FK_MA_CAN_BO,MA_TG_TRUONG_VIEN,TEN_TRUONG_VIEN,NOI_DUNG_THAM_GIA,THOI_GIAN_BD,THOI_GIAN_KT
+			FROM NCKH_THAM_GIA_TRUONG_VIEN n
+			WHERE FK_MA_CAN_BO='".$macb."'
+			ORDER BY THOI_GIAN_BD desc";
+			
+			$ret['dm_nckh_truong_vien'] = array();
+			$retNckhTruongVien = $this->getQuery($sqlstrNckhTruongVien)->execute(false, array());
+			if($retNckhTruongVien->itemsCount > 0){
+				$ret['dm_nckh_truong_vien'] = $retNckhTruongVien->result;
+			}
+		}
+		
+		return $ret;
+	}
 }

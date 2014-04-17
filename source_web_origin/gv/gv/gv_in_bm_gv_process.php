@@ -53,12 +53,12 @@ if ($a=='refreshdata')
 		
 		$data.= '["'.$resDM["MA_CAN_BO"][$i].'", 
 				  "'.$resDM["SHCC"][$i].'",
-				  "'.escape($resDM["HO"][$i]).'", 
-				  "'.escape($resDM["TEN"][$i]).'", 
-				  "'.$resDM["PHAI_CB"][$i].'", 
-				  "'.$resDM["TEN_KHOA"][$i].'",
-				  "'.$resDM["TEN_BO_MON"][$i].'",
-				  "'.$linkduyet.'",
+				  "'.escapeJsonString($resDM["HO"][$i]).'", 
+				  "'.escapeJsonString($resDM["TEN"][$i]).'", 
+				  "'.escapeJsonString($resDM["PHAI_CB"][$i]).'", 
+				  "'.escapeJsonString($resDM["TEN_KHOA"][$i]).'",
+				  "'.escapeJsonString($resDM["TEN_BO_MON"][$i]).'",
+				  "'.escapeJsonString($linkduyet).'",
 				  "<img src=\'icons/print-preview-icon24x24.png\' class=tooltips data-placement=left title=\'Xem Lý lịch khoa học của<br/>'.$ho_ten.'\' border=0 onClick=\'printLLKH( getRowIndex(this) ); \' style=\'cursor: pointer\'>"],';
 	}
 	

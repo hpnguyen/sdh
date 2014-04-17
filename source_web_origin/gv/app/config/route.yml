@@ -7,6 +7,8 @@ index:
       decuong:
       dsdecuong: 
       indecuong:
+    Llkh:
+      index:
 phanbocanbo:
   Phongban:
     Index:
@@ -93,3 +95,8 @@ login:
       index:
       destroy:
       error:
+vtvl:
+  Vtvl:
+    Index:
+      index:
+      save:

@@ -110,7 +110,8 @@ if ($b == 'export_htm')
 if ($a != 'get_llkh')
 {
 ?>
-  <a id="print_ttgv_r004_btn_printpreview">&nbsp;In ...</a>
+  <a target="_blank" id="print_ttgv_r004_btn_printpreview" href="front.php/index/llkh/index?hisid=<?php echo $_GET['hisid']  ?>">&nbsp;In ...</a>
+  <a target="_blank" id="pdf_print_ttgv_r004_btn_printpreview" href="front.php/index/llkh/index?hisid=<?php echo $_GET['hisid']  ?>&pdf=1">&nbsp;File PDF</a>
   <div align="center" style="margin-top:10px; font-family:Arial,Helvetica,sans-serif;" id="chitietttgv_llkh_mau_r004">
 <?php
 }
@@ -1250,10 +1251,10 @@ if ($a != 'get_llkh')
 <script type="text/javascript">
 $(function(){
  
- $( "#print_ttgv_r004_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
- $( "#print_ttgv_r004_btn_printpreview" ).click(function(){
-	print_llkh_writeConsole($("#chitietttgv_llkh_mau_r004").html(), 0);
- });
+ $( "#print_ttgv_r004_btn_printpreview,#pdf_print_ttgv_r004_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
+ // $( "#print_ttgv_r004_btn_printpreview" ).click(function(){
+	// print_llkh_writeConsole($("#chitietttgv_llkh_mau_r004").html(), 0);
+ // });
  
 });
 </script>

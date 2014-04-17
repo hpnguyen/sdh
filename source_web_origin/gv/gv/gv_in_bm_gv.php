@@ -161,6 +161,16 @@ $(function(){
 		"fnDrawCallback": function( oSettings ) {
 			$(".tooltips").tooltip();
 		},
+		"fnRowCallback": function( nRow, aaData, iDisplayIndex ) {
+			aaData[2] = reverse_escapeJsonString(aaData[2]);
+			aaData[3] = reverse_escapeJsonString(aaData[3]);
+			aaData[4] = reverse_escapeJsonString(aaData[4]);
+			aaData[5] = reverse_escapeJsonString(aaData[5]);
+			aaData[6] = reverse_escapeJsonString(aaData[6]);
+			aaData[7] = reverse_escapeJsonString(aaData[7]);
+			
+			return nRow;
+		},
 		"aoColumns" : [{},{},{},{},{},{},{},{"sClass" : "center"},{}]
 	} );
  }
