@@ -35,8 +35,8 @@ $z = 1;
 if ($a != 'get_llkh')
 {
 ?>
-<a id="print_ttgv_btn_printpreview">&nbsp;In ...</a>
-
+<a target="_blank" href="front.php/index/ttkh/index?hisid=<?php echo $_GET['hisid'] ?>" id="print_ttgv_btn_printpreview">&nbsp;In ...</a>
+<a target="_blank" href="front.php/index/ttkh/index?hisid=<?php echo $_GET['hisid'] ?>&pdf=1" id="pdf_print_ttgv_btn_printpreview">&nbsp;File PDF</a>
   <div align="center" style="margin-top:10px; font-family:Arial,Helvetica,sans-serif;" id="chitietTTKH">
 <?php
 }
@@ -403,10 +403,10 @@ if ($a != 'get_llkh')
 //$(document).ready(function(){
 $(function(){
 
- $( "#print_ttgv_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
- $( "#print_ttgv_btn_printpreview" ).click(function(){
-	print_llkh_writeConsole($("#chitietTTKH").html(), 0);
- });
+ $( "#print_ttgv_btn_printpreview,#pdf_print_ttgv_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
+ // $( "#print_ttgv_btn_printpreview" ).click(function(){
+	// print_llkh_writeConsole($("#chitietTTKH").html(), 0);
+ // });
 
 });
 </script>

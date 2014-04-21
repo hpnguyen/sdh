@@ -17,6 +17,10 @@ $config = array(
 								'Llkh' => array(
 																'index' => array(
 																)
+								),
+								'Ttkh' => array(
+																'index' => array(
+																)
 								)
 				)
 ),
