@@ -38,3 +38,17 @@
 ehthumbs.db
 Thumbs.db
 .project
+# Alias folder
+######################
+source_web_origin/gv/app/logs/files/thong-bao-21-03-2014.pdf
+source_web_origin/gv/gv/anh46
+source_web_origin/gv/gv/download
+source_web_origin/gv/khcn/templ
+source_web_origin/gv/khcn/users
+source_web_origin/gv/khoa/download
+source_web_origin/gv/phong/download
+source_web_origin/hv/dkmh
+source_web_origin/hv/download
+source_web_origin/hv/hinhkyyeu
+source_web_origin/hv/hinhtn
+source_web_origin/phpinfo.php
