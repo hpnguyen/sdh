@@ -1,6 +1,0 @@
-Mã HV	Họ	Tên	Phái
-11030688	Nguyễn Thế	Hiếu	Nam
-12440808	Dương Lê	Hùng	Nam
-12440811	Võ Hoài	Lực	Nam
-11030696	Phạm Minh	Thành	Nam
-91103007	Phạm Hồng	Thạch	Nam

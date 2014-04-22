@@ -1,2 +1,0 @@
-Mã HV	Họ	Tên	Phái	Khóa	Email
-11020364	Võ Duy	Long	Nam	2011	511020364@stu.hcmut.edu.vn

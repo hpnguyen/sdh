@@ -1,7 +1,0 @@
-Mã HV	Họ	Tên	Phái	Khóa	Email
-12404962	Lã Mai	Chuyền	Nam	2012	
-12884963	Huỳnh Thanh	Cường	Nam	2012	
-12884964	Nguyễn Thị Diễm	Hằng	Nữ	2012	diem.hang3@gmail.com
-12884966	Nguyễn Duy	Khang	Nam	2012	chautinhtri35@yahoo.com
-12884968	Nguyễn Khôi	Nguyên	Nam	2012	
-12233014	Đặng Hoàng	Phương	Nam	2012	512233014@stu.hcmut.edu.vn

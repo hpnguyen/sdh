@@ -1,7 +1,0 @@
-Mã HV	Họ	Tên	Phái	Khóa	Email
-12421143	Trần Thanh	Bình	Nam	2012	
-12420224	Đào Minh	Hiếu	Nam	2012	512420224@stu.hcmut.edu.vn
-12423207	Trần Tiến	Hoàng	Nam	2012	512423207@stu.hcmut.edu.vn
-12420227	Trần Nguyễn Minh	Toàn	Nam	2012	512420227@stu.hcmut.edu.vn
-12420226	Trần Chí	Tâm	Nam	2012	512420226@stu.hcmut.edu.vn
-12144566	Nguyễn Thành	Văn	Nam	2012	ntv_02pfiev@yahoo.com
