@@ -126,7 +126,7 @@ if ($a=='regthuyetminh'){
 					$sqlstr="insert into NCKH_TONG_HOP_KINH_PHI(FK_MA_THUYET_MINH_DT,FK_MA_KHOAN_CHI_PHI) values ('$matm','004')"; 
 					$stmt = oci_parse($db_conn_khcn, $sqlstr); oci_execute($stmt);oci_free_statement($stmt);
 				// Cấp Trường
-				}else if ($capdetai == '31' || $capdetai == '32' || $capdetai == '33' || $capdetai == '34'){
+				}else if ($capdetai == '31' || $capdetai == '32' || $capdetai == '33' || $capdetai == '34' || $capdetai == '35'){
 					$sqlstr="insert into NCKH_TONG_HOP_KINH_PHI(FK_MA_THUYET_MINH_DT,FK_MA_KHOAN_CHI_PHI) values ('$matm','101')"; 
 					$stmt = oci_parse($db_conn_khcn, $sqlstr); oci_execute($stmt);oci_free_statement($stmt);
 					$sqlstr="insert into NCKH_TONG_HOP_KINH_PHI(FK_MA_THUYET_MINH_DT,FK_MA_KHOAN_CHI_PHI) values ('$matm','102')"; 

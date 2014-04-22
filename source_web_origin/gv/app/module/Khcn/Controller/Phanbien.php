@@ -3,6 +3,7 @@
  * 
  */
 class ModuleKhcnControllerPhanbien extends FrontController {
+	private $maDeTaiCapTruong = array(31,32,34,35);
 	
 	function __construct() {
 		if (! $this->checkLogin()){
@@ -322,8 +323,8 @@ class ModuleKhcnControllerPhanbien extends FrontController {
 		
 		$fileTemplate = 'r01';
 		$fileTitle = 'Mẫu R01';
-		 
-		if (count($dataPrint) > 0 && (int) $dataPrint['fk_cap_de_tai'] >= 31 && (int) $dataPrint['fk_cap_de_tai'] <= 34){
+		//Check is de_tai_cap_truong or not
+		if (count($dataPrint) > 0 && in_array((int) $dataPrint['fk_cap_de_tai'], $this->maDeTaiCapTruong)){
 			$fileTemplate = 't12';
 			$fileTitle = 'Mẫu trường ĐHBK T12';
 		}

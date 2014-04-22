@@ -182,16 +182,16 @@ $hoten = $resDM["HO_TEN"][0];
 
 <div id=khcn_ql_diag_reg_dtkhcn style='width:650px;' title="Đăng ký Thuyết minh Đề tài KH&CN">
 <form id=khcn_ql_frm_reg_dtkhcn name=khcn_ql_frm_reg_dtkhcn >
-	<div style='margin: 5px 0 5px 0;' class=heading>SHCC</div>
+	<div style='margin: 10px 0 5px 0;' class=heading>
+		<input type=text id="khcn_ql_frm_reg_dtkhcn_search_hoten" name="khcn_ql_frm_reg_dtkhcn_search_hoten" placeholder='Tìm theo họ và tên' title='Tìm kiếm theo họ và tên' style='width:485px;' class='khcn_tooltips'/> 
+		&nbsp; <input type=text id="khcn_ql_frm_reg_dtkhcn_shcc" name="khcn_ql_frm_reg_dtkhcn_shcc" placeholder='Tìm theo SHCC' title='Tìm theo SHCC' style='width:150px;height:34px' class='khcn_tooltips'/>
+	</div>
 	<div style='margin: 5px 0 5px 0;' class=heading>
-		<input type=text id="khcn_ql_frm_reg_dtkhcn_shcc" name="khcn_ql_frm_reg_dtkhcn_shcc" placeholder='SHCC' title='Số hiệu công chức' style='width:80px;height:30px' class='khcn_tooltips'/> <font color=red>*</font> <span id=khcn_ql_frm_reg_dtkhcn_hoten></span>
+		<span id="khcn_ql_frm_reg_dtkhcn_hoten" name="khcn_ql_frm_reg_dtkhcn_hoten" style="color:#96C716"></span>
 		<input type=hidden id=khcn_ql_frm_reg_dtkhcn_macb name=khcn_ql_frm_reg_dtkhcn_macb>
 	</div>
-	<div style='margin: 5px 0 5px 0;' class=heading>Họ và tên</div>
-	<div style='margin: 5px 0 5px 0;' class=heading>
-		<input type=text id="khcn_ql_frm_reg_dtkhcn_search_hoten" name="khcn_ql_frm_reg_dtkhcn_search_hoten" placeholder='Tìm theo họ và tên' title='Tìm kiếm theo họ và tên' style='width:430px;' class='khcn_tooltips'/>
-	</div>
-	<div style='margin: 5px 0 5px 0;' class=heading>Cấp đề tài</div>
+	
+	<div style='margin: 15px 0 5px 0;' class=heading>Cấp đề tài</div>
 	<div style='margin: 5px 0 5px 0;'>
 		<select id=khcn_ql_frm_reg_dtkhcn_capdetai name=khcn_ql_frm_reg_dtkhcn_capdetai style='font-size:13px; width:97.6%' class='khcn_tooltips' title='Cấp đề tài' >
 			<option value='' selected>-Chọn cấp đề tài-</option>
@@ -1534,7 +1534,7 @@ $(document).ready(function() {
 	$("#khcn_ql_diag_reg_dtkhcn").dialog({
 		resizable: false,
 		autoOpen: false,
-		width:700, height:750,
+		width:700, height:720,
 		modal: true,
 		buttons: [
 			{
@@ -3199,7 +3199,7 @@ function khcn_ql_GetThuyetMinh_MoTaNghienCuu(pMaThuyetMinh){
 			}
 			if (data.mota.fk_cap_de_tai>20 && data.mota.fk_cap_de_tai<25){
 				$(".khcn_b8_kp_de_nghi_noicap").html("ĐHQG-HCM");
-			}else if (data.mota.fk_cap_de_tai>30 && data.mota.fk_cap_de_tai<35){
+			}else if (data.mota.fk_cap_de_tai>30 && data.mota.fk_cap_de_tai<36){
 				$(".khcn_b8_kp_de_nghi_noicap").html("Trường");
 			}
 			$("button.khcn_ql_khoanchiphi_edit" ).button({ icons: {primary:'ui-icon ui-icon-pencil'} });
@@ -4265,7 +4265,7 @@ function khcn_ql_print_tmdt(pindex, pcap){
 	if (pcap > 20 && pcap < 25) { // Cap DHQG
 		fileprint = 'khcn_print_tmdt_r01.php';
 		tabname = 'TMĐT - ĐHQG Mẫu R01 - ' + matmdt;
-	}else if (pcap > 30 && pcap < 35) { // Cap truong
+	}else if (pcap > 30 && pcap < 36) { // Cap truong
 		fileprint = 'khcn_print_tmdt_t12.php';
 		tabname = 'TMĐT - Trường Mẫu 12 - ' + matmdt;
 	}
@@ -4285,7 +4285,7 @@ function khcn_ql_print_phanbien_report(pindex, pcap, pmcb){
 	if (pcap == 23) { // Cap DHQG Loai C
 		fileprint = 'khcn_print_danh_gia_tmdt_m01.php';
 		tabname = 'Đánh giá TMĐT - ĐHQG Mẫu M01 - ' + matmdt;
-	}else if (pcap > 30 && pcap < 35) { // Cap truong
+	}else if (pcap > 30 && pcap < 36) { // Cap truong
 		fileprint = 'khcn_print_danh_gia_tmdt_m06.php';
 		tabname = 'Đánh giá TMĐT - Trường Mẫu BM06/KHCN-08 - ' + matmdt;
 	}
@@ -4296,8 +4296,8 @@ function khcn_ql_print_phanbien_report(pindex, pcap, pmcb){
 
 function khcn_ql_change_capdetai(pVal){
 	if (pVal) {
-		// Nếu đề tài thuộc cấp Trường (31->34)
-		if (parseInt(pVal) > 30 && parseInt(pVal) < 35 ){
+		// Nếu đề tài thuộc cấp Trường (31->35)
+		if (parseInt(pVal) > 30 && parseInt(pVal) < 36 ){
 			 $("#khcn_ql_frm_reg_dtkhcn_cnganhhep, #khcn_ql_frm_edit_dtkhcn_cnganhhep").attr("disabled", "disabled");
 			 $("#khcn_ql_frm_reg_dtkhcn_qd193").css("display", "none");
 			 
@@ -4381,7 +4381,7 @@ function khcn_ql_trangthai_tmdt(pindex, pcap){
 	
 	/* if (pcap > 20 && pcap < 25) { // Cap DHQG
 		$("#khcn_diag_confirm_hoantat_tmdt_llkh").val("gv_print_llkh_mau_r03.php");
-	}else if (pcap > 30 && pcap < 35) { // Cap truong
+	}else if (pcap > 30 && pcap < 36) { // Cap truong
 		$("#khcn_diag_confirm_hoantat_tmdt_llkh").val("gv_print_llkh_mau_truong_bk.php");
 	} */
 	
@@ -4399,7 +4399,7 @@ function khcn_ql_view_phanbien(pMaTM, pMaCB, pCapDT){
 			if (pCapDT == 23) { // Cap DHQG Loai C
 				fileprint = 'khcn_print_danh_gia_tmdt_m01.php';
 				tabname = 'Đánh giá TMĐT - ĐHQG Mẫu M01 - ' + pMaTM;
-			}else if (pCapDT > 30 && pCapDT < 35) { // Cap truong
+			}else if (pCapDT > 30 && pCapDT < 36) { // Cap truong
 				fileprint = 'khcn_print_danh_gia_tmdt_bm06.php';
 				tabname = 'Đánh giá TMĐT - Trường Mẫu BM06/KHCN-08 - ' + pMaTM;
 			}

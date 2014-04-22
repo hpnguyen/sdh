@@ -44,7 +44,8 @@ $z = 1;
 if ($a != 'get_llkh')
 {
 ?>
-  <a id="print_ttgv_mau_nckh_cndt_btn_printpreview">&nbsp;In ...</a>
+  <a target="_blank" id="print_ttgv_mau_nckh_cndt_btn_printpreview" href="front.php/index/llkh/index?hisid=<?php echo $_GET['hisid']  ?>&f=cndt">&nbsp;In ...</a>
+  <a target="_blank" id="pdf_print_ttgv_mau_nckh_cndt_btn_printpreview" href="front.php/index/llkh/index?hisid=<?php echo $_GET['hisid']  ?>&f=cndt&pdf=1">&nbsp;File PDF</a>
   <div align="center" style="margin-top:10px; font-family:Arial,Helvetica,sans-serif;" id="chitietttgv_llkh_mau_cndt">
 <?php
 }
@@ -550,10 +551,10 @@ if ($a != 'get_llkh')
 //$(document).ready(function(){
 $(function(){
  
- $( "#print_ttgv_mau_nckh_cndt_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
- $( "#print_ttgv_mau_nckh_cndt_btn_printpreview" ).click(function(){
-	print_llkh_writeConsole($("#chitietttgv_llkh_mau_cndt").html(), 0);
- });
+ $( "#print_ttgv_mau_nckh_cndt_btn_printpreview,#pdf_print_ttgv_mau_nckh_cndt_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
+ // $( "#print_ttgv_mau_nckh_cndt_btn_printpreview" ).click(function(){
+	// print_llkh_writeConsole($("#chitietttgv_llkh_mau_cndt").html(), 0);
+ // });
 
 });
 </script>

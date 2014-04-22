@@ -260,7 +260,7 @@ if ((int) $row["het_han_phan_bien"] == 0 && $row["kq_phan_hoi"] == '1'){
 									if((int) $dm['allow_edit'] == 1) {
 										echo $dm['stt'] != '' ? '<b>'.$dm['diem_toi_da'].'</b>' : $dm['diem_toi_da'] ;
 									}else{
-										if ((int) $row["fk_cap_de_tai"] >= 31 && (int) $row["fk_cap_de_tai"] <= 32){
+										if ((int) $row["fk_cap_de_tai"] >= 31 && (int) $row["fk_cap_de_tai"] <= 35){
 											echo "<b>".$dm['thang_diem_truong']."</b>";
 										}else{
 											if((int) $row["fk_loai_hinh_nc"] == 1) {

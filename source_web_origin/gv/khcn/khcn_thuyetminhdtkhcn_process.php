@@ -162,7 +162,7 @@ if ($a=='regthuyetminh'){
 						$sqlstr="insert into NCKH_TONG_HOP_KINH_PHI(FK_MA_THUYET_MINH_DT,FK_MA_KHOAN_CHI_PHI) values ('$matm','004')"; 
 						$stmt = oci_parse($db_conn_khcn, $sqlstr); oci_execute($stmt);oci_free_statement($stmt);
 					// Cấp Trường
-					}else if ($capdetai == '31' || $capdetai == '32' || $capdetai == '33' || $capdetai == '34'){
+					}else if ($capdetai == '31' || $capdetai == '32' || $capdetai == '33' || $capdetai == '34' || $capdetai == '35'){
 						$sqlstr="insert into NCKH_TONG_HOP_KINH_PHI(FK_MA_THUYET_MINH_DT,FK_MA_KHOAN_CHI_PHI) values ('$matm','101')"; 
 						$stmt = oci_parse($db_conn_khcn, $sqlstr); oci_execute($stmt);oci_free_statement($stmt);
 						$sqlstr="insert into NCKH_TONG_HOP_KINH_PHI(FK_MA_THUYET_MINH_DT,FK_MA_KHOAN_CHI_PHI) values ('$matm','102')"; 
@@ -1099,7 +1099,7 @@ if ($a=='refreshdata'){
 	$sqlstr="	SELECT MA_THUYET_MINH_DT, TEN_DE_TAI_VN, cdt.ten_cap, lhnc.TEN_LOAI_HINH_NC, THOI_GIAN_THUC_HIEN, TONG_KINH_PHI, FK_CAP_DE_TAI,
 				GET_NGANH_NHOM_NGANH(MA_THUYET_MINH_DT) NGANH_NHOMNGANH, KEYWORDS, HUONG_DE_TAI,
 				nvl(tm.FK_TINH_TRANG,'01') FK_TINH_TRANG, tt.TEN_TINH_TRANG, nvl(tt.EDIT_ALLOW, 0) EDIT_ALLOW, FK_DONG_CHU_NHIEM_DT,
-				(sysdate - cdt.DKDT_NGAY_BD) BAT_DAU_DKDT, (sysdate-cdt.dkdt_ngay_kt) HET_HAN_DKDT, bm.TEN_BO_MON
+				(sysdate - cdt.DKDT_NGAY_BD) BAT_DAU_DKDT, (sysdate-cdt.dkdt_ngay_kt) HET_HAN_DKDT, bm.TEN_BO_MON, nvl(tm.NGAY_DANG_KY-cdt.DKDT_NGAY_BD, 0) edit_allow_2
 				FROM NCKH_THUYET_MINH_DE_TAI tm, CAP_DE_TAI cdt, NCKH_LOAI_HINH_NC lhnc, NCKH_DM_TINH_TRANG tt, BO_MON bm
 				WHERE FK_CAP_DE_TAI = cdt.ma_cap(+) and FK_LOAI_HINH_NC = lhnc.MA_LOAI_HINH_NC(+)
 				and tm.FK_MA_CAN_BO = '$macb' AND nvl(tm.FK_TINH_TRANG,'01') = tt.MA_TINH_TRANG (+) AND tm.THUNG_RAC is null
@@ -1114,10 +1114,11 @@ if ($a=='refreshdata'){
 			"aaData":[';
 	
 	for ($i = 0; $i < $n; $i++){
-		if ($resDM["EDIT_ALLOW"][$i]==1){
+		// $resDM["HET_HAN_DKDT"][$i]<0 => còn hạn
+		if ($resDM["EDIT_ALLOW"][$i]==1 && $resDM["EDIT_ALLOW_2"][$i]>0 && $resDM["HET_HAN_DKDT"][$i]<0){
 			$SendTMDT = '"<img src=\'icons/Send-Document-icon.png\' class=khcn_tooltips title=\'Hoàn tất đăng ký TMĐT\' border=0 onClick=\'khcn_hoantat_tmdt( khcn_getRowIndex(this),\"'.$resDM["FK_CAP_DE_TAI"][$i].'\"); \' style=\'cursor: pointer\'>"';
 		}else{
-			$SendTMDT = '"<img src=\'icons/circle-green.png\' class=khcn_tooltips title=\'Đã hoàn tất đăng ký TMĐT\' border=0 >"';
+			$SendTMDT = '"<img src=\'icons/circle-green.png\' class=khcn_tooltips title=\'\' border=0 >"';
 		}
 		
 		if ($resDM["FK_TINH_TRANG"][$i]=='01'){

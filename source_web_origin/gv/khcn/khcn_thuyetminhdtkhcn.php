@@ -1593,7 +1593,7 @@ $(document).ready(function() {
 											shcc_masv=data.shcc;
 										}
 											
-										$( "#khcn_frm_edit_dtkhcn_A9_table_nhanluc tbody:eq("+(data.loainhanluc-1)+")" ).append( "<tr style='font-size:12px;' >" +
+										$( "#khcn_frm_edit_dtkhcn_A9_table_nhanluc tbody:eq("+(data.loainhanluc-1)+")" ).append( "<tr style='font-size:12px; border-color: #000000; border-width: 1px; border-style: solid; border-collapse:collapse;' >" +
 											"<td align=left>" + data.ma_nhan_luc + "</td>" +
 											"<td align=left>" + ho_ten + "</td>" +
 											"<td align=left>" + shcc_masv + "</td>" +
@@ -2120,7 +2120,7 @@ $(document).ready(function() {
 					gv_processing_diglog("open","Khoa học & Công nghệ", "Đang lưu dữ liệu ...");
 					
 					// Lấy mẫu LLKH của CNĐT
-					dataString = 'a=get_llkh&b=export_htm&c='+khcn_matm_selected+'&d=llkh_cndt&hisid=<?php echo $_REQUEST["hisid"]; ?>';
+					/* dataString = 'a=get_llkh&b=export_htm&c='+khcn_matm_selected+'&d=llkh_cndt&hisid=<?php echo $_REQUEST["hisid"]; ?>';
 					filename = $("#khcn_diag_confirm_hoantat_tmdt_llkh").val();
 					xreq = $.ajax({
 					  type: 'POST', dataType: "html", data: dataString,
@@ -2185,7 +2185,39 @@ $(document).ready(function() {
 								});
 							}
 					  }
+					}); */
+					
+					// Lấy mẫu LLKH của tham gia de tai
+					dataString = 'a=get_llkh&b=export_htm&c='+khcn_matm_selected+'&d=llkh_cndt&hisid=<?php echo $_REQUEST["hisid"]; ?>';
+					filename = $("#khcn_diag_confirm_hoantat_tmdt_llkh").val();
+					xreq = $.ajax({
+					  type: 'POST', dataType: "html", data: dataString,
+					  url: "gv/"+filename,
+					  success: function(data) {
+							
+							// Cập nhật trạng thái Hoàn tất đăng ký
+							/* dataString = 'a=updateS&m='+khcn_matm_selected;
+							xreq = $.ajax({
+							  type: 'POST', dataType: "json", data: dataString,
+							  url: khcn_linkdata,
+							  success: function(data) {
+								gv_processing_diglog("close");
+								if (data.success == 1){
+									var aData = oTableThuyetMinhDTKHCN.fnGetData( khcn_nTr_selected );
+									aData[khcn_tmdt_col_idx['trangthai']]=data.tinh_trang;
+									aData[khcn_tmdt_col_idx['editallow']]=data.edit_allow;
+									khcn_nTr_selected.cells[khcn_tmdt_col_idx['trangthai']].innerHTML=data.tinh_trang;
+									khcn_nTr_selected.cells[khcn_tmdt_col_idx['guitmdt']].innerHTML="<img src='icons/circle-green.png' class=khcn_tooltips title='Đã hoàn tất đăng ký TMĐT' border=0 >";
+									$( "#khcn_diag_confirm_hoantat_tmdt" ).dialog( "close" );
+								}else{
+									gv_open_msg_box("Chi tiết lỗi: <br/><div style='margin: 5px 0 0 5px'>" + reverse_escapeJsonString(data.msgerr)+'</div>', 'alert', 250, 180, true);
+								}
+							  }
+							}); */
+
+					  }
 					});
+					
 				}
 			},
 			{
@@ -2755,7 +2787,7 @@ function khcn_GetThuyetMinh_ThongTinChung(pMaThuyetMinh){
 			$("#khcn_frm_edit_dtkhcn_kinhphi_khac").autoNumeric('set',reverse_escapeJsonString(data.info.vonkhac));
 			$("#khcn_frm_edit_dtkhcn_tochuctaitro").val(reverse_escapeJsonString(data.info.tochuctaitrokhac));
 			
-			if (parseInt(data.info.capdetai) > 30 && parseInt(data.info.capdetai) < 35 ){ // Truong
+			if (parseInt(data.info.capdetai) > 30 && parseInt(data.info.capdetai) < 36 ){ // Truong
 				$("#khcn_frm_edit_dtkhcn_A5_kinhphitu").html("Trường ĐHBK");
 			}else{ // DHQG
 				$("#khcn_frm_edit_dtkhcn_A5_kinhphitu").html("ĐHQG-HCM");
@@ -2961,7 +2993,7 @@ function khcn_GetThuyetMinh_MoTaNghienCuu(pMaThuyetMinh){
 			if (data.mota.fk_cap_de_tai>20 && data.mota.fk_cap_de_tai<25){ // cap DHQG
 				$(".khcn_b8_kp_de_nghi_noicap").html("ĐHQG-HCM");
 				$("#khcn_b8_phuluc_khoanchi").attr("href", "./khcn/templ/R01_phu_luc_giai_trinh_khoan_chi.docx");
-			}else if (data.mota.fk_cap_de_tai>30 && data.mota.fk_cap_de_tai<35){
+			}else if (data.mota.fk_cap_de_tai>30 && data.mota.fk_cap_de_tai<36){
 				$(".khcn_b8_kp_de_nghi_noicap").html("Trường");
 				$("#khcn_b8_phuluc_khoanchi").attr("href", "./khcn/templ/bm03_khcn_08_du_toan.xls");
 			}
@@ -3956,7 +3988,7 @@ function khcn_print_tmdt(pindex, pcap){
 	if (pcap > 20 && pcap < 25) { // Cap DHQG
 		fileprint = 'khcn_print_tmdt_r01.php';
 		tabname = 'TMĐT - ĐHQG Mẫu R01 - ' + khcn_matm_selected;
-	}else if (pcap > 30 && pcap < 35) { // Cap truong
+	}else if (pcap > 30 && pcap < 36) { // Cap truong
 		fileprint = 'khcn_print_tmdt_t12.php';
 		tabname = 'TMĐT - Trường Mẫu 12 - ' + khcn_matm_selected;
 	}
@@ -3973,17 +4005,20 @@ function khcn_print_tmdt(pindex, pcap){
 
 function khcn_change_capdetai(pVal){
 	if (pVal) {
-		// Nếu đề tài thuộc cấp Trường (31->34)
-		if (parseInt(pVal) > 30 && parseInt(pVal) < 35 ){
+		// Nếu đề tài thuộc cấp Trường (31->35)
+		if (parseInt(pVal) > 30 && parseInt(pVal) < 36 ){
 			 $("#khcn_frm_reg_dtkhcn_cnganhhep, #khcn_frm_edit_dtkhcn_cnganhhep").attr("disabled", "disabled");
 			 $("#khcn_frm_reg_dtkhcn_qd193").css("display", "none");
 			 
-		}else{
+		}else if (parseInt(pVal) > 20 && parseInt(pVal) < 24 ){
 			$("#khcn_frm_reg_dtkhcn_cnganhhep, #khcn_frm_edit_dtkhcn_cnganhhep").removeAttr("disabled");
 			$("#khcn_frm_reg_dtkhcn_qd193").css("display", "block");
+		}else{
+			
 		}
-	} else 
+	} else {
 		 $("#khcn_frm_reg_dtkhcn_qd193").css("display", "none");
+	}
 }
 
 function khcn_cal_kinhphi(){
@@ -4013,7 +4048,7 @@ function khcn_hoantat_tmdt(pindex, pcap){
 	
 	if (pcap > 20 && pcap < 25) { // Cap DHQG
 		$("#khcn_diag_confirm_hoantat_tmdt_llkh").val("gv_print_llkh_mau_r03.php");
-	}else if (pcap > 30 && pcap < 35) { // Cap truong
+	}else if (pcap > 30 && pcap < 36) { // Cap truong
 		$("#khcn_diag_confirm_hoantat_tmdt_llkh").val("gv_print_llkh_mau_truong_bk.php");
 	}
 	
@@ -4057,7 +4092,6 @@ function khcn_init_ds_nhanlucnc(pProjects){
 					$( '#khcn_frm_reg_nhanlucnghiencuu_shcc' ).val("");
 					$( '#khcn_frm_reg_nhanlucnghiencuu_don_vi_cong_tac').val("");
 				}
-				
 				//console.log('change ' + $( '#khcn_frm_reg_nhanlucnghiencuu_hh_hv_ho_ten' ).val());
 			}
 	})
@@ -4104,6 +4138,10 @@ function khcn_init_ds_dongchunhiem(pProjects){
 	.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
 		return $( "<li>" ).append( "<a><b>" + item.label + "</b><br>" + reverse_escapeJsonString(item.desc) + "</a><hr>" ).appendTo( ul );
 	};
+}
+
+function khcn_init_form_edit(pCapDT){
+	
 }
 </script>
 

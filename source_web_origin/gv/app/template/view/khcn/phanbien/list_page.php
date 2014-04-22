@@ -67,7 +67,7 @@ foreach($listItems as $y => $row)
 	$urlPrintPDF = null;
 	if ($row['fk_cap_de_tai'] >= 21 && $row['fk_cap_de_tai'] <= 23){
 		$urlPrintPDF = $help->getModuleActionRouteUrl('khcn/phanbien/printpdfbm01?a=print_tmdt_pdf&hisid='.$_GET['hisid'])."&mdt=".$row["ma_thuyet_minh_dt"]."&mcb=".$macb."&k=";
-	}else if ($row['fk_cap_de_tai'] >= 31 && $row['fk_cap_de_tai'] <= 32){
+	}else if ($row['fk_cap_de_tai'] >= 31 && $row['fk_cap_de_tai'] <= 35){
 		$urlPrintPDF = $help->getModuleActionRouteUrl('khcn/phanbien/printpdfbm06?a=print_tmdt_pdf&hisid='.$_GET['hisid'])."&mdt=".$row["ma_thuyet_minh_dt"]."&mcb=".$macb."&k=";
 	}
 	

@@ -44,7 +44,8 @@ $z = 1;
 if ($a != 'get_llkh')
 {
 ?>
-  <a id="print_ttgv_mau_nckh_cndt_btn_printpreview">&nbsp;In ...</a>
+  <a target="_blank" id="print_ttgv_mau_nckh_cndt_btn_printpreview" href="front.php/index/llkh/index?hisid=<?php echo $_GET['hisid']  ?>&f=cgkhcn">&nbsp;In ...</a>
+  <a target="_blank" id="pdf_print_ttgv_mau_nckh_cndt_btn_printpreview" href="front.php/index/llkh/index?hisid=<?php echo $_GET['hisid']  ?>&f=cgkhcn&pdf=1">&nbsp;File PDF</a>
   <div align="center" style="margin-top:10px; font-family:Arial,Helvetica,sans-serif;" id="chitietllkh_mau_cgkhcn_bo">
 <?php
 }
@@ -590,7 +591,7 @@ if ($a != 'get_llkh')
 								<td align=left valign=top style="border-style:dotted"><em>Họ và tên</em></td>
 								<td align=left valign=top style="border-style:dotted"><em>Nơi công tác</em></td>
 								<td align=left valign=top style='border-style:dotted'><em>Địa chỉ liên lạc</em></td>
-								<td align=left valign=top style='border-style:dotted'><em>Địa thoại</em></td>
+								<td align=left valign=top style='border-style:dotted'><em>Điện thoạ</em></td>
 								<td align=left valign=top style='border-style:dotted'><em>Email</em></td>
 							  </tr>
 							</thead>
@@ -670,10 +671,10 @@ if ($a != 'get_llkh')
 //$(document).ready(function(){
 $(function(){
  
- $( "#print_ttgv_mau_nckh_cndt_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
- $( "#print_ttgv_mau_nckh_cndt_btn_printpreview" ).click(function(){
-	print_llkh_writeConsole($("#chitietllkh_mau_cgkhcn_bo").html(), 0);
- });
+ $( "#print_ttgv_mau_nckh_cndt_btn_printpreview,#pdf_print_ttgv_mau_nckh_cndt_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
+ // $( "#print_ttgv_mau_nckh_cndt_btn_printpreview" ).click(function(){
+	// print_llkh_writeConsole($("#chitietllkh_mau_cgkhcn_bo").html(), 0);
+ // });
 
 });
 </script>
