@@ -98,7 +98,7 @@ function lichthi_nganh_writeConsole(content) {
 	+',scrollbars=1'
 	+',resizable=1')
 	top.consoleRef.document.writeln(
-	'<html><head><title>Phong Dao Tao SDH - DHBK</title></head>'
+	'<html><head><title>Phòng Đào Tạo SĐH - ĐHBK</title></head>'
 	+'<body bgcolor=white onLoad="self.focus()">'
 	+content
 	+'</body></html>'

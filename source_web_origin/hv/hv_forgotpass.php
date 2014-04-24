@@ -134,7 +134,7 @@
 									//$to .= 'wez@example.com';
 									
 									// subject
-									$subject = 'Phong Dao Tao Sau Dai Hoc: Khoi Phuc Mat Khau';
+									$subject = 'Phòng Đào Tạo Sau Đại Học: Khôi Phục Mật Khẩu';
 									
 									// message
 									$message = '
@@ -159,7 +159,7 @@
 									
 									// Additional headers
 									$headers .= 'To: '.$kt["HO"][0].' '.$kt["TEN"][0].' <'.$email.'>' . "\r\n";
-									$headers .= 'From: Phong Dao Tao Sau Dai Hoc <no_reply@hcmut.edu.vn>' . "\r\n";
+									$headers .= 'From: Phòng Đào Tạo Sau Đại Học <no_reply@hcmut.edu.vn>' . "\r\n";
 									$headers .= 'Cc: ' . "\r\n";
 									$headers .= 'Bcc: ' . "\r\n";
 									

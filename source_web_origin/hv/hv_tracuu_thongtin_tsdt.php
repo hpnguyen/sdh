@@ -97,7 +97,7 @@ function diem_ts_writeConsole(content) {
 	+',scrollbars=1'
 	+',resizable=1')
 	a.document.writeln(
-	'<html><head><title>Phong Dao Tao SDH - DHBK</title></head>'
+	'<html><head><title>Phòng Đào Tạo SĐH - ĐHBK</title></head>'
 	+'<link href="css/pgs.css" rel="stylesheet" type="text/css"/>'
 	+'<body bgcolor=white onLoad="self.focus()">'
 	+content

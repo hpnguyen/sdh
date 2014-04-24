@@ -61,7 +61,7 @@ function sendemail($emailaddress, $name, $subject, $content){
 	
 	// Additional headers
 	$headers .= "To: $name <$emailaddress>\r\n";
-	$headers .= 'From: Phong Dao Tao Sau Dai Hoc <noreply@hcmut.edu.vn>' . "\r\n";
+	$headers .= 'From: Phòng Đào Tạo Sau Đại Học <noreply@hcmut.edu.vn>' . "\r\n";
 	$headers .= 'Cc: ' . "\r\n";
 	$headers .= 'Bcc: ' . "\r\n";
 	

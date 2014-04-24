@@ -144,7 +144,7 @@
 								
 								// Additional headers
 								$headers .= 'To: '.$kt["HO"][0].' '.$kt["TEN"][0].' <'.$email.'>' . "\r\n";
-								$headers .= 'From: Phong Dao Tao Sau Dai Hoc <taint@hcmut.edu.vn>' . "\r\n";
+								$headers .= 'From: Phòng Đào Tạo Sau Đại Học <taint@hcmut.edu.vn>' . "\r\n";
 								$headers .= 'Cc: ' . "\r\n";
 								$headers .= 'Bcc: ' . "\r\n";
 								
