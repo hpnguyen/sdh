@@ -52,3 +52,10 @@ source_web_origin/hv/download
 source_web_origin/hv/hinhkyyeu
 source_web_origin/hv/hinhtn
 source_web_origin/phpinfo.php
+# File root web config database
+######################
+source_web_origin/gv/app/config/*.php
+source_web_origin/gv/app/config/*.yml
+source_web_origin/hv/libs/*.php
+source_web_origin/hv/app/config/*.php
+source_web_origin/hv/app/config/*.yml
