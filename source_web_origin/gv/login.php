@@ -224,11 +224,11 @@ $cookie_time = (3600 * 24 * 30); // 30 days
 				  <td height="24" colspan="2">
 					  <table width="100%" border="0" cellspacing="0" cellpadding="8">
 						
-						<tr>
+						<!-- <tr>
 						  <td align="left">
 							<a href="front.php/login/cas/index" style='font-size:15px; color: #96C716'>Đăng nhập bằng email Trường</a>
 						  </td>
-						</tr>
+						</tr> -->
 						
 						<tr>
 						  <td style='font-size:15px;' align="left"><a href="forgot.php">Quên mật khẩu?</a></td>
