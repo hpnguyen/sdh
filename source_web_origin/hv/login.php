@@ -200,11 +200,11 @@ if(!isset($do_login))
     <tr>
       <td height="24">&nbsp;</td>
       <td height="24" colspan="2"><table width="100%" border="0" cellspacing="0" cellpadding="8">
-		<tr>
+		<!-- <tr>
 			  <td style='font-size:13px;' align="left">
 			  	<a href="front.php/login/cas/index">Đăng nhập qua hệ thống xác thực trường ĐHBK</a>
 			  </td>
-		</tr>
+		</tr> -->
 		<tr>
           <td class="fontcontent" align="left"><a href="hv_forgotpass.php" class="">Quên mật khẩu?</a></td>
         </tr>
