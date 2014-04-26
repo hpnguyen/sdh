@@ -409,7 +409,7 @@ else if ($a=='CapnhatTraHV'){
 	else
 	{
 		// Cap nhat hvu_giai_quyet_hvu ở web
-		$sqlstr="update hvu_giai_quyet_hvu@db_link set NGAY_TRA_KQ = sysdate, NGUOI_TRA_KQ = '$mantra'
+		$sqlstr="update hvu_giai_quyet_hvu@db_link".$config_name_db_link." set NGAY_TRA_KQ = sysdate, NGUOI_TRA_KQ = '$mantra'
 		where MA_GQHVU in ($magqhv)"; 
 		$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt);
 	}
@@ -441,7 +441,7 @@ else if ($a=='ThungRac'){
 		// Cap nhat hvu_giai_quyet_hvu trên web
 		oci_free_statement($stmt);
 		$sqlstr="
-		update hvu_giai_quyet_hvu@db_link set THUNG_RAC = $c
+		update hvu_giai_quyet_hvu@db_link".$config_name_db_link." set THUNG_RAC = $c
 		where MA_GQHVU in ($magqhv)"; 
 		$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt);
 	}
@@ -467,7 +467,7 @@ else if ($a=='PhucHoiCapnhatTraHV'){
 	else
 	{
 		// Cap nhat hvu_giai_quyet_hvu trên web
-		$sqlstr="update hvu_giai_quyet_hvu@db_link set NGAY_TRA_KQ = NULL, NGUOI_TRA_KQ = '$mantra'
+		$sqlstr="update hvu_giai_quyet_hvu@db_link".$config_name_db_link." set NGAY_TRA_KQ = NULL, NGUOI_TRA_KQ = '$mantra'
 		where MA_GQHVU in ($magqhv)"; 
 		$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt);
 	}
@@ -512,7 +512,7 @@ else if ($a=='xuly'){
 		oci_free_statement($stmt);
 		
 		// Cap nhat hvu_giai_quyet_hvu tren web
-		$sqlstr="update hvu_giai_quyet_hvu@db_link set VI_TRI_LUU = '$vitriluu', TINH_TRANG = '$tinhtrang', KET_QUA = '$ketqua', NGAY_HEN_TRA_KQ = to_date('$hentra','dd/mm/yyyy')
+		$sqlstr="update hvu_giai_quyet_hvu@db_link".$config_name_db_link." set VI_TRI_LUU = '$vitriluu', TINH_TRANG = '$tinhtrang', KET_QUA = '$ketqua', NGAY_HEN_TRA_KQ = to_date('$hentra','dd/mm/yyyy')
 		where MA_GQHVU in ($magqhv)";
 		$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt);
 		
@@ -548,7 +548,7 @@ else if ($a=='getnewychv'){
 	$error = 0;
 	
 	// Download các yêu cầu trên web về local
-	$sqlstr="insert into hvu_giai_quyet_hvu select * from hvu_giai_quyet_hvu@db_link where MA_GQHVU not in (select MA_GQHVU from hvu_giai_quyet_hvu)"; 
+	$sqlstr="insert into hvu_giai_quyet_hvu select * from hvu_giai_quyet_hvu@db_link".$config_name_db_link." where MA_GQHVU not in (select MA_GQHVU from hvu_giai_quyet_hvu)"; 
 	$stmt = oci_parse($db_conn, $sqlstr);
 	
 	if (!oci_execute($stmt))
@@ -556,7 +556,7 @@ else if ($a=='getnewychv'){
 	else
 	{	
 		oci_free_statement($stmt);
-		$sqlstr="insert into hvu_qua_trinh_giai_quyet select * from hvu_qua_trinh_giai_quyet@db_link t1
+		$sqlstr="insert into hvu_qua_trinh_giai_quyet select * from hvu_qua_trinh_giai_quyet@db_link".$config_name_db_link." t1
 		where 0 = (select count( * ) from hvu_qua_trinh_giai_quyet t2 where t1.FK_MA_GQHVU = t2.FK_MA_GQHVU and t1.ngay = t2.ngay)"; 
 		$stmt = oci_parse($db_conn, $sqlstr);
 		

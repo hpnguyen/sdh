@@ -23,10 +23,10 @@ $id = $resDM["ID"][0];
 $hoten = $resDM["HO_TEN"][0];
 
 // Download các yêu cầu trên web về local
-$sqlstr="insert into hvu_giai_quyet_hvu select * from hvu_giai_quyet_hvu@db_link where MA_GQHVU not in (select MA_GQHVU from hvu_giai_quyet_hvu)"; 
+$sqlstr="insert into hvu_giai_quyet_hvu select * from hvu_giai_quyet_hvu@db_link".$config_name_db_link." where MA_GQHVU not in (select MA_GQHVU from hvu_giai_quyet_hvu)"; 
 $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt);
 
-$sqlstr="insert into hvu_qua_trinh_giai_quyet select * from hvu_qua_trinh_giai_quyet@db_link t1
+$sqlstr="insert into hvu_qua_trinh_giai_quyet select * from hvu_qua_trinh_giai_quyet@db_link".$config_name_db_link." t1
 where 0 = (select count( * ) from hvu_qua_trinh_giai_quyet t2 where t1.FK_MA_GQHVU = t2.FK_MA_GQHVU and t1.ngay = t2.ngay)"; 
 $stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_free_statement($stmt);
 // End download
