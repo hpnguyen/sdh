@@ -1,5 +1,3 @@
-<?php
-?>
 <div align="left" style="margin:0 auto;">
 <form id="form_tracuu_DIEM_CD" name="form_tracuu_DIEM_CD" method="post" action="">
    <table width="100%" border="0" cellspacing="0" cellpadding="5" align=left>
@@ -48,21 +46,9 @@
 
 <script type="text/javascript">
 function diem_cd_writeConsole(content) {
-	top.consoleRef=window.open('','myconsole',
-	'width=800,height=450'
-	+',menubar=0'
-	+',toolbar=0'
-	+',status=0'
-	+',scrollbars=1'
-	+',resizable=1')
-	top.consoleRef.document.writeln(
-	'<html><head><title>Phòng Đào Tạo SĐH - ĐHBK</title></head>'
-	+'<link href="css/pgs.css" rel="stylesheet" type="text/css"/>'
-	+'<body bgcolor=white onLoad="self.focus()">'
-	+content
-	+'</body></html>'
-	)
-	top.consoleRef.document.close()
+	top.consoleRef=window.open('','myconsole','width=800,height=450,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1');
+	top.consoleRef.document.writeln('<html><head><title>Phòng Đào Tạo SĐH - ĐHBK</title></head><link href="css/pgs.css" rel="stylesheet" type="text/css"/><body bgcolor=white onLoad="self.focus()">' + content + '</body></html>');
+	top.consoleRef.document.close();
 }
 
 function diem_cd_updateDiem(p_mahv, p_ngaysinh)
@@ -74,10 +60,7 @@ function diem_cd_updateDiem(p_mahv, p_ngaysinh)
 	//document.getElementById('tip').innerHTML('');
 	$("#tip").html('');
 	
-	DataString = 'w=mahv_ngaysinh-diemcd'
-	  + '&m=' + p_mahv 
-	  + '&n=' + encodeURIComponent(p_ngaysinh)
-	  + '&hisid=<?php echo $_REQUEST["hisid"]; ?>';
+	DataString = 'w=mahv_ngaysinh-diemcd&m=' + p_mahv + '&n=' + encodeURIComponent(p_ngaysinh) + '&hisid=<?php echo $_REQUEST["hisid"]; ?>';
 	
 	xreq = $.ajax({
 	  type: 'POST', data: DataString, dataType: "html", url: 'hv_tracuu_diem_cd_process.php',
@@ -141,8 +124,7 @@ $(function() {
 		}else if ( o.val().length > max || o.val().length < min ) {
 			o.addClass( "ui-state-error" );
 			o.focus();		
-			updateTips( "Chiều dài của " + n + " từ " +
-						min + " đến " + max + " ký tự.");
+			updateTips( "Chiều dài của " + n + " từ " + 	min + " đến " + max + " ký tự.");
 			return false;
 		} else {
 			return true;
