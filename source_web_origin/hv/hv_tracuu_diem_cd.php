@@ -60,7 +60,7 @@ function diem_cd_updateDiem(p_mahv, p_ngaysinh)
 	//document.getElementById('tip').innerHTML('');
 	$("#tip").html('');
 	
-	DataString = 'w=mahv_ngaysinh-diemcd&m=' + p_mahv + '&n=' + encodeURIComponent(p_ngaysinh) + '&hisid=<?php echo $_REQUEST["hisid"]; ?>';
+	DataString = 'w=mahv_ngaysinh-diemcd&m=' + p_mahv + '&n=' + encodeURIComponent(p_ngaysinh) + '&hisid=' + '<?php echo isset($_REQUEST["hisid"]) ? $_REQUEST["hisid"] : ''; ?>';
 	
 	xreq = $.ajax({
 	  type: 'POST', data: DataString, dataType: "html", url: 'hv_tracuu_diem_cd_process.php',
