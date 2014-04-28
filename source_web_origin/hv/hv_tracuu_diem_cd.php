@@ -43,7 +43,6 @@
    <div id="diem_cd_chitiet" style="margin-top:5px;" align=center></div>
 </form>
 </div>
-
 <script type="text/javascript">
 function diem_cd_writeConsole(content) {
 	top.consoleRef=window.open('','myconsole','width=800,height=450,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1');
@@ -60,10 +59,13 @@ function diem_cd_updateDiem(p_mahv, p_ngaysinh)
 	//document.getElementById('tip').innerHTML('');
 	$("#tip").html('');
 	
-	DataString = 'w=mahv_ngaysinh-diemcd&m=' + p_mahv + '&n=' + encodeURIComponent(p_ngaysinh) + '&hisid=' + '<?php echo isset($_REQUEST["hisid"]) ? $_REQUEST["hisid"] : ''; ?>';
+	var DataString = "w=mahv_ngaysinh-diemcd&m=" + p_mahv + "&n=" + encodeURIComponent(p_ngaysinh) + "&hisid=" + "<?php echo isset($_REQUEST["hisid"]) && ! is_null($_REQUEST["hisid"]) ? $_REQUEST["hisid"] : ''; ?>";
 	
 	xreq = $.ajax({
-	  type: 'POST', data: DataString, dataType: "html", url: 'hv_tracuu_diem_cd_process.php',
+	  type: 'POST', 
+	  data: DataString, 
+	  dataType: "html", 
+	  url: 'hv_tracuu_diem_cd_process.php',
 	  success: function(data) {
 		$("#diem_cd_chitiet").html(data);
 		$("#diem_cd_btn_printpreview" ).button( "enable" );
