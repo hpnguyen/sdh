@@ -1,5 +1,5 @@
 <?php
-include("libs\connect.php"); 
+include("./libs/connect.php");
 
 function detect_ie()
 {
@@ -101,7 +101,7 @@ $ngayhethanOnTap = $resDM["VALUE"][0];
 $hethan = $resDM["HET_HAN"][0];
 
 // Recapcha
-require_once('libs\recaptchalib.php');                
+require_once('libs/recaptchalib.php');                
 // Get a key from https://www.google.com/recaptcha/admin/create
 $publickey = "6LcDrc8SAAAAAOehS2lVAVXYUefcRz94cIJK6UbZ";
 $privatekey = "6LcDrc8SAAAAACyVrTs8yuqB_vHagESgu29bKSoF";
