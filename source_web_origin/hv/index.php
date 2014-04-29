@@ -441,7 +441,11 @@ else
 						
 						<!-- Hình tốt nghiệp -->
 						<?php
-							$folder = "./hinhtn/2013_2";
+							$f = fopen("./hinhtn/.config", 'r');
+							$getFolderNameConfig = fgets($f);
+							$getFolderNameConfig = str_replace("\n", "", $getFolderNameConfig);
+							fclose($f);
+							$folder = "./hinhtn/".$getFolderNameConfig;
 							$filehinh = "$folder/$usr".".jpg";
 							$filehinh_1 = "$folder/$usr"."_1.jpg";
 							$filehinh_2 = "$folder/$usr"."_2.jpg";
