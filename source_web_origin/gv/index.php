@@ -1580,14 +1580,9 @@ parse_str($a);
 			var strprint='';
 			if (pAutoOpenPrinter==1)
 				strprint = 'window.print();';
-			abc.document.writeln(
-			'<html><head><title>'+pTitle+'</title></head>'
-			+'<body bgcolor=white onLoad="self.focus(); ' + strprint + '" '+ pStyle_ + '>'
-			+pContent
-			+'</body></html>'
-			);
+			abc.document.writeln('<html><head><title>'+pTitle+'</title></head>'+'<body bgcolor=white onLoad="self.focus(); ' + strprint + '" '+ pStyle_ + '>'+pContent+'</body></html>');
 			
-		//	abc.document.close();
+			abc.document.close();
 		}
 
 		function ucwords (str) {
