@@ -55,13 +55,15 @@ if ($w=="getKLGD")
 				<td align='center' title='Hệ Số Học Hàm - Học Vị'>HSHH</td>
 				<td align='center' title='Hệ Số Mời Giảng'>HSMG</td>
 				<td align='center' title='Hệ Số Bổ Sung'>HSBS</td>
-				<td align='right' class='ui-corner-tr'>Tiết QĐ&nbsp;</td>
+				<td align='right'>Tiết QĐ</td>
+				<td align='right' class='ui-corner-tr'>Thù lao&nbsp;</td>
 			  </tr>
 			  </thead>
 			  <tbody>
 	";
 
 	$tongTietQD=0;
+	$tongThuLao=0;
 	for ($i = 0; $i < $n; $i++)
 	{
 		$loai = $resDM["LOAI"][$i];
@@ -82,7 +84,8 @@ if ($w=="getKLGD")
 		echo "<td align='center'>".$resDM["HS_HH_HV"][$i]."</td>";
 		echo "<td align='center'>".$resDM["HS_MOI_GIANG"][$i]."</td>";
 		echo "<td align='center'>".$resDM["HS_BO_SUNG"][$i]."</td>";
-		echo "<td align='right'>".$resDM["TIET_QD"][$i]."&nbsp;</td>";
+		echo "<td align='right'>".$resDM["TIET_QD"][$i]."</td>";
+		echo "<td align='right'>".number_format($resDM["THU_LAO"][$i])."&nbsp;</td>";
 		echo "</tr>";
 		
 		if ($loai == 'LV' || $loai == 'TS')
@@ -110,7 +113,7 @@ if ($w=="getKLGD")
 			
 			echo "
 			<tr class='showhide ".$classAlt."' style='display:none'>
-			<td colspan='11' >
+			<td colspan='12' >
 				<div style='margin-left:10px;' align=right>
 					<table cellpadding=3 style='with:100%'>
 						<tr class='ui-widget-header heading' style='font-color: #aaa'><td>Mã</td> <td >Họ tên</td> <td>Phái</td> <td>Ngày sinh</td> <td style=''>Đề tài/Luận án</td><td align=center>CTĐT</td><td align=right >Tiết QĐ</td></tr>
@@ -126,6 +129,7 @@ if ($w=="getKLGD")
 		}
 		
 		$tongTietQD+=$resDM["TIET_QD"][$i];
+		$tongThuLao+=$resDM["THU_LAO"][$i];
 	}
 		($classAlt=="") ? $classAlt="alt" : $classAlt="alt_";
 		echo "<tr class='fontcontent ".$classAlt."'>";				
@@ -136,7 +140,8 @@ if ($w=="getKLGD")
 		echo "<td align='center'></td>";
 		echo "<td align='center'></td>";
 		echo "<td colspan='4' align='right'>&nbsp;<strong>Tổng số tiết qui đổi:</strong></td>";
-		echo "<td align='right'><strong>".$tongTietQD."</strong>&nbsp;</td>";
+		echo "<td align='right'><strong>".$tongTietQD."</strong></td>";
+		echo "<td align='right'><strong>".number_format($tongThuLao)."</strong>&nbsp;</td>";
 		echo "</tr>";
 
 	echo "
