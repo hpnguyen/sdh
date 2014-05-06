@@ -4,6 +4,6 @@ $config = array(
 'port' => 1521,
 'sid' => 'sdhbk',
 'user' => 'nckhda',
-'pass' => 'nckhda',
+'pass' => '',
 'charset' => 'UTF8'
 );
