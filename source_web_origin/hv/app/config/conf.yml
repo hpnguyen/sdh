@@ -2,7 +2,7 @@ host: 172.28.40.250
 port: 1521
 sid:  SDHbk
 user: webweb
-pass: weB210810
+pass:
 charset:  UTF8
 mail_user: sdh@hcmut.edu.vn
 mail_pass: 12021971ltchon
