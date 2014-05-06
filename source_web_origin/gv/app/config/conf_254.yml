@@ -1,6 +1,0 @@
-host: 172.28.40.254
-port: 1521
-sid:  SDHbk
-user: csdl
-pass: lnminh
-charset:  UTF8
