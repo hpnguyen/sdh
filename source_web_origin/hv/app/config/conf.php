@@ -1,10 +1,10 @@
 <?php
 $config = array(
-'host' => '172.28.40.168',
+'host' => '172.28.40.250',
 'port' => 1521,
 'sid' => 'SDHbk',
-'user' => 'csdl',
-'pass' => 'LNMINH',
+'user' => 'webweb',
+'pass' => 'weB210810',
 'charset' => 'UTF8',
 'mail_user' => 'sdh@hcmut.edu.vn',
 'mail_pass' => '12021971ltchon',
