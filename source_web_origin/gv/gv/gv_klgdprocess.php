@@ -13,7 +13,7 @@ include "../libs/pgslibs.php";
 ?>
 <?php
 $search = array('\\',"'",'"');
-$replace = array('\\\\',"\'","&quot;"); 
+$replace = array('\\\\',"\'","&quot;");
 
 $searchdb = array("\\\\","\\'",'\\"', "'" );
 $replacedb = array("\\","'", '"', "''");
@@ -25,7 +25,7 @@ $w = $_POST['w'];
 
 if ($w=="getKLGD")
 {
-	$sqlstr="select v.*, get_ten_tat_tkb(v.ma_can_bo, v.dot_hoc, v.ma_mh, v.lop) ten_lop
+	$sqlstr="select v.*, get_ten_tat_tkb(v.ma_can_bo, v.dot_hoc, v.ma_mh, v.lop) ten_lop, decode(v.ngoai_gio, 'x', v.tiet_qd*60000, v.tiet_qd*40000) thu_lao_1
 			from view_klgd v
 			where v.ma_can_bo = '".$macb."'
 			and v.cbgd not like '%TH - TN Bộ môn%'
@@ -72,6 +72,7 @@ if ($w=="getKLGD")
 			$style = "cursor:pointer;";
 			$javascript = "onclick='$(this).next(\"tr.showhide\").slideToggle();'";
 		}
+				
 		($i % 2) ? $classAlt="alt" : $classAlt="alt_";
 		echo "<tr align='left' valign='middle' class='fontcontent ".$classAlt."' style='height:25px; $style' $javascript >";
 		echo "<td align='center' >" .$resDM['LOAI'][$i]."</td>";
@@ -85,7 +86,7 @@ if ($w=="getKLGD")
 		echo "<td align='center'>".$resDM["HS_MOI_GIANG"][$i]."</td>";
 		echo "<td align='center'>".$resDM["HS_BO_SUNG"][$i]."</td>";
 		echo "<td align='right'>".$resDM["TIET_QD"][$i]."</td>";
-		echo "<td align='right'>".number_format($resDM["THU_LAO"][$i])."&nbsp;</td>";
+		echo "<td align='right'>".number_format($resDM["THU_LAO_1"][$i])."&nbsp;</td>";
 		echo "</tr>";
 		
 		if ($loai == 'LV' || $loai == 'TS')
@@ -129,7 +130,7 @@ if ($w=="getKLGD")
 		}
 		
 		$tongTietQD+=$resDM["TIET_QD"][$i];
-		$tongThuLao+=$resDM["THU_LAO"][$i];
+		$tongThuLao+=$resDM["THU_LAO_1"][$i];
 	}
 		($classAlt=="") ? $classAlt="alt" : $classAlt="alt_";
 		echo "<tr class='fontcontent ".$classAlt."'>";				
