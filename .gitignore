@@ -38,6 +38,9 @@
 ehthumbs.db
 Thumbs.db
 .project
+.setting
+.settings/
+.settings/*
 # Alias folder
 ######################
 source_web_origin/gv/app/logs/files/thong-bao-21-03-2014.pdf
