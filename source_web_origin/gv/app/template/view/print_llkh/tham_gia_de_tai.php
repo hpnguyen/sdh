@@ -130,6 +130,9 @@ $z = 1;
 	table thead tr th {
 		text-align: center;
 	}
+	tfoot {
+		display:table-footer-group; 
+	}
 	.row-special-padding {
 		padding: 7px;
 	}
@@ -485,21 +488,29 @@ $z = 1;
 		</table>
 	</div>
 </div>
-<div class="fontcontent llkh-signature">
-	<div align="left" class="llkh-signature-left">
-		<div style="width:400px;" align="center">
-			<b>Tổ chức - nơi làm việc của cá nhân đăng ký tham <br />gia thực hiện chính đề tài, dự án SXTN</b><br/>
-			<br/>
-			(Xác nhận và đóng dấu)
-		</div>
-	</div>
-	<div align="right" class="llkh-signature-right">
-		<div style="width:400px;" align="center">
-			<span><em>Tp.HCM, ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span><br/>
-			<b>Cá nhân đăng ký tham gia thực hiện chính<br /> đề tài, dự án SXTN</b><br/>
-			(Họ tên và chữ ký)
-			<br/><br/><br/><br/><br/><br/>
-			<b><?php echo $cbgd["hotencb"]; ?></b>
-		</div>
-	</div>
-</div>
+<table width="100%">
+	<tfoot>
+		<tr>
+			<td align="center" width="50%" valign="top">
+				<div align="left" class="llkh-signature-left">
+					<div style="width:400px;" align="center">
+						<br/><b>Tổ chức - nơi làm việc của cá nhân đăng ký tham gia thực hiện chính đề tài, dự án SXTN</b><br/>
+						<br/>
+						(Xác nhận và đóng dấu)
+					</div>
+				</div>
+			</td>
+			<td align="center" valign="top">
+				<div align="right" class="llkh-signature-right">
+					<div style="width:400px;" align="center">
+						<span><em>Tp.HCM, ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span><br/>
+						<b>Cá nhân đăng ký tham gia thực hiện chính<br /> đề tài, dự án SXTN</b><br/>
+						(Họ tên và chữ ký)
+						<br/><br/><br/><br/><br/><br/>
+						<b><?php echo $cbgd["hotencb"]; ?></b>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+</table>

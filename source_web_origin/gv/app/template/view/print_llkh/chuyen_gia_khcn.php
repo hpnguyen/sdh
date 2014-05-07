@@ -131,6 +131,9 @@ $z = 1;
 	table thead tr th {
 		text-align: center;
 	}
+	tfoot {
+		display:table-footer-group; 
+	}
 	.row-special-padding {
 		padding: 7px;
 	}
@@ -599,15 +602,30 @@ $z = 1;
 		</table>
 	</div>
 </div>
-<div class="fontcontent" align="center">
-	<p>Tôi xác nhận những thông tin được ghi ở trên là hoàn toàn chính xác.</p>
-</div>
-<div class="fontcontent llkh-signature">
-	<div align="right" class="llkh-signature-right">
-		<div style="width:400px;" align="center">
-			<span><em>Tp.HCM, ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span><br/>
-			<b>KÝ TÊN</b><br/><br/><br/><br/><br/><br/><br/><br/>
-			<b><?php echo $cbgd["hotencb"]; ?></b>
-		</div>
-	</div>
-</div>
+<table width="100%">
+	<tfoot>
+		<tr>
+			<td align="center" colspan="2">
+				<div class="fontcontent" align="center">
+					<p>Tôi xác nhận những thông tin được ghi ở trên là hoàn toàn chính xác.</p>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" width="60%">
+				&nbsp;
+			</td>
+			<td align="center">
+				<div class="fontcontent llkh-signature" align="center">
+					<div align="right" class="llkh-signature-right">
+						<div style="width:400px;" align="center">
+							<span><em>Tp.HCM, ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span><br/>
+							<b>KÝ TÊN</b><br/><br/><br/><br/><br/><br/><br/><br/>
+							<b><?php echo $cbgd["hotencb"]; ?></b>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+</table>
