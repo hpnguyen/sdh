@@ -46,7 +46,7 @@ if ($w=="getKLGD")
 			<thead>
 			  <tr class='ui-widget-header heading' style='height:20pt;font-weight:bold;'>
 				<td align='center' class='ui-corner-tl'>Loại</td>
-				<td style='width:400px;'>Môn Học</td>
+				<td style='width:430px;'>Môn Học</td>
 				<td>Lớp</td>
 				<td align='center'>Ngoài giờ</td>
 				<td align='center' title='Số Học Viên'>Số HV</td>
