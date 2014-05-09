@@ -250,7 +250,7 @@ else if ($type=='dslopfile')
 		//fwrite($fp, $tmp);
 		$j=$i+3;
 		$objPHPExcel->getActiveSheet()->setCellValue("A$j", ($j-2))
-								  ->setCellValue("B$j", $resDM["MA_HOC_VIEN"][$i])
+								  ->setCellValue("B$j", "'".$resDM["MA_HOC_VIEN"][$i])
 								  ->setCellValue("C$j", $resDM["HO"][$i])
 								  ->setCellValue("D$j", $resDM["TEN"][$i])
 								  ->setCellValue("E$j", $resDM["PHAI"][$i]);
