@@ -29,4 +29,18 @@ class DotHocNamHocKyModel extends BaseTable {
 		
 		return $check->itemsCount > 0;
 	}
+	
+	public function getNamHocHocKy($dothoc)
+	{
+		$check = $this->getSelect("*")
+		->where("dot_hoc  = '".$dothoc."'")
+		->execute(false, array());
+		
+		$ret = null;
+		
+		if($check->itemsCount > 0){
+			$ret = $check->result[0];
+		}
+		return $ret;
+	}
 }

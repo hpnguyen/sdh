@@ -73,8 +73,8 @@ foreach($listItems as $y => $row)
 	}else {
 		$listArrayDataString .= "'".$text_ghi_chu."',";
 	}
-	
-	$listArrayDataString .= "'<b>".$row["lop"]."</b>',";
+	$urlDsLop = $gvURL.'/front.php/tkb/phancong/dslop/dothoc/'.$dothoc.'/mamh/'.$row["ma_mh"].'/lop/'.$row["lop"].'?hisid='.$_GET['hisid'];
+	$listArrayDataString .= "'<b>".$row["lop"]."</b> / <a href=\"".$urlDsLop."\" target=\"_blank\" title=\"Danh sách lớp\"><img border=\"0\" width=\"16\" height=\"16\" src=\"icons/save-icon.png\" style=\"margin-bottom:-5px\" /></a>',";
 	$listArrayDataString .= "'".$row["sl"]."',";
 	$listArrayDataString .= "'<b class=\"special-color\">".$row["tiet_bat_dau"].'-'.$row["tiet_ket_thuc"]."</b>',";
 	$listArrayDataString .= "'".$row["phong"]."',";
@@ -104,7 +104,7 @@ foreach($listItems as $y => $row)
 		<td width="163px" align="center">Cán bộ giảng dạy phụ</td>
 		<td width="18px"></td>
 		<td width="48px" align="center">Ghi chú</td>
-		<td width="23px" align="center">L<br>ớ<br>p</td>
+		<td width="65px" align="center">Lớp/DS Lớp</td>
 		<td width="18px" align="center">SL Dự kiến</td>
 		<td width="43px" align="center">Tiết học</td>
 		<td width="43px" align="center">Phòng</td>

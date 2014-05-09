@@ -82,6 +82,13 @@ $config = array(
 															),
 															'test2' => array(
 															)
+										),
+										'Phancong' => array(	
+			  												'dslop' => array(
+																				'dothoc' => 0,
+																				'mamh' => 0,
+																				'lop' => 0
+															)
 										)
 			  )
 ),
