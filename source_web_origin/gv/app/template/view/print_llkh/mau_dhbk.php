@@ -79,6 +79,9 @@ if ($cbgd["hinh_anh"] !=""){
 	table thead tr th {
 		text-align: center;
 	}
+	tfoot {
+		display:table-footer-group; 
+	}
 </style>
 <div align="center" class="fontcontent" valign="middle">
 	<div class="llkh-first-title" align="center">LÝ LỊCH KHOA HỌC</div>
@@ -815,22 +818,29 @@ $macb = $cbgd["ma_can_bo"];
 		 </tbody>
 	</table>
 </div>
-<pagebreak />
-<div class="fontcontent llkh-signature">
-	<div align="left" class="llkh-signature-left">
-		<div style="width:300px;" align="center">
-			<span><em>Tp.HCM, ngày ...... tháng ...... năm .........</em></span><br/>
-			<b>Thủ trưởng Đơn vị</b><br/>
-			<i>(Họ tên, đóng dấu)</i>
-		</div>
-	</div>
-	<div align="right" class="llkh-signature-right">
-		<div style="width:400px;" align="center">
-			<span><em>Tp.HCM, ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span><br/>
-			<b>Người khai</b><br/>
-			<i>(Họ tên và chữ ký)</i>
-			<br/><br/><br/><br/><br/><br/>
-			<b><?php echo $cbgd["hotencb"] ?></b>
-		</div>
-	</div>
-</div>
+<table width="100%">
+	<tfoot>
+		<tr>
+			<td align="center" width="50%" valign="top">
+				<div align="left" class="llkh-signature-left">
+					<div style="width:300px;" align="center">
+						<span><em>Tp.HCM, ngày ...... tháng ...... năm .........</em></span><br/>
+						<b>Thủ trưởng Đơn vị</b><br/>
+						<i>(Họ tên, đóng dấu)</i>
+					</div>
+				</div>
+			</td>
+			<td align="center">
+				<div align="right" class="llkh-signature-right">
+					<div style="width:400px;" align="center">
+						<span><em>Tp.HCM, ngày <?php echo $ngay ?> tháng <?php echo $thang ?> năm <?php echo $nam ?></em></span><br/>
+						<b>Người khai</b><br/>
+						<i>(Họ tên và chữ ký)</i>
+						<br/><br/><br/><br/><br/><br/>
+						<b><?php echo $cbgd["hotencb"] ?></b>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+</table>
