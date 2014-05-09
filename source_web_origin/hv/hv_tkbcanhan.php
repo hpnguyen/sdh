@@ -97,6 +97,19 @@ function tkb_canhan_updateTKB(p_dothoc)
 	});
 }
 
+function tkb_canhan_loadDSLopFile(pdothoc, plop, pmonhoc)
+{
+	dataString = 'w=dslopfile' + '&d='+ pdothoc + '&lop=' + plop + '&monhoc=' + pmonhoc	+ "&hisid=<?php echo $_REQUEST["hisid"];?>";
+
+	$.post("hv_tkbcanhan_process.php", dataString ,
+		function(data){
+			if (data.url!='') {
+				hv_open_msg_box("<p><table><tr><td style='width:270px; font-weight:bold'>Danh sách lớp: " + plop + ", môn học: " + pmonhoc +", Học kỳ " + $("#tkb_canhan_txtHK option:selected").html() + "</td><td style='width:80px'><a style='color:blue;font-weight:bold;' target='_blank' href='"+data.url+"'><u><span class='ui-icon ui-icon-disk' style='float:left; margin:0 5px 0 0;'></span> tải về</u></a></td></tr></table></p>", '', 350, 180);
+			}
+		
+	}, "json");
+}
+
 $(function() {
 	$( "#tkb_canhan_btn_printpreview" ).button({ icons: {primary:'ui-icon ui-icon-print'} });
 	tkb_canhan_updateTKB($("#tkb_canhan_txtHK").val());

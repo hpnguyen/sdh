@@ -134,12 +134,12 @@ if ($type=='dothoc-tkb_canhan')
 		<td class='ui-corner-tl' align='left'>Thứ</td>
 		<td >CBGD</td>
 		<td >Môn học</td>
-		<td align='center'>Lớp MH</td>
+		<td align='center'>Lớp/DS Lớp</td>
 		<td align='center'>Tiết BĐ</td>
 		<td align='center'>Tiết KT</td>
 		<td align='left'>Phòng</td>
 		<td align='center'>Tuần BĐ</td>
-		<td class='ui-corner-tr' align='right'>Tuần KT</td>
+		<td class='ui-corner-tr' align='center'>Tuần KT</td>
 	  </tr>
 	  </thead>
 	  <tbody>
@@ -149,11 +149,17 @@ if ($type=='dothoc-tkb_canhan')
 	{
 		($classAlt=='alt') ? $classAlt="alt_" : $classAlt="alt";
 		
-		echo "<tr align='left' valign='top' class=' ".$classAlt."' style='height:20px;'>";
+		if ($resDM["MA_LOAI"][$i]!='5'){
+			$linkdslop = " / <a title='Tải về DS lớp' href=\"javascript: tkb_canhan_loadDSLopFile('$dothoc','".$resDM["LOP"][$i]."','".$resDM["MA_MH"][$i]."')\"> <img border='0' width='16' height='16' src='icons/save-icon.png' style='margin-bottom:-5px' /> </a>";
+		}else{
+			$linkdslop = "";
+		}
+		
+		echo "<tr align='left' valign='top' class=' ".$classAlt."' style='height:20pt;'>";
 		echo "<td valign=middle align=left><b>".$thu[$resDM["THU"][$i]]."</b></td>";
 		echo "<td valign=middle align='left'>".$resDM["HO_TEN"][$i] .$resDM["CBGD"][$i]."</td>";
 		echo "<td valign=middle align='left'>(" . $resDM["MA_MH"][$i] .") - ". $resDM["TEN_MH"][$i]."</td>";
-		echo "<td valign=middle align='center'>".$resDM["LOP"][$i]."</td>";
+		echo "<td valign=middle align='center'><b>".$resDM["LOP"][$i]."</b>$linkdslop</td>";
 		echo "<td valign=middle align='center'>".$resDM["TIET_BAT_DAU"][$i]."</td>";
 		echo "<td valign=middle align='center'>".$resDM["TIET_KET_THUC"][$i]."</td>";
 		echo "<td valign=middle align='left'><b>".$resDM["PHONG"][$i]."</b></td>";
@@ -169,6 +175,99 @@ if ($type=='dothoc-tkb_canhan')
 	
 	include "hv_tiethoc.php";
 
+}
+else if ($type=='dslopfile')
+{
+	//define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
+
+	/** Include PHPExcel */
+	require_once '../phpexcel/Classes/PHPExcel.php';
+	$objPHPExcel = new PHPExcel();
+
+	//$lop = $_REQUEST['lop'];
+	$monhoc = $_REQUEST['monhoc'];
+	$dothoc = $_REQUEST['d'];
+	$mahv = base64_decode($_SESSION["mahv"]);
+	$ddis = $_REQUEST['ddis'];
+	
+	// Lay lop hoc dua vao mon hoc, dot hoc, mahv
+	$sqlstr="	SELECT lop 
+				FROM dang_ky_mon_hoc 
+				WHERE DOT_HOC = '".$dothoc."' 
+				AND MA_MH = '".$monhoc."'
+				and ma_hoc_vien = '".$mahv."'";
+	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+	$lop = $resDM["LOP"][0];
+
+	// Lay danh sach hoc vien
+	$sqlstr="	SELECT dk.ma_hoc_vien, h.ho, h.ten, decode(h.phai,'F','Nữ','Nam') PHAI, dk.lop, dk.ma_mh
+				FROM dang_ky_mon_hoc DK, hoc_vien h 
+				WHERE DK.DOT_HOC = '".$dothoc."' 
+				AND DK.MA_MH = '".$monhoc."'
+				AND DK.LOP= '".$lop."'
+				and dk.ma_hoc_vien = h.ma_hoc_vien
+				order by h.ten";
+	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);$n = oci_fetch_all($stmt, $resDM);oci_free_statement($stmt);
+	
+	// Lay ten mon hoc
+	$sqlstr="select ten from mon_hoc where ma_mh = '".$monhoc."'";
+	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_fetch_all($stmt, $resMH);oci_free_statement($stmt);
+	
+	// Lay nam hoc hoc ky
+	$sqlstr="select (nam_hoc_tu || '-' || nam_hoc_den || '/HK ' || hoc_ky) nam_hoc from dot_hoc_nam_hoc_ky where dot_hoc  = '".$dothoc."'";
+	$stmt = oci_parse($db_conn, $sqlstr);oci_execute($stmt);oci_fetch_all($stmt, $resKhoa);oci_free_statement($stmt);
+	
+	date_default_timezone_set('Asia/Ho_Chi_Minh');
+	$today =date("d.m.Y");
+	$time = date("H.i.s");
+	
+	$pathfile = "download/tmp/{$mahv}_{$today}_{$time}_dslopDOT_".$dothoc.'_MH_'.$monhoc.'_LOP_'.$lop.'.xlsx';
+		
+	// Set document properties
+	$objPHPExcel->getProperties()->setCreator("$mahv")
+								 ->setLastModifiedBy("$mahv")
+								 ->setTitle("DANH SACH LOP $lop - DOT $dothoc - MON HOC $monhoc")
+								 ->setSubject("DANH SACH LOP $lop - DOT $dothoc - MON HOC $monhoc")
+								 ->setDescription("")
+								 ->setKeywords("")
+								 ->setCategory("Danh sach lop");
+	// Set default font
+	$objPHPExcel->getDefaultStyle()->getFont()->setName('Arial')
+											  ->setSize(10);
+	$objPHPExcel->getActiveSheet()->setCellValue('A1', "Danh sách lớp $lop, môn {$resMH["TEN"][0]}, Khóa {$resKhoa["NAM_HOC"][0]}");
+	$objPHPExcel->getActiveSheet()->setCellValue('A2', 'STT')
+								  ->setCellValue('B2', 'Mã HV')
+								  ->setCellValue('C2', 'Họ')
+								  ->setCellValue('D2', 'Tên')
+								  ->setCellValue('E2', 'Phái');
+	$objPHPExcel->getActiveSheet()->getStyle('A2:G2')->getFont()->setBold(true);
+	$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+	
+	for ($i = 0; $i < $n; $i++)
+	{
+		//$tmp = $resDM["MA_HOC_VIEN"][$i] . chr(9) . $resDM["HO"][$i]. chr(9) . $resDM["TEN"][$i] . chr(9) .$resDM["PHAI"][$i]. chr(9) .$resDM["KHOA"][$i]. chr(9) .$resDM["EMAIL"][$i].chr(13).chr(10);
+		//$tmp = mb_convert_encoding($tmp, "utf-8", "utf-8"); 
+		//fwrite($fp, $tmp);
+		$j=$i+3;
+		$objPHPExcel->getActiveSheet()->setCellValue("A$j", ($j-2))
+								  ->setCellValue("B$j", $resDM["MA_HOC_VIEN"][$i])
+								  ->setCellValue("C$j", $resDM["HO"][$i])
+								  ->setCellValue("D$j", $resDM["TEN"][$i])
+								  ->setCellValue("E$j", $resDM["PHAI"][$i]);
+	}
+	//fclose($fp);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(6);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+	$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+	
+	$objPHPExcel->getActiveSheet()->setTitle('Danh sách lớp');
+	$objPHPExcel->setActiveSheetIndex(0);
+	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+	$objWriter->save($pathfile);
+
+	echo '{"url":"./'.$pathfile.'"}';
 }
 ?>
 
