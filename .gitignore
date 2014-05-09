@@ -64,3 +64,4 @@ source_web_origin/hv/app/config/*.php
 source_web_origin/hv/app/config/*.yml
 /source_web_origin/gv/libs/connect.php
 /source_web_origin/gv/libs/connectnckhda.php
+/source_web_origin/hv/libs/connect.php
