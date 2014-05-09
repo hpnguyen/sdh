@@ -49,6 +49,11 @@ tkb:
       test:
         param1: 0
       test2:
+    Phancong:
+      dslop:
+        dothoc: 0
+        mamh: 0
+        lop: 0
 migration:
   Migration:
     Index:

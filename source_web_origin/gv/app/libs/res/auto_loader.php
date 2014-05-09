@@ -58,6 +58,8 @@ function __autoload($classname) {
 			}
 		}else if (preg_match('/^CAS/', $classname) > 0){
 			return CAS_autoload($classname);
+		}else if (preg_match('/^PHPExcel/', $classname) > 0){
+			return PHPExcelLoad($classname);
 		}else{
 			throw new Exception('Class ' . $classname . ' is not defined');
 		}

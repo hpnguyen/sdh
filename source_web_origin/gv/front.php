@@ -8,6 +8,8 @@ require_once("./app/libs/mpdf57/mpdf.php");
 require_once("./app/libs/PHPMailer/class.phpmailer.php");
 require_once("./app/libs/PHPMailer/class.pop3.php");
 require_once("./app/libs/PHPMailer/class.smtp.php");
+// Include PHPExcel
+require_once("./app/libs/phpexcel/Classes/PHPExcel.php");
 // Include PhpStringParser
 require_once("./app/libs/PhpStringParser/PhpStringParser.php");
 //Cronjob task base class

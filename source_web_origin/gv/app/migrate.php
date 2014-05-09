@@ -4,6 +4,8 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 require_once('./libs/tcpdf/examples/tcpdf_include.php');
 // Include mPDF library.
 require_once("./libs/mpdf57/mpdf.php");
+// Include PHPExcel
+require_once("./libs/phpexcel/Classes/PHPExcel.php");
 //Add auto loader
 require_once ('./libs/res/auto_loader.php');
 //Add route map

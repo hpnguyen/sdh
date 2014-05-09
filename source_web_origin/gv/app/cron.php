@@ -5,6 +5,8 @@ $path = dirname(__FILE__);
 require_once($path.'/libs/tcpdf/examples/tcpdf_include.php');
 // Include mPDF library.
 require_once($path."/libs/mpdf57/mpdf.php");
+// Include PHPExcel
+require_once($path."/libs/phpexcel/Classes/PHPExcel.php");
 //Add crontab manager
 require_once($path."/libs/crontabmanager/src/CliTool.php");
 require_once($path."/libs/crontabmanager/src/CronEntry.php");

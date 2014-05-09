@@ -198,4 +198,11 @@ class HelperFunctionsUtil {
 		$result = str_replace($escapers, $replacements, $value);
 		return $result;
 	}
+	
+	function getRootPath(){
+		$path = ROOT_DIR;
+		$path = str_replace(array('gv/','hv/'), array('',''), $path);
+		$path = str_replace(array('gv\\','hv\\'), array('',''), $path);
+		return $path;
+	}
 }
