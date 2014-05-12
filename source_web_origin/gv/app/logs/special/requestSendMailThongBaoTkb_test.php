@@ -26,7 +26,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 echo "[".date("d-m-Y H:i:s")."]\n";
 //SMTP needs accurate times, and the PHP time zone MUST be set
 //This should be done in your php.ini, but this is how to do it if you don't have access to that
-require '/home/hpnguyen/Working/svn_repository_source/gvbeta/app/libs/PHPMailer/PHPMailerAutoload.php';
+require '/home/hpnguyen/Working/svn_repository_source/gv/app/libs/PHPMailer/PHPMailerAutoload.php';
 
 	//Create a new PHPMailer instance
 	$mail = new PHPMailer();
@@ -64,7 +64,7 @@ require '/home/hpnguyen/Working/svn_repository_source/gvbeta/app/libs/PHPMailer/
 	//convert HTML into a basic plain-text alternative body
 	$mail->IsHTML(true); // set email format to HTML
 	$mail->CharSet = 'utf-8'; // set charset to utf8
-	$mail->Body = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gvbeta/app/template/view/mail/tkb.php'); // HTML -> PHP!
+	$mail->Body = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gv/app/template/view/mail/tkb.php'); // HTML -> PHP!
 	
 	//Set who the message is to be sent to
 	$data = explode(",",$result);

@@ -416,7 +416,7 @@ $(function(){
  });
  
  $( "#print_tmdt_r01_btn_printpdf<?php echo $key; ?>" ).click(function(){
-	var a = encodeURIComponent('http://www.grad.hcmut.edu.vn/gvbeta/khcn/khcn_print_tmdt_r01.php?a=print_tmdt_pdf&hisid=eremqim7im97c46dvp2aijrec1&m=20130001&k=print_tmdt_1_22');
+	var a = encodeURIComponent('http://www.grad.hcmut.edu.vn/gv/khcn/khcn_print_tmdt_r01.php?a=print_tmdt_pdf&hisid=eremqim7im97c46dvp2aijrec1&m=20130001&k=print_tmdt_1_22');
 	var content = encodeURIComponent($("#chitietttgv_tmdt_mau_r01<?php echo $key; ?>").html());
 	$.download('khcn/khcn_publishpdf.php', 'url_print='+content);
 	

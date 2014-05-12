@@ -511,7 +511,7 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		// // $t1 = explode('@param', $text);
 		// // var_dump($t1);
 		// // die;
-		// $content = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gvbeta/app/template/view/mail/tkb.php');
+		// $content = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gv/app/template/view/mail/tkb.php');
 // 		
 		// $p = new PhpStringParser(array());
 		// $content =  $p->parse($content);
@@ -624,11 +624,11 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		}
 		var_dump($check);
 		die;
-		// $url ='http://sdh.localhost.com/gvbeta/khcn/khcn_print_tmdt_r01_test.php?a=print_tmdt_fromtab&hisid=semdt72aibhj64o37qn3das300&m=20140006&k=xemPhanBienDeTaiListprint_tmdt_20140006';
-		//$url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
-		//$url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01_pdf.php?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
-		//$url = 'http://sdh.localhost.com/gvbeta/front.php/tkb/phanbo/test/?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
-		$url = 'http://sdh.localhost.com/gvbeta/front.php/tkb/phanbo/test';
+		// $url ='http://sdh.localhost.com/gv/khcn/khcn_print_tmdt_r01_test.php?a=print_tmdt_fromtab&hisid=semdt72aibhj64o37qn3das300&m=20140006&k=xemPhanBienDeTaiListprint_tmdt_20140006';
+		//$url = 'http://sdh.localhost.com/gv/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
+		//$url = 'http://sdh.localhost.com/gv/khcn/khcn_print_danh_gia_tmdt_m01_pdf.php?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
+		//$url = 'http://sdh.localhost.com/gv/front.php/tkb/phanbo/test/?a=print_tmdt_pdf&hisid=semdt72aibhj64o37qn3das300&mdt=20140006&mcb=0.1838&k=';
+		$url = 'http://sdh.localhost.com/gv/front.php/tkb/phanbo/test';
 		$ch = curl_init();
 		$timeout = 400;
 		curl_setopt($ch, CURLOPT_URL,$url);
@@ -705,15 +705,15 @@ class ModuleThoikhoabieuControllerPhanbo extends FrontController {
 		// echo "hahahah";
 		// //var_dump($contentHTML);
 		// // $text = "a=getmotanghiencuu&hisid=".$_GET['hisid']."&m=20140006";
-		// $url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid='.$_GET['hisid'].'&mdt=20140006&mcb=0.1838&k=';
-		// $url = 'http://172.28.40.188/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid=6meigtq68p79i14vc11snupih2&mdt=20140006&mcb=0.1838&k=';
-		// $url = 'http://sdh.localhost.com/gvbeta/front.php/tkb/phanbo/test';
-		// $url = 'http://172.28.40.188/gvbeta/khcn/khcn_print_danh_gia_tmdt_m01_pdf.php?a=print_tmdt_pdf&hisid=6meigtq68p79i14vc11snupih2&mdt=20140006&mcb=0.1838&k=';
-		// $url = 'http://sdh.localhost.com/gvbeta/khcn/khcn_print_tmdt_r01.php?a=print_tmdt_fromtab&hisid=semdt72aibhj64o37qn3das300&m=20140006&k=xemPhanBienDeTaiListprint_tmdt_20140006';
+		// $url = 'http://sdh.localhost.com/gv/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid='.$_GET['hisid'].'&mdt=20140006&mcb=0.1838&k=';
+		// $url = 'http://172.28.40.188/gv/khcn/khcn_print_danh_gia_tmdt_m01.php?a=print_tmdt_pdf&hisid=6meigtq68p79i14vc11snupih2&mdt=20140006&mcb=0.1838&k=';
+		// $url = 'http://sdh.localhost.com/gv/front.php/tkb/phanbo/test';
+		// $url = 'http://172.28.40.188/gv/khcn/khcn_print_danh_gia_tmdt_m01_pdf.php?a=print_tmdt_pdf&hisid=6meigtq68p79i14vc11snupih2&mdt=20140006&mcb=0.1838&k=';
+		// $url = 'http://sdh.localhost.com/gv/khcn/khcn_print_tmdt_r01.php?a=print_tmdt_fromtab&hisid=semdt72aibhj64o37qn3das300&m=20140006&k=xemPhanBienDeTaiListprint_tmdt_20140006';
 		// //$homepage = file_get_contents($url);
 // 		
 		// $ch = curl_init();
-		// // curl_setopt($ch, CURLOPT_URL,"http://sdh.localhost.com/gvbeta/khcn/khcn_thuyetminhdtkhcn_process.php");
+		// // curl_setopt($ch, CURLOPT_URL,"http://sdh.localhost.com/gv/khcn/khcn_thuyetminhdtkhcn_process.php");
 		// $timeout = 400;
 		// curl_setopt($ch, CURLOPT_URL,$url);
 		// curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)");

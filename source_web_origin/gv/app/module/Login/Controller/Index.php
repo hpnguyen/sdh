@@ -465,7 +465,7 @@ class ModuleLoginControllerIndex extends FrontController {
 		// // $t1 = explode('@param', $text);
 		// // var_dump($t1);
 		// // die;
-		// $content = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gvbeta/app/template/view/mail/tkb.php');
+		// $content = file_get_contents('/home/hpnguyen/Working/svn_repository_source/gv/app/template/view/mail/tkb.php');
 // 		
 		// $p = new PhpStringParser(array());
 		// $content =  $p->parse($content);

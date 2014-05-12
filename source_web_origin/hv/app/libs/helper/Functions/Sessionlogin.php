@@ -44,7 +44,7 @@ class HelperFunctionsSessionlogin {
 		setcookie ($cookie_name, 'RemberMecookie=0', time()+$cookie_time);
 		
 		$url = Helper::getHelper('functions/util')->getGvRootURL()."/index.php?hisid=".session_id()."&l=".$link;
-		$url = str_replace('/hvbeta/index.php', '/gvbeta/index.php', $url);
+		// $url = str_replace('/hvbeta/index.php', '/gvbeta/index.php', $url);
 		$url = str_replace('/hv/index.php', '/gv/index.php', $url);
 		return $url;
 	}
@@ -81,7 +81,7 @@ class HelperFunctionsSessionlogin {
 		setcookie ($cookie_name, 'RemberMecookie=0', time()+$cookie_time);
 		
 		$url = Helper::getHelper('functions/util')->getGvRootURL()."/index.php?hisid=".session_id()."&l=".$link;
-		$url = str_replace('/gvbeta/index.php', '/hvbeta/index.php', $url);
+		// $url = str_replace('/gvbeta/index.php', '/hvbeta/index.php', $url);
 		$url = str_replace('/gv/index.php', '/hv/index.php', $url);
 		
 		return $url;

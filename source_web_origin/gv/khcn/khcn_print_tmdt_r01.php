@@ -576,7 +576,7 @@ $(function(){
  
  <?php
  }else {
-	echo 'urlgetdata = "http://www.grad.hcmut.edu.vn/gvbeta/khcn/khcn_thuyetminhdtkhcn_process.php";';
+	echo 'urlgetdata = "http://www.grad.hcmut.edu.vn/gv/khcn/khcn_thuyetminhdtkhcn_process.php";';
  }
  ?>
 
